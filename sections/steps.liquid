@@ -1,0 +1,86 @@
+{%- assign config = section.settings -%}
+{%- assign steps = section.blocks | map: 'settings' -%}
+
+<div class="section__steps">
+  {%- if config.heading != blank -%}
+    <h2 class="section__steps-heading">{{ config.heading }}</h2>
+  {%- endif -%}
+  {%- if steps.size > 0 -%}
+    <ul class="section__steps-steps" style="--columns: {{ steps.size }};">
+      {%- for step in steps -%}
+        <li class="section__steps-step">
+          <span role="presentation" class="section__steps-step--index">
+            {{ forloop.index }}
+          </span>
+          <div class="section__steps-step--content">
+            {%- if step.heading != blank -%}
+              <h3 class="section__steps-step--heading">
+                {{ step.heading }}
+              </h3>
+            {%- endif -%}
+            {%- if step.description != blank -%}
+              <div class="section__steps-step--description text-underline">
+                {{ step.description }}
+              </div>
+            {%- endif -%}
+            {%- if step.cta_text != blank -%}
+              <a href="{{ step.cta_link }}" class="section__steps-step--cta">
+                {{ step.cta_text }}
+              </a>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+{%- schema -%}
+  {
+    "name": "Steps",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "step",
+        "name": "Step",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext", // EE
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Steps" }]
+  }
+{%- endschema -%}

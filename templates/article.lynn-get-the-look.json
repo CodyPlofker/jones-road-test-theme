@@ -1,0 +1,114 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "Lynn_WTF.png",
+            "heading": "#1: Conceal and Even Out The Skin",
+            "description": "<p>Use WTF to even out your skin and get rid of reddness. Then, go over areas that tend to have more reddness like the nose, with The Face Pencil. Use a tapping motion to blend it seamlessly into the skin.</p>",
+            "product_1": "what-the-foundation",
+            "variant_1": "FGWT26843",
+            "product_2": "the-face-pencil",
+            "variant_2": "FGFP12426"
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "WHW_Best_Blush_Web_Image.jpg",
+            "heading": "#2: Add A Pop Of Color",
+            "description": "<p>Appy The Best Blush for a pop of color on the cheeks. The powder formula works great for those with oily skin. Layer The Miracle Balm over the best blush for added luminosity to the skin.</p>",
+            "product_1": "the-best-blush",
+            "variant_1": "FGPB25420",
+            "product_2": "miracle-balm",
+            "variant_2": "FGMB01386"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "WHW_Mascara_Image.jpg",
+            "heading": "#2: Define",
+            "description": "<p>Fill in the brows using The Brow Pencil and add The Mascara to make the eyes pop. You can add another coat for added definition. </p>",
+            "product_1": "the-brow-pencil",
+            "variant_1": "",
+            "product_2": "the-mascara",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "JR_030922_1791_copy_1.png",
+            "heading": "#4: Subtle Shine",
+            "description": "<p>When it comes to the lips, keep it monochromatic by applying a little bit of the same Peachy Nude shadow to lips using your finger. Add Miracle Balm in Au Naturel on top for hydration.</p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01044",
+            "product_2": "",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/JR_091322_1_2268.jpg",
+        "heading": "About the Look",
+        "description": "<p>Five minutes and Lynn is out the door. Get Lynn's Jones Road Beauty no-makeup makeup look, with just 4 products, by following these quick and easy steps.</p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(4 products)",
+        "bullets": "<p><a href=\"/products/what-the-foundation\" target=\"_blank\" title=\"What The Foundation\">What The Foundation</a></p><p><a href=\"/products/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil</a></p><p><a href=\"/products/the-best-blush\" target=\"_blank\" title=\"The Best Blush\">The Best Blush</a></p><p><a href=\"/products/miracle-balm\" target=\"_blank\" title=\"Miracle Balm\">Miracle Balm</a></p>",
+        "more_heading": "See more looks:"
+      }
+    },
+    "16644802662d732438": {
+      "type": "dynamic-hero",
+      "blocks": {
+        "58364e0f-e99d-4b66-b6b8-25afeae541ee": {
+          "type": "ctaLink",
+          "settings": {
+            "link": "https://jonesroadbeauty.com/pages/quiz-landing",
+            "text": "Find Your Shade"
+          }
+        }
+      },
+      "block_order": [
+        "58364e0f-e99d-4b66-b6b8-25afeae541ee"
+      ],
+      "disabled": true,
+      "settings": {
+        "contentPosition": "bottom-left",
+        "heading": "",
+        "headingHighlight": false,
+        "highlightColor": "#ffffff",
+        "subheading": "",
+        "subheadingColor": "black",
+        "subheading_mobile": "",
+        "subheadingColorMobile": "black",
+        "imageAlt": ""
+      }
+    }
+  },
+  "order": [
+    "body",
+    "16644802662d732438"
+  ]
+}

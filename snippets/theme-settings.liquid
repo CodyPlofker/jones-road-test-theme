@@ -1,0 +1,272 @@
+{%- assign empty_links = settings.cart_empty_links | remove: '<p>' | split: '</p>' -%}
+
+{%- assign swatches = settings.swatches | newline_to_br -%}
+{%- assign cart_upsells = null -%}
+
+{%- paginate collections['all-products'].products by 1000 -%}
+  {%- for product in collections['all-products'].products -%}
+    {%- for variant in product.variants -%}
+      {%- assign swatch_override = null -%}
+      {%- if variant.metafields.swatch.color != blank -%}
+        {%- assign swatch_override = variant.metafields.swatch.color -%}
+      {%- endif -%}
+      {%- if variant.metafields.swatch.image != blank -%}
+        {%- assign swatch_override = variant.metafields.swatch.image | image_url: width: 100, height: 100 -%}
+      {%- endif -%}
+      {%- if swatch_override != blank -%}
+        {%- assign swatch = variant.id | append: '==' | append: swatch_override | append: '<br />' -%}
+        {%- assign swatches = swatches | append: swatch -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if product.metafields.cart.upsells != blank -%}
+      {%- assign upsell_handles = product.metafields.cart.upsells.value | where: 'available' | map: 'handle' | json -%}
+      {%- assign cart_upsells = cart_upsells | append: '"' | append: product.id | append: '": ' | append: upsell_handles | append: ',' -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endpaginate -%}
+
+{%- assign swatches = swatches | split: '<br />' -%}
+{%- assign cart_upsells = cart_upsells | remove_last: ',' -%}
+{% assign product_variants = 'ddd' %}
+{% assign product_variant_images = '' %}
+{% assign product_variant_ids = '' %}
+{% assign product_ids = '' %}
+{% assign variant_price = '' %}
+{% assign gwp_swatch_overrides = '' %}
+{% assign gwp_quantity = 0 %}
+{% assign gwp_main_product_title = '' %}
+
+{% assign gwp_variant_available = '' %}
+
+{%- for item in shop.metaobjects.free_gifts.values -%}
+  {% assign product_variants = item.product_variants %}
+
+  {% for product_variant in product_variants.value %}
+    {% assign gwp_main_product_title = product_variant.product.title %}
+    {% assign gwp_quantity = gwp_quantity | plus: 1 %}
+    {% assign variant_image = product_variant.featured_image | image_url %}
+    {% assign variant_title = product_variant.title %}
+    {% assign variant_description = product_variant.metafields.findation_hero.description %}
+    {% assign variant_id = product_variant.id %}
+    {% assign product_id = product_variant.product.id %}
+    {% assign variant_price = product_variant.price %}
+    {%- assign gwp_swatch_override = product_variant.metafields.swatch.color -%}
+
+    {% assign product_variant_images = product_variant_images | append: ', ' | append: variant_image %}
+    {% assign product_variant_titles = product_variant_titles | append: ', ' | append: variant_title %}
+    {% assign product_variant_descriptions = product_variant_descriptions | append: ', ' | append: variant_description %}
+    {% assign product_variant_ids = product_variant_ids | append: ', ' | append: variant_id %}
+    {% assign product_ids = product_ids | append: ', ' | append: product_id %}
+
+    {% if product_variant.available %}
+      {% assign product_available_label = 'Available' %}
+    {% else %}
+      {% assign product_available_label = 'Sold Out' %}
+    {% endif %}
+
+    {% if gwp_variant_available == '' %}
+      {% assign gwp_variant_available = variant_id | append: '==' | append: product_available_label %}
+    {% else %}
+      {% assign gwp_variant_available = gwp_variant_available
+        | append: ', '
+        | append: variant_id
+        | append: '=='
+        | append: product_available_label
+      %}
+    {% endif %}
+
+    {% if gwp_swatch_override %}
+      {% assign gwp_swatch_overrides = gwp_swatch_overrides | append: ', ' | append: gwp_swatch_override %}
+    {% else %}
+      {% assign gwp_swatch_overrides = gwp_swatch_overrides | append: ', ' | append: 'NA' %}
+    {% endif %}
+  {% endfor %}
+  {% break %}
+{% endfor %}
+
+<script>
+  window.settings = {
+    customer_email: {{ customer.email | json }},
+    customer_phone: {{ customer.phone | json }},
+    swatches: [
+      {%- for s in swatches -%}
+        {%- assign swatch = s | split: '==' -%}
+        {%- assign swatch_name = swatch | first | strip -%}
+        {%- assign swatch_value = swatch | last | strip -%}
+        {
+          name: {{ swatch_name | json }},
+          value: {{ swatch_value | json }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    cart_empty_copy: {{ settings.cart_empty_copy | json }},
+    cart_empty_links: [
+      {%- for link in empty_links -%}
+        {{ link | json }}
+        {%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ],
+    cart_empty_link: {{ settings.cart_empty_link | json }},
+    cart_free_shipping_amount: {{ settings.cart_free_shipping_amount | json }},
+    cart_free_gift_amount: {{ settings.cart_free_gift_amount | json }},
+
+    cart_free_shipping_enable: {% if settings.cart_free_shipping_enable %}true{% else %}false{% endif %},
+    cart_free_gift_enable: {% if settings.cart_free_gift_enable %}true{% else %}false{% endif %},
+    cart_free_gift_title: {{ settings.cart_free_gift_title | json }},
+    cart_free_gift_title_cad: {{ settings.cart_free_gift_title_cad | json }},
+    cart_free_gift_title_gbp: {{ settings.cart_free_gift_title_gbp | json }},
+    cart_free_gift_title_eur: {{ settings.cart_free_gift_title_eur | json }},
+    cart_free_shipping_amount_cad: {{ settings.cart_free_shipping_amount_cad | json }},
+    cart_free_gift_amount_cad: {{ settings.cart_free_gift_amount_cad | json }},
+    cart_free_shipping_enable_cad: {% if settings.cart_free_shipping_enable_cad %}true{% else %}false{% endif %},
+    cart_free_gift_enable_cad: {% if settings.cart_free_gift_enable_cad %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_gbp: {{ settings.cart_free_shipping_amount_gbp | json }},
+
+    gwp_variant_images: {{product_variant_images | json}},
+    gwp_variant_titles: {{product_variant_titles | json}},
+    gwp_variant_descriptions: {{product_variant_descriptions | json}},
+    gwp_variant_ids: {{product_variant_ids | json}},
+    gwp_product_ids: {{product_ids | json}},
+    gwp_variant_available: {{gwp_variant_available | json}},
+    gwp_variant_price: {{ variant_price | json }},
+    gwp_swatches: {{settings.swatches | json}},
+    gwp_currency: {{ localization.country.iso_code | json}},
+    gwp_swatches_new : {{ gwp_swatch_overrides | json }},
+    gwp_quantity: {{ gwp_quantity | json }},
+
+    cart_free_gift_amount_gbp: {{ settings.cart_free_gift_amount_gbp | json }},
+    cart_free_shipping_enable_gbp: {% if settings.cart_free_shipping_enable_gbp %}true{% else %}false{% endif %},
+    cart_free_gift_enable_gbp: {% if settings.cart_free_gift_enable_gbp %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_eur: {{ settings.cart_free_shipping_amount_eur | json }},
+    cart_free_gift_amount_eur: {{ settings.cart_free_gift_amount_eur | json }},
+
+    cart_free_shipping_enable_eur: {% if settings.cart_free_shipping_enable_eur %}true{% else %}false{% endif %},
+    cart_free_gift_enable_eur: {% if settings.cart_free_gift_enable_eur %}true{% else %}false{% endif %},
+
+    cart_free_shipping_enable_bgn: {% if settings.cart_free_shipping_enable_bgn %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_bgn: {{ settings.cart_free_shipping_amount_bgn | json }},
+    cart_free_gift_enable_bgn: {% if settings.cart_free_gift_enable_bgn %}true{% else %}false{% endif %},
+    cart_free_gift_title_bgn: {{ settings.cart_free_gift_title_bgn | json }},
+    cart_free_gift_amount_bgn: {{ settings.cart_free_gift_amount_bgn | json }},
+
+    cart_free_shipping_enable_czk: {% if settings.cart_free_shipping_enable_czk %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_czk: {{ settings.cart_free_shipping_amount_czk | json }},
+    cart_free_gift_enable_czk: {% if settings.cart_free_gift_enable_czk %}true{% else %}false{% endif %},
+    cart_free_gift_title_czk: {{ settings.cart_free_gift_title_czk | json }},
+    cart_free_gift_amount_czk: {{ settings.cart_free_gift_amount_czk | json }},
+
+    cart_free_shipping_enable_dkk: {% if settings.cart_free_shipping_enable_dkk %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_dkk: {{ settings.cart_free_shipping_amount_dkk | json }},
+    cart_free_gift_enable_dkk: {% if settings.cart_free_gift_enable_dkk %}true{% else %}false{% endif %},
+    cart_free_gift_title_dkk: {{ settings.cart_free_gift_title_dkk | json }},
+    cart_free_gift_amount_dkk: {{ settings.cart_free_gift_amount_dkk | json }},
+
+    cart_free_shipping_enable_huf: {% if settings.cart_free_shipping_enable_huf %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_huf: {{ settings.cart_free_shipping_amount_huf | json }},
+    cart_free_gift_enable_huf: {% if settings.cart_free_gift_enable_huf %}true{% else %}false{% endif %},
+    cart_free_gift_title_huf: {{ settings.cart_free_gift_title_huf | json }},
+    cart_free_gift_amount_huf: {{ settings.cart_free_gift_amount_huf | json }},
+
+    cart_free_shipping_enable_pln: {% if settings.cart_free_shipping_enable_pln %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_pln: {{ settings.cart_free_shipping_amount_pln | json }},
+    cart_free_gift_enable_pln: {% if settings.cart_free_gift_enable_pln %}true{% else %}false{% endif %},
+    cart_free_gift_title_pln: {{ settings.cart_free_gift_title_pln | json }},
+    cart_free_gift_amount_pln: {{ settings.cart_free_gift_amount_pln | json }},
+
+    cart_free_shipping_enable_ron: {% if settings.cart_free_shipping_enable_ron %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_ron: {{ settings.cart_free_shipping_amount_ron | json }},
+    cart_free_gift_enable_ron: {% if settings.cart_free_gift_enable_ron %}true{% else %}false{% endif %},
+    cart_free_gift_title_ron: {{ settings.cart_free_gift_title_ron | json }},
+    cart_free_gift_amount_ron: {{ settings.cart_free_gift_amount_ron | json }},
+
+    cart_free_shipping_enable_sek: {% if settings.cart_free_shipping_enable_sek %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_sek: {{ settings.cart_free_shipping_amount_sek | json }},
+    cart_free_gift_enable_sek: {% if settings.cart_free_gift_enable_sek %}true{% else %}false{% endif %},
+    cart_free_gift_title_sek: {{ settings.cart_free_gift_title_sek | json }},
+    cart_free_gift_amount_sek: {{ settings.cart_free_gift_amount_sek | json }},
+
+    cart_free_shipping_enable_aud: {% if settings.cart_free_shipping_enable_aud %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_aud: {{ settings.cart_free_shipping_amount_aud | json }},
+    cart_free_gift_enable_aud: {% if settings.cart_free_gift_enable_aud %}true{% else %}false{% endif %},
+    cart_free_gift_title_aud: {{ settings.cart_free_gift_title_aud | json }},
+    cart_free_gift_amount_aud: {{ settings.cart_free_gift_amount_aud | json }},
+
+    cart_free_shipping_enable_nzd: {% if settings.cart_free_shipping_enable_nzd %}true{% else %}false{% endif %},
+    cart_free_shipping_amount_nzd: {{ settings.cart_free_shipping_amount_nzd | json }},
+    cart_free_gift_enable_nzd: {% if settings.cart_free_gift_enable_nzd %}true{% else %}false{% endif %},
+    cart_free_gift_title_nzd: {{ settings.cart_free_gift_title_nzd | json }},
+    cart_free_gift_amount_nzd: {{ settings.cart_free_gift_amount_nzd | json }},
+
+    enable_bfcm_promotion: {% if settings.enable_bfcm_promotion %}true{% else %}false{% endif %},
+
+    bfcm_25_percent_tier_threshold_product_id: {{ settings.bfcm_25_percent_tier_threshold_product_id | json }},
+    bfcm_25_percent_tier_threshold_cart_badge_text: {{ settings.bfcm_25_percent_tier_threshold_cart_badge_text | json }},
+
+    bfcm_15_percent_tier_threshold_usd: {{ settings.bfcm_15_percent_tier_threshold_usd | json }},
+    bfcm_20_percent_tier_threshold_usd: {{ settings.bfcm_20_percent_tier_threshold_usd | json }},
+
+    bfcm_15_percent_tier_threshold_cad: {{ settings.bfcm_15_percent_tier_threshold_cad | json }},
+    bfcm_20_percent_tier_threshold_cad: {{ settings.bfcm_20_percent_tier_threshold_cad | json }},
+
+    bfcm_15_percent_tier_threshold_gbp: {{ settings.bfcm_15_percent_tier_threshold_gbp | json }},
+    bfcm_20_percent_tier_threshold_gbp: {{ settings.bfcm_20_percent_tier_threshold_gbp | json }},
+
+    bfcm_15_percent_tier_threshold_eur: {{ settings.bfcm_15_percent_tier_threshold_eur | json }},
+    bfcm_20_percent_tier_threshold_eur: {{ settings.bfcm_20_percent_tier_threshold_eur | json }},
+
+    bfcm_15_percent_tier_threshold_bgn: {{ settings.bfcm_15_percent_tier_threshold_bgn | json }},
+    bfcm_20_percent_tier_threshold_bgn: {{ settings.bfcm_20_percent_tier_threshold_bgn | json }},
+
+    bfcm_15_percent_tier_threshold_czk: {{ settings.bfcm_15_percent_tier_threshold_czk | json }},
+    bfcm_20_percent_tier_threshold_czk: {{ settings.bfcm_20_percent_tier_threshold_czk | json }},
+
+    bfcm_15_percent_tier_threshold_dkk: {{ settings.bfcm_15_percent_tier_threshold_dkk | json }},
+    bfcm_20_percent_tier_threshold_dkk: {{ settings.bfcm_20_percent_tier_threshold_dkk | json }},
+
+    bfcm_15_percent_tier_threshold_huf: {{ settings.bfcm_15_percent_tier_threshold_huf | json }},
+    bfcm_20_percent_tier_threshold_huf: {{ settings.bfcm_20_percent_tier_threshold_huf | json }},
+
+    bfcm_15_percent_tier_threshold_pln: {{ settings.bfcm_15_percent_tier_threshold_pln | json }},
+    bfcm_20_percent_tier_threshold_pln: {{ settings.bfcm_20_percent_tier_threshold_pln | json }},
+
+    bfcm_15_percent_tier_threshold_ron: {{ settings.bfcm_15_percent_tier_threshold_ron | json }},
+    bfcm_20_percent_tier_threshold_ron: {{ settings.bfcm_20_percent_tier_threshold_ron | json }},
+
+    bfcm_15_percent_tier_threshold_sek: {{ settings.bfcm_15_percent_tier_threshold_sek | json }},
+    bfcm_20_percent_tier_threshold_sek: {{ settings.bfcm_20_percent_tier_threshold_sek | json }},
+
+    bfcm_15_percent_tier_threshold_aud: {{ settings.bfcm_15_percent_tier_threshold_aud | json }},
+    bfcm_20_percent_tier_threshold_aud: {{ settings.bfcm_20_percent_tier_threshold_aud | json }},
+
+    bfcm_15_percent_tier_threshold_nzd: {{ settings.bfcm_15_percent_tier_threshold_nzd | json }},
+    bfcm_20_percent_tier_threshold_nzd: {{ settings.bfcm_20_percent_tier_threshold_nzd | json }},
+
+    enable_test_promotion: {% if settings.enable_test_promotion %}true{% else %}false{% endif %},
+    test_promotion_property: {{ settings.test_promotion_property | json }},
+    test_promotion_property_value: {{ settings.test_promotion_property_value | json }},
+
+    {%- if settings.cart_returns_note != blank -%}
+    cart_returns_note: {{ settings.cart_returns_note | json }},
+    {%- endif -%}
+    cart_upsells: { {{ cart_upsells }} },
+    cookies: {{ settings.cookies | json }},
+    currency_symbol: {{ cart.currency.symbol | json }},
+    currency_code: {{ cart.currency.iso_code | json }},
+    evergreen_gwp_enabled: {{ settings.evergreen_gwp_enabled }},
+    findation_demo: {% if settings.findation_demo %}true{% else %}false{% endif %},
+    findation_enabled: {% if settings.findation_enabled %}true{% else %}false{% endif %},
+    findation_key: {{ settings.findation_key | json }},
+    generate_shade_numbers: {% if settings.generate_shade_numbers %}true{% else %}false{% endif %},
+    graphql_token: {{ settings.graphql_token | json }},
+    graphql_uri: {{ settings.graphql_uri | json }},
+    klaviyo_list_id: '{{ settings.klaviyo_list_id }}',
+    newsletter_modal_enable: {% if settings.newsletter_modal_enable %}true{% else %}false{% endif %},
+    newsletter_modal_heading: {{ settings.newsletter_modal_heading | json }},
+    newsletter_modal_legal: {{ settings.newsletter_modal_legal | json }},
+    newsletter_modal_success: {{ settings.newsletter_modal_success | json }},
+    waitlist_caption: {{ settings.waitlist_caption | json }},
+    waitlist_copy: {{ settings.waitlist_copy | json }},
+    waitlist_popup_success: {{ settings.waitlist_popup_success | json }},
+    yotpo_key: '{{ settings.yotpo_key }}',
+  };
+</script>

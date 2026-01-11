@@ -1,0 +1,150 @@
+{% assign how_to_use_section = product.metafields.custom.how_to_use.value %}
+{% assign instruction_titles = how_to_use_section.instruction_titles %}
+{% assign instruction_descriptions = how_to_use_section.instruction_descriptions %}
+{% assign section_videos = how_to_use_section.videos %}
+{% assign video_thumbnails = how_to_use_section.video_thumbnails %}
+{% assign section_title = how_to_use_section.title %}
+{% assign section_description = how_to_use_section.description %}
+{% assign video_count = 0 %}
+
+{% assign thumbnails_list = '' %}
+
+{% for video_thumbnail in video_thumbnails.value %}
+  {% assign clean_thumbnail = video_thumbnail | remove_first: 'files/' | file_url %}
+  {% assign thumbnails_list = thumbnails_list | append: clean_thumbnail | append: ',' %}
+{% endfor %}
+
+{% assign thumbnails_array = thumbnails_list | split: ',' %}
+
+{% for v in section_videos.value %}
+  {% assign video_count = video_count | plus: 1 %}
+{% endfor %}
+
+{% if how_to_use_section %}
+<div class="how-to-use-section-wrapper">
+  <div class="how-to-use-modal-background"></div>
+  <div class="how-to-use-modal"></div>
+
+  <div class="how-to-use-section-container-container">
+    {% if video_count > 1 %}
+      <h1 class="how-to-use-section-title">{{ section_title }}</h1>
+      <p class="how-to-use-section-description">{{ section_description }}</p>
+    {% endif %}
+
+    <div class="{% if video_count == 4 %}how-to-use-section-container{% elsif video_count == 3 %}how-to-use-section-container-row{% elsif video_count == 2 %}how-to-use-section-container-row-small{% else %}how-to-use-section-container-single{% endif %}">
+      {% for section_video in section_videos.value %}
+        <div class="how-to-use-card">
+          {% if video_count > 1 %}
+            <div class="how-to-use-card-number">{{ forloop.index }}</div>
+          {% endif %}
+
+          <div class="how-to-use-video-container how-to-use-video-play-button" data-video="{% if section_video.sources[0].url contains 'mp4' %}{{ section_video.sources[0].url }}{% else %}{{ section_video.sources[1].url }}{% endif %}">
+            <svg class="how-to-use-play-button" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 46 47" fill="none">
+              <circle cx="23" cy="23.3564" r="23" fill="#F6F5F1" fill-opacity="0.5"></circle>
+              <circle cx="23" cy="23.3564" r="20" fill="#F6F5F1" fill-opacity="0.5"></circle>
+              <mask id="mask0_35_3058" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="40" height="41">
+              <rect x="3" y="3.35645" width="40" height="40" fill="#D9D9D9"></rect>
+              </mask>
+              <g mask="url(#mask0_35_3058)">
+              <path d="M18.5 31.1064V15.6064L30.6667 23.3564L18.5 31.1064ZM19.6667 28.9398L28.5 23.3564L19.6667 17.7731V28.9398Z" fill="#1C1B1F"></path>
+              </g>
+            </svg>
+              <video width="100%" poster="{{ thumbnails_array[forloop.index0] }}" loop>
+                <source {% if template contains 'product' %}data-{% endif %}src="{% if section_video.sources[0].url contains 'mp4' %}{{ section_video.sources[0].url }}{% else %}{{ section_video.sources[1].url }}{% endif %}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+          </div>
+
+          <div class="how-to-use-info">
+            {% if video_count == 1 %}
+              <h1 class="how-to-use-section-title-single">How to Use</h1>
+            {%- endif -%}
+            <h1 class="{% if video_count > 1 %}instruction_title_non-single{% else %}instruction-title-single{% endif %}">
+              {{ instruction_titles.value[forloop.index0] }}
+            </h1>
+            <p>{{ instruction_descriptions.value[forloop.index0] }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="how-to-use-section-container-container-mobile">
+    <div class="how-to-use-section-container-mobile">
+      {% if video_count == 1 %}
+        {% for section_video in section_videos.value %}
+          <div class="how-to-use-video-container-mobile-single">
+            <svg xmlns="http://www.w3.org/2000/svg" width="46" height="47" viewBox="0 0 46 47" fill="none">
+              <circle cx="23" cy="23.3564" r="23" fill="#F6F5F1" fill-opacity="0.5"/>
+              <circle cx="23" cy="23.3564" r="20" fill="#F6F5F1" fill-opacity="0.5"/>
+              <mask id="mask0_35_3058" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="40" height="41">
+              <rect x="3" y="3.35645" width="40" height="40" fill="#D9D9D9"/>
+              </mask>
+              <g mask="url(#mask0_35_3058)">
+              <path d="M18.5 31.1064V15.6064L30.6667 23.3564L18.5 31.1064ZM19.6667 28.9398L28.5 23.3564L19.6667 17.7731V28.9398Z" fill="#1C1B1F"/>
+              </g>
+            </svg>
+            <video width="100%" height="100%" poster="{{ thumbnails_array[forloop.index0] }}" loop>
+              <source {% if template contains 'product' %}data-{% endif %}src="{% if section_video.sources[0].url contains 'mp4' %}{{ section_video.sources[0].url }}{% else %}{{ section_video.sources[1].url }}{% endif %}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        {% endfor %}
+
+      {% else %}
+        <div class="swiper-container js-productHowToUse">
+          <div class="swiper-wrapper">
+            {% for section_video in section_videos.value %}
+              <div class="swiper-slide  js-productHowToUseSlide">
+                <div class="how-to-use-video-container-mobile">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="46" height="47" viewBox="0 0 46 47" fill="none">
+                    <circle cx="23" cy="23.3564" r="23" fill="#F6F5F1" fill-opacity="0.5"/>
+                    <circle cx="23" cy="23.3564" r="20" fill="#F6F5F1" fill-opacity="0.5"/>
+                    <mask id="mask0_35_3058" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="3" y="3" width="40" height="41">
+                    <rect x="3" y="3.35645" width="40" height="40" fill="#D9D9D9"/>
+                    </mask>
+                    <g mask="url(#mask0_35_3058)">
+                    <path d="M18.5 31.1064V15.6064L30.6667 23.3564L18.5 31.1064ZM19.6667 28.9398L28.5 23.3564L19.6667 17.7731V28.9398Z" fill="#1C1B1F"/>
+                    </g>
+                  </svg>
+                  <video width="100%" height="100%" poster="{{ thumbnails_array[forloop.index0] }}" playsinline loop>
+                    <source {% if template contains 'product' %}data-{% endif %}src="{% if section_video.sources[0].url contains 'mp4' %}{{ section_video.sources[0].url }}{% else %}{{ section_video.sources[1].url }}{% endif %}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="how-to-use-swiper-buttons">
+            <div class="swiper-button-prev how-to-use-prev"></div>
+            <div class="swiper-button-next how-to-use-next"></div>
+          </div>
+        </div>
+      {% endif %}
+
+      <div class="how-to-use-info-container">
+        <h1 class="how-to-use-section-mobile-title">How to Use</h1>
+        {% for ingredient_title in instruction_titles.value %}
+          <div class="how-to-use-info">
+            <h1>{{ ingredient_title }}</h1>
+            <p>{{ instruction_descriptions.value[forloop.index0] }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "PDP How to Use",
+  "tag": "section",
+  "presets": [
+    {
+      "name": "PDP How to Use"
+    }
+  ]
+}
+{% endschema %}

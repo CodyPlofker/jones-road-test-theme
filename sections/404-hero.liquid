@@ -1,0 +1,121 @@
+{% schema %}
+  {
+   "name": "Hero",
+   "settings": [
+      {
+        "id": "contentPosition",
+        "label": "Content position",
+        "type": "select",
+        "options": [
+          {
+            "value": "bottom-left",
+            "label": "bottom-left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "bottom-right"
+          },
+          {
+            "value": "center",
+            "label": "center"
+          },
+          {
+            "value": "center-left",
+            "label": "center-left"
+          },
+          {
+            "value": "center-right",
+            "label": "center-right"
+          }
+        ],
+        "default":   "center"
+      },
+      {
+        "id": "heading",
+        "label": "Heading",
+        "type": "textarea"
+      },
+      {
+        "id": "headingColor",
+        "label": "Heading color",
+        "type": "select",
+        "options": [
+          {
+            "value": "black",
+            "label": "black"
+          },
+          {
+            "value": "white",
+            "label": "white"
+          }
+        ],
+        "default":   "black"
+      },
+      {
+        "type": "checkbox",
+        "id": "headingHighlight",
+        "default": true,
+        "label": "Heading Highlight"
+      },
+      {
+        "id": "image",
+        "label": "Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "imageAlt",
+        "label": "Image alt",
+        "type": "text"
+      },
+      {
+        "id": "imageMobile",
+        "label": "Image mobile",
+        "type": "image_picker"
+      }
+   ],
+   "blocks": [
+      {
+        "type": "ctaLink",
+        "name": "CTA Link",
+        "settings": [
+          {
+            "id": "color",
+            "label": "Color",
+            "type": "select",
+            "options": [
+              {
+                "value": "black",
+                "label": "black"
+              },
+              {
+                "value": "pink",
+                "label": "pink"
+              }
+            ],
+            "default":   "black"
+          },
+          {
+            "id": "link",
+            "label": "Link",
+            "type": "text"
+          },
+          {
+            "id": "text",
+            "label": "Text",
+            "type": "text"
+          }
+        ]
+      }
+   ]
+  }
+{% endschema %}
+{% include "hero",
+  contentPosition: section.settings.contentPosition,
+  ctaLinks: section.blocks,
+  heading: section.settings.heading,
+  headingColor: section.settings.headingColor,
+  headingHighlight: section.settings.headingHighlight,
+  image: section.settings.image,
+  imageAlt: section.settings.imageAlt,
+  imageMobile: section.settings.imageMobile,
+%}

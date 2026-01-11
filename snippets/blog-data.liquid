@@ -1,0 +1,10 @@
+{%- assign categories = linklists[settings.blog_categories].links -%}
+{%- assign all_articles = '' -%}
+
+{%- assign all_blogs = categories | map: 'object' -%}
+{%- for blog in all_blogs -%}
+  {%- paginate blog.articles by 1000 -%}
+    {%- assign all_articles = all_articles | concat: blog.articles | compact -%}
+  {%- endpaginate -%}
+{%- endfor -%}
+

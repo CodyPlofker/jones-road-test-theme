@@ -1,0 +1,513 @@
+{%- comment -%}
+  - currency_code
+{%- endcomment -%}
+
+{% liquid
+  # FOR US
+  assign one_usd_slide_only = false
+  if settings.header_promo_richtext_usa_02 == blank and settings.header_promo_richtext_usa_03 == blank
+    assign one_usd_slide_only = true
+  endif
+
+  # FOR CAD
+  assign one_cad_slide_only = false
+  if settings.header_promo_richtext_cad_02 == blank and settings.header_promo_richtext_cad_03 == blank
+    assign one_cad_slide_only = true
+  endif
+
+  # FOR GBP
+  assign one_gbp_slide_only = false
+  if settings.header_promo_richtext_uk_02 == blank and settings.header_promo_richtext_uk_03 == blank
+    assign one_gbp_slide_only = true
+  endif
+
+  # FOR EUR
+  assign one_eur_slide_only = false
+  if settings.header_promo_richtext_eur_02 == blank and settings.header_promo_richtext_eur_03 == blank
+    assign one_eur_slide_only = true
+  endif
+
+  # FOR BGN
+  assign one_bul_slide_only = false
+  if settings.header_promo_richtext_bul_02 == blank and settings.header_promo_richtext_bul_03 == blank
+    assign one_bul_slide_only = true
+  endif
+
+  # FOR CZK
+  assign one_cr_slide_only = false
+  if settings.header_promo_richtext_cr_02 == blank and settings.header_promo_richtext_cr_03 == blank
+    assign one_cr_slide_only = true
+  endif
+
+  # FOR DKK
+  assign one_den_slide_only = false
+  if settings.header_promo_richtext_den_02 == blank and settings.header_promo_richtext_den_03 == blank
+    assign one_den_slide_only = true
+  endif
+
+  # FOR HUF
+  assign one_hun_slide_only = false
+  if settings.header_promo_richtext_hun_02 == blank and settings.header_promo_richtext_hun_03 == blank
+    assign one_hun_slide_only = true
+  endif
+
+  # FOR PLN
+  assign one_pol_slide_only = false
+  if settings.header_promo_richtext_pol_02 == blank and settings.header_promo_richtext_pol_03 == blank
+    assign one_pol_slide_only = true
+  endif
+
+  # FOR RON
+  assign one_rom_slide_only = false
+  if settings.header_promo_richtext_rom_02 == blank and settings.header_promo_richtext_rom_03 == blank
+    assign one_rom_slide_only = true
+  endif
+
+  # FOR SEK
+  assign one_swe_slide_only = false
+  if settings.header_promo_richtext_swe_02 == blank and settings.header_promo_richtext_swe_03 == blank
+    assign one_swe_slide_only = true
+  endif
+
+  # FOR AUD
+  assign one_aud_slide_only = false
+  if settings.header_promo_richtext_aud_02 == blank and settings.header_promo_richtext_aud_03 == blank
+    assign one_aud_slide_only = true
+  endif
+
+  # FOR NZD
+  assign one_nzd_slide_only = false
+  if settings.header_promo_richtext_nzd_02 == blank and settings.header_promo_richtext_nzd_03 == blank
+    assign one_nzd_slide_only = true
+  endif
+%}
+
+{% if currency_code == 'USD' %}
+  <div
+    class="header-promo {% unless one_usd_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_usa }}"
+    data-region="{{ currency_code }}"
+    style="color: {{ settings.header_promo_color_usa }}; background-color: {{ settings.header_promo_bgcolor_usa }}"
+  >
+    {% if settings.header_promo_richtext_usa_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_usa_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_usa_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_usa_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_usa_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_usa_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_usa_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_usa_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_usa_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_usa_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_usa_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_usa_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'CAD' %}
+  <div
+    class="header-promo {% unless one_cad_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_cad }}"
+    style="color: {{ settings.header_promo_color_cad }}; background-color: {{ settings.header_promo_bgcolor_cad }}"
+  >
+    {% if settings.header_promo_richtext_cad_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_cad_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_cad_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_cad_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_cad_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_cad_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_cad_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_cad_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_cad_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_cad_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_cad_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_cad_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'GBP' %}
+  <div
+    class="header-promo {% unless one_gbp_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_uk }}"
+    style="color: {{ settings.header_promo_color_uk }}; background-color: {{ settings.header_promo_bgcolor_uk }}"
+  >
+    {% if settings.header_promo_richtext_uk_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_uk_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_uk_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_uk_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_uk_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_uk_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_uk_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_uk_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_uk_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_uk_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_uk_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_uk_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'EUR' %}
+  <div
+    class="header-promo {% unless one_eur_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_eur }}"
+    style="color: {{ settings.header_promo_color_eur }}; background-color: {{ settings.header_promo_bgcolor_eur }}"
+  >
+    {% if settings.header_promo_richtext_eur_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_eur_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_eur_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_eur_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_eur_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_eur_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_eur_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_eur_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_eur_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_eur_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_eur_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_eur_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'BGN' %}
+  <div
+    class="header-promo {% unless one_bul_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_bul }}"
+    style="color: {{ settings.header_promo_color_bul }}; background-color: {{ settings.header_promo_bgcolor_bul }}"
+  >
+    {% if settings.header_promo_richtext_bul_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_bul_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_bul_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_bul_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_bul_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_bul_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_bul_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_bul_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_bul_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_bul_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_bul_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_bul_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'CZK' %}
+  <div
+    class="header-promo {% unless one_cr_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_cr }}"
+    style="color: {{ settings.header_promo_color_cr }}; background-color: {{ settings.header_promo_bgcolor_cr }}"
+  >
+    {% if settings.header_promo_richtext_cr_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_cr_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_cr_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_cr_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_cr_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_cr_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_cr_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_cr_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_cr_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_cr_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_cr_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_cr_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'DKK' %}
+  <div
+    class="header-promo {% unless one_den_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_den }}"
+    style="color: {{ settings.header_promo_color_den }}; background-color: {{ settings.header_promo_bgcolor_den }}"
+  >
+    {% if settings.header_promo_richtext_den_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_den_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_den_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_den_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_den_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_den_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_den_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_den_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_den_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_den_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_den_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_den_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'HUF' %}
+  <div
+    class="header-promo {% unless one_hun_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_hun }}"
+    style="color: {{ settings.header_promo_color_hun }}; background-color: {{ settings.header_promo_bgcolor_hun }}"
+  >
+    {% if settings.header_promo_richtext_hun_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_hun_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_hun_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_hun_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_hun_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_hun_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_hun_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_hun_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_hun_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_hun_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_hun_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_hun_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'PLN' %}
+  <div
+    class="header-promo {% unless one_pol_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_pol }}"
+    style="color: {{ settings.header_promo_color_pol }}; background-color: {{ settings.header_promo_bgcolor_pol }}"
+  >
+    {% if settings.header_promo_richtext_pol_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_pol_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_pol_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_pol_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_pol_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_pol_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_pol_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_pol_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_pol_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_pol_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_pol_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_pol_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'RON' %}
+  <div
+    class="header-promo {% unless one_rom_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_rom }}"
+    style="color: {{ settings.header_promo_color_rom }}; background-color: {{ settings.header_promo_bgcolor_rom }}"
+  >
+    {% if settings.header_promo_richtext_rom_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_rom_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_rom_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_rom_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_rom_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_rom_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_rom_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_rom_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_rom_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_rom_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_rom_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_rom_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'SEK' %}
+  <div
+    class="header-promo {% unless one_swe_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_swe }}"
+    style="color: {{ settings.header_promo_color_swe }}; background-color: {{ settings.header_promo_bgcolor_swe }}"
+  >
+    {% if settings.header_promo_richtext_swe_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_swe_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_swe_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_swe_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_swe_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_swe_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_swe_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_swe_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_swe_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_swe_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_swe_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_swe_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'AUD' %}
+  <div
+    class="header-promo {% unless one_aud_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_aud }}"
+    style="color: {{ settings.header_promo_color_aud }}; background-color: {{ settings.header_promo_bgcolor_aud }}"
+  >
+    {% if settings.header_promo_richtext_aud_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_aud_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_aud_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_aud_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_aud_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_aud_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_aud_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_aud_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_aud_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_aud_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_aud_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_aud_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if currency_code == 'NZD' %}
+  <div
+    class="header-promo {% unless one_nzd_slide_only %} js__header-promo-wrapper {% endunless %}"
+    data-delay="{{ settings.header_promo_delay_nzd }}"
+    style="color: {{ settings.header_promo_color_nzd }}; background-color: {{ settings.header_promo_bgcolor_nzd }}"
+  >
+    {% if settings.header_promo_richtext_nzd_01 != blank %}
+      <div class="header-promo-slide active">
+        {% if settings.header_promo_richtext_nzd_01_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_nzd_01_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_nzd_01 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_nzd_02 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_nzd_02_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_nzd_02_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_nzd_02 }}</span>
+      </div>
+    {% endif %}
+    {% if settings.header_promo_richtext_nzd_03 != blank %}
+      <div class="header-promo-slide">
+        {% if settings.header_promo_richtext_nzd_03_mobile != blank %}
+          <span class="mobile_promo">{{ settings.header_promo_richtext_nzd_03_mobile }}</span>
+        {% endif %}
+        <span class="desktop_promo">{{ settings.header_promo_richtext_nzd_03 }}</span>
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

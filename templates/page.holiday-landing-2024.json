@@ -1,0 +1,241 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "blocks": {
+        "heading_4bXxL3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Introducing The Holiday Collection",
+            "color_text": "#ffffff",
+            "color_highlight": "#000000",
+            "show_highlight": true,
+            "font_size_desktop": 55,
+            "font_size_mobile": 26,
+            "width_desktop": 40,
+            "width_mobile": 90
+          }
+        }
+      },
+      "block_order": [
+        "heading_4bXxL3"
+      ],
+      "settings": {
+        "position_desktop": "desktop-middle-left",
+        "position_mobile": "mobile-top-center",
+        "alignment_desktop": "left",
+        "alignment_mobile": "center",
+        "gap_desktop": 16,
+        "gap_mobile": 12,
+        "image_desktop": "shopify:\/\/shop_images\/jr-holiday-hero.png",
+        "image_mobile": "shopify:\/\/shop_images\/jr-holiday-hero-mobile.png"
+      }
+    },
+    "text_banner_6Fnwa4": {
+      "type": "text-banner",
+      "settings": {
+        "text": "<p>Explore our new Holiday Collection featuring limited edition shades, <br\/>exclusive makeup palettes, and more.<\/p>",
+        "font": "mono",
+        "font_size_desktop": 16,
+        "line_height_desktop": 1.2,
+        "font_size_mobile": 11,
+        "line_height_mobile": 1.2,
+        "alignment_desktop": "center",
+        "alignment_mobile": "center",
+        "width_desktop": 100,
+        "width_mobile": 100,
+        "background": "#fbf9f7",
+        "color": "#000000"
+      }
+    },
+    "image_product_e96GXp": {
+      "type": "image-product",
+      "settings": {
+        "product": "the-beach-vacation-kit",
+        "product_title": "The Beach Vacation Kit",
+        "product_description": "<p>The Beach Vacation Kit is ideal for anyone who loves a warm, sun- inspired glow for the holidays. Use it on vacation or simply to channel warm weather wherever you are.<\/p>",
+        "product_image": "shopify:\/\/shop_images\/jr-holiday-product-1-product_7a4c8f49-05ed-4dd0-9a34-8971f73f232c.png",
+        "show_product_image": true,
+        "image": "shopify:\/\/shop_images\/Holiday_Beach_Vacation_Content_Block.png",
+        "badge": "shopify:\/\/shop_images\/jr-holiday-badge-1.png",
+        "layout_desktop": "row-reverse"
+      }
+    },
+    "image_product_iMT9XL": {
+      "type": "image-product",
+      "settings": {
+        "product": "the-city-lights-kit",
+        "product_title": "",
+        "product_description": "<p>The City Lights Kit is ideal for anyone who loves a chic, winter-inspired glow for the holidays. All it takes is four simple steps to achieve a cool toned glow, defined eyes, and a statement holiday lip.<\/p>",
+        "product_image": "shopify:\/\/shop_images\/jr-holiday-product-2-product.png",
+        "show_product_image": true,
+        "image": "shopify:\/\/shop_images\/Holiday_City_Lights_Content_Block.png",
+        "badge": "shopify:\/\/shop_images\/jr-holiday-badge-2.png",
+        "layout_desktop": "row"
+      }
+    },
+    "hero_gUfdK7": {
+      "type": "hero",
+      "disabled": true,
+      "custom_css": [
+        ".section-hero--inner {padding-top: 48px;}"
+      ],
+      "settings": {
+        "position_desktop": "desktop-middle-left",
+        "position_mobile": "mobile-top-center",
+        "alignment_desktop": "left",
+        "alignment_mobile": "center",
+        "gap_desktop": 16,
+        "gap_mobile": 12,
+        "image_desktop": "shopify:\/\/shop_images\/jr-holiday-image_6125c54b-656d-490e-ac3a-71a2a201cb14.png",
+        "image_mobile": "shopify:\/\/shop_images\/jr-holiday-image-mobile.png"
+      }
+    },
+    "featured_products_mzHGhY": {
+      "type": "featured-products",
+      "blocks": {
+        "product_kfPxmR": {
+          "type": "product",
+          "settings": {
+            "product": "the-beach-vacation-kit"
+          }
+        },
+        "product_e43iPE": {
+          "type": "product",
+          "settings": {
+            "product": "the-city-lights-kit"
+          }
+        },
+        "product_fmYYwG": {
+          "type": "product",
+          "settings": {
+            "product": "lip-and-cheek-palette"
+          }
+        },
+        "product_yzkKqK": {
+          "type": "product",
+          "settings": {
+            "product": "fragrance-rollerball-shower"
+          }
+        }
+      },
+      "block_order": [
+        "product_kfPxmR",
+        "product_e43iPE",
+        "product_fmYYwG",
+        "product_yzkKqK"
+      ],
+      "custom_css": [
+        ".section-header__heading {color: #000; font-family: \"BaseMonoWideWeb\"; font-size: 19px; font-style: normal; font-weight: 400; line-height: normal; letter-spacing: 1.14px; text-transform: none;}",
+        ".product__card-title {padding-bottom: 2px; border-bottom: 1px solid #f50a99;}",
+        "@media (min-width: 1024px) {.section-header {padding-top: 54px; } .section-header__heading {font-size: 42px; } .section-header__cta {font-size: 20px; }}"
+      ],
+      "settings": {
+        "background": "#f8f8f8",
+        "heading": "Holiday Gifts",
+        "cta_text": "Shop All",
+        "cta_link": "shopify:\/\/collections\/shop-all",
+        "reviews_display": "false"
+      }
+    },
+    "lifestyle_product_mprYXw": {
+      "type": "lifestyle-product",
+      "settings": {
+        "heading": "Fresh And Clean",
+        "description": "<p>Fragrance Rollerball in Shower, is a light, clean scent that gives you the fresh feeling of having just stepped out of the shower. With notes of neroli, orange blossom, and sea spray, the scent is timeless.<\/p><p>Now available in a limited edition, travel-friendly rollerball for the holidays.<\/p>",
+        "product": "fragrance-rollerball-shower",
+        "image": "shopify:\/\/shop_images\/fragrancerollerballV2.png",
+        "swatch": "shopify:\/\/shop_images\/jr-lifestyle-swatch-3.png"
+      }
+    },
+    "lifestyle_product_PVR4nk": {
+      "type": "lifestyle-product",
+      "settings": {
+        "heading": "A Nude Classic",
+        "description": "<p>Nude lips are making a statement this holiday. The Lip Kit is a bundle of three effortless lip products designed for any occasion. Wear them alone casually or pair them together for a greater statement. Each Lip Kit includes a Lip Pencil, a modern, creamy pencil designed to line and color in your lips, a Lip Tint, which is a moisturizing stick that provides a bolder wash of color, and a Cool Gloss for a minty, high-shine finish.<\/p>",
+        "product": "the-lip-kit",
+        "image": "shopify:\/\/shop_images\/LipKits_NudeClassic_lifestyle.png",
+        "swatch": "shopify:\/\/shop_images\/jr-lifestyle-swatch-1.png"
+      }
+    },
+    "lifestyle_product_NDbWnc": {
+      "type": "lifestyle-product",
+      "settings": {
+        "heading": "A Holiday Highlight",
+        "description": "<p>The Lip And Cheek Palette is a compact palette containing two complementary shades of the award-winning Lip And Cheek Stick and one shade of the new and exclusive highlighter, The Illuminator.<\/p><h3>*NEW* THE ILLUMINATOR:<\/h3><p>The Illuminator contains very finely milled shimmer and gives a sheer, iridescent highlight, ideal for all skin types.<\/p>",
+        "product": "lip-and-cheek-palette",
+        "image": "shopify:\/\/shop_images\/Lip_Cheek_Lifestyle.png",
+        "swatch": "shopify:\/\/shop_images\/GoldenBronze_Illuminator_Swatch_TRANS_LowRes.png"
+      }
+    },
+    "bobbis_note_yncbw9": {
+      "type": "bobbis-note",
+      "custom_css": [
+        ".bobbis-note--image {margin-left: -48px;}"
+      ],
+      "settings": {
+        "background": "#464343",
+        "color": "#ffffff",
+        "heading": "A note from our Founder",
+        "description": "<p>When I launched Jones Road, I had one main goal in mind—to give everyone the tools they need to look and feel like their best, most authentic selves. Over the years, we’ve created a wide range of products that are moisturizing, easy to use, and keep skin looking like natural skin. And now, I’m excited to introduce our 2024 Holiday Collection, where the no-makeup makeup ethos meets a touch of festive shimmer. Whether you’re going for a subtle glow or a fully made-up look, this collection has versatile options for any occasion.<\/p>",
+        "image": "shopify:\/\/shop_images\/jr-holiday-note-withoutlogo.png",
+        "signature": "shopify:\/\/shop_images\/jr-holiday-note-signature.png"
+      }
+    },
+    "get_the_look_cards_tULGFi": {
+      "type": "get-the-look-cards",
+      "blocks": {
+        "card_Gk4qPk": {
+          "type": "card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Mecca_V5.png",
+            "heading": "Mecca's <strong>Beach Vacation<\/strong> Glow",
+            "cta_text": "Get the Look",
+            "cta_link": "shopify:\/\/blogs\/get-the-look\/get-the-beach-vacation-look"
+          }
+        },
+        "card_HWyNm9": {
+          "type": "card",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Charlotte_V5.png",
+            "heading": "Charlotte's <strong>City Lights<\/strong> Beauty",
+            "cta_text": "Get the Look",
+            "cta_link": "shopify:\/\/blogs\/get-the-look\/get-the-city-lights-look"
+          }
+        }
+      },
+      "block_order": [
+        "card_Gk4qPk",
+        "card_HWyNm9"
+      ],
+      "settings": {
+        "background": "#f8f8f8",
+        "card_background": "#ffffff",
+        "card_color": "#000000",
+        "card_accent": "#f50a99"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "text_banner_6Fnwa4",
+    "image_product_e96GXp",
+    "image_product_iMT9XL",
+    "hero_gUfdK7",
+    "featured_products_mzHGhY",
+    "lifestyle_product_mprYXw",
+    "lifestyle_product_PVR4nk",
+    "lifestyle_product_NDbWnc",
+    "bobbis_note_yncbw9",
+    "get_the_look_cards_tULGFi"
+  ]
+}

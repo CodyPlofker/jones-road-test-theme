@@ -1,0 +1,112 @@
+{%- assign activeVariant = product.selected_or_first_available_variant -%}
+{%- capture qtySelector -%}
+  
+  <div class="purchase-bar__qty">
+    <button class="purchase-bar__qty__minus js-qtyMinus">
+      <span class="visually-hidden">Decrease quantity.</span>
+    </button><span class="js-qty" aria-live="polite"><i class="visually-hidden">Current quantity:</i>1</span><button class="purchase-bar__qty__plus js-qtyPlus">
+      <span class="visually-hidden">Increase quantity.</span>
+    </button>
+  </div>
+{%- endcapture -%}
+
+{%- capture addButton -%}
+  {%- assign hasWaitlist = true -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains 'disable_waitlist' -%}
+      {%- assign hasWaitlist = false -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {% if product.tags contains 'sesami-service' and modifier == "fixed"%}
+    {% include 'sesami-custom-atc' %}
+  {% else %}
+    <button
+      class="
+        purchase-bar__button button
+        {% if activeVariant.available %}js-addToBag{% elsif settings.waitlist_enabled and hasWaitlist %}button--gray js-waitlist{% else %}button--gray{% endif %}
+      "
+      data-id="{{ activeVariant.id }}"
+      data-product-id="{{ product.id }}"
+      {% if bundle_discount %}
+        data-discount="{{ bundle_discount }}"
+      {% endif %}
+      {% unless activeVariant.available or settings.waitlist_enabled %}disabled{% endunless %}
+      {% if activeVariant.available == false and hasWaitlist == false %}disabled{% endif %}
+    >
+      {% assign addToBagCopy = "Add to bag" %}
+      {%- if activeVariant.available -%}
+        {% assign addToBagCopy = "Add to bag" %}
+      {%- else -%}
+        {%- if settings.waitlist_enabled and hasWaitlist -%}
+          {% assign addToBagCopy = settings.waitlist_cta %}
+        {%- else -%}
+          {% assign addToBagCopy = "Sold out" %}
+        {%- endif -%}
+      {%- endif -%}
+      <div class="purchase-bar__text js-addToBagCopy" data-default-copy="{{ addToBagCopy }}" data-added-copy="Added to bag">
+        <span class="text">{{ addToBagCopy }}</span>
+        <span class="loader">Adding...</span>
+      </div>
+      <div class="purchase-bar__price">
+        {% if cap_override %}
+          {% if cap_override != price_override %}
+            <span class="purchase-bar__price__sale">{{ cap_override }}</span>
+          {% endif %}
+        {% elsif activeVariant.compare_at_price != blank and activeVariant.compare_at_price != activeVariant.price %}
+          <span class="purchase-bar__price__sale">{{ activeVariant.compare_at_price | money_without_trailing_zeros }}</span>
+        {% endif %}
+        <span class="purchase-bar__price__regular">
+          {% if price_override %}
+            {{ price_override }}
+          {% else %}
+            {%- render 'price' with price: activeVariant.price -%}
+          {% endif %}
+        </span>
+      </div>
+    </button>
+  {% endif %}
+{%- endcapture -%}
+
+{% unless product.price == 0 %}
+  {%- if modifier == "fixed" -%}
+    <div class="js-scroll" data-callback="purchaseBar">
+      <div class="purchase-bar__wrap js-purchaseBarWrap{% if variant %} purchase-bar__wrap--{{ variant }}{% endif %} {{ class }}">
+        <div class="purchase-bar purchase-bar--absolute js-purchaseBar">
+          {{ qtySelector }}
+          {{ addButton }}
+          {% include "product-low-stock", variant: activeVariant, modifier: "absolute" %}
+        </div>
+        <div class="purchase-bar purchase-bar--fixed js-purchaseBar">
+          <div class="purchase-bar__name">
+            <b>{{ product.title }}</b>
+            {% unless product.has_only_default_variant or activeVariant.title == blank %}
+              <span>
+                {%- if activeVariant.option2 -%}
+                {{ activeVariant.option2 }}
+                {%- else -%}
+                {{ activeVariant.title }}
+                {%- endif -%}
+              </span>
+            {% endunless %}
+          </div>
+          {%- include 'swatch-name', product: product -%}
+          {%- include 'swatch-selector',
+            modifier: 'select',
+            product: product,
+            swatches: swatches,
+          -%}
+          {{ addButton }}
+          {% include "product-low-stock", variant: activeVariant, modifier: "fixed" %}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+  {%- if modifier == "static" -%}
+    <div class="purchase-bar purchase-bar--static js-purchaseBar {{ class }}">
+      {{ qtySelector }}
+      {{ addButton }}
+    </div>
+    {% include "product-low-stock", variant: activeVariant, modifier: "static" %}
+  {%- endif -%}
+{% endunless %}

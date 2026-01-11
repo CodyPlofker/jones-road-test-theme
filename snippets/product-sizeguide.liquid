@@ -1,0 +1,24 @@
+<div 
+  id="size-guide"
+  class="product__sizeguide js-sizeguideModal"
+  aria-hidden="true"
+>
+  <div class="product__sizeguide-overlay js-sizeguideToggle"></div>
+  <div class="product__sizeguide-inner">
+    <button type="button" class="product__sizeguide-close js-sizeguideToggle">
+      <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7418 21.6846L6.5997 7.54248L8.01392 6.12827L22.1561 20.2704L20.7418 21.6846Z" fill="black"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.59966 20.7417L20.7418 6.59961L22.156 8.01382L8.01387 22.156L6.59966 20.7417Z" fill="black"/>
+      </svg>
+    </button>
+    <h2 class="product__sizeguide-heading">{{ size_guide.heading }}</h2>
+    <div class="product__sizeguide-content">
+      <h3 class="product__sizeguide-unit">
+        {{ size_guide.unit | default: 'Inches' }}
+      </h3>
+      <div class="product__sizeguide-table">
+        {{ size_guide.table }}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<picture>
+  <source media="(min-width: 1601px)"
+          {% if lazy %}data-srcset{% else %}srcset{% endif %}="{{ image.src | img_url: '1350x1800', scale: 2, crop: 'center' }} 2x,
+                  {{ image.src | img_url: '1350x1800', scale: 1, crop: 'center' }} 1x" />
+  <source media="(min-width: 1281px) and (max-width: 1600px)"
+          {% if lazy %}data-srcset{% else %}srcset{% endif %}="{{ image.src | img_url: '750x1000', scale: 2, crop: 'center' }} 2x,
+                  {{ image.src | img_url: '750x1000', scale: 1, crop: 'center' }} 1x" />
+  <source media="(min-width: 1024px) and (max-width: 1280px)"
+          {% if lazy %}data-srcset{% else %}srcset{% endif %}="{{ image.src | img_url: '1080x1440', scale: 2, crop: 'center' }} 2x,
+                  {{ image.src | img_url: '1080x1440', scale: 1, crop: 'center' }} 1x" />
+  <source media="(min-width: 601px) and (max-width: 1023px)"
+          {% if lazy %}data-srcset{% else %}srcset{% endif %}="{{ image.src | img_url: '768x1024', scale: 2, crop: 'center' }} 2x,
+                  {{ image.src | img_url: '768x1024', scale: 1, crop: 'center' }} 1x" />
+  <source media="(min-width: 415px) and (max-width: 600px)"
+          {% if lazy %}data-srcset{% else %}srcset{% endif %}="{{ image.src | img_url: '450x600', scale: 2, crop: 'center' }}" />
+  <source media="(min-width: 376px) and (max-width: 414px)"
+          {% if lazy %}data-srcset{% else %}srcset{% endif %}="{{ image.src | img_url: '310x414', scale: 2, crop: 'center' }}" />
+  <source media="(max-width: 375px)"
+          {% if lazy %}data-srcset{% else %}srcset{% endif %}="{{ image.src | img_url: '282x375', scale: 2, crop: 'center' }}" />
+  <img 
+        alt="{{ image.alt }}"
+        class="{% if lazy %}swiper-lazy{% else %}is-loading{% endif %}" 
+        {% if lazy %}
+        data-src="{{ image.src | img_url: '282x375', scale: 2, crop: 'center' }}"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        {% else %}
+        src="{{ image.src | img_url: '282x375', scale: 2, crop: 'center' }}"
+        {% endif %}
+  />
+</picture>

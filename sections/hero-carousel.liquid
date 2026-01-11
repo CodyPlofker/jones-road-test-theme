@@ -1,0 +1,171 @@
+{%- assign config = section.settings -%}
+{%- assign slides = section.blocks | map: 'settings' -%}
+
+{%- capture autoplay -%}
+  {%- if config.autoplay -%} { "delay": {{ config.speed }} } {%- else -%} false {%- endif -%}
+{%- endcapture -%}
+
+<div id="hero__carousel" data-component="heroCarousel">
+  <div class="swiper-container js-heroCarousel" data-autoplay="{{ autoplay | escape }}">
+    {%- if slides.size > 1 -%}
+      <button class="hero__carousel-nav js-heroCarouselNav prev" aria-label="Previous Slide">
+        <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 1L1 8L8 15" stroke="black" stroke-width="0.5"/>
+        </svg>
+      </button>
+    {%- endif -%}
+    <div class="swiper-wrapper">
+      {%- for slide in slides -%}
+        <div class="swiper-slide hero__carousel-slide">
+          <div class="hero__carousel-image mobile">
+            {%- include 'component_media' with media: slide.image_mobile, render_width: 2880, sizes: '100vw' -%}
+          </div>
+          <div class="hero__carousel-image desktop">
+            {%- include 'component_media' with media: slide.image_desktop, render_width: 1600, sizes: '100vw'  -%}
+          </div>
+          <div class="hero__carousel-content {{ slide.position }}">
+            <div class="hero__carousel-text {{ slide.alignment }}" style="color: {{ slide.color }}">
+              {%- if slide.cta_link contains '/blogs/' -%}
+                <p class="hero__carousel-blog">
+                  {{ slide.cta_link | split: '/blogs/' | last | split: '/' | first | capitalize }}
+                </p>
+              {%- endif -%}
+              <h1 class="text-underline hero__carousel-heading {% if slide.show_highlight %} highlight {% endif %}" style="--highlight: {{ slide.highlight }};">
+                {{ slide.heading }}
+              </h1>
+              {%- if slide.cta_text != blank -%}
+                <a href="{{ slide.cta_link }}" class="hero__carousel-button">
+                  {{ slide.cta_text }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if slides.size > 1 -%}
+      <button class="hero__carousel-nav js-heroCarouselNav next" aria-label="Next Slide">
+        <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 1L1 8L8 15" stroke="black" stroke-width="0.5"/>
+        </svg>
+      </button>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Hero Carousel",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Autoplay",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "speed",
+        "min": 1000,
+        "max": 5000,
+        "step": 500,
+        "unit": "ms",
+        "label": "Autoplay Speed",
+        "default": 3000
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "select",
+            "id": "position",
+            "label": "Content Position",
+            "options": [
+              { "label": "Left", "value": "v-top h-left", "group": "Top" },
+              { "label": "Center", "value": "v-top h-center", "group": "Top" },
+              { "label": "Right", "value": "v-top h-right", "group": "Top" },
+              { "label": "Left", "value": "v-middle h-left", "group": "Middle" },
+              { "label": "Center", "value": "v-middle h-center", "group": "Middle" },
+              { "label": "Right", "value": "v-middle h-right", "group": "Middle" },
+              { "label": "Left", "value": "v-bottom h-left", "group": "Bottom" },
+              { "label": "Center", "value": "v-bottom h-center", "group": "Bottom" },
+              { "label": "Right", "value": "v-bottom h-right", "group": "Bottom" }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "alignment",
+            "label": "Text Alignment",
+            "options": [
+              { "label": "Left", "value": "align-left" },
+              { "label": "Center", "value": "align-center" },
+              { "label": "Right", "value": "align-right" }
+            ]
+          },
+          {
+            "type": "color",
+            "id": "color",
+            "label": "Text Color",
+            "default": "#000"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_highlight",
+            "label": "Highlight Heading",
+            "default": true
+          },
+          {
+            "type": "color",
+            "id": "highlight",
+            "label": "Highlight Color",
+            "default": "#fff"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Mobile Image",
+            "info": "Recommended dimensions: 860px x 640px"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_desktop",
+            "label": "Desktop Image",
+            "info": "Recommended dimensions: 2880px x 1200px"
+          },
+          {
+            "type": "richtext",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link",
+            "info": "If an article is selected to link to, the name of the article's blog will display above the heading of the slide."
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Hero Carousel" }]
+  }
+{%- endschema -%}

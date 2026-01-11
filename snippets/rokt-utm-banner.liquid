@@ -1,0 +1,112 @@
+<script>
+  (function () {
+    const promos = [
+      {
+        url: "https://www.jonesroadbeauty.com/products/the-makeup-travel-kit-2-0?utm_source=rokt&gwp=42482597036182&gwp_threshold=10000&country=US%3Futm_source%3Drokt",
+        discount: "43%",
+        referrer: "",
+        product: "The Makeup Travel Kit 2.0."
+      },
+      {
+        url: "https://www.jonesroadbeauty.com/products/the-hero-kit?utm_source=rokt&gwp=42482597036182&gwp_threshold=10000&country=US%3Futm_source%3Drokt",
+        discount: "31%",
+        referrer: "",
+        product: "The Hero Kit."
+      },
+      {
+        url: "https://www.jonesroadbeauty.com/products/the-101-set?gwp=42482597036182&gwp_threshold=10000&utm_source=rokt&country=US%3Futm_source%3Drokt",
+        discount: "15%",
+        referrer: "",
+        product: "The 101 Set."
+      }
+    ];
+
+    function normalize(url) {
+      try {
+        return decodeURIComponent(url.trim());
+      } catch {
+        return url;
+      }
+    }
+
+    function createBanner(discount, referrer, product) {
+      const referrerText = referrer && referrer.trim() !== "" ? referrer + " " : "";
+      const productText = product && product.trim() !== "" ? product : "";
+
+      const banner = document.createElement("div");
+      banner.id = "utm-banner";
+      banner.innerHTML = `
+        <span id="banner-message">Congrats. Your previous purchase ${referrerText}unlocked ${discount} off ${productText}</span>
+        <span id="utm-banner-close">×</span>
+      `;
+      document.body.appendChild(banner);
+
+      const style = document.createElement("style");
+      style.textContent = `
+        @keyframes slideUpFade {
+          0% { transform: translateY(100%); opacity: 0; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+
+
+        #utm-banner {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          box-sizing: border-box;
+          background: #000;
+          color: #fff;
+          padding: 15px 20px;
+          z-index: 11;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+          animation: slideUpFade 0.5s ease-out;
+          box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25);
+        }
+
+        #banner-message {
+          font-family: BaseMonoWideWeb,Courier,Courier New,sans-serif;
+          font-size: 15px;
+          text-align: center;
+          flex: 1;
+        }
+
+        #utm-banner-close {
+          font-size: 20px;
+          font-weight: bold;
+          color: #fff;
+          cursor: pointer;
+          user-select: none;
+        }
+      `;
+      document.head.appendChild(style);
+
+      document.getElementById("utm-banner-close").addEventListener("click", function () {
+        banner.remove();
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const currentURL = normalize(window.location.href);
+
+      for (const promo of promos) {
+        if (normalize(promo.url) === currentURL) {
+          createBanner(promo.discount, promo.referrer, promo.product || "");
+          break;
+        }
+      }
+    });
+  })();
+</script>
+
+
+
+
+
+
+
+

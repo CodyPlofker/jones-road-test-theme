@@ -1,0 +1,50 @@
+<div class="account__form js-formValidation js-accountAddressFormParent" id="form-address-{{ form.id }}">
+  {% form 'customer_address', form %}
+    <div class="form form--long">
+      <div class="form__cell form__cell--name">
+        <input type="text" placeholder="First Name *" name="address[first_name]" value="{{ form.first_name }}" required>
+      </div><div class="form__cell form__cell--last-name">
+        <input type="text" placeholder="Last Name *" name="address[last_name]" value="{{ form.last_name }}" required>
+      </div><div class="form__cell form__cell--address">
+        <input type="text" placeholder="Address *" name="address[address1]" value="{{ form.address1 }}" required>
+      </div><div class="form__cell form__cell--address2">
+        <input type="text" placeholder="Apt / Floor / Suite" name="address[address2]" value="{{ form.address2 }}">
+      </div><div class="form__cell form__cell--company">
+        <input type="text" placeholder="Company" name="address[company]" value="{{ form.company }}">
+      </div>
+    </div><div class="form form--long">
+      <div class="form__cell form__cell--2-3 form__cell--city">
+        <input type="text" placeholder="City *" name="address[city]" value="{{ form.city }}" required>
+      </div><div class="form__cell form__cell--1-3 form__cell--zip">
+        <input type="text" placeholder="Zip code *" name="address[zip]" value="{{ form.zip }}" required>
+      </div><div class="form__cell form__cell--country form__cell--select">
+        <select id="AddressCountry_{{ form.id }}" placeholder="Country *" name="address[country]" data-form-id="{{ form.id }}" data-default="{{ form.country }}" required>
+          <option value="">Country *</option>
+          {{ country_option_tags }}
+        </select>
+      </div><div class="form__cell form__cell--province form__cell--select">
+        <select name="address[province]" data-default="{{ form.province }}" required></select>
+        <input
+          type="text"
+          name="address[province]"
+          style="display:none"
+          data-default="{{ form.province }}"
+          placeholder="State / Province *"
+          id="address[province]"
+          disabled
+        />
+      </div><div class="form__cell form__cell--phone">
+        <input type="text" placeholder="Phone number" name="address[phone]" value="{{ form.phone }}" required>
+      </div>
+    </div><div class="form form--long form--last">
+      <div class="form__cell">
+        <div class="checkbox">
+          <input type="checkbox" id="address_default_address_{{ form.id }}" name="address[default]" value="1"{% if address.id == customer.default_address.id %} checked="true" disabled{% endif %}>
+          <label for="address_default_address_{{ form.id }}">Make my default address</label>
+        </div>
+      </div><div class="form__cell form__cell--button">
+        <button type="submit" class="button">{% if form.id == 'new' %}Add{% else %}Save{% endif %}</button>
+      </div>
+    </div>
+  {% endform %}
+</div>

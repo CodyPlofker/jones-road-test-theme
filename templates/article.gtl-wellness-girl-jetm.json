@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "RichEyeCream_PDP_464.jpg",
+            "heading": "#1: Prep Your Skin",
+            "description": "<p>Dab on Rich Eye Cream to give your under eyes the ultimate nourishment, then spot treat any extra-dry spots on your face by gliding on one of our gym bag skincare staples, The Oil Stick.<\/p>",
+            "product_1": "rich-eye-cream",
+            "variant_1": "",
+            "product_2": "the-oil-stick",
+            "variant_2": ""
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "JETM_light_3.jpg",
+            "heading": "#2: Even & Enhance",
+            "description": "<p>For the days you need to move, but still feel like you — the NEW Just Enough Tinted Moisturizer keeps up effortlessly. Apply it to your face and neck to even out and enhance your complexion, effortlessly. Then follow up with The Face Pencil wherever you need additional coverage.<\/p>",
+            "product_1": "just-enough-tinted-moisturizer",
+            "variant_1": "",
+            "product_2": "the-face-pencil",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "mascara_getthelook_3.jpg",
+            "heading": "#3: Define The Eyes",
+            "description": "<p>Finish your look with fluffier, bolder brows — The Brow Pencil makes it easy to fill in and define in seconds, Then sweep on 1-3 coats of The Mascara to lift and lengthen your lashes in one fell swoop.<\/p>",
+            "product_1": "the-brow-pencil",
+            "variant_1": "",
+            "product_2": "the-mascara",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "Best_Pencil-2.jpg",
+            "heading": "#4: Add A Finishing Touch",
+            "description": "<p>Line your lash line with The Best Pencil in Brown and brush up your brows with The Brow Gel.<br\/><br\/>Apply Cool Gloss in Pink Gold Shimmer on your lips for a high-shine finish.<\/p>",
+            "product_1": "the-best-pencil",
+            "variant_1": "FGEL08150",
+            "product_2": "the-brow-gel",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/GTL_Fitness.jpg",
+        "heading": "Just Enough for Getting Up & Going",
+        "description": "<p>A simple, everyday routine for a look that's ready to move with you.<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "",
+        "bullets": "<p><a href=\"\/products\/rich-eye-cream\" target=\"_blank\" title=\"Rich Eye Cream\">Rich Eye Cream<\/a><\/p><p><a href=\"\/products\/the-oil-stick\" target=\"_blank\" title=\"The Oil Stick\">The Oil Stick<\/a><\/p><p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\">Just Enough Tinted Moisturizer<\/a><\/p><p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil<\/a><\/p><p><a href=\"\/products\/the-brow-pencil\" target=\"_blank\" title=\"The Brow Pencil\">The Brow Pencil<\/a><\/p><p><a href=\"\/products\/the-mascara\" target=\"_blank\" title=\"The Mascara\">The Mascara<\/a><\/p><p><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

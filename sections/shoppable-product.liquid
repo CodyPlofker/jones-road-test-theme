@@ -1,0 +1,180 @@
+{%- assign config = section.settings -%}
+
+{%- assign shoppable_product = all_products[config.product] -%}
+{%- include 'config_product' with product: shoppable_product -%}
+
+<div id="{{ config.section_id }}" class="shoppable-product js-productSection" data-component="shoppableProduct">
+  {%- include 'product-media-new' with product: shoppable_product, carousel_desktop: true, show_how_to: false -%}
+  <div class="shoppable-product__info">
+    <h2 class="shoppable-product__heading">{{ shoppable_product.title }}</h2>
+    {% comment %} <p class="shoppable-product__weight">{{ weight_copy | prepend: '(' | append: ')' }}</p> {% endcomment %}
+    {% if shoppable_product.metafields.product.net_weights != blank %}
+    <p class="shoppable-product__weight">{{ shoppable_product.metafields.product.net_weights | prepend: '(' | append: ')' }}</p>
+    {% endif %}
+    {%- include 'review-stars' with product: shoppable_product, class: 'shoppable-product__stars' -%}
+    <div class="shoppable-product__tabs js-shoppableTabs">
+      <ul class="shoppable-product__tabs-headings">
+        <li class="active js-shoppableTabHeading" data-tab="1">Description</li>
+        <li class="js-shoppableTabHeading" data-tab="2">How to Use</li>
+        <li class="js-shoppableTabHeading" data-tab="3">Ingredients</li>
+      </ul>
+      <div class="shoppable-product__tabs-content product__description-description active" data-tab="1">
+        {{ shoppable_product.description }}
+        {%- if tagline != blank -%}
+          <p style="color: var(--primary-color); margin-top: 16px; text-transform: uppercase;">{{ tagline }}</p>
+        {%- endif -%}
+      </div>
+      <div class="shoppable-product__tabs-content" data-tab="2">
+        {%- include 'product-description-howto' with product: shoppable_product -%}
+      </div>
+      <div class="shoppable-product__tabs-content" data-tab="3">
+        {%- include 'product-description-ingredients' with context: 'content', product: shoppable_product -%}
+      </div>
+    </div>
+    {%- assign should_show_findation = false -%}
+    {%- if show_findation == true -%}
+      {%- assign should_show_findation = true -%}
+    {%- endif -%}
+
+    {%- include 'product-form' with 
+      product: shoppable_product,
+      style: 'radio', 
+      should_show_findation,
+      findation_id: section.id,
+      is_findation: false,
+      is_linked: false,
+      show_button: true,
+      class: 'product__description-form', 
+      show_shop_pay: false,
+      description: ''
+    -%}
+    {%- unless product.tags contains 'final sale' -%}
+      {%- if section.settings.messaging != blank -%}
+        <p class="product__description-message">
+          {{ section.settings.messaging }}
+        </p>
+      {%- endif -%}
+    {%- endunless -%}
+    {%- if us_copy != blank or uk_copy != blank or eu_copy != blank -%}
+      <p class="product__description-message">
+        {%- include 'component_localized-copy' with us_copy, uk_copy, eu_copy, cad_copy, irl_copy, bgn_copy, czk_copy, dkk_copy, huf_copy, pln_copy, ron_copy, sek_copy, aud_copy, nzd_copy -%}
+      </p>
+    {%- endif -%}
+  </div>
+  {%- include 'product-description-ingredients' with context: 'modal', product: shoppable_product -%}
+  {%- if show_findation == true -%}
+    {%- include 'product-findation' with product: shoppable_product, is_bundle: false, modal_id: section.id -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Shoppable Product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "shoppable-product"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Tagline",
+        "default": "Clean / Cruelty Free"
+      },
+      {
+        "type": "text",
+        "id": "messaging",
+        "label": "Messaging",
+        "default": "30-Day Guarantee",
+        "info": "Hidden on products tagged with 'final sale'"
+      },
+      {
+        "type": "text",
+        "id": "findation_toggle",
+        "label": "Findation Toggle Text",
+        "default": "Get the Look"
+      },
+      {
+        "type": "header",
+        "content": "Free Shipping"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_us",
+        "label": "US Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_uk",
+        "label": "UK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_eu",
+        "label": "EU Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_bgn",
+        "label": "BGN Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_czk",
+        "label": "CZK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_dkk",
+        "label": "DKK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_huf",
+        "label": "HUF Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_pln",
+        "label": "PLN Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_ron",
+        "label": "RON Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_sek",
+        "label": "SEK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_aud",
+        "label": "AUD Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_nzd",
+        "label": "NZD Message"
+      }
+    ],
+    "presets": [{ "name": "Shoppable Product" }]
+  }
+{% endschema %}

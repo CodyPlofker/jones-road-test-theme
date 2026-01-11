@@ -1,0 +1,37 @@
+{%- assign tagline = section.settings.tagline -%}
+
+{%- assign us_copy = section.settings.free_shipping_us -%}
+{%- assign uk_copy = section.settings.free_shipping_uk -%}
+{%- assign eu_copy = section.settings.free_shipping_eu -%}
+{%- assign irl_copy = section.settings.free_shipping_ie -%}
+{%- assign cad_copy = section.settings.free_shipping_cad -%}
+
+<div class="product__description-main">
+  <h1 class="product__description-title">
+    <b>{{ product.title | remove: '[bggy pdp dev copy]' | remove: '[bggy dev]' }}</b>
+  </h1>
+  {%- if description_top != blank -%}
+    <p class="product__description-message bundle">{{ description_top | strip_html }}</p>
+  {%- endif -%}
+  {% comment %} {%- if tagline != blank -%}
+    <p class="product__description-tagline">{{ tagline }}</p>
+  {%- endif -%} {% endcomment %}
+  {%- include 'product-form-bundle' with show_shop_pay: true -%}
+  {%- unless product.tags contains 'final sale' -%}
+    {%- if section.settings.messaging != blank -%}
+      <p class="product__description-message">
+        {{ section.settings.messaging }}
+      </p>
+    {%- endif -%}
+  {%- endunless -%}
+  {%- if us_copy != blank or uk_copy != blank or eu_copy != blank -%}
+    <p class="product__description-message">
+      {% render 'icon-shipping' %} {%- include 'component_localized-copy' with us_copy, uk_copy, eu_copy, cad_copy, irl_copy, bgn_copy, czk_copy, dkk_copy, huf_copy, pln_copy, ron_copy, sek_copy, aud_copy, nzd_copy -%}
+    </p>
+    {% if localization.country.iso_code == 'US' %}
+      <p class="product__description-message">
+        {% render 'icon-free-returns' %} Free & Easy Returns
+      </p>
+    {% endif %}
+  {%- endif -%}
+</div>

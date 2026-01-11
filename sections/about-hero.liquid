@@ -1,0 +1,57 @@
+{% schema %}
+  {
+    "name": "About Hero",
+    "settings": [
+      {
+        "id": "heroHeading",
+        "label": "Heading",
+        "type": "text"
+      },
+      {
+        "id": "contentPosition",
+        "label": "Content position",
+        "type": "select",
+        "options": [
+          {
+            "value": "bottom-left",
+            "label": "bottom-left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "bottom-right"
+          },
+          {
+            "value": "center",
+            "label": "center"
+          },
+          {
+            "value": "center-left",
+            "label": "center-left"
+          },
+          {
+            "value": "center-right",
+            "label": "center-right"
+          }
+        ]
+      },
+      {
+        "id": "heroImage",
+        "label": "Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "heroImageMobile",
+        "label": "Image Mobile",
+        "type": "image_picker"
+      }
+    ]
+  }
+{% endschema %}
+{% if section.settings.heroImage != blank %}
+{% include 'about-hero', 
+  contentPosition: section.settings.contentPosition,
+  heroHeading: section.settings.heroHeading,
+  heroImage: section.settings.heroImage,
+  heroImageMobile: section.settings.heroImageMobile,
+%}
+{% endif %}

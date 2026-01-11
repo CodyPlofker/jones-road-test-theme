@@ -1,0 +1,27 @@
+{%- assign config = section.settings -%}
+
+{%- include 'kit-builder-nocarousel' with handle: config.product -%}
+
+{%- schema -%}
+  {
+    "name": "Kit Builder",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Bundle Product"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
+    "presets": [{ "name": "Kit Builder" }]
+  }
+{%- endschema -%}

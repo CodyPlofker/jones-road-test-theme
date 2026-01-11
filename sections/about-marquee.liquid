@@ -1,0 +1,28 @@
+{% schema %}
+  {
+    "name": "About Marquee",
+    "settings": [
+      {
+        "id": "heading",
+        "label": "Heading",
+        "type": "text"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Item",
+        "settings": [
+          {
+            "id": "copy",
+            "label": "Copy",
+            "type": "richtext"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% if section.blocks.size > 0 %}
+{% include 'about-marquee', blocks: section.blocks, heading: section.settings.heading %}
+{% endif %}

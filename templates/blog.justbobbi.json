@@ -1,0 +1,80 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "hero-carousel",
+      "blocks": {
+        "bc51bcfa-8b08-41db-a193-5e5ff9e538fb": {
+          "type": "slide",
+          "settings": {
+            "position": "v-middle h-left",
+            "alignment": "align-left",
+            "color": "#000000",
+            "show_highlight": true,
+            "highlight": "#ffffff",
+            "image_mobile": "shopify:\/\/shop_images\/miraclebalm_mobile_c3a4084b-aef8-427c-8ace-50f3913a97ce.png",
+            "image_desktop": "shopify:\/\/shop_images\/MiracleBalm_justbobbidesktop_2efda81a-ad51-4e45-9cb0-fb58660a5d7e.png",
+            "heading": "<p>How To Use <br\/>Miracle Balm<\/p>",
+            "cta_text": "Read More",
+            "cta_link": "shopify:\/\/blogs\/beauty\/how-to-use-miracle-balm"
+          }
+        },
+        "866667fb-5278-4337-87ef-a205d78e5ae7": {
+          "type": "slide",
+          "settings": {
+            "position": "v-middle h-left",
+            "alignment": "align-left",
+            "color": "#000000",
+            "show_highlight": true,
+            "highlight": "#ffffff",
+            "image_mobile": "shopify:\/\/shop_images\/Bronzer_HomePage_v1_Mobile_1.jpg",
+            "image_desktop": "shopify:\/\/shop_images\/Bronzer_HomePage_v1_2.jpg",
+            "heading": "<p>Bronzer vs Blush<\/p><p>What's The Difference?<\/p>",
+            "cta_text": "Read More",
+            "cta_link": "shopify:\/\/blogs\/beauty\/bronzer-vs-blush"
+          }
+        },
+        "ccd2ee09-e5e8-4a49-938b-6c222e9d1aed": {
+          "type": "slide",
+          "settings": {
+            "position": "v-middle h-left",
+            "alignment": "align-left",
+            "color": "#000000",
+            "show_highlight": true,
+            "highlight": "#ffffff",
+            "image_mobile": "shopify:\/\/shop_images\/Skincare_Mobile_144407ad-7f6c-4994-94dd-b4cced320910.png",
+            "image_desktop": "shopify:\/\/shop_images\/SkinCareFamily_f8f8f8_e1ca420e-5378-43b8-b825-4db9f4d0ea04.png",
+            "heading": "<p>Build<\/p><p>Your<\/p><p>Perfect <\/p><p>Skin Care<\/p><p>Routine<\/p>",
+            "cta_text": "Read More",
+            "cta_link": "shopify:\/\/blogs\/beauty\/how-to-build-your-jones-road-skin-care-routine"
+          }
+        }
+      },
+      "block_order": [
+        "bc51bcfa-8b08-41db-a193-5e5ff9e538fb",
+        "866667fb-5278-4337-87ef-a205d78e5ae7",
+        "ccd2ee09-e5e8-4a49-938b-6c222e9d1aed"
+      ],
+      "settings": {
+        "autoplay": true,
+        "speed": 5000
+      }
+    },
+    "grid": {
+      "type": "blog-grid",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "grid"
+  ]
+}

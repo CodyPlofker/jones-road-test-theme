@@ -1,0 +1,170 @@
+{%- assign bundle_url = product.url | append: '?country=' | append: localization.country.iso_code -%}
+{%- assign bundle_image = product.featured_image | img_url: '200x300' -%}
+{%- assign bundle_available = true -%}
+{%- assign bundle_discount = product.metafields.bundle_config.discount -%}
+{%- assign bundle_price = 0 -%}
+
+{%- assign discount_code = bundle_discount | split: '[' | last | split: ']' | first -%}
+{%- assign discount_value = bundle_discount | split: '% ' | first -%}
+{%- assign compare_at_price = 0 -%}
+
+{%- assign bundle_size = 0 -%}
+{%- assign should_select_shades = '' -%}
+
+{% comment %} Free gift variant based on the product metafield {% endcomment %}
+{%- assign free_gift_variant = product.metafields.custom.free_gift_with_product -%}
+{% if free_gift_variant %}
+  {% assign free_gift_variant_id = free_gift_variant | split: '/' | last %}
+{% endif %}
+
+{%- form 'product', 
+  product,
+  class: 'product__form product__bundle-form js-productForm js-bundleForm',
+  data-bundle: product.title,
+  data-id: product.id,
+  data-image: bundle_image,
+  data-url: bundle_url,
+  data-discount: discount_code,
+  data-checkout: false,
+  data-free-gift-variant: free_gift_variant_id
+-%}
+  <p class="product__bundle-form--heading">
+    {% if cta %}
+      {{ cta }}:
+    {%- else -%}
+      Choose Your Shades:
+    {%- endif -%}
+  </p>
+
+  {%- for field in bundle_products -%}
+    {%- assign name = field | first -%}
+    {%- assign bundle_product = bundle_products[name].value -%}
+    {%- assign bundle_variant = bundle_product.selected_or_first_available_variant -%}
+    {%- assign bundle_product_index = forloop.index -%}
+
+    {%- if bundle_product -%}
+      {%- assign bundle_size = bundle_size | plus: 1 -%}
+    {%- endif -%}
+
+    {%- assign bundle_price = bundle_price | plus: bundle_product.price -%}
+    {%- assign compare_at_price = compare_at_price | plus: bundle_product.price -%}
+    {%- unless bundle_product.available -%}
+      {%- assign bundle_available = false -%}
+    {%- endunless -%}
+
+    {%- include 'config_product' with product: bundle_product -%}
+
+    <div class="bundle__product js-bundleProduct" data-index="{{ forloop.index }}" data-product="{{ product_data | escape }}">
+      <input type="hidden" id="product-{{ bundle_product_index }}" value="{{ bundle_variant.id }}" class="js-bundleVariant" data-product="{{ bundle_product.id }}" data-available="{{ bundle_variant.available }}" data-title="{{ bundle_variant.title }}">
+      <div class="bundle__product-image">
+        <div class="image">
+          {%- include 'component_media' with media: bundle_product.featured_image, width: 120, render_width: 240 -%}
+        </div>
+      </div>
+      <div class="bundle__product-info">
+        <div class="bundle__product-info--top">
+          <legend class="title">
+            <h2>{{ bundle_product.title }}</h2>
+            {%- if subtitle != blank -%}
+              <p class="">{{ subtitle }}</p>
+            {%- endif -%}
+          </legend>
+          {%- if show_findation == true -%}
+            <button type="button" class="product__form-findation js-findationToggle" data-id="{{ forloop.index }}">
+              Compare Shades
+            </button>
+          {%- endif -%}
+        </div>
+        {%- if show_stars == true -%}
+          {%- include 'review-stars' with product: bundle_product, show_count: false -%}
+        {%- endif -%}
+        {%- unless bundle_product.has_only_default_variant -%}
+          <div class="bundle__product-options">
+            {%- if bundle_product.options.size == 1 -%}
+              {%- if bundle_product.options_with_values[0].values.size == 1 -%}
+                {%- assign should_select_shades = should_select_shades | append: false | append: ',' -%}
+              {%- endif -%}
+            {%- endif -%}
+
+            {%- for option in bundle_product.options_with_values -%}
+              {%- assign option_name = 'option' | append: option.position -%}
+              {%- assign option_id = 'option' | append: option.position | append: '-' | append: bundle_product_index -%}
+              {% assign option_id_bundle = 'option' | append: option.position %}
+              {%- assign selected_value = nil -%}
+              {%- assign selected_description = nil -%}
+              {%- if option.values.size == 1 -%}
+                {%- assign selected_value = current_variant[option_name] -%}
+                {%- assign selected_description = current_variant.metafields.findation_hero.description -%}
+              {%- endif -%}
+
+              <div class="bundle__product-option js-bundleOption">
+                <legend class="product__form-value js-bundleVariantLabel" data-option="{{ option_id }}">
+                  <span class="name">{%- if selected_value -%}{{ selected_value }}{%- else -%}Select Shade {%- endif -%}</span>
+                  {%- if show_swatch_description -%}
+                    <span class="description">{% if selected_description %}{{ selected_description }}{% endif %}</span>
+                  {%- endif -%}
+                </legend>
+                <ul class="product__form-swatches product__form-swatches--radio">
+                  {%- for value in option.values -%}
+                    {%- assign id = value | append: '-' | append: bundle_product_index -%}
+                    {%- include 'function_swatch-available' with product: bundle_product, option_id: option_name -%}
+                    {%- include 'product-swatch' with
+                      id,
+                      option_id,
+                      option_id_bundle,
+                      is_bundle: true,
+                      product: bundle_product,
+                      is_available: is_swatch_available
+                    -%}
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endunless -%}
+      </div>
+    </div>
+  {%- endfor -%}
+
+  {%- assign discount = discount_value | divided_by: 100.00 | times: bundle_price -%}
+  {%- assign compare_at_price = compare_at_price  -%}
+  {%- assign bundle_price = bundle_price | minus: discount -%}
+
+  {%- assign should_select_shades = should_select_shades | split: ',' -%}
+  {%- if should_select_shades.size == bundle_size -%}
+    {%- assign should_select_shades = false -%}
+  {%- else -%}
+    {%- assign should_select_shades = true -%}
+  {%- endif -%}
+  
+  <button
+    type="submit"
+    class="product__form-button button js-bundleFormSubmit {% if should_select_shades %} button--gray {% endif %}"
+    data-available="{{ bundle_available }}"
+    {% if should_select_shades %} disabled {% endif %}
+  >
+    <div class="product__form-button__text js-bundleFormCopy">
+      <span class="text">
+        {%- if bundle_available -%}
+          {%- if should_select_shades -%}Select Shades{%- else -%}Add to Cart{%- endif -%}
+        {%- else -%}
+          Sold Out
+        {%- endif -%}
+      </span>
+      <span class="loader">Adding...</span>
+    </div>
+    <div class="product__form-price product__form-price--bundle">
+      {% if compare_at_price > bundle_price %}
+        <span class="product__form-price--sale">{{ compare_at_price | money_without_trailing_zeros }}</span>
+      {% endif %}
+      <span class="product__form-price--regular">
+        {{ bundle_price | money_without_trailing_zeros }}
+        {% comment %} {{ product.price | money_without_trailing_zeros }} {% endcomment %}
+      </span>
+    </div>
+  </button>
+  {% assign payment_terms = form | payment_terms %}
+  {%- if show_shop_pay == true and payment_terms != blank -%}
+    <div class="shop-pay-terms">{% render 'icon-shop-pay' %} {{ payment_terms }}</div>
+  {%- endif -%}
+{%- endform -%}

@@ -1,0 +1,18 @@
+{%- assign is_image = false -%}
+{%- assign is_file = false -%}
+
+{%- if media contains '/' or media.media_type == 'image' -%}
+  {%- assign is_image = true -%}
+{%- elsif media.media_type == 'generic_file' -%}
+  {%- assign is_file = true -%}
+{%- endif -%}
+
+{%- unless no_render -%}
+  {%- if is_image -%}
+    {{ media | image_url: width: width | image_tag: width: render_width, class: class, loading: 'lazy' }}
+  {%- elsif is_file -%}
+    {{ media | media_tag: class: class }}
+  {%- else -%}
+    {{ media | video_tag: autoplay: video_autoplay, muted: true, loop: true, width: render_width, class: class, playsinline: true, disablepictureinpicture: true, disableremoteplayback:true, preload: 'none' }}
+  {%- endif -%}
+{%- endunless -%}

@@ -1,0 +1,210 @@
+<script type="module" blocking="render" fetchpriority="high" src="https://cdn.intelligems.io/esm/d3ac9e974202/bundle.js" async></script>
+<script>
+  (function () {
+    var r;
+    ((e = r = r || {}).A = 'identify'),
+      (e.B = 'trackPageView'),
+      (e.C = 'fireEmailCaptureEvent'),
+      (e.D = 'fireCustomGoal'),
+      (e.E = 'firePurchaseEvent');
+    var e = '//j.northbeam.io/ota-sp/fb6a00d5-38e4-43cb-bf7b-5c10a9eb970e.js';
+    function t(e) {
+      for (var n = [], r = 1; r < arguments.length; r++) n[r - 1] = arguments[r];
+      a.push({ fnName: e, args: n });
+    }
+    var a = [],
+      n =
+        (((n = { _q: a })[r.A] = function (e, n) {
+          return t(r.A, e, n);
+        }),
+        (n[r.B] = function () {
+          return t(r.B);
+        }),
+        (n[r.C] = function (e, n) {
+          return t(r.C, e, n);
+        }),
+        (n[r.D] = function (e, n) {
+          return t(r.D, e, n);
+        }),
+        (n[r.E] = function (e) {
+          return t(r.E, e);
+        }),
+        (window.Northbeam = n),
+        document.createElement('script'));
+    (n.async = !0), (n.src = e), document.head.appendChild(n);
+  })();
+</script>
+<script>
+  (function () {
+    var snowplow = (window._nbq =
+      window._nbq ||
+      function () {
+        window._nbq.q = window._nbq.q || [];
+        window._nbq.q.push(arguments);
+      });
+    window._nbq.q = window._nbq.q || [];
+
+    var order = window.Shopify.order;
+    if (!order) {
+      return;
+    }
+
+    fireVersionEvent();
+    fireConversionEvent();
+
+    function fireVersionEvent() {
+      snowplow(
+        'trackStructEvent:nb',
+        '__nb_internal',
+        'shopify-post-purchase-tag-version',
+        String(order.number),
+        '18858c3ca5cfd669cf3acede4c992e0b85328fa4',
+      );
+    }
+
+    function fireConversionEvent() {
+      // TODO: check that order.lineItems works
+      for (var i = 0; i < order.lineItems; ++i) {
+        var lineItem = order.lineItems[i];
+        var sku = {
+          product: String(lineItem.product.id),
+          variant: String(lineItem.variant.id),
+        };
+
+        snowplow(
+          'addEnhancedEcommerceProductContext:nb',
+          JSON.stringify(sku, Object.keys(sku).sort()),
+          lineItem.title,
+          '',
+          '', // Vendor
+          '',
+          '', // Variant title
+          String(lineItem.originalPrice),
+          String(lineItem.quantity),
+          '',
+          null,
+          order.currency,
+        );
+      }
+
+      snowplow(
+        'addEnhancedEcommerceActionContext:nb',
+        String(order.number),
+        '__nb_shopify',
+        String(order.totalPrice),
+        '0.0', // Tax price
+        '0.0', // Shipping price
+        '', // Coupons
+        '',
+        null,
+        '',
+        order.currency,
+      );
+
+      snowplow('trackEnhancedEcommerceAction:nb', 'purchase');
+    }
+  })();
+</script>
+
+<!-- End: Northbeam Shopify post purchase upsell pixel -->
+
+<!-- Blotout EdgeTag Start -->
+<script>
+  const edgeURL = 'https://sghug.jonesroadbeauty.com’;
+  !function(u){window.edgetag=window.edgetag||function(){(edgetag.stubs=edgetag.stubs||[]).push(arguments)};const t=document.createElement("script");t.type="text/javascript",t.src=u,t.async=!0;const e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}(`${edgeURL}/load`);
+  
+  edgetag('init', {
+    edgeURL,
+    disableConsentCheck: true
+  });
+  
+  !(function () {
+    const sendUser = (user) => {
+      if (!user || !Object.keys(user).length) {
+        return;
+      }
+  
+      edgetag('data', user);
+    };
+  
+    const getUser = () => {
+      if (!Shopify || !Shopify.order || !Shopify.order.customer) {
+        return;
+      }
+  
+      const userData = {};
+  
+      const email = Shopify.order.customer.email;
+      if (email) {
+        userData['email'] = email;
+      }
+  
+      const firstName = Shopify.order.customer.firstName;
+      if (firstName) {
+        userData['firstName'] = firstName;
+      }
+  
+      const lastName = Shopify.order.customer.lastName;
+      if (lastName) {
+        userData['lastName'] = lastName;
+      }
+  
+      sendUser(userData);
+    };
+  
+    getUser();
+    edgetag('tag', 'PageView');
+  
+    if (window.Shopify.order && !window.Shopify.wasPostPurchasePageSeen) {
+      const order = window.Shopify.order;
+  
+      const contents = [];
+      order.lineItems.forEach((item) => {
+        contents.push({
+          id: item.product.id,
+          variantId: item.variant ? item.variant.id : '',
+          quantity: item.quantity,
+          brand: item.vendor,
+          item_price: parseFloat(item.price),
+          title: item.title,
+          category: item.product_type,
+          type: 'product',
+        });
+      });
+  
+      edgetag('tag', 'Purchase', {
+        contents,
+        currency: order.currency,
+        value: order.totalPrice,
+        eventId: order.id.toString(),
+        orderId: order.id.toString()
+      });
+    }
+  })();
+</script>
+<!-- Blotout EdgeTag End -->
+
+<script type="text/javascript">
+  var ordnumber = Math.random() * 10000000000000;
+  var sscUrl =
+    ('https:' == document.location.protocol ? 'https://' : 'http://') +
+    'trkn.us/pixel/conv/ppt=23523;g=conversion;gid=57172;ord=' +
+    ordnumber +
+    ';v=120';
+  var x = document.createElement('IMG');
+  x.setAttribute('src', sscUrl);
+  x.setAttribute('alt', '');
+  x.setAttribute('width', '1');
+  x.setAttribute('height', '1');
+  document.body.appendChild(x);
+</script>
+
+<script>
+  window.Shopify = window.Shopify || {theme: {id: {{ theme.id }}, role: '{{ theme.role }}' } };
+  window._template = {
+  directory: "{{ template.directory }}",
+  name: "{{ template.name }}",
+  suffix: "{{ template.suffix }}"
+  };
+</script>
+<script type="module" blocking="render" fetchpriority="high" src="https://cdn.intelligems.io/esm/d3ac9e974202/bundle.js" async></script>

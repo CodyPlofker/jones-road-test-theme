@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "JETM_almond_2.jpg",
+            "heading": "#1: Start Fresh",
+            "description": "<p>It all starts with a confident complexion that has you feeling ready to take on the day in seconds. Start by applying Just Enough to your face and neck, then follow up with The Face Pencil for extra coverage where you need it.<\/p>",
+            "product_1": "just-enough-tinted-moisturizer",
+            "variant_1": "",
+            "product_2": "the-face-pencil",
+            "variant_2": ""
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "Bronzer_Brush_4_updated.jpg",
+            "heading": "#2: Set It Up",
+            "description": "<p>Then add some warmth and set your look in place — so you can focus on what really matters. Lightly dust The Bronzer across your forehead, cheekbones, and nose (think: anywhere the sun naturally hits), and layer Tinted Face Powder on top for longer wear.<\/p>",
+            "product_1": "the-bronzer",
+            "variant_1": "",
+            "product_2": "tinted-face-powder",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "Best_Pencil-2.jpg",
+            "heading": "#3: Refine & Define",
+            "description": "<p>Work with these simple staples to define and create shape around your eyes. Draw a tight line above your upper lashes using The Best Pencil, then shape up your brows in a few short sweeps with The Brow Gel.<\/p>",
+            "product_1": "the-best-pencil",
+            "variant_1": "",
+            "product_2": "the-brow-gel",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "mascara_getthelook_3.jpg",
+            "heading": "#4: Finishing Touches",
+            "description": "<p>Achieve that effortlessly polished finish with striking lashes and a sheer, shining lip. All it takes is a few coats of The Mascara and Cool Gloss.<\/p>",
+            "product_1": "cool-gloss",
+            "variant_1": "",
+            "product_2": "the-mascara",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/GTL_Entrepreneur.jpg",
+        "heading": "Just Enough For Getting It All Done",
+        "description": "<p>A polished and professional look that works for your 9-5 (and your 5-9).<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "",
+        "bullets": "<p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\">Just Enough Tinted Moisturizer <\/a><\/p><p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil<\/a><\/p><p><a href=\"\/products\/the-bronzer\" target=\"_blank\" title=\"The Bronzer\">The Bronzer<\/a><\/p><p><a href=\"\/products\/tinted-face-powder\" target=\"_blank\" title=\"Tinted Face Powder\">Tinted Face Powder<\/a><\/p><p><a href=\"\/products\/the-best-pencil\" target=\"_blank\" title=\"The Best Pencil\">The Best Pencil<\/a><\/p><p><a href=\"\/products\/the-brow-gel\" target=\"_blank\" title=\"The Brow Gel\">The Brow Gel<\/a><\/p><p><a href=\"\/products\/the-mascara\" target=\"_blank\" title=\"The Mascara\">The Mascara<\/a><\/p><p><a href=\"\/products\/cool-gloss\" target=\"_blank\" title=\"Cool Gloss\">The Cool Gloss <\/a><\/p><p><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

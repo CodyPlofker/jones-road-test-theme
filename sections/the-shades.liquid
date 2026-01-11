@@ -1,0 +1,145 @@
+{% assign the_shades = product.metafields.custom.the_shades_section.value %}
+{% assign usage_filters = the_shades.usage_filters %}
+{% assign skin_tone_filters = the_shades.skin_tone_filters %}
+{% assign product_images = the_shades.the_shades_images %}
+{% assign model_images = the_shades.model_images %}
+{% assign models_light_images = the_shades.models_light_images %}
+{% assign models_medium_images = the_shades.models_medium_images %}
+{% assign models_dark_images = the_shades.models_dark_images %}
+{% assign product_images_titles = the_shades.image_titles %}
+{% assign product_images_descriptions = the_shades.shade_descriptions %}
+{% assign product_images_tags = the_shades.the_shades_image_tags %}
+{% assign product_images_js = '' %}
+{% assign model_images_js = '' %}
+{% assign models_light_images_js = '' %}
+{% assign models_medium_images_js = '' %}
+{% assign models_dark_images_js = '' %}
+{% assign image_tags_js = '' %}
+{% assign product_images_titles_js = '' %}
+{% assign product_images_descriptions_js = '' %}
+{% assign empty_text = the_shades.empty_text %}
+{% assign loading_text = the_shades.loading_text %}
+
+
+{% for model_image in model_images.value %}
+  {% assign model_image_url = model_image | remove_first: 'files/' | file_url %}
+  {% assign model_images_js = model_images_js | append: ', ' | append: model_image_url %}
+{% endfor %}
+
+{% for model_light_image in models_light_images.value %}
+  {% assign model_light_image_url = model_light_image | remove_first: 'files/' | file_url %}
+  {% assign models_light_images_js = models_light_images_js | append: ', ' | append: model_light_image_url %}
+{% endfor %}
+
+{% for model_medium_image in models_medium_images.value %}
+  {% assign model_medium_image_url = model_medium_image | remove_first: 'files/' | file_url %}
+  {% assign models_medium_images_js = models_medium_images_js | append: ', ' | append: model_medium_image_url %}
+{% endfor %}
+
+{% for model_dark_image in models_dark_images.value %}
+  {% assign model_dark_image_url = model_dark_image | remove_first: 'files/' | file_url %}
+  {% assign models_dark_images_js = models_dark_images_js | append: ', ' | append: model_dark_image_url %}
+{% endfor %}
+
+{% for product_image in product_images.value %}
+  {% assign product_image_url = product_image | remove_first: 'files/' | file_url %}
+  {% assign product_images_js = product_images_js | append: ', ' | append: product_image_url %}
+{% endfor %}
+
+{% for image_tag in product_images_tags.value %}
+  {% assign image_tags_js = image_tags_js | append: '|' | append: image_tag %}
+{% endfor %}
+
+{% for product_image_title in product_images_titles.value %}
+  {% assign product_images_titles_js = product_images_titles_js | append: '| ' | append: product_image_title %}
+{% endfor %}
+
+{% for product_image_description in product_images_descriptions.value %}
+  {% assign product_images_descriptions_js = product_images_descriptions_js | append: '| ' | append: product_image_description %}
+{% endfor %}
+
+{% if the_shades %}
+  <div class="the-shades-section">
+    <h1>What Shade Am I?</h1>
+    <div class="the-shades-section-options-container">
+      <div class="the-shades-section-option-container">
+        <p class="the-shades-section-option-title">USAGE</p>
+        <div class="the-shades-section-options">
+          {% for usage_filter in usage_filters.value %}
+            <div class="usage-option">{{ usage_filter }}</div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="the-shades-section-option-container ">
+        <p class="the-shades-section-option-title">SKIN TONE</p>
+        <div class="the-shades-section-options skin-tone">
+          {% for skin_tone_filter in skin_tone_filters.value %}
+            <div class="skin-tone-option">{{ skin_tone_filter }}</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="the-shades-section-models-toggle-button-container">
+      <p>Swatches</p>
+      {% render 'models-toggle-button' %}
+      <p>Models</p>
+    </div>
+
+    
+
+    <div class="container swiper-container the-shades-section-slides">
+      <div class="the-shades-section-loading-spinner">{{empty_text}}</div>
+      <div class="the-shades-section-loading-text">{{ loading_text }}</div>
+      <div class="card-wrapper">
+        <!-- Card slides container -->
+        <ul
+          class="card-list swiper-wrapper"
+          data-productimages="{{ product_images_js }}"
+          data-modelimages="{{ model_images_js }}"
+          data-modelslightimages="{{ models_light_images_js }}"
+          data-modelsmediumimages="{{ models_medium_images_js }}"
+          data-modelsdarkimages="{{ models_dark_images_js }}"
+          data-imagetags="{{ image_tags_js }}"
+          data-producttitles="{{ product_images_titles_js }}"
+          data-productdescriptions="{{ product_images_descriptions_js }}"
+        >
+          {% for model_image in model_images.value %}
+            {% assign image_url = model_image | remove_first: 'files/' | file_url %}
+            <li class="card-item swiper-slide the-shades-slide" data-index="{{ forloop.index0 }}" data-shade-type="models">
+              <div class="shades-card-image-wrapper">
+                <img
+                  src="{{ image_url }}"
+                  alt="Card Image"
+                  class="card-image"
+                  width=""
+                  height=""
+                >
+              </div>
+              <p class="badge">{{ product_images_titles.value[forloop.index0] }}</p>
+              <h2 class="card-title">{{ product_images_descriptions.value[forloop.index0] }}</h2>
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+      <!-- Navigation Buttons -->
+      <div class="the-shades-section-nav-buttons">
+        <div class="swiper-slide-button swiper-button-prev the-shades-prev"><svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+          <path d="M6 12L1 6.5L6 1" stroke="black"/>
+          </svg></div>
+        <div class="swiper-slide-button swiper-button-next the-shades-next"><svg xmlns="http://www.w3.org/2000/svg" width="7" height="13" viewBox="0 0 7 13" fill="none">
+          <path d="M1 1L6 6.5L1 12" stroke="black"/>
+          </svg></div>
+      </div>
+    </div>
+    <div class="button-wrapper">
+      <p>Still Not Sure?</p><a href="/pages/miracle-balm-custom-quiz" class="button">Find My Shade<span class="arrow-right"><svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+        <path d="M1 8.826L5 4.99992L1 1.17383" stroke="#F8F8F8" stroke-linecap="square"/>
+        </svg></span></a>
+    </div>
+  </div>
+{% endif %}
+
+
+

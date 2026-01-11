@@ -1,0 +1,112 @@
+{%- assign config = section.settings -%}
+{%- assign image_blocks = section.blocks | map: 'settings' -%}
+
+<div 
+  id="images-with-hover-{{ section.id }}"
+  class="images__hover"
+  style="background: {{ config.background }};"
+>
+  <div class="images__hover-inner">
+    {%- if config.heading != blank -%}
+      <h2 
+        class="images__hover-heading {% if config.heading_highlight %} highlight {% endif %}"
+        style="--highlight: {{ config.highlight_color }}"
+      >
+        <span>{{ config.heading }}</span>
+      </h2>
+    {%- endif -%}
+    <div class="images__hover-images">
+      {%- for block in image_blocks -%}
+        <div class="images__hover-block">
+          <h3 class="images__hover-block--heading desktop">{{ block.heading }}</h3>
+          <div class="images__hover-block--image">
+            <div>
+              {%- include 'component_media' with 
+                media: block.image,
+                width: 1000,
+                sizes: '50vw, (min-width: 1024px) 25vw'
+              -%}
+            </div>
+          </div>
+          <div class="images__hover-block--info">
+            {%- if block.heading != blank -%}
+              <h3 class="images__hover-block--heading mobile">{{ block.heading }}</h3>
+            {%- endif -%}
+            {%- if block.description != blank -%}
+              <p class="images__hover-block--description">{{ block.description }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Images with Hover",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "checkbox",
+        "id": "heading_highlight",
+        "default": true,
+        "label": "Heading Highlight"
+      },
+      {
+        "type": "color",
+        "id": "highlight_color",
+        "label": "Highlight Color",
+        "default": "#fff"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "description",
+            "label": "Description",
+            "info": "Shows on hover on desktop."
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Images with Hover" }]
+  }
+{%- endschema -%}

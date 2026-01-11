@@ -1,0 +1,173 @@
+{
+  "sections": {
+    "quiz": {
+      "type": "quiz-embed",
+      "settings": {
+        "embed": "<div class=\"octane-ai-quiz \" data-quiz-id=\"jpjrNCztOfY8JlTb\" data-embed-type=\"fullpage\" data-mobile-height=\"match_browser\" data-desktop-height=\"match_browser\"><\/div><script src=\"https:\/\/app.octaneai.com\/n4nxl1gww1w0tm80\/quiz.js\" async defer><\/script>",
+        "show_alt_style": false,
+        "results_heading": "You've Never Met A Foundation Like This...",
+        "review_product": "what-the-foundation",
+        "answers_heading": "Here are your Quiz Results",
+        "products_heading": "Based On Your Results, We Suggest:"
+      }
+    },
+    "9fc4c241-eefb-439d-8bd3-07bb67cbfc3c": {
+      "type": "stepped-image",
+      "blocks": {
+        "6f1fb9d3-80de-4b7b-847b-3971d17c6fa0": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Spatula_02_1.jpg",
+            "heading": "Stir Before You Use",
+            "description": "For best results, use the back of a brush or The Spatula to combine the natural separation of oils in the formula."
+          }
+        },
+        "38735048-5ec3-4950-9a30-9bc42c9c01a8": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/WTF_Deep_3.jpg",
+            "heading": "Skip Moisturizer",
+            "description": "WTF provides ample hydration on its own."
+          }
+        },
+        "0f92ad84-72ca-4132-9016-e065a5665814": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/WTF_Beige_2.jpg",
+            "heading": "Start Small",
+            "description": "Start with a pea-sized amount of product. Apply small dots of foundation to your cheeks and forehead and blend outward with your fingers or a brush. If you need additional coverage, use The Face Pencil."
+          }
+        }
+      },
+      "block_order": [
+        "6f1fb9d3-80de-4b7b-847b-3971d17c6fa0",
+        "38735048-5ec3-4950-9a30-9bc42c9c01a8",
+        "0f92ad84-72ca-4132-9016-e065a5665814"
+      ],
+      "settings": {
+        "heading": "How To Use:"
+      }
+    },
+    "87307267-fcc1-44ea-872e-9bf524d94a6d": {
+      "type": "portable-bundle",
+      "disabled": true,
+      "settings": {
+        "heading": "Meet Your No-Makeup Makeup Essentials",
+        "image_desktop": "shopify:\/\/shop_images\/jr-portable-bundle-bg-desktop.png",
+        "image_mobile": "shopify:\/\/shop_images\/jr-portable-bundle-bg-mobile.png",
+        "bg_color": "#ebebeb",
+        "product": "the-101-set",
+        "description": "<p>We’ve bundled our bestsellers into a single customizable set. Choose two shades of The Face Pencil and a shade of Miracle Balm (for a luminous, evened-out complexion), and finish with The Mascara to make eyes pop. Done.<\/p><p>THE SET INCLUDES:<\/p><ul><li>2 Face Pencils<\/li><li>1 Miracle Balm<\/li><li>1 Mascara<\/li><\/ul>",
+        "cta_text": "Customize my set"
+      }
+    },
+    "16478788128f6a3b11": {
+      "type": "press-logos",
+      "blocks": {
+        "48443813-6401-47fe-a8b5-75207c623cb0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_vogue_logo.png"
+          }
+        },
+        "4e859dc6-ebde-40a5-9e8a-e523259f4ba0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_wsj_logo.png"
+          }
+        },
+        "26c89421-a056-46e4-bf5c-203ed91eeb68": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_nyt_logo.png"
+          }
+        },
+        "953b51e2-1e98-454c-b451-ab2a3b7b06ac": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_fc_logo.png"
+          }
+        },
+        "518dcff4-50cb-4181-a5e0-135e8e69c49e": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_allure_logo.png"
+          }
+        }
+      },
+      "block_order": [
+        "48443813-6401-47fe-a8b5-75207c623cb0",
+        "4e859dc6-ebde-40a5-9e8a-e523259f4ba0",
+        "26c89421-a056-46e4-bf5c-203ed91eeb68",
+        "953b51e2-1e98-454c-b451-ab2a3b7b06ac",
+        "518dcff4-50cb-4181-a5e0-135e8e69c49e"
+      ],
+      "settings": {
+        "section_id": "press",
+        "bg_color": "#ebdadb"
+      }
+    },
+    "0dc9365c-c244-4f10-8651-66a935186cdd": {
+      "type": "reviews-carousel",
+      "blocks": {
+        "0857e850-3800-41d0-a28c-c61d4212811b": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "heading": "The Best There Is",
+            "description": "This is I think my 4th jar and each has been better than the last. Love the coverage and the feel.",
+            "author": "Holly T.",
+            "verified": true
+          }
+        },
+        "688d6adb-3421-4352-ad14-3a1744fddf09": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "heading": "Ultra Moisturizing",
+            "description": "Love how much moisture is in this product. I am 55+ and need lots of moisture -- i would recco you buy the brush to apply as it makes all the difference. It’s nice and buildable. Also love the smell! ",
+            "author": "Jackie C.",
+            "verified": true
+          }
+        },
+        "5fa35fd4-ef5b-4b4c-a35b-adadccccf013": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "heading": "Just What I Needed",
+            "description": "Easy to apply. Doesn’t build up in my creases. Evens out my skin tone. Feels like I’m not wearing any foundation on my face.",
+            "author": "Charlene S.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "0857e850-3800-41d0-a28c-c61d4212811b",
+        "688d6adb-3421-4352-ad14-3a1744fddf09",
+        "5fa35fd4-ef5b-4b4c-a35b-adadccccf013"
+      ],
+      "settings": {
+        "autoplay": true,
+        "speed": 3000,
+        "heading": "What Our Customers Are Saying"
+      }
+    },
+    "ecc7d88a-c32f-4c58-b9c8-27604ef06169": {
+      "type": "shade-chart",
+      "disabled": true,
+      "settings": {
+        "background": "#f8f8f8",
+        "heading": "Explore The Shades",
+        "product": "miracle-balm"
+      }
+    }
+  },
+  "order": [
+    "quiz",
+    "9fc4c241-eefb-439d-8bd3-07bb67cbfc3c",
+    "87307267-fcc1-44ea-872e-9bf524d94a6d",
+    "16478788128f6a3b11",
+    "0dc9365c-c244-4f10-8651-66a935186cdd",
+    "ecc7d88a-c32f-4c58-b9c8-27604ef06169"
+  ]
+}

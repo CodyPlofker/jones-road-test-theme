@@ -1,0 +1,70 @@
+{%- assign results_count = search.results_count -%}
+
+{%- capture search_results -%}
+  {%- paginate search.results by 50 -%}
+    <div class="collection__grid-items">
+    {%- for item in search.results -%}
+      {% liquid
+        assign compliance_product_title = null
+        assign current_country_product = null
+        assign compliance_products = item.metafields.custom.compliance_products.value
+        if compliance_products
+          assign compliance_product_title = compliance_products.product_title
+          assign iso_code = localization.country.currency.iso_code
+          case iso_code
+            when 'USD'
+              assign current_country_product = compliance_products.usa_product.value
+            when 'CAD'
+              assign current_country_product = compliance_products.canada_product.value
+            when 'GBP'
+              assign current_country_product = compliance_products.eu_uk_product.value
+            when 'EUR', 'BGN', 'CZK', 'DKK', 'HUF', 'PLN', 'RON', 'SEK'
+              assign current_country_product = compliance_products.eu_uk_product.value
+          endcase
+        endif
+      %}
+
+      {% if compliance_products %}
+        {% if current_country_product.id == item.id %}
+          {%-
+            include 'product-card' with
+            mobile_carousel: true,
+            compliance_product_title: compliance_product_title,
+            index: forloop.index,
+            product: current_country_product
+          -%}
+        {% else %}
+          {%- assign results_count = results_count | minus: 1 -%}
+          {% continue %}
+        {% endif %}
+      {% else %}
+        {%- unless item.tags contains 'hide' -%}
+          {%-
+            include 'product-card' with
+            mobile_carousel: true,
+            index: forloop.index,
+            product: item
+          -%}
+        {%- else -%}
+          {%- assign results_count = results_count | minus: 1 -%}
+        {%- endunless -%}
+      {% endif %}
+    {%- endfor -%}
+    </div>
+  {%- endpaginate -%}
+{%- endcapture -%}
+
+<div class="plp" data-view="plp" data-template="search">
+  {% include "listing-search", search: search %}
+  <div>
+    {%- if results_count == 0 -%}
+      {%- include "listing-search-empty" -%}
+    {%- else -%}
+      <div x-data id="collection-grid" class="collection__grid js-collectionGrid collection__grid-shop-all" data-component="collectionGrid">
+        <div id="product-grid-search" class="js-collectionItems collection__grid-wrapper" data-url="{{ routes.search_url }}" data-id="search" data-count="{{ results_count }}">
+          {{ search_results }}
+        </div>
+      </div>
+    {%- endif -%} 
+  </div>
+</div>

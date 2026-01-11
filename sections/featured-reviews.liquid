@@ -1,0 +1,127 @@
+{%- assign config = section.settings -%}
+{%- assign reviews = section.blocks -%}
+
+<div id="{{ config.section_id }}" class="featured-reviews featured-reviews--{{ config.layout }} js-featuredReviews" data-component="featuredReviews" style="background: {{ config.background }};">
+  {%- if config.heading != blank -%}
+    <h2 class="featured-reviews__heading featured-reviews__heading--{{- config.layout -}}">{{ config.heading }}</h2>
+  {%- endif -%}
+  <div class="swiper-container js-featuredReviewsCarousel" data-layout="{{ config.layout }}">
+    <div class="swiper-wrapper">
+      {%- for block in reviews -%}
+        {%- assign review = block.settings -%} 
+        <div class="swiper-slide featured-reviews__review featured-reviews__review--{{- config.layout }} js-featuredReview" data-id="{{ review.id }}" {{ block.shopify_attributes }}>
+          {%- if config.layout == 'image' -%}
+            <div class="review-image">
+              <div class="aspect-7-8">
+                {{ review.image | image_url: width: 1140 | image_tag: width: 570, class: 'aspect-child', loading: 'lazy' }}
+              </div>
+            </div>
+          {%- endif -%}
+          <div class="review-content">
+            {%- if config.layout == 'image' and config.heading != blank -%}
+              <h2 class="featured-reviews__heading">{{ config.heading }}</h2>
+            {%- endif -%}
+            <h3 class="review-heading js-featuredReviewHeading"></h3>
+            <div class="review-stars js-featuredReviewStars"></div>
+            <div class="review-description js-featuredReviewBody"></div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if config.layout == 'image' and reviews.size > 1 -%}
+      <div class="featured-reviews__next js-featuredReviewNext">
+        <svg width="26" height="48" viewBox="0 0 26 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 2L23 21.918L2 47" stroke="#383838" stroke-width="3"/>
+        </svg>
+      </div>
+    {%- endif -%}
+  </div>
+  <div class="featured-reviews__pagination featured-reviews__pagination--{{ config.layout }}">
+    <div class="bullets js-featuredReviewPag"></div>
+    <div class="next js-featuredReviewNext">
+      <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L3 3.5L1 6" stroke="#828282"/>
+      </svg>
+    </div>      
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{ section.id }} .featured-reviews__review--cards {
+    background: {{ config.card_background }};
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Featured Reviews",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "featured-reviews"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Layout",
+        "options": [
+          { "label": "Image", "value": "image" },
+          { "label": "Cards", "value": "cards" }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F6F2EB"
+      },
+      {
+        "type": "color",
+        "id": "card_background",
+        "label": "Card Background",
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "review",
+        "name": "Review",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "id",
+            "label": "Review ID",
+            "info": "Navigate to the review in the Junip admin and copy the ID from the URL (after /reviews/)"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "Will display if the Layout is set to Image."
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Featured Reviews" }]
+  }
+{% endschema %}

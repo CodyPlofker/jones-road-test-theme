@@ -1,0 +1,144 @@
+{%- assign config = section.settings -%}
+{%- assign cards = section.blocks | map: 'settings' -%}
+
+<div 
+  class="gtl-cards--inner"
+  style="--background: {{ config.background }}"
+>
+  {%- for card in cards -%}
+    <div 
+      class="gtl-cards--card"
+      style="
+        --background: {{ config.card_background }};
+        --color: {{ config.card_color }};
+        --accent: {{ config.card_accent }};
+      "
+    >
+      <div class="gtl-cards--card-image">
+        <figure>
+          {%- if card.image != blank -%}
+            {%- render 'component_image',
+              image: card.image,
+              width: 1500,
+              widths: '375, 550, 750, 1100, 1500',
+              sizes: '(min-width: 768px) 50vw, 100vw'
+            -%}
+          {%- endif -%}
+        </figure>
+      </div>
+      <div class="gtl-cards--card-info">
+        {%- if card.heading != blank -%}
+          <h2 class="gtl-cards--card-heading">
+            {{ card.heading }}
+          </h2>
+        {%- endif -%}
+        {%- if card.cta_text != blank -%}
+          <a href="{{ card.cta_link }}" class="gtl-cards--card-button button">
+            {{ card.cta_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
+{%- schema -%}
+  {
+    "name": "Get the Look Cards",
+    "tag": "section",
+    "class": "gtl-cards",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "color",
+        "id": "card_background",
+        "label": "Card Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "card_color",
+        "label": "Card Text Color",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "card_accent",
+        "label": "Card Accent Color",
+        "default": "#F50A99"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "card",
+        "name": "Card",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "heading",
+            "label": "Heading",
+            "info": "Bold text will be rendered in the card's accent color."
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text",
+            "default": "Get the Look"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Get the Look Cards",
+        "settings": {
+          "background": "#F8F8F8",
+          "card_background": "#FFFFFF",
+          "card_color": "#000000",
+          "card_accent": "#F50A99"
+        },
+        "blocks": [
+          {
+            "type": "card",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/jr-holiday-gtl-1.png",
+              "heading": "Model's <strong>Beach Vacation</strong> Glow",
+              "cta_text": "Get the Look"
+            }
+          },
+          {
+            "type": "card",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/jr-holiday-gtl-2.png",
+              "heading": "Model's <strong>City Lights</strong> Beauty",
+              "cta_text": "Get the Look"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{%- endschema -%}

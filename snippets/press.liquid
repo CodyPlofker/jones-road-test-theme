@@ -1,0 +1,11 @@
+<div class="press">
+  <div class="swiper-container js-pressMarquee">
+    <div class="swiper-wrapper">
+      {% for post in posts %}
+        <div class="press__item swiper-slide" {{ post.shopify_attributes }}>
+          <span class="press__quote">{{ post.settings.quote }}</span> &mdash; {{ post.settings.source }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

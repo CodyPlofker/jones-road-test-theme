@@ -1,0 +1,10 @@
+<div class="cwg__editorial">
+  <div class="cwg__content text-underline">
+    {{ copy }}
+    {% if ctaText != blank %}
+    <a class="cwg__button" href="{{ ctaLink }}">
+      <span class="button button--{{ ctaColor }}">{{ ctaText }}</span>
+    </a>
+    {% endif %}
+  </div>
+</div>

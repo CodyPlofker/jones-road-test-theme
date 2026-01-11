@@ -1,0 +1,84 @@
+
+
+<!-- begin Convert Experiences code-->
+<script type="text/javascript" src="//cdn-4.convertexperiments.com/js/10041711-10041988.js" {% if template contains 'index' or template contains 'collection' or template contains 'product' %}async{% endif %}></script>
+<!-- end Convert Experiences code -->
+
+<!-- PDQ -->
+<script type="text/javascript" src="https://pdq-scripts.pdqprod.link/shopify-scripts.js" {% if template contains 'index' or template contains 'collection' or template contains 'product' %}async{% endif %}></script>
+
+<!-- Google Tag Manager -->
+{% comment %} <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TMB6LZ4');</script> {% endcomment %}
+<!-- End Google Tag Manager -->
+
+<!-- Google Tag Manager integration- script from Consentmo GDPR Compliance App -->
+<script id="gdpr-gtm-blocking-script">
+  let isGTMExecuted = false;
+  function executeGTM() {
+    if(!isGTMExecuted) {
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-TMB6LZ4');
+      
+      isGTMExecuted = true;
+    }
+  }
+
+  function checkConsentForGTM(adittionalChecks = 0) {  
+    let cpdCookie=(document.cookie.match(/^(?:.*;)?\s*cookieconsent_preferences_disabled(\s*=\s*([^;]+)?)(?:.*)?$/)||[,null])[1];
+    if(cpdCookie != null) {
+      if(parseInt(cpdCookie.indexOf('marketing')) === -1 && parseInt(cpdCookie.indexOf('analytics')) === -1) {
+        executeGTM();
+      }
+    } else {
+      let gdprCache = localStorage.getItem('gdprCache') ? JSON.parse(localStorage.getItem('gdprCache')) : null;
+      let gdprCacheConsentSettings = gdprCache && gdprCache.getCookieConsentSettings ? JSON.parse(gdprCache.getCookieConsentSettings) : null;
+      let gdprCacheCountryDetection = gdprCache && gdprCache.countryDetection ? JSON.parse(gdprCache.countryDetection) : null;
+      let ccsCookie = (document.cookie.match(/^(?:.*;)?\s*cookieconsent_status\s*=\s*([^;]+)(?:.*)?$/)||[,null])[1];
+      if((gdprCacheConsentSettings || (gdprCacheCountryDetection && gdprCacheCountryDetection.disable === '1')) && !ccsCookie) {
+        if((gdprCacheConsentSettings && gdprCacheConsentSettings.status === 'disabled') || gdprCacheCountryDetection.disable === '1'){
+          executeGTM();
+        } else {
+          let initPreferences = parseInt(gdprCacheConsentSettings.checkboxes_behavior);
+          if(initPreferences === 1 || initPreferences === 4) {
+            executeGTM();
+          }
+        }
+      } else {
+        if (adittionalChecks > 0) {
+          setTimeout(function() {
+            checkConsentForGTM(adittionalChecks - 1);
+          }, 1000);
+        } else {
+          executeGTM();
+        }
+      }
+    }
+  }
+
+  checkConsentForGTM(3);
+</script>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TMB6LZ4"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+{% comment %} <!-- Microsoft Clarity -->
+<script type="text/lazyload">
+(function(c,l,a,r,i,t,y){
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "aycw96wxpk");
+</script> {% endcomment %}
+
+<!-- Begin: Northbeam Pixel -->
+<script async type="text/javascript" data-src="//j.northbeam.io/ota-sp/fb6a00d5-38e4-43cb-bf7b-5c10a9eb970e.js"></script>
+<!-- End: Northbeam Pixel -->

@@ -1,0 +1,190 @@
+{
+  "sections": {
+    "quiz": {
+      "type": "quiz-embed",
+      "settings": {
+        "embed": "<div class=\"octane-ai-quiz \" data-quiz-id=\"usFQpNF82n8TofvP\" data-embed-type=\"fullpage\" data-mobile-height=\"match_browser\" data-desktop-height=\"match_browser\"><\/div><script src=\"https:\/\/app.octaneai.com\/n4nxl1gww1w0tm80\/quiz.js\" async=\"\" defer><\/script>",
+        "show_alt_style": true,
+        "results_heading": "Your Face and Neutralizer Pencil Quiz Results Are In",
+        "review_product": "the-face-pencil",
+        "answers_heading": "Summary of your answers",
+        "products_heading": "Based On Your Answers, We Suggest:"
+      }
+    },
+    "6573a704-b5ab-4e5a-aed9-4a7095defe38": {
+      "type": "stepped-products",
+      "blocks": {
+        "step_GfXMUx": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Charlotte_1146_Edit_1.png",
+            "heading": "#1: Moisturize",
+            "description": "<p>Start by applying a touch of Eye Cream to hydrate and prep your under eyes. Allow it to fully absorb before applying The Neutralizer Pencil under your eyes, inner eye corner, and wherever else you are experiencing darkness.<\/p>",
+            "product": "eye-cream",
+            "recommended_product": false
+          }
+        },
+        "fc1ae5a4-3f2b-4d12-b992-fa197c4d6b24": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/JR_111622_1_0427_1_3476b47a-105e-4b0a-8e67-7f076a07bfda.png",
+            "heading": "#2: Apply Your Neutralizer",
+            "description": "<p>Use your finger to tap the product into your skin and cover evenly - avoid tugging. <\/p>",
+            "product": "the-neutralizer-pencil",
+            "recommended_product": true
+          }
+        },
+        "cf09c11e-7fea-4650-905b-b944049067b5": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/JR_052422_00599_1.png",
+            "heading": "#3: Conceal Under Eyes",
+            "description": "<p>Once the darkness is concealed, layer The Face Pencil directly over top, again tapping the product into the skin but this time blending into your natural skin tone for a seamless appearance.<\/p>",
+            "product": "the-face-pencil",
+            "recommended_product": true
+          }
+        },
+        "step_fLqinx": {
+          "type": "step",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/fp_shade25_2.jpg",
+            "heading": "#4: Spot Correct The Face",
+            "description": "<p>Start by applying around the nose to conceal any redness. Next, apply around the mouth, spot correcting as needed and tapping to blend the product into your skin. Build up the coverage level by applying multiple layers. For longer lasting wear, follow up with a light dusting of The Tinted Face Powder.<\/p>",
+            "product": "the-face-pencil",
+            "recommended_product": true
+          }
+        }
+      },
+      "block_order": [
+        "step_GfXMUx",
+        "fc1ae5a4-3f2b-4d12-b992-fa197c4d6b24",
+        "cf09c11e-7fea-4650-905b-b944049067b5",
+        "step_fLqinx"
+      ],
+      "settings": {
+        "section_bg": "#f8f8f8",
+        "heading": "How to Use Together:",
+        "cta_text": "Add All to Cart"
+      }
+    },
+    "demo-video": {
+      "type": "demo-video",
+      "settings": {
+        "heading": "Watch Bobbi Demo The Full Routine",
+        "video_url": "https:\/\/youtu.be\/S8rk3JcXhPg?si=BdVBaFTuFI7XuZSO",
+        "button_text": "Watch Video"
+      }
+    },
+    "87307267-fcc1-44ea-872e-9bf524d94a6d": {
+      "type": "portable-bundle",
+      "settings": {
+        "heading": "Meet Your No-Makeup Makeup Essentials",
+        "image_desktop": "shopify:\/\/shop_images\/jr-portable-bundle-bg-desktop.png",
+        "image_mobile": "shopify:\/\/shop_images\/jr-portable-bundle-bg-mobile.png",
+        "bg_color": "#ebebeb",
+        "product": "the-101-set",
+        "description": "<p>We’ve bundled our bestsellers into a single customizable set. Choose two shades of The Face Pencil and a shade of Miracle Balm (for a luminous, evened-out complexion), and finish with The Mascara to make eyes pop. Done.<\/p><p>THE SET INCLUDES:<\/p><ul><li>2 Face Pencils<\/li><li>1 Miracle Balm<\/li><li>1 Mascara<\/li><\/ul>",
+        "cta_text": "Customize my set"
+      }
+    },
+    "16478788128f6a3b11": {
+      "type": "press-logos",
+      "blocks": {
+        "48443813-6401-47fe-a8b5-75207c623cb0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_vogue_logo.png"
+          }
+        },
+        "4e859dc6-ebde-40a5-9e8a-e523259f4ba0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_wsj_logo.png"
+          }
+        },
+        "26c89421-a056-46e4-bf5c-203ed91eeb68": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_nyt_logo.png"
+          }
+        },
+        "953b51e2-1e98-454c-b451-ab2a3b7b06ac": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_fc_logo.png"
+          }
+        },
+        "518dcff4-50cb-4181-a5e0-135e8e69c49e": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify:\/\/shop_images\/landing_allure_logo.png"
+          }
+        }
+      },
+      "block_order": [
+        "48443813-6401-47fe-a8b5-75207c623cb0",
+        "4e859dc6-ebde-40a5-9e8a-e523259f4ba0",
+        "26c89421-a056-46e4-bf5c-203ed91eeb68",
+        "953b51e2-1e98-454c-b451-ab2a3b7b06ac",
+        "518dcff4-50cb-4181-a5e0-135e8e69c49e"
+      ],
+      "settings": {
+        "section_id": "press",
+        "bg_color": "#ebdadb"
+      }
+    },
+    "0dc9365c-c244-4f10-8651-66a935186cdd": {
+      "type": "reviews-carousel",
+      "blocks": {
+        "0857e850-3800-41d0-a28c-c61d4212811b": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "heading": "Never Going Back",
+            "description": "It’s the perfect color for natural coverage. It’s not thick or cakey, it goes on smooth and provides the right amount of concealing. No going back after finding this.",
+            "author": "Barna N.",
+            "verified": true
+          }
+        },
+        "688d6adb-3421-4352-ad14-3a1744fddf09": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "heading": "No More Dark Circles",
+            "description": "Was the perfect color corrector shade for under my eyes. No more Dark Circles!!",
+            "author": "Rebecca G.",
+            "verified": true
+          }
+        },
+        "5fa35fd4-ef5b-4b4c-a35b-adadccccf013": {
+          "type": "review",
+          "settings": {
+            "rating": 5,
+            "heading": "Quick And Easy To Apply",
+            "description": "It's easy to apply and it improves my appearance without looking made-up.",
+            "author": "Carole D.",
+            "verified": true
+          }
+        }
+      },
+      "block_order": [
+        "0857e850-3800-41d0-a28c-c61d4212811b",
+        "688d6adb-3421-4352-ad14-3a1744fddf09",
+        "5fa35fd4-ef5b-4b4c-a35b-adadccccf013"
+      ],
+      "settings": {
+        "autoplay": true,
+        "speed": 3000,
+        "heading": "What Our Customers Are Saying"
+      }
+    }
+  },
+  "order": [
+    "quiz",
+    "6573a704-b5ab-4e5a-aed9-4a7095defe38",
+    "demo-video",
+    "87307267-fcc1-44ea-872e-9bf524d94a6d",
+    "16478788128f6a3b11",
+    "0dc9365c-c244-4f10-8651-66a935186cdd"
+  ]
+}

@@ -1,0 +1,33 @@
+<div class="cart-template" data-view="cart">
+  <a href="{{ section.settings.return_button_link }}" class="button">{{ section.settings.return_button_text }}</a>
+  {% form 'cart', cart %}
+    {{ form | payment_terms }}
+  {% endform %}
+</div>
+
+{% schema %}
+{
+  "name": "Cart Template",
+  "tag": "section",
+  "class": "cart-template-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "return_button_text",
+      "label": "Return Button Text",
+      "default": "Return to Store"
+    },
+    {
+      "type": "url",
+      "id": "return_button_link",
+      "label": "Return Button Link",
+      "default": "/"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Template"
+    }
+  ]
+}
+{% endschema %}

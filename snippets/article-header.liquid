@@ -1,0 +1,20 @@
+{%- assign author = article.metafields.body.author -%}
+{%- assign photography_credits = article.metafields.body.photography -%}
+{%- assign article_blog_name = article.url | split: '/blogs/' | last | split: '/' | first -%}
+
+<div class="article__body-header">
+  <p class="article__body-details">Diary / <a href="{{ blogs[article_blog_name].url }}">{{ article_blog_name | capitalize }}</a> / {{ article.published_at | date: '%b %e, %Y' }}</p>
+  <h1 class="article__body-title">
+    {{ article.title }}
+  </h1>
+  {%- if author != blank or photography_credits != blank -%}
+    <div class="article__body-credits">
+      {%- if author != blank -%}
+        <p>Written by: {{ author }}</p>
+      {%- endif -%}
+      {%- if photography_credits != blank -%}
+        <p>Photography by: {{ photography_credits }}</p>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</div>

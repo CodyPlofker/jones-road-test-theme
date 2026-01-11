@@ -1,0 +1,132 @@
+{% schema %}
+  {
+    "name": "Copy with product grid",
+    "settings": [
+      {
+        "id": "ctaLink",
+        "label": "Cta Link",
+        "type": "text"
+      },
+      {
+        "id": "ctaText",
+        "label": "Cta text",
+        "type": "text"
+      },
+      {
+        "id": "color",
+        "label": "Cta Color",
+        "type": "select",
+        "options": [
+          {
+            "value": "black",
+            "label": "black"
+          },
+          {
+            "value": "pink",
+            "label": "pink"
+          },
+          {
+            "value": "white",
+            "label": "white"
+          }
+        ]
+      },
+      {
+        "id": "gridType",
+        "label": "Grid type",
+        "type": "select",
+        "options": [
+          {
+            "value": "1x1",
+            "label": "single tile"
+          },
+                    {
+            "value": "2x2",
+            "label": "2x2"
+          },
+          {
+            "value": "3x3",
+            "label": "3x3"
+          }
+        ]
+      },
+      {
+        "id": "copy",
+        "label": "copy",
+        "type": "richtext"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tile",
+        "name": "Tile",
+        "settings": [
+          {
+            "id": "product",
+            "label": "Product",
+            "type": "product"
+          },
+          {
+            "id": "image",
+            "label": "Image (optional)",
+            "type": "image_picker"
+          }
+        ]
+      },
+      {
+        "type": "tile-wide",
+        "name": "Wide Tile",
+        "settings": [
+          {
+            "id": "product",
+            "label": "Product",
+            "type": "product"
+          },
+          {
+            "id": "image",
+            "label": "Image (optional)",
+            "type": "image_picker"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Content",
+        "name": "Copy with product grid"
+      }
+    ]
+  }
+{% endschema %}
+<div class="cwg">
+  {% include "cwg-copy",
+    copy: section.settings.copy,
+    ctaLink: section.settings.ctaLink,
+    ctaText: section.settings.ctaText,
+    ctaColor: section.settings.color
+  %}
+  <div class="cwg__grid cwg__grid--{{ section.settings.gridType }}">
+    {% for block in section.blocks %}
+      {% if section.settings.gridType == "2x2" %}
+        {% assign product = all_products[block.settings.product] %}
+        {% include "product-tile",
+          product,
+          image_static: product.images[0],
+          image_hover: product.images[1],
+          widthModifier: "half",
+        %}
+      {% else %}
+        {%- assign isWide = false -%}
+        {%- if block.type == "tile-wide" -%}
+        {%- assign isWide = true -%}
+        {%- endif -%}
+        {% include "cwg-tile",
+          gridType: section.settings.gridType,
+          image: block.settings.image,
+          isWide: isWide,
+          product: all_products[block.settings.product],
+        %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

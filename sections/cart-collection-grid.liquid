@@ -1,0 +1,311 @@
+{%- comment -%}
+  Collection Grid Section
+{%- endcomment -%}
+
+{%- assign collection = section.settings.collection -%}
+{%- assign products_limit = section.settings.products_limit -%}
+{%- assign results_count = collection.products_count -%}
+
+{%- if results_count > products_limit -%}
+  {%- assign results_count = products_limit -%}
+{%- endif -%}
+
+{%- capture collection_results -%}
+  <div class="collection__grid-items">
+  {%- for item in collection.products limit: products_limit -%}
+    {% liquid
+      assign compliance_product_title = null
+      assign current_country_product = null
+      assign compliance_products = item.metafields.custom.compliance_products.value
+      if compliance_products
+        assign compliance_product_title = compliance_products.product_title
+        assign iso_code = localization.country.currency.iso_code
+        case iso_code
+          when 'USD'
+            assign current_country_product = compliance_products.usa_product.value
+          when 'CAD'
+            assign current_country_product = compliance_products.canada_product.value
+          when 'GBP'
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when 'EUR', 'BGN', 'CZK', 'DKK', 'HUF', 'PLN', 'RON', 'SEK'
+            assign current_country_product = compliance_products.eu_uk_product.value
+        endcase
+      endif
+    %}
+
+    {% if compliance_products %}
+      {% if current_country_product.id == item.id %}
+        {%-
+          include 'product-card' with
+          mobile_carousel: true,
+          compliance_product_title: compliance_product_title,
+          index: forloop.index,
+          product: current_country_product
+        -%}
+      {% else %}
+        {%- assign results_count = results_count | minus: 1 -%}
+        {% continue %}
+      {% endif %}
+    {% else %}
+      {%- unless item.tags contains 'hide' -%}
+        {%-
+          include 'product-card' with
+          mobile_carousel: true,
+          index: forloop.index,
+          product: item
+        -%}
+      {%- else -%}
+        {%- assign results_count = results_count | minus: 1 -%}
+      {%- endunless -%}
+    {% endif %}
+  {%- endfor -%}
+  </div>
+{%- endcapture -%}
+
+{% if collection != blank %}
+<div class="plp collection-grid-section" data-view="plp" data-section-id="{{ section.id }}">
+  {% if section.settings.show_title %}
+    <div class="collection-grid-section__header">
+      <h2 class="collection-grid-section__title">{{ section.settings.custom_title | default: collection.title }}</h2>
+    </div>
+  {% endif %}
+  <div>
+    {%- if results_count == 0 -%}
+      <div class="collection-grid-section__empty">
+        <p>{{ section.settings.empty_message | default: 'No products found in this collection.' }}</p>
+      </div>
+    {%- else -%}
+      <div x-data id="collection-grid-{{ section.id }}" class="collection__grid js-collectionGrid collection__grid-shop-all" data-component="collectionGrid">
+        <div
+          id="product-grid-collection-{{ section.id }}"
+          class="js-collectionItems collection__grid-wrapper"
+          data-url="{{ collection.url }}"
+          data-id="{{ collection.handle }}"
+          data-count="{{ results_count }}"
+        >
+          {{ collection_results }}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{% else %}
+  {% if request.design_mode %}
+    <div class="collection-grid-section__placeholder">
+      <p>Please select a collection in the section settings.</p>
+    </div>
+  {% endif %}
+{% endif %}
+
+<style>
+  .collection-grid-section__header {
+    text-align: {{ section.settings.title_alignment }};
+    padding: {{ section.settings.title_padding_top }}px 20px {{ section.settings.title_padding_bottom }}px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .collection-grid-section__header {
+      padding: {{ section.settings.mobile_title_padding_top }}px 20px {{ section.settings.mobile_title_padding_bottom }}px;
+    }
+  }
+
+  .collection-grid-section__title {
+    font-size: {{ section.settings.title_font_size }}px;
+    font-weight: {{ section.settings.title_font_weight }};
+    margin: 0;
+    font-family: "Canela", serif;
+    color: {{ section.settings.title_color }};
+    text-transform: {{ section.settings.title_text_transform }};
+    letter-spacing: {{ section.settings.title_letter_spacing }}px;
+  }
+
+  .collection-grid-section__empty {
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .collection-grid-section__placeholder {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f5f5f5;
+    border: 2px dashed #ccc;
+    margin: 20px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .collection-grid-section__title {
+      font-size: {{ section.settings.title_font_size_mobile | default: section.settings.title_font_size }}px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Cart Collection Grid",
+  "tag": "section",
+  "class": "collection-grid-section-wrapper",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Collection"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Products to show",
+      "min": 4,
+      "max": 50,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Show title",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "custom_title",
+      "label": "Custom title",
+      "info": "Leave blank to use collection title"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "label": "Title font size (desktop)",
+      "min": 16,
+      "max": 72,
+      "step": 1,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Title font size (mobile)",
+      "min": 14,
+      "max": 48,
+      "step": 1,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Title font weight",
+      "options": [
+        { "value": "300", "label": "Light" },
+        { "value": "400", "label": "Normal" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semi-bold" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "title_text_transform",
+      "label": "Title text transform",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "uppercase", "label": "Uppercase" },
+        { "value": "lowercase", "label": "Lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_letter_spacing",
+      "label": "Title letter spacing",
+      "min": 0,
+      "max": 5,
+      "step": 0.1,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_padding_top",
+      "label": "Title padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "title_padding_bottom",
+      "label": "Title padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_padding_top",
+      "label": "Mobile Title padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_padding_bottom",
+      "label": "Mobile Title padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Empty State"
+    },
+    {
+      "type": "text",
+      "id": "empty_message",
+      "label": "Empty collection message",
+      "default": "No products found in this collection."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cart Collection Grid"
+    }
+  ]
+}
+{% endschema %}

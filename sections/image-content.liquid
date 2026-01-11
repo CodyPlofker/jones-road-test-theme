@@ -1,0 +1,240 @@
+{%- assign config = section.settings -%}
+
+<div class="image__content">
+  <div class="image__content-inner {{ config.layout_desktop }}" style="--layout: {{ config.layout_desktop }};">
+    <div class="image__content-image {{ config.size_desktop }} {{ config.size_mobile }}">
+      <figure>
+        {%- if config.image != blank -%}
+          {{ config.image | image_url: width: 1440 | image_tag: width: 720, loading: 'lazy' }}
+        {%- endif -%}
+      </figure>
+    </div>
+    <div class="image__content-content">
+      {%- if config.heading != blank -%}
+        <h2 class="image__content-heading {% if config.heading_highlight %} highlight {% endif %}">
+          {{ config.heading }}
+        </h2>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- assign bs = block.settings -%}
+        {%- case block.type -%}
+          {%- when 'paragraph' -%}
+            <div class="image__content-paragraph richtext text-underline" style="color: {{ bs.color }}">
+              {{ bs.text }}
+            </div>
+          {%- when 'image_text' -%}
+            <div class="image__content-imagetext">
+              <div class="image__content-imagetext--image {{ bs.image_size }}">
+                <figure>
+                  {%- if bs.image != blank -%}
+                    {{ bs.image | image_url: width: 600 | image_tag: width: 300, loading: 'lazy' }}
+                  {%- endif -%}
+                </figure>
+              </div>
+              <div class="image__content-imagetext--text">
+                {%- if bs.heading != blank -%}
+                  <h3 class="image__content-imagetext--heading text-underline">
+                    {{ bs.heading }}
+                  </h3>
+                {%- endif -%}
+                {%- if bs.description != blank -%}
+                  <div class="image__content-imagetext--description text-underline">
+                    {{ bs.description }}
+                  </div>
+                {%- endif -%}
+                {%- if bs.cta_text != blank -%}
+                  <a href="{{ bs.cta_link }}" class="image__content-imagetext--cta">
+                    {{ bs.cta_text }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- when 'review' -%}
+            <div class="image__content-review">
+              <div class="image__content-review--stars">
+                {%- assign rating = bs.stars | plus: 0 -%}
+                {%- for i in (1..rating) -%}
+                  <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 0L12.2451 6.90983H19.5106L13.6327 11.1803L15.8779 18.0902L10 13.8197L4.12215 18.0902L6.36729 11.1803L0.489435 6.90983H7.75486L10 0Z" fill="#F50A99"/>
+                  </svg>
+                {%- endfor -%}
+              </div>
+              <blockquote>
+                <p class="image__content-review--review">
+                  {{ bs.review }}
+                </p>
+                <cite class="image__content-review--author">
+                  {{ bs.author | prepend: '- ' }}
+                </cite>
+              </blockquote>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Image + Mixed Content",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "select",
+        "id": "layout_desktop",
+        "label": "Desktop Layout",
+        "options": [
+          { "label": "Image on Left", "value": "row" },
+          { "label": "Image on Right", "value": "row-reverse" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "size_desktop",
+        "label": "Desktop Image Size",
+        "options": [
+          { "label": "Contained", "value": "contained-desktop" },
+          { "label": "Fullbleed", "value": "fullbleed-desktop" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "size_mobile",
+        "label": "Mobile Image Size",
+        "options": [
+          { "label": "Contained", "value": "contained-mobile" },
+          { "label": "Fullbleed", "value": "fullbleed-mobile" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "checkbox",
+        "id": "heading_highlight",
+        "label": "Show highlight",
+        "default": true
+      }
+    ],
+    "blocks": [
+      {
+        "type": "paragraph",
+        "name": "Paragraph",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "color",
+            "id": "color",
+            "label": "Text Color",
+            "default": "#000"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "image_text",
+        "name": "Image + Text",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "select",
+            "id": "image_size",
+            "label": "Image Size",
+            "options": [
+              { "label": "Small", "value": "small" },
+              { "label": "Large", "value": "large" }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link"
+          }
+        ]
+      },
+      {
+        "type": "review",
+        "name": "Review",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "range",
+            "id": "stars",
+            "label": "Stars",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "default": 5,
+            "unit": "★"
+          },
+          {
+            "type": "text",
+            "id": "review",
+            "label": "Review"
+          },
+          {
+            "type": "text",
+            "id": "author",
+            "label": "Author"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Image + Mixed Content" }]
+  }
+{%- endschema -%}

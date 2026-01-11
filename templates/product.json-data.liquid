@@ -1,0 +1,556 @@
+{% layout none %}
+{%- assign swatches = settings.swatches | newline_to_br | split: '<br />' -%}
+
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- if current_variant.metafields.config.hide_from_pdp == true -%}
+  {%- for variant in product.variants -%}
+    {%- if variant.metafields.config.hide_from_pdp != true -%}
+      {%- assign current_variant = variant -%}
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+{%- assign product_images = product.images | where: 'attached_to_variant?', false -%}
+{%- assign product_media = product.media | where: 'media_type', 'video' -%}
+{%- assign product_media_external = product.media | where: 'media_type', 'external_video' -%}
+
+{%- if settings.waitlist_enabled -%}
+  {%- assign hasWaitlist = true -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains 'disable_waitlist' -%}
+      {%- assign hasWaitlist = false -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- else -%}
+  {%- assign hasWaitlist = false -%}
+{%- endif -%}
+
+{%- assign subtitle = product.metafields.details.subtitle -%}
+{%- assign weight = product.metafields.weight -%}
+{%- assign size_guide = product.metafields.config.size_guide.value -%}
+{%- assign show_quiz = product.metafields.details.show_quiz -%}
+{%- assign show_findation = product.metafields.details.show_findation -%}
+
+{%- assign tagline = section.settings.tagline -%}
+{%- assign us_copy = section.settings.free_shipping_us -%}
+{%- assign uk_copy = section.settings.free_shipping_uk -%}
+{%- assign eu_copy = section.settings.free_shipping_eu -%}
+{%- assign irl_copy = section.settings.free_shipping_ie -%}
+{%- assign cad_copy = section.settings.free_shipping_cad -%}
+{%- assign bgn_copy = section.settings.free_shipping_bgn -%}
+{%- assign czk_copy = section.settings.free_shipping_czk -%}
+{%- assign dkk_copy = section.settings.free_shipping_dkk -%}
+{%- assign huf_copy = section.settings.free_shipping_huf -%}
+{%- assign pln_copy = section.settings.free_shipping_pln -%}
+{%- assign ron_copy = section.settings.free_shipping_ron -%}
+{%- assign sek_copy = section.settings.free_shipping_sek -%}
+{%- assign aud_copy = section.settings.free_shipping_aud -%}
+{%- assign nzd_copy = section.settings.free_shipping_nzd -%}
+
+{%- assign how_to_text = product.metafields.how_to.how_to_text -%}
+{%- assign how_to_tip = product.metafields.how_to.bobbis_tip -%}
+{%- assign how_to_video = product.metafields.how_to.video -%}
+{%- assign how_to_video_external = product.metafields.how_to.external_video -%}
+{%- assign how_to_poster = product.metafields.how_to.poster -%}
+
+{%- assign upsells = product.metafields.upsell -%}
+
+{%- assign featured_ingredients = product.metafields.featured_ingredients -%}
+{%- assign ingredients = product.metafields.ingredients.ingredients -%}
+
+{%- assign variant_how_to_override = current_variant.metafields.how_to.how_to_text -%}
+{%- assign variant_ingredients_override = current_variant.metafields.ingredients.ingredients -%}
+
+{%- if variant_how_to_override != blank -%}
+  {%- assign how_to_text = variant_how_to_override -%}
+{%- endif -%}
+
+{%- if variant_ingredients_override != blank -%}
+  {%- assign ingredients = variant_ingredients_override -%}
+{%- endif -%}
+
+{%- assign faqs = product.metafields.faqs -%}
+{%- assign has_faqs = false -%}
+{%- if faqs.size > 0 -%}
+  {%- assign has_faqs = true -%}
+{%- endif -%}
+
+{%- assign shipping_note = section.settings.shipping -%}
+{%- assign returns_note = section.settings.returns -%}
+{%- assign has_notes = false -%}
+{%- if shipping_note != blank or returns_note != blank -%}
+  {%- assign has_notes = true -%}
+{%- endif -%}
+
+{%- assign has_shade_breakdown = false -%}
+{%- assign shade_breakdown_columns = product.metafields.shade_breakdown.columns.value -%}
+{%- if shade_breakdown_columns != blank -%}
+  {%- assign has_shade_breakdown = true -%}
+{%- endif -%}
+
+{%- assign has_ingredients = false -%}
+{%- if featured_ingredients.size > 0 or ingredients != blank -%}
+  {%- assign has_ingredients = true -%}
+{%- endif -%}
+
+{%- capture weight_copy -%}
+  {%- for field in weight -%}
+    {%- assign name = field | first -%}
+    {%- assign value = weight[name].value -%}
+    {%- assign unit = weight[name].unit -%}
+    {{ value }}{{ unit }}{% unless forloop.last %} / {% endunless %}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{
+  "id": {{ product.id }},
+  "title": {{ product.title | json }},
+  "categories": {{ product.collections | map: 'title' | json }},
+  "image": "https:{{ product.featured_image.src | img_url: 'grande' }}",
+  "url": "{{ product.url | append: '?country=' | append: localization.country.iso_code }}",
+  "brand": {{ product.vendor | json }},
+  "price": {{ product.price | money_without_trailing_zeros | json }},
+  "cap": {{ product.compare_at_price_max | money | json }},
+  "has_waitlist": {{ hasWaitlist }},
+  "waitlist_copy": "{{ settings.waitlist_cta }}",
+  "reviews": {
+    "average": {{ product.metafields.junip.rating_average | default: 0 }},
+    "count": {{ product.metafields.junip.rating_count | default: 0 }}
+  },
+  "options": [
+    {%- for option in product.options_with_values -%}
+      {
+        "id": "option{{ option.position }}",
+        "name": "{{ option.name }}",
+        "position": {{ option.position }},
+        "values": [
+          {%- for value in option.values -%}
+            "{{ value }}"{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+        ]
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ],
+  "variants": [
+    {%- for variant in product.variants -%}
+      {%- assign is_selected = false -%}
+      {%- if current_variant == variant -%}
+        {%- assign is_selected = true -%}
+      {%- endif -%}
+
+      {%- assign how_to_override = variant.metafields.how_to.how_to_text -%}
+      {%- assign ingredients_override = variant.metafields.ingredients.ingredients -%}
+
+      {%- if how_to_override != blank -%}
+        {%- assign variant_how_to = how_to_override.value -%}
+      {%- else -%}
+        {%- assign variant_how_to = product.metafields.how_to.how_to_text.value -%}
+      {%- endif -%}
+
+      {%- if ingredients_override != blank -%}
+        {%- assign variant_ingredients = ingredients_override.value -%}
+      {%- else -%}
+        {%- assign variant_ingredients = product.metafields.ingredients.ingredients.value -%}
+      {%- endif -%}
+
+      {%- assign findation_description = variant.metafields.findation_hero.description -%}
+
+      {
+        "id": {{ variant.id }},
+        "selected": {{ is_selected }},
+        "available": {{ variant.available }},
+        "title": "{{ variant.title }}",
+        "recommended_note_step_2": "{{ variant.metafields.custom.recommended_note_step_2.value }}",
+        {% for step in (2..4) %}
+          {%- assign metafield_key = 'recommended_variants_label_step_' | append: step -%}
+          {%- assign recommended_texts = variant.metafields.custom[metafield_key].value -%}
+          "recommended_texts_step_{{ step }}": [
+            {% if recommended_texts != blank %}
+              {%- for text in recommended_texts -%}
+                {"recommended_text": "{{ text }}"}{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            {% endif %}
+          ],
+          {%- assign metafield_key = 'recommended_variants_step_' | append: step -%}
+          {%- assign recommended_variants = variant.metafields.custom[metafield_key].value -%}
+          "recommended_variants_step_{{ step }}": [
+            {% if recommended_variants != blank %}
+              {% for recommended_variant in recommended_variants %}
+                {% assign recommended_product = recommended_variant.product %}
+                {% assign recommended_product_image = recommended_product.featured_image.src | img_url: 'grande' %}
+                {% assign recommended_product_title = recommended_product.title %}
+                {% assign swatch_override = false %}
+
+                {% if recommended_variant.metafields.swatch.color != blank %}
+                  {% assign swatch_override = recommended_variant.metafields.swatch.color %}
+                {% endif %}
+                {% if recommended_variant.metafields.swatch.image != blank %}
+                  {% assign swatch_override = recommended_variant.metafields.swatch.image | image_url: width: 100, height: 100 %}
+                {% endif %}
+
+                {% assign fallback_swatch = '' %}
+                {% if swatch_override == false %}
+                  {% for s in swatches %}
+                    {% assign swatch = s | split: '==' %}
+                    {% assign swatch_name = swatch | first | strip %}
+                    {% assign swatch_value = swatch | last | strip %}
+                    {% if swatch_name == recommended_variant.title %}
+                      {% assign fallback_swatch = swatch_value | remove_first: '#' %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+
+                {
+                  "id": "{{ recommended_variant.id }}",
+                  "title": "{{ recommended_variant.title }}",
+                  "recommended_product_id": "{{ recommended_product.id }}",
+                  "recommended_product_title": "{{ recommended_product.title }}",
+                  "swatch": {% if swatch_override != false %}"{{ swatch_override }}"{% elsif fallback_swatch contains '.' %}"{{ fallback_swatch }}"{% else %}"{{ fallback_swatch | prepend: '#' }}"{% endif %}{% if forloop.first %},{% endif  %}
+
+                  {% if forloop.first %}
+                    {%- assign quiz_link = pages[recommended_product.metafields.details.quiz_link].url -%}
+                    {%- if quiz_link == blank -%}
+                      {%- assign quiz_link = settings.shade_form_link -%}
+                    {%- endif -%}
+
+                    "recommended_product_object": {
+                      "id": "{{ recommended_product.id }}",
+                      "title": "{{ recommended_product_title }}",
+                      "categories": "{{ recommended_product.collections | map: 'title' }}",
+                      "description": "{{ recommended_product.metafields.custom.bundle_product_description }}",
+                      "image": "https:{{ recommended_product_image }}",
+                      "url": "{{ recommended_product.url | append: '?country=' | append: localization.country.iso_code }}",
+                      "brand": "{{ recommended_product.vendor }}",
+                      "price": "{{ recommended_product.price | money_without_trailing_zeros }}",
+                      "cap": "{{ recommended_product.compare_at_price_max | money }}",
+                      "quiz_link": "{{ quiz_link }}",
+                      "reviews": {
+                        "average": "{{ recommended_product.metafields.junip.rating_average | default: 0 }}",
+                        "count": "{{ recommended_product.metafields.junip.rating_count | default: 0 }}"
+                      },
+                      "options": [
+                        {% for option in recommended_product.options_with_values %}
+                          {
+                            "id": "option{{ option.position }}",
+                            "name": "{{ option.name }}",
+                            "position": "{{ option.position }}",
+                            "values": [
+                              {% for value in option.values %}
+                                "{{ value }}"{% unless forloop.last %},{% endunless %}
+                              {% endfor %}
+                            ]
+                          }{% unless forloop.last %},{% endunless %}
+                        {% endfor %}
+                      ],
+                      "variants": [
+                        {% for variant in recommended_variant.product.variants %}
+                          {%- assign is_selected = false -%}
+                          {%- if current_variant == variant -%}
+                            {%- assign is_selected = true -%}
+                          {%- endif -%}
+
+                          {%- assign how_to_override = variant.metafields.how_to.how_to_text -%}
+                          {%- assign ingredients_override = variant.metafields.ingredients.ingredients -%}
+
+                          {%- if how_to_override != blank -%}
+                            {%- assign variant_how_to = how_to_override.value -%}
+                          {%- else -%}
+                            {%- assign variant_how_to = product.metafields.how_to.how_to_text.value -%}
+                          {%- endif -%}
+
+                          {%- if ingredients_override != blank -%}
+                            {%- assign variant_ingredients = ingredients_override.value -%}
+                          {%- else -%}
+                            {%- assign variant_ingredients = product.metafields.ingredients.ingredients.value -%}
+                          {%- endif -%}
+
+                          {%- assign recommended_findation_description = variant.metafields.findation_hero.description -%}
+
+                          {% assign recommended_swatch_override = false %}
+
+                          {% if variant.metafields.swatch.color != blank %}
+                            {% assign recommended_swatch_override = variant.metafields.swatch.color %}
+                          {% endif %}
+                          {% if variant.metafields.swatch.image != blank %}
+                            {% assign recommended_swatch_override = variant.metafields.swatch.image | image_url: width: 500 %}
+                          {% endif %}
+
+                          {% assign fallback_swatch = '' %}
+                          {% if recommended_swatch_override == false %}
+                            {% for s in swatches %}
+                              {% assign swatch = s | split: '==' %}
+                              {% assign swatch_name = swatch | first | strip %}
+                              {% assign swatch_value = swatch | last | strip %}
+                              {% if swatch_name == variant.title %}
+                                {% assign fallback_swatch = swatch_value | remove_first: '#' %}
+                                {% break %}
+                              {% endif %}
+                            {% endfor %}
+                          {% endif %}
+
+                          {
+                            "id": "{{ variant.id }}",
+                            "title": "{{ variant.title }}",
+                            "selected": {{ is_selected }},
+                            "available": {{ variant.available }},
+                            "swatch": {% if recommended_swatch_override != false %}"{{ recommended_swatch_override }}"{% elsif fallback_swatch contains '.' %}"{{ fallback_swatch }}"{% else %}"{{ fallback_swatch | prepend: '#' }}"{% endif %},
+                            {%- if recommended_findation_description != blank -%}
+                              "description": "{{ recommended_findation_description }}",
+                            {%- endif -%}
+                            "price": "{{ variant.price | money_without_trailing_zeros }}",
+                            "cap": "{{ variant.compare_at_price | money_without_trailing_zeros }}",
+                            "options": {{ variant.options | json }},
+                            "product_id": {{ recommended_product.id }},
+                            "product_title": {{ variant.product.title | json }},
+                            "overrides": [
+                              {
+                                "name": "how_to",
+                                "content": {{ variant_how_to | json }}
+                              },
+                              {
+                                "name": "ingredients",
+                                "content": {{ variant_ingredients | json }}
+                              }
+                            ],
+                            "media": [
+                              {%- assign variant_media = variant.metafields.carousel -%}
+                              {%- assign variant_custom_carousel = variant.metafields.custom.carousel_media -%}
+                              {%- assign variant_before-after-index = variant.metafields.custom.before_after_index -%}
+                              {%- assign variant_before-after-images = variant.metafields.custom.before_after_images.value -%}
+                              {%- assign before_image = "" -%}
+                              {%- assign after_image = "" -%}
+
+                            {% if variant_before-after-index %}
+                              {%- for field in variant_before-after-images -%}
+                                {%- if forloop.index0 == 0 -%}
+                                  {%- assign before_image = field -%}
+                                {%- else -%}
+                                  {%- assign after_image = field -%}
+                                {%- endif -%}
+                              {%- endfor -%}
+                            {% endif %}
+
+
+                              {
+                                "src": "{{ variant.image | image_url: width: 500 }}",
+                                "srcset": "{{ variant.image | image_url: width: 1000 }}",
+                                "type": "image",
+                                "extension": "{{ variant.image.src | split: '.' | last }}"
+                              }
+                              {%- if variant_custom_carousel -%}
+                                ,{%- for media in variant_custom_carousel.value -%}
+                                  {%- include 'component_media' with media, no_render: true -%}
+                                  {
+                                    "src": "{%- if is_image -%}{{ media | image_url: width: 500 }}{%- else -%}{{ media.sources[1].url }}{%- endif -%}",
+                                    "srcset": "{%- if is_image -%}{{ media | image_url: width: 1000 }}{%- else -%}{{ media.url }}{%- endif -%}",
+                                    "type": "{% if is_image %}image{% else %}video{% endif %}",
+                                    "extension": "{%- if is_image -%}{{ extension }}{%- else -%}mp4{%- endif -%}",
+                                    "before_after_index": "{{ variant_before-after-index }}",
+                                    "before_image": "{%- if variant_before-after-index -%}{{ before_image | image_url: width: 1000 }}{%- else -%}no{%- endif -%}",
+                                    "after_image": "{%- if variant_before-after-index -%}{{ after_image | image_url: width: 1000 }}{%- else -%}no{%- endif -%}"
+                                  }{%- unless forloop.last -%},{%- endunless -%}
+                                {%- endfor -%}
+                              {%- elsif variant_media.size > 0 -%}
+                                ,{%- for field in variant_media -%}
+                                  {%- assign name = field | first -%}
+                                  {%- assign media = variant_media[name].value -%}
+                                  {%- include 'component_media' with media, no_render: true -%}
+                                  {
+                                    "src": "{%- if is_image -%}{{ media | image_url: width: 500 }}{%- else -%}{{ media.sources[1].url }}{%- endif -%}",
+                                    "srcset": "{%- if is_image -%}{{ media | image_url: width: 1000 }}{%- else -%}{{ media.url }}{%- endif -%}",
+                                    "type": "{% if is_image %}image{% else %}video{% endif %}",
+                                    "extension": "{%- if is_image -%}{{ extension }}{%- else -%}mp4{%- endif -%}",
+                                    "before_after_index": "{{ variant_before-after-index }}",
+                                    "before_image": "{%- if variant_before-after-index -%}{{ before_image | image_url: width: 1000 }}{%- else -%}no{%- endif -%}",
+                                    "after_image": "{%- if variant_before-after-index -%}{{ after_image | image_url: width: 1000 }}{%- else -%}no{%- endif -%}"
+                                  }{%- unless forloop.last -%},{%- endunless -%}
+                                {%- endfor -%}
+                                {%- if product_images.size > 0 -%}
+                                  ,{%- for image in product_images -%}
+                                    {%- unless image == product.featured_image -%}
+                                      {
+                                        "src": "{{ image | image_url: width: 500 }}",
+                                        "srcset": "{{ image | image_url: width: 1000 }}",
+                                        "type": "image",
+                                        "extension": "{{ image.src | split: '.' | last }}"
+                                      }{%- unless forloop.last -%},{%- endunless -%}
+                                    {%- endunless -%}
+                                  {%- endfor -%}
+                                {%- endif -%}
+                                {%- if product_media.size > 0 -%}
+                                  ,{%- for media in product_media -%}
+                                    {%- assign src = media.sources | where: 'mime_type', 'video/mp4' | first -%}
+                                    {
+                                      "src": "{{ src.url }}",
+                                      "srcset": "{{ src.url }}",
+                                      "is_image": false,
+                                      "extension": "mp4"
+                                    }{%- unless forloop.last -%},{%- endunless -%}
+                                  {%- endfor -%}
+                                {%- endif -%}
+                                {%- if product_media_external.size > 0 -%}
+                                  ,{%- for media in product_media_external -%}
+                                    {
+                                      "src": {{ media | external_video_url: loop: "1", muted: "1", modestbranding: "1", enablejsapi: "1" | external_video_tag: class: "aspect-child" | json }},
+                                      "srcset": "{{ media.preview_image }}",
+                                      "type": "{{ media.media_type }}",
+                                      "extension": "mp4"
+                                    }{%- unless forloop.last -%},{%- endunless -%}
+                                  {%- endfor -%}
+                                {%- endif -%}
+                              {%- endif -%}
+                            ]{%- if show_findation == true -%},
+                              {%- assign findation_images = variant.metafields.findation -%}
+                              "findation": {
+                                "title": "{{ variant.title }}",
+                                "description": "{{ findation_description }}",
+                                "images": [
+                                  {%- for i in (1..4) -%}
+                                    {%- assign metafield_key = 'image_' | append: forloop.index -%}
+                                    {%- assign image = findation_images[metafield_key] -%}
+                                    {
+                                      "image": "{{ image }}",
+                                      "src": "{{ image | img_url: 'x750' }}",
+                                      "srcset": "{{ image | img_url: 'x1500' }} 2x",
+                                      "alt": {{ image.alt | json | escape }}
+                                    }
+                                    {%- unless forloop.last -%},{%- endunless -%}
+                                  {%- endfor -%}
+                                ]
+                              }
+                            {%- endif -%}
+                          }{% unless forloop.last %},{% endunless %}
+                        {% endfor %}
+                      ]
+                    }
+                  {% endif %}
+                }{% unless forloop.last %},{% endunless %}
+              {% endfor %}
+            {% endif %}
+          ],
+        {% endfor %}
+        {%- if findation_description != blank -%}
+          "description": "{{ findation_description }}",
+        {%- endif -%}
+        "price": "{{ variant.price | money_without_trailing_zeros }}",
+        "cap": "{{ variant.compare_at_price | money_without_trailing_zeros }}",
+        "options": {{ variant.options | json }},
+        "product_id": {{ product.id }},
+        "product_title": {{ variant.product.title | json }},
+        "overrides": [
+          {
+            "name": "how_to",
+            "content": {{ variant_how_to | json }}
+          },
+          {
+            "name": "ingredients",
+            "content": {{ variant_ingredients | json }}
+          }
+        ],
+                            "media": [
+                              {%- assign variant_media = variant.metafields.carousel -%}
+                              {%- assign variant_custom_carousel = variant.metafields.custom.carousel_media -%}
+                              {%- assign variant_before-after-index = variant.metafields.custom.before_after_index -%}
+                              {%- assign variant_before-after-images = variant.metafields.custom.before_after_images.value -%}
+                              {%- assign before_image = "" -%}
+                              {%- assign after_image = "" -%}
+
+                            {% if variant_before-after-index %}
+                              {%- for field in variant_before-after-images -%}
+                                {%- if forloop.index0 == 0 -%}
+                                  {%- assign before_image = field -%}
+                                {%- else -%}
+                                  {%- assign after_image = field -%}
+                                {%- endif -%}
+                              {%- endfor -%}
+                            {% endif %}
+
+
+                              {
+                                "src": "{{ variant.image | image_url: width: 500 }}",
+                                "srcset": "{{ variant.image | image_url: width: 1000 }}",
+                                "type": "image",
+                                "extension": "{{ variant.image.src | split: '.' | last }}"
+                              }
+                              {%- if variant_custom_carousel -%}
+                                ,{%- for media in variant_custom_carousel.value -%}
+                                  {%- include 'component_media' with media, no_render: true -%}
+                                  {
+                                    "src": "{%- if is_image -%}{{ media | image_url: width: 500 }}{%- else -%}{{ media.sources[1].url }}{%- endif -%}",
+                                    "srcset": "{%- if is_image -%}{{ media | image_url: width: 1000 }}{%- else -%}{{ media.url }}{%- endif -%}",
+                                    "type": "{% if is_image %}image{% else %}video{% endif %}",
+                                    "extension": "{%- if is_image -%}{{ extension }}{%- else -%}mp4{%- endif -%}"
+                                  }{%- unless forloop.last -%},{%- endunless -%}
+                                {%- endfor -%}
+                              {%- elsif variant_media.size > 0 -%}
+                                ,{%- for field in variant_media -%}
+                                  {%- assign name = field | first -%}
+                                  {%- assign media = variant_media[name].value -%}
+                                  {%- include 'component_media' with media, no_render: true -%}
+                                  {
+                                    "src": "{%- if is_image -%}{{ media | image_url: width: 500 }}{%- else -%}{{ media.sources[1].url }}{%- endif -%}",
+                                    "srcset": "{%- if is_image -%}{{ media | image_url: width: 1000 }}{%- else -%}{{ media.url }}{%- endif -%}",
+                                    "type": "{% if is_image %}image{% else %}video{% endif %}",
+                                    "extension": "{%- if is_image -%}{{ extension }}{%- else -%}mp4{%- endif -%}"
+                                  }{%- unless forloop.last -%},{%- endunless -%}
+                                {%- endfor -%}
+                                {%- if product_images.size > 0 -%}
+                                  ,{%- for image in product_images -%}
+                                    {%- unless image == product.featured_image -%}
+                                      {
+                                        "src": "{{ image | image_url: width: 500 }}",
+                                        "srcset": "{{ image | image_url: width: 1000 }}",
+                                        "type": "image",
+                                        "extension": "{{ image.src | split: '.' | last }}"
+                                      }{%- unless forloop.last -%},{%- endunless -%}
+                                    {%- endunless -%}
+                                  {%- endfor -%}
+                                {%- endif -%}
+                                {%- if product_media.size > 0 -%}
+                                  ,{%- for media in product_media -%}
+                                    {%- assign src = media.sources | where: 'mime_type', 'video/mp4' | first -%}
+                                    {
+                                      "src": "{{ src.url }}",
+                                      "srcset": "{{ src.url }}",
+                                      "is_image": false,
+                                      "extension": "mp4"
+                                    }{%- unless forloop.last -%},{%- endunless -%}
+                                  {%- endfor -%}
+                                {%- endif -%}
+                                {%- if product_media_external.size > 0 -%}
+                                  ,{%- for media in product_media_external -%}
+                                    {
+                                      "src": {{ media | external_video_url: loop: "1", muted: "1", modestbranding: "1", enablejsapi: "1" | external_video_tag: class: "aspect-child" | json }},
+                                      "srcset": "{{ media.preview_image }}",
+                                      "type": "{{ media.media_type }}",
+                                      "extension": "mp4"
+                                    }{%- unless forloop.last -%},{%- endunless -%}
+                                  {%- endfor -%}
+                                {%- endif -%}
+                              {%- endif -%}
+                            ]{%- if show_findation == true -%},
+          {%- assign findation_images = variant.metafields.findation -%}
+          "findation": {
+            "title": "{{ variant.title }}",
+            "description": "{{ findation_description }}",
+            "images": [
+              {%- for i in (1..4) -%}
+                {%- assign metafield_key = 'image_' | append: forloop.index -%}
+                {%- assign image = findation_images[metafield_key] -%}
+                {
+                  "image": "{{ image }}",
+                  "src": "{{ image | img_url: 'x750' }}",
+                  "srcset": "{{ image | img_url: 'x1500' }} 2x",
+                  "alt": {{ image.alt | json | escape }}
+                }
+                {%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            ]
+          }
+        {%- endif -%}
+      }{%- unless forloop.last -%},{%- endunless -%}
+    {%- endfor -%}
+  ]
+}

@@ -1,0 +1,206 @@
+{%- include 'config_product' -%}
+
+{% liquid
+  assign compliance_product_title = null
+  assign compliance_products = product.metafields.custom.compliance_products.value
+  if compliance_products
+    assign compliance_product_title = compliance_products.product_title
+    assign usa_product = compliance_products.usa_product.value
+    assign cad_product = compliance_products.canada_product.value
+    assign eu_uk_product = compliance_products.eu_uk_product.value
+  endif
+%}
+
+<div class="product__hero js-productSection"
+  data-view="product"
+  data-compliance='{
+  "title": "{{ compliance_product_title }}",
+  "usa": "{{ usa_product.id }}",
+  "cad": "{{ cad_product.id }}",
+  "eu_uk": "{{ eu_uk_product.id }}"
+}'>
+  {%- include 'product-media-new' with carousel_desktop: true -%}
+  {%- include 'product-awards' with context: 'hero', show_badge: true -%}
+  
+  <div id="product-description" class="product__description">
+    {%- include 'product-description-main' -%}
+
+    {%- if section.settings.videowise !=  blank -%}
+      {{ section.settings.videowise }}
+    {%- endif -%}
+    {%- include 'product-description-accordions' -%}
+    {% comment %} {%- include 'product-description-tabs' -%} {% endcomment %}
+    {% comment %} {%- if upsells.size > 0 -%}
+      <div class="product__description-upsells--wrapper">
+        <strong class="product__description-upsells--heading">
+          We think you'll love
+        </strong>
+        <div class="product__description-upsells">
+          {%- for field in upsells -%}
+            {%- assign name = field | first -%}
+            {%- assign upsell_variant = upsells[name].value -%}
+            {%- include 'product-upsell' with upsell_variant, name -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%} {% endcomment %}
+  </div>
+
+  {%- include 'product-sticky-form' -%}
+</div>
+
+{% comment %} {% if product.handle != 'gift-card' %}
+  {%- include 'product-tabs' with show_reviews: true -%}
+{% endif %} {% endcomment %}
+
+{% comment %} {% render 'junip-product-review', product: product %} {% endcomment %}
+
+{% comment %} {%- include 'product-reviews' with class: 'tablet-hidden desktop-hidden' -%} {% endcomment %}
+
+{%- if show_findation == true -%}
+  {%- include 'product-findation' with is_bundle: false, modal_id: product.id -%}
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Hero",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Description"
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Tagline",
+        "default": "Clean / Cruelty Free"
+      },
+      {
+        "type": "text",
+        "id": "messaging",
+        "label": "Messaging",
+        "default": "30-Day Guarantee",
+        "info": "Hidden on products tagged with 'final sale'"
+      },
+      {
+       "type": "header",
+       "content": "Videowise widget"
+     },
+     {
+       "type": "liquid",
+       "id": "videowise",
+       "label": "Videowise code"
+     },
+     {
+       "type": "product_list",
+       "id": "shown_on_products_list",
+       "label": "Show on products",
+       "info": "Select the products to show the Videowise widget, if empty, it will show on all products"
+     },
+      {
+        "type": "header",
+        "content": "Free Shipping"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_us",
+        "label": "US Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_cad",
+        "label": "CAD Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_uk",
+        "label": "UK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_eu",
+        "label": "EU Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_ie",
+        "label": "IE Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_bgn",
+        "label": "BGN Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_czk",
+        "label": "CZK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_dkk",
+        "label": "DKK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_huf",
+        "label": "HUF Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_pln",
+        "label": "PLN Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_ron",
+        "label": "RON Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_sek",
+        "label": "SEK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_aud",
+        "label": "AUD Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_nzd",
+        "label": "NZD Message"
+      },
+      {
+        "type": "header",
+        "content": "Shipping & Returns"
+      },
+      {
+        "type": "richtext",
+        "id": "shipping",
+        "label": "Shipping Note"
+      },
+      {
+        "type": "richtext",
+        "id": "returns",
+        "label": "Returns Note"
+      },
+      {
+        "type": "header",
+        "content": "Findation"
+      },
+      {
+        "type": "text",
+        "id": "findation_toggle",
+        "label": "Toggle Text",
+        "default": "Get The Look"
+      },
+      {
+        "type": "richtext",
+        "id": "findation_text",
+        "label": "Help Text",
+        "default": "<p><a href=\"/pages/shade-matching-quiz\">Still need help?</a> Get shade matched by one of our makeup artists.</p>"
+      }
+    ]
+  }
+{% endschema %}

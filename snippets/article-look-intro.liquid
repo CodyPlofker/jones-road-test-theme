@@ -1,0 +1,32 @@
+<div class="article__look-intro">
+  {%- if image != blank -%}
+    <div class="article__look-image">
+      <div>
+        {%- include 'component_media' with media: image, width: 1000, sizes: '100vw, (min-width: 768px) 50vw' -%}
+      </div>
+    </div>
+  {%- endif -%}
+  <div class="article__look-intro--content">
+    <div>
+      {%- if heading != blank -%}
+        <h2 class="article__look-subheading">{{ heading }}</h2>
+      {%- endif -%}
+      {%- if description != blank -%}
+        <div class="article__look-description text-underline">{{ description }}</div>
+      {%- endif -%}
+    </div>
+    {%- if bullets != blank and bullets_heading != blank -%}
+      <div>
+        {%- assign bullet_points = bullets | remove: '<p>' | split: '</p>' -%}
+        <h2 class="article__look-subheading">
+          {{ bullets_heading }} {% if bullets_subheading != blank -%}<span class="article__look-subheading--mono">{{ bullets_subheading }}</span>{%- endif -%}
+        </h2>
+        <ul class="article__look-bullets text-underline">
+          {%- for bullet in bullet_points -%}
+            <li class="text-underline">{{ bullet }}</li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

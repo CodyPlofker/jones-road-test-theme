@@ -1,0 +1,27 @@
+{% assign current_product = product %}
+
+{% if temp %}
+  {% assign current_product = temp %}
+{% endif %}
+
+{%- assign variants_with_value = current_product.variants | where: option_id, value -%}
+{%- assign available_variants = variants_with_value | where: 'available', true -%}
+{%- assign hidden_variants_size = 0 -%}
+
+{%- if available_variants.size > 0 -%}
+  {%- assign is_swatch_available = true -%}
+{%- else -%}
+  {%- assign is_swatch_available = false -%}
+{%- endif -%}
+
+{%- for variant in variants_with_value -%}
+  {%- if variant.metafields.config.hide_from_pdp == true -%}
+    {%- assign hidden_variants_size = hidden_variants_size | plus: 1 -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if hidden_variants_size == variants_with_value.size -%}
+  {%- assign is_hidden = true -%}
+{%- else -%}
+  {%- assign is_hidden = false -%}
+{%- endif -%}

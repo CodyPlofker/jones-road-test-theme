@@ -1,0 +1,31 @@
+{% schema %}
+  {
+    "name": "About Tiles",
+    "blocks": [
+      {
+        "type": "tiles",
+        "name": "Tiles",
+        "settings": [
+          {
+            "id": "image",
+            "label": "Image",
+            "type": "image_picker"
+          },
+          {
+            "id": "copy",
+            "label": "Copy",
+            "type": "richtext"
+          },
+          {
+            "id": "heading",
+            "label": "Heading",
+            "type": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% if section.blocks.size > 0 %}
+{% include 'about-tiles', blocks: section.blocks %}
+{% endif %}

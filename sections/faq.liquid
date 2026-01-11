@@ -1,0 +1,38 @@
+{% schema %}
+  {
+    "name": "FAQ Page",
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "Heading",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "qa",
+        "name": "Question",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text"
+          },
+          {
+            "id": "answer",
+            "label": "Answer",
+            "type": "richtext"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% include 'faq-page',
+  blocks: section.blocks,
+  title: page.title,
+%}

@@ -1,0 +1,382 @@
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    {
+      "id": "contentPosition",
+      "label": "Content position",
+      "type": "select",
+      "options": [
+        {
+          "value": "bottom-left",
+          "label": "bottom-left"
+        },
+        {
+          "value": "bottom-right",
+          "label": "bottom-right"
+        },
+        {
+          "value": "center",
+          "label": "center"
+        },
+        {
+          "value": "center-left",
+          "label": "center-left"
+        },
+        {
+          "value": "center-right",
+          "label": "center-right"
+        }
+      ]
+    },
+    {
+      "id": "heading",
+      "label": "Heading",
+      "type": "textarea"
+    },
+    {
+      "id": "line_height_desktop",
+      "label": "Line Height (Desktop)",
+      "type": "number",
+      "default": 60
+    },
+    {
+      "id": "line_height_mobile",
+      "label": "Line Height (Mobile)",
+      "type": "number",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_mobile",
+      "label": "Heading Color (Mobile)",
+      "default": "#000"
+    },
+    {
+      "type": "checkbox",
+      "id": "headingHighlight",
+      "default": false,
+      "label": "Heading Highlight"
+    },
+    {
+      "type": "color",
+      "id": "highlightColor",
+      "label": "Highlight Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "highlightColorMobile",
+      "label": "Highlight Color (Mobile)",
+      "default": "#fff"
+    },
+    {
+      "id": "subheading",
+      "label": "Subheading Desktop",
+      "type": "textarea"
+    },
+    {
+      "id": "subheading_lineheight_desktop",
+      "label": "Line Height (Desktop)",
+      "type": "range",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "id": "subheadingColor",
+      "label": "Subheading Color Desktop",
+      "type": "select",
+      "options": [
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "black"
+    },
+    {
+      "id": "subheadingFont",
+      "label": "Subheading Font Desktop",
+      "type": "select",
+      "options": [
+        {
+          "value": "geogrotesque",
+          "label": "Geogrotesque"
+        },
+        {
+          "value": "ringside",
+          "label": "Ringside"
+        }
+      ]
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_mobile",
+      "label": "Subheading Mobile"
+    },
+    {
+      "id": "subheading_lineheight_mobile",
+      "label": "Line Height (Mobile)",
+      "type": "range",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "default": 1.5
+    },
+    {
+      "id": "subheadingColorMobile",
+      "label": "Subheading Color Mobile",
+      "type": "select",
+      "options": [
+        {
+          "value": "black",
+          "label": "Black"
+        },
+        {
+          "value": "white",
+          "label": "White"
+        }
+      ],
+      "default": "black"
+    },
+    {
+      "id": "subheadingFontMobile",
+      "label": "Subheading Font Mobile",
+      "type": "select",
+      "options": [
+        {
+          "value": "geogrotesque",
+          "label": "Geogrotesque"
+        },
+        {
+          "value": "ringside",
+          "label": "Ringside"
+        }
+      ]
+    },
+    {
+      "id": "image",
+      "label": "Image",
+      "type": "image_picker"
+    },
+    {
+      "id": "imageAlt",
+      "label": "Image alt",
+      "type": "text"
+    },
+    {
+      "id": "imageMobile",
+      "label": "Image mobile",
+      "type": "image_picker"
+    },
+    {
+      "id": "desktop_image_size",
+      "label": "Desktop image size",
+      "type": "radio",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed"
+        }
+      ]
+    },
+    {
+      "id": "desktop_image_height",
+      "label": "Desktop image height (VH)",
+      "type": "number",
+      "default": 80,
+      "visible_if": "{{ section.settings.desktop_image_size == 'fixed' }}"
+    },
+    {
+      "id": "desktop_image_min_height",
+      "label": "Desktop image min height (PX)",
+      "type": "number",
+      "default": 500,
+      "visible_if": "{{ section.settings.desktop_image_size == 'fixed' }}"
+    },
+    {
+      "id": "mobile_image_size",
+      "label": "Mobile image size",
+      "type": "radio",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Auto"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed"
+        }
+      ]
+    },
+    {
+      "id": "mobile_image_height",
+      "label": "Mobile image height (VH)",
+      "type": "number",
+      "default": 80,
+      "visible_if": "{{ section.settings.mobile_image_size == 'fixed' }}"
+    },
+    {
+      "id": "mobile_image_min_height",
+      "label": "Mobile image min height (PX)",
+      "type": "number",
+      "default": 400,
+      "visible_if": "{{ section.settings.mobile_image_size == 'fixed' }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "ctaLink",
+      "name": "CTA Link",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Color scheme (Desktop)"
+        },
+        {
+          "type": "color",
+          "id": "text_color_desktop",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "background_color_desktop",
+          "label": "Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "border_color_desktop",
+          "label": "Border Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "hover_text_color_desktop",
+          "label": "Text Color (Hover)",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "hover_background_color_desktop",
+          "label": "Background Color (Hover)",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "hover_border_color_desktop",
+          "label": "Border Color (Hover)",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Color scheme (Mobile)"
+        },
+        {
+          "type": "color",
+          "id": "text_color_mobile",
+          "label": "Text Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "background_color_mobile",
+          "label": "Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "border_color_mobile",
+          "label": "Border Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "hover_text_color_mobile",
+          "label": "Text Color (Hover)",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "hover_background_color_mobile",
+          "label": "Background Color (Hover)",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "hover_border_color_mobile",
+          "label": "Border Color (Hover)",
+          "default": "#ffffff"
+        },
+        {
+          "id": "link",
+          "label": "Link",
+          "type": "text"
+        },
+        {
+          "id": "text",
+          "label": "Text",
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "category": "Content",
+      "name": "Hero"
+    }
+  ]
+}
+{% endschema %}
+
+
+{% include 'hero',
+  contentPosition: section.settings.contentPosition,
+  ctaLinks: section.blocks,
+  heading: section.settings.heading,
+  headingColor: section.settings.heading_color,
+  subheading: section.settings.subheading,
+  subheadingMobile: section.settings.subheading_mobile,
+  subheadingColor: section.settings.subheadingColor,
+  subheadingMobileColor: section.settings.subheadingColorMobile,
+  subheadingFont: section.settings.subheadingFont,
+  subheadingFontMobile: section.settings.subheadingFontMobile,
+  headingHighlight: section.settings.headingHighlight,
+  highlightColor: section.settings.highlightColor,
+  highlightColorMobile: section.settings.highlightColorMobile,
+  image: section.settings.image,
+  imageAlt: section.settings.imageAlt,
+  imageMobile: section.settings.imageMobile,
+  desktop_image_size: section.settings.desktop_image_size,
+  desktop_image_height: section.settings.desktop_image_height,
+  desktop_image_min_height: section.settings.desktop_image_min_height,
+  mobile_image_size: section.settings.mobile_image_size,
+  mobile_image_height: section.settings.mobile_image_height,
+  mobile_image_min_height: section.settings.mobile_image_min_height,
+  line_height_desktop: section.settings.line_height_desktop,
+  line_height_mobile: section.settings.line_height_mobile,
+  subheading_lineheight_desktop: section.settings.subheading_lineheight_desktop,
+  subheading_lineheight_mobile: section.settings.subheading_lineheight_mobile,
+  headingColorMobile: section.settings.heading_color_mobile,
+  headingColor: section.settings.heading_color,
+%}

@@ -1,0 +1,55 @@
+<div class="countdown" style="background: {{ backgroundColor }}">
+  <div class="countdown__content countdown__content--{{ textColor }}">
+    <div class="countdown__top">
+      <div class="countdown__circle">
+        <picture>
+          <source media="(min-width: 1601px)"
+                  srcset="{{ image | img_url: '768x768', scale: 1, crop: 'center' }} 1x,
+                          {{ image | img_url: '768x768', scale: 2, crop: 'center' }} 2x" />
+          <source media="(min-width: 1281px) and (max-width: 1600px)"
+                  srcset="{{ image | img_url: '640x640', scale: 1, crop: 'center' }} 1x,
+                          {{ image | img_url: '640x640', scale: 2, crop: 'center' }} 2x" />
+          <source media="(min-width: 1024px) and (max-width: 1280px)"
+                  srcset="{{ image | img_url: '512x512', scale: 1, crop: 'center' }} 1x,
+                        {{ image | img_url: '512x512', scale: 2, crop: 'center' }} 2x" />
+          <source media="(min-width: 701px) and (max-width: 1023px)"
+                  srcset="{{ image | img_url: '410x410', scale: 2, crop: 'center' }}" />
+          <source media="(min-width: 376px) and (max-width: 700px)"
+                  srcset="{{ image | img_url: '560x560', scale: 2, crop: 'center' }}" />
+          <source media="(max-width: 375px)"
+                  srcset="{{ image | img_url: '300x300', scale: 2, crop: 'center' }}" />
+          <img class="is-loading" src="{{ image | img_url: '300x300', scale: 2, crop: 'center' }}" alt="{{ imageAlt }}" />
+        </picture>
+        {% if video != blank %}<video
+          autoplay="true"
+          loop="true"
+          muted
+          playsinline
+          src="{{ video }}"
+          webkit-playsinline
+        ></video>{% endif %}
+      </div>
+      <div 
+        class="countdown__timer js-countdownTimer"
+        data-day="{{ day }}"
+        data-hour="{{ hour }}"
+        data-minute="{{ minute }}"
+        data-month="{{ month }}"
+        data-year="{{ year }}"
+        role="presentation"
+      ></div>
+    </div>
+    <div class="countdown__bottom">
+      <div class="countdown__heading">
+        {{ heading }}
+        <div class="visually-hidden">
+          Launching on
+          <time datetime="{{ year }}-{{ month }}-{{ day }} {{ hour }}:{{ minute }}">
+            {{ year }}-{{ month }}-{{ day }} {{ hour }}:{{ minute }}
+          </time>
+        </div>
+      </div>
+      <button class="countdown__button button">{{ ctaText }}</button>
+    </div>
+  </div>
+</div>

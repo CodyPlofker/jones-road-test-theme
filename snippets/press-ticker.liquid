@@ -1,0 +1,19 @@
+<div class="press-ticker js-pressTicker">
+  <button data-copy-playing="Pause press quote animation" data-copy-paused="Play press quote animation" class="js-pressTickerToggle press-ticker__toggle button">
+    Pause press quote animation
+  </button>
+  <ul class="press-ticker__items js-pressTickerSlide" style="animation-duration: {{ blocks | size | times: 7 }}s">
+    {%- for i in (0..1) -%}
+    {%- for block in blocks -%}
+      <li{% if i > 0 %} aria-hidden="true"{% endif %} class="press-ticker__item" {{ block.shopify_attributes }}>
+        <q>
+          {{ block.settings.quote }}
+          <span class="press-ticker__logo">
+            <img src="{{ block.settings.logo.src | img_url: "x72" }}" alt="{{ block.settings.logo.alt }}" class="is-loading" />
+          </span>
+        </q>
+      </li>
+    {%- endfor -%}
+    {%- endfor -%}
+  </ul>
+</div>

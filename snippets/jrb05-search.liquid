@@ -1,0 +1,59 @@
+<div id="jrb05-search-element" class="jrb05-search-element">
+  <div class="search__content">
+    <form action="/search" method="get">
+      <div class="jrb05-search-field">
+        <!-- Magnifying‐glass SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M19.6345 17.8716L15.7577 13.9947C17.0834 12.223 17.6889 10.0149 17.452 7.81487C17.2153 5.61471 16.1538 3.586 14.4814 2.13708C12.8088 0.688117 10.6496 -0.0735423 8.4385 0.00560368C6.22705 0.0846032 4.12786 0.998556 2.56318 2.56322C0.998542 4.12788 0.0846046 6.22716 0.00560247 8.4386C-0.0735354 10.6499 0.688144 12.8093 2.13705 14.4816C3.586 16.154 5.61457 17.2155 7.81477 17.4522C10.0149 17.6891 12.223 17.0836 13.9945 15.7579L17.8714 19.6348C18.1864 19.9498 18.6455 20.0728 19.0758 19.9575C19.5061 19.8422 19.8422 19.5061 19.9575 19.0758C20.0728 18.6454 19.9498 18.1864 19.6348 17.8713L19.6345 17.8716ZM8.7479 15.0015C7.08946 15.0015 5.49898 14.3426 4.32649 13.1699C3.15379 11.9973 2.49497 10.4069 2.49497 8.74847C2.49497 7.09008 3.15379 5.49952 4.32649 4.32701C5.49905 3.15429 7.08953 2.49547 8.7479 2.49547C10.4063 2.49547 11.9968 3.15429 13.1693 4.32701C14.342 5.49959 15.0008 7.09008 15.0008 8.74847C14.998 10.4061 14.3384 11.9949 13.1664 13.1671C11.9942 14.3391 10.4054 14.9987 8.74782 15.0015L8.7479 15.0015Z" fill="black"/>
+        </svg>
+
+        <input
+          type="text"
+          name="q"
+          placeholder="Search for Miracle Balm, What The Foundation"
+          aria-label="Search query"
+          required
+        >
+      </div>
+
+      <!-- Submit button -->
+      <button class="search__submit" type="submit">
+        <span class="visually-hidden">Submit</span>
+      </button>
+
+      <!-- Always search products -->
+      <input type="hidden" name="type" value="product">
+    </form>
+  </div>
+</div>
+
+<style>
+  #jrb05-search-element {
+    display: none;
+  }
+  #jrb05-search-element .search__submit {
+    right: 10px;
+    top: 8px;
+  }
+  #jrb05-search-element .jrb05-search-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #jrb05-search-element .search__content {
+    padding: 11px 70px 11px 24px;
+  }
+  #jrb05-search-element input[name="q"] {
+    font-size: 16px;
+  }
+  @media(max-width:767px) {
+    #jrb05-search-element {
+      display: block;
+    }
+    {% comment %} hiding search from mobile nav footer - start {% endcomment %}
+    ul.header__nav__secondary > li:first-child {
+      display:none;
+    }
+    {% comment %} hiding search from mobile nav footer  - end {% endcomment %}
+  }
+</style>

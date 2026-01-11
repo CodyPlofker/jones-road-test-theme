@@ -1,0 +1,581 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "16488285494cdb04df": {
+      "type": "landing-header",
+      "blocks": {
+        "47320863-aee3-4c4a-8108-2db0a6c3bcca": {
+          "type": "link",
+          "settings": {
+            "text": "Benefits",
+            "url": "#about"
+          }
+        },
+        "57900ac6-80a3-446e-9eb6-fb38564975b1": {
+          "type": "link",
+          "settings": {
+            "text": "Reviews",
+            "url": "#featured-reviews"
+          }
+        },
+        "4c1d1cf2-9c46-4eea-b8e0-9c11bab5c7a4": {
+          "type": "link",
+          "settings": {
+            "text": "JRB Philosophy",
+            "url": "#image-quote"
+          }
+        }
+      },
+      "block_order": [
+        "47320863-aee3-4c4a-8108-2db0a6c3bcca",
+        "57900ac6-80a3-446e-9eb6-fb38564975b1",
+        "4c1d1cf2-9c46-4eea-b8e0-9c11bab5c7a4"
+      ],
+      "settings": {
+        "show_header": true,
+        "cta_text": "Take the Quiz",
+        "cta_link": "https://jonesroadbeauty.com/pages/miracle-balm-quiz"
+      }
+    },
+    "hero": {
+      "type": "product-banner",
+      "settings": {
+        "section_id": "product-banner",
+        "position_desktop": "desktop-position-center desktop-position-middle",
+        "position_mobile": "position-top",
+        "alignment_desktop": "desktop-align-center",
+        "alignment_mobile": "align-center",
+        "image_desktop": "shopify://shop_images/landing_imagetext_1.png",
+        "image_mobile": "shopify://shop_images/LandingPage_Mobile_Example.png",
+        "show_overlay": false,
+        "heading": "<p>Meet The Secret<br/>To <em>No-Makeup Makeup</em></p>",
+        "heading_color": "#000000",
+        "heading_highlight": "#ffffff",
+        "show_highlight": true,
+        "product": "miracle-balm",
+        "description": "",
+        "desktop_desc_color": "#000000",
+        "mobile_desc_color": "#ffffff",
+        "cta_text": "Find My Shade",
+        "cta_link": "https://jonesroadbeauty.com/pages/miracle-balm-quiz",
+        "cta_color": "#ffffff",
+        "cta_background": "#000000"
+      }
+    },
+    "16478788128f6a3b11": {
+      "type": "press-logos",
+      "blocks": {
+        "48443813-6401-47fe-a8b5-75207c623cb0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/landing_vogue_logo.png"
+          }
+        },
+        "4e859dc6-ebde-40a5-9e8a-e523259f4ba0": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/landing_wsj_logo.png"
+          }
+        },
+        "26c89421-a056-46e4-bf5c-203ed91eeb68": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/landing_nyt_logo.png"
+          }
+        },
+        "953b51e2-1e98-454c-b451-ab2a3b7b06ac": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/landing_fc_logo.png"
+          }
+        },
+        "518dcff4-50cb-4181-a5e0-135e8e69c49e": {
+          "type": "logo",
+          "settings": {
+            "logo": "shopify://shop_images/landing_allure_logo.png"
+          }
+        }
+      },
+      "block_order": [
+        "48443813-6401-47fe-a8b5-75207c623cb0",
+        "4e859dc6-ebde-40a5-9e8a-e523259f4ba0",
+        "26c89421-a056-46e4-bf5c-203ed91eeb68",
+        "953b51e2-1e98-454c-b451-ab2a3b7b06ac",
+        "518dcff4-50cb-4181-a5e0-135e8e69c49e"
+      ],
+      "settings": {
+        "section_id": "press",
+        "bg_color": "#ebdadb"
+      }
+    },
+    "1647942349aeb8d828": {
+      "type": "value-props",
+      "blocks": {
+        "0b6e9f6c-d263-47f1-b4aa-6fdae50fbcb8": {
+          "type": "value-prop",
+          "settings": {
+            "cap_heading": true,
+            "heading_width": 260,
+            "heading_color": "#000000",
+            "description_color": "#000000",
+            "image": "shopify://shop_images/landing_valueprops_1.png",
+            "heading": "Truly A Miracle Product",
+            "description": "<p>Can you believe one product can be used as a blush, tint, highlighter, hydrator, and more? </p>"
+          }
+        },
+        "d03487b7-1d66-4ac6-b6cf-09e6481a006a": {
+          "type": "value-prop",
+          "settings": {
+            "cap_heading": true,
+            "heading_width": 180,
+            "heading_color": "#000000",
+            "description_color": "#000000",
+            "image": "shopify://shop_images/landing_valueprops_2.png",
+            "heading": "Gives a Healthy Glow",
+            "description": "<p>Who doesn't want a healthy glow that makes them look younger and inspires confidence? </p>"
+          }
+        },
+        "c1dd50e3-ce7e-42b0-94b5-7b1c0f902ebf": {
+          "type": "value-prop",
+          "settings": {
+            "cap_heading": true,
+            "heading_width": 170,
+            "heading_color": "#000000",
+            "description_color": "#000000",
+            "image": "shopify://shop_images/landing_valueprops_3.png",
+            "heading": "Created By Bobbi Brown",
+            "description": "<p>Miracle Balm is Bobbi's every day, can't leave home without it super product. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "0b6e9f6c-d263-47f1-b4aa-6fdae50fbcb8",
+        "d03487b7-1d66-4ac6-b6cf-09e6481a006a",
+        "c1dd50e3-ce7e-42b0-94b5-7b1c0f902ebf"
+      ],
+      "settings": {
+        "section_id": "about",
+        "background": "#f8f8f8",
+        "mobile_layout": "column",
+        "text_align": "text-center",
+        "gap": "gap-mobile gap-desktop",
+        "aspect_ratio": "aspect-1-1",
+        "heading": "Why Miracle Balm?",
+        "heading_color": "#000000",
+        "heading_highlight": "#ffffff",
+        "show_highlight": true,
+        "cta_text": "",
+        "cta_link": "",
+        "cta_color": "#ffffff",
+        "cta_background": "#000000"
+      }
+    },
+    "1647942833527df92c": {
+      "type": "value-props",
+      "blocks": {
+        "7e49916f-1e2b-42c1-8a3d-27f6767623ab": {
+          "type": "value-prop",
+          "settings": {
+            "cap_heading": false,
+            "heading_width": 170,
+            "heading_color": "#000000",
+            "description_color": "#434343",
+            "image": "shopify://shop_images/JeanneKit_02.gif",
+            "heading": "By Itself, On A Busy Day",
+            "description": "<p>Use this one-and-done super product to replace your entire makeup bag. On a busy day, use it alone for moisture and a touch of color to give you a healthy glow. </p>"
+          }
+        },
+        "d7f2d8d2-7316-4a03-9fc0-3a8c12825aa3": {
+          "type": "value-prop",
+          "settings": {
+            "cap_heading": false,
+            "heading_width": 170,
+            "heading_color": "#000000",
+            "description_color": "#434343",
+            "image": "shopify://shop_images/landing_reviews.png",
+            "heading": "To Replace Your Makeup Bag",
+            "description": "<p>Get rid of long, unrealistic makeup routines. This versatile super product can work as a tint, moisturizer, bronzer, highlighter, and more. </p>"
+          }
+        },
+        "13203baa-9edd-4e04-9f99-c5e14a3fd337": {
+          "type": "value-prop",
+          "settings": {
+            "cap_heading": false,
+            "heading_width": 170,
+            "heading_color": "#000000",
+            "description_color": "#434343",
+            "image": "shopify://shop_images/landing_valueprops_6.png",
+            "heading": "As A Bronzer Or Highlighter",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>"
+          }
+        }
+      },
+      "block_order": [
+        "7e49916f-1e2b-42c1-8a3d-27f6767623ab",
+        "d7f2d8d2-7316-4a03-9fc0-3a8c12825aa3",
+        "13203baa-9edd-4e04-9f99-c5e14a3fd337"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_id": "value-props",
+        "background": "#ffffff",
+        "mobile_layout": "row",
+        "text_align": "text-left",
+        "gap": "gap-none",
+        "aspect_ratio": "aspect-4-5",
+        "heading": "Three Ways to Use Miracle Balm",
+        "heading_color": "#000000",
+        "heading_highlight": "#ffffff",
+        "show_highlight": false,
+        "cta_text": "Try Miracle Balm",
+        "cta_link": "shopify://products/miracle-balm",
+        "cta_color": "#ffffff",
+        "cta_background": "#000000"
+      }
+    },
+    "164795433610a0a4e3": {
+      "type": "featured-reviews",
+      "blocks": {
+        "6745a834-01ca-4ff9-97d7-aa217e8c7974": {
+          "type": "review",
+          "settings": {
+            "id": "828421",
+            "image": "shopify://shop_images/landing_reviews.png"
+          }
+        },
+        "56b163fe-948d-47dd-8e75-e8017fe17072": {
+          "type": "review",
+          "settings": {
+            "id": "828448",
+            "image": "shopify://shop_images/landing_valueprops_6.png"
+          }
+        },
+        "fa3a9559-1959-4bd6-a2c7-e4532096c0c5": {
+          "type": "review",
+          "settings": {
+            "id": "828342",
+            "image": "shopify://shop_images/landing_valueprops_4.png"
+          }
+        }
+      },
+      "block_order": [
+        "6745a834-01ca-4ff9-97d7-aa217e8c7974",
+        "56b163fe-948d-47dd-8e75-e8017fe17072",
+        "fa3a9559-1959-4bd6-a2c7-e4532096c0c5"
+      ],
+      "settings": {
+        "section_id": "featured-reviews",
+        "layout": "image",
+        "background": "#f6f2eb",
+        "card_background": "#ffffff",
+        "heading": "The Reviews Are In:"
+      }
+    },
+    "1648031624e495dbed": {
+      "type": "featured-reviews",
+      "blocks": {
+        "c57a3b6f-e587-429a-8a7e-feeb27d4bc59": {
+          "type": "review",
+          "settings": {
+            "id": "837276"
+          }
+        },
+        "1feb5274-d73f-4fe8-9924-3d3ec0c8059d": {
+          "type": "review",
+          "settings": {
+            "id": "837200"
+          }
+        },
+        "f84df10b-ea86-4e8f-8177-2062ad8e8cc1": {
+          "type": "review",
+          "settings": {
+            "id": "837213"
+          }
+        }
+      },
+      "block_order": [
+        "c57a3b6f-e587-429a-8a7e-feeb27d4bc59",
+        "1feb5274-d73f-4fe8-9924-3d3ec0c8059d",
+        "f84df10b-ea86-4e8f-8177-2062ad8e8cc1"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_id": "featured-reviews",
+        "layout": "cards",
+        "background": "#f8f8f8",
+        "card_background": "#ffffff",
+        "heading": "The Reviews Are In:"
+      }
+    },
+    "1648047973a0ab2430": {
+      "type": "image-text-blocks",
+      "blocks": {
+        "3b17322c-89d1-49e4-b1b6-075727a70500": {
+          "type": "image-text",
+          "settings": {
+            "orientation": "standard",
+            "image": "shopify://shop_images/landing_imagetext_1.png",
+            "heading": "It Can Replace Your Entire Makeup Bag",
+            "description": "<p>Miracle Balm is the secret to no-makeup makeup. One part skincare, one part color product. Equal parts your new favorite beauty product that you won’t be able to live without.</p>"
+          }
+        },
+        "1734c0e6-cc52-4e19-b9c6-6813752cd2de": {
+          "type": "image-text",
+          "settings": {
+            "orientation": "reversed",
+            "image": "shopify://shop_images/landing_imagetext_2.png",
+            "heading": "Gives A Healthy, Natural Glow",
+            "description": "<p>It's the secret to no-makeup makeup for a reason.  If you want to glow, yet are busy and don't want a complicated routine that covers up your natural beauty, Miracle Balm is for you. </p>"
+          }
+        },
+        "16e33e93-d7eb-4a1c-b9ce-9b16a9ce1e85": {
+          "type": "image-text",
+          "settings": {
+            "orientation": "standard",
+            "image": "shopify://shop_images/landing_imagebanner_mobile.png",
+            "heading": "Made With Clean Ingredients That Are Good For The Skin",
+            "description": "<p>We use only clean ingredients, and none of the bad stuff. We believe that health is the number one factor in beauty, and our products back it up.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "3b17322c-89d1-49e4-b1b6-075727a70500",
+        "1734c0e6-cc52-4e19-b9c6-6813752cd2de",
+        "16e33e93-d7eb-4a1c-b9ce-9b16a9ce1e85"
+      ],
+      "settings": {
+        "section_id": "image-text-blocks",
+        "gap": "gap-mobile gap-desktop",
+        "heading": "Three Reasons You’re Going To Love Miracle Balm",
+        "heading_color": "#000000",
+        "cta_text": "Shade Match Me Today",
+        "cta_link": "https://jonesroadbeauty.com/pages/miracle-balm-quiz",
+        "cta_color": "#ffffff",
+        "cta_background": "#000000"
+      }
+    },
+    "164811876072521fb9": {
+      "type": "image-quote",
+      "settings": {
+        "section_id": "image-quote",
+        "background": "#000000",
+        "color": "#ffffff",
+        "image": "shopify://shop_images/BBImage_LandingPage.jpg",
+        "heading": "Founded by makeup artist Bobbi Brown",
+        "quote": "“It’s how you make your skin look better without looking like you’re wearing makeup”",
+        "signature": "shopify://shop_images/landing_imagequote_signature.png"
+      }
+    },
+    "164812687777901201": {
+      "type": "shoppable-product",
+      "disabled": true,
+      "settings": {
+        "section_id": "shoppable-product",
+        "product": "miracle-balm",
+        "tagline": "Clean / Cruelty Free",
+        "findation_toggle": "Get the Look",
+        "free_shipping_us": "Free shipping on US orders over $85",
+        "free_shipping_uk": "",
+        "free_shipping_eu": ""
+      }
+    },
+    "16481227041f0e7c87": {
+      "type": "image-text-banner",
+      "disabled": true,
+      "settings": {
+        "section_id": "image-banner",
+        "image_desktop": "shopify://shop_images/landing_imagebanner.png",
+        "image_mobile": "shopify://shop_images/landing_imagebanner_mobile.png",
+        "heading": "How To Find\nYour Shade",
+        "heading_color": "#000000",
+        "heading_highlight": true,
+        "highlight_color": "#f6f2eb",
+        "subheading": "We’ve developed a quiz to pick the perfect shade for you.",
+        "subheading_color": "#000000",
+        "cta_text": "Get Matched",
+        "cta_link": ""
+      }
+    },
+    "1648209684a7f7b42b": {
+      "type": "accordions",
+      "blocks": {
+        "2926066b-c364-4601-9ed9-17176d4feb06": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Lorem ipsum dolor sit amet, consectetur",
+            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          }
+        },
+        "20b0fc63-d19c-480d-a25a-8149ec27df09": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Question 2",
+            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          }
+        },
+        "a58e21e5-c4a9-4749-8070-4d01dd786106": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Question 3",
+            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          }
+        },
+        "b88f7918-3334-433b-9533-92969562b8d4": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Question 4",
+            "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "2926066b-c364-4601-9ed9-17176d4feb06",
+        "20b0fc63-d19c-480d-a25a-8149ec27df09",
+        "a58e21e5-c4a9-4749-8070-4d01dd786106",
+        "b88f7918-3334-433b-9533-92969562b8d4"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_id": "accordions",
+        "background": "#f8f8f8",
+        "heading": "Frequently Asked Questions",
+        "cta_text": "Shop Now",
+        "cta_link": "#image-text-blocks"
+      }
+    },
+    "1648568105c9c31190": {
+      "type": "media-grid",
+      "blocks": {
+        "ca7a79e3-da50-4f34-b0f1-55c4babf605b": {
+          "type": "media_text",
+          "settings": {
+            "media": "JustASec_RollUP_Video.mp4",
+            "poster": "shopify://shop_images/landing_imagetext_3.png",
+            "heading": "Lorem ipsum dolor sit amet",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>",
+            "tagline": "Name goes here"
+          }
+        },
+        "4391dd54-f909-44f4-a273-8693aba10f75": {
+          "type": "media_text",
+          "settings": {
+            "media": "Lip_and_cheek_Swatch_Story_3.mp4",
+            "heading": "Lorem ipsum dolor sit amet",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>",
+            "tagline": "Name goes here"
+          }
+        },
+        "87be9720-cf76-4b4c-8f53-17c25cd15f8b": {
+          "type": "media_text",
+          "settings": {
+            "media": "yt5s.com-Bobbi_Introduces_the_Face_Pencil__How_to_Choose_Your_Shade_and_How_to_Use-_480p.mp4",
+            "heading": "Lorem ipsum dolor sit amet",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>",
+            "tagline": "Name goes here"
+          }
+        },
+        "e4d75537-4092-4813-baf8-0ab5dcd3cb7c": {
+          "type": "media_text",
+          "settings": {
+            "media": "landing_imagetext_2.png",
+            "heading": "Lorem ipsum dolor sit amet",
+            "description": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>",
+            "tagline": "Name goes here"
+          }
+        }
+      },
+      "block_order": [
+        "ca7a79e3-da50-4f34-b0f1-55c4babf605b",
+        "4391dd54-f909-44f4-a273-8693aba10f75",
+        "87be9720-cf76-4b4c-8f53-17c25cd15f8b",
+        "e4d75537-4092-4813-baf8-0ab5dcd3cb7c"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_id": "media-grid",
+        "background": "#e5e5e5",
+        "heading": "<p>What’s Everyone Saying About Miracle Balm</p>",
+        "heading_color": "#000000",
+        "heading_highlight": "#ffffff",
+        "show_highlight": true,
+        "cta_text": "Shop Now",
+        "cta_link": "",
+        "cta_color": "#ffffff",
+        "cta_background": "#f50a99"
+      }
+    },
+    "16497839183d606360": {
+      "type": "featured-product",
+      "settings": {
+        "section_id": "featured-product",
+        "product": "miracle-balm",
+        "image": "shopify://shop_images/a.webp",
+        "heading": "",
+        "subheading": "",
+        "description": "",
+        "cta_text": "Take the Quiz",
+        "cta_link": "https://jonesroadbeauty.com/pages/miracle-balm-quiz"
+      }
+    },
+    "1648849912db4466a2": {
+      "type": "landing-footer",
+      "blocks": {
+        "8b9c0e49-1011-41a0-9009-367b0d174e38": {
+          "type": "link",
+          "settings": {
+            "text": "Privacy Policy",
+            "url": "https://jonesroadbeauty.com/pages/privacy-policy"
+          }
+        },
+        "e98ece14-ea33-4fe7-b3f7-09f8b5697c37": {
+          "type": "link",
+          "settings": {
+            "text": "Terms & Conditions",
+            "url": "https://jonesroadbeauty.com/pages/terms-conditions"
+          }
+        },
+        "02dc0d80-6caa-43eb-bb7f-4c178b38d1c2": {
+          "type": "link",
+          "settings": {
+            "text": "© JustSteven LLC 2022",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "8b9c0e49-1011-41a0-9009-367b0d174e38",
+        "e98ece14-ea33-4fe7-b3f7-09f8b5697c37",
+        "02dc0d80-6caa-43eb-bb7f-4c178b38d1c2"
+      ],
+      "settings": {
+        "show_footer": true,
+        "background": "#f6f2eb"
+      }
+    }
+  },
+  "order": [
+    "16488285494cdb04df",
+    "hero",
+    "16478788128f6a3b11",
+    "1647942349aeb8d828",
+    "1647942833527df92c",
+    "164795433610a0a4e3",
+    "1648031624e495dbed",
+    "1648047973a0ab2430",
+    "164811876072521fb9",
+    "164812687777901201",
+    "16481227041f0e7c87",
+    "1648209684a7f7b42b",
+    "1648568105c9c31190",
+    "16497839183d606360",
+    "1648849912db4466a2"
+  ]
+}

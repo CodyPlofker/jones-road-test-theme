@@ -1,0 +1,46 @@
+<div class="account__addresses js-accountAddresses">
+  <div class="account__section account__section--crossfade js-crossfade" aria-labelledby="address-section-heading">
+    {% if addresses_count == 0 %}
+      <div class="account__info account__info--crossfade js-crossfade">
+        <span id="address-section-heading" tabindex="-1">You don’t have any saved addresses yet.<span>
+        <button class="button button--block button--centered js-addressEdit" data-address-id="{{ new_address.id }}">Add a new address</button>
+      </div>
+    {% else %}
+      {% if default_address != blank %}
+        <div class="account__address account__address--wide">
+          <b id="address-section-heading" tabindex="-1">Default address</b>
+          {{ default_address | format_address }}
+          <div class="account__address__controls">
+            <button class="account__address__action js-addressEdit" data-address-id="{{ default_address.id }}">Edit</button>
+          </div>
+        </div>
+      {% endif %}
+      <button class="button button--block js-addressEdit" data-address-id="{{ new_address.id }}">Add a new address</button>
+      {% if addresses_count > 1 %}
+        <div class="account__addresses__list">
+          {% assign count = 1 %}
+          {% for address in addresses %}
+            {% if address.id != default_address.id %}
+              <div class="account__address">
+                <b>{% if count < 10 %}0{% endif %}{{ count }}</b>
+                {{ address | format_address }}
+                <div class="account__address__controls">
+                  <button class="account__address__action js-addressEdit" data-address-id="{{ address.id }}">Edit</button>
+                  <button class="account__address__action js-addressDelete" data-address-id="{{ address.id }}">Delete</button>
+                </div>
+              </div>
+              {% assign count = count | plus: 1 %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endif %}
+  </div>
+  <div class="account__section account__section--crossfade js-crossfade" aria-hidden="true">
+    <button class="account__link account__link--upper js-addressBack">Back to my addresses</button>
+    {% for address in addresses %}
+      {% include 'form-address', form: address %}
+    {% endfor %}
+    {% include 'form-address', form: new_address %}
+  </div>
+</div>

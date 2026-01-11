@@ -1,0 +1,37 @@
+{%- include 'blog-data' -%}
+
+{%- assign more_articles = article.metafields.more.articles.value -%}
+
+{%- assign should_show_section = true -%}
+{%- if context == 'look' and more_articles == blank -%}
+  {%- assign should_show_section = false -%}
+{%- endif -%}
+
+{%- if should_show_section -%}
+  <div id="article-more" class="article__more {{ class }}">
+    <h2 class="article__more-heading">{{ heading }}</h2>
+    <div class="blog__grid-articles">
+      {%- if more_articles != blank -%}
+        {%- for id in more_articles limit: 4 -%}
+          {%- assign num_id = id | plus: 0 -%}
+          {%- assign a = all_articles | where: 'id', num_id | first -%}
+          
+          {%- unless a == blank -%}
+            {%- include 'article-card' with article: a, context -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- elsif context != 'look' -%}
+        {%- assign article_object = '"' | append: article.handle | append: '",' -%}
+        {%- assign articles_for_loop = all_articles | map: 'handle' | remove: article_object | remove: '"' | remove: '[' | remove: ']' | split: ',' -%}
+      
+        {%- for h in articles_for_loop limit: 4 -%}
+          {%- assign handle = h | strip -%}
+          {%- assign a = articles[handle] -%}
+          {%- unless a == blank -%}
+            {%- include 'article-card' with article: a -%}
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

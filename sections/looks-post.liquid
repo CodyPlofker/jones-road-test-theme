@@ -1,0 +1,31 @@
+{% schema %}
+  {
+    "name": "Looks Post",
+    "settings": [
+      {
+        "id": "shareLabel",
+        "label": "Share Label",
+        "type": "text",
+        "default": "Share this look"
+      },
+      {
+        "id": "copyLinkLabel",
+        "label": "Copy Link Label",
+        "type": "text",
+        "default": "Share this look"
+      },
+      {
+        "id": "copiedLabel",
+        "label": "Copied Label",
+        "type": "text",
+        "default": "Copied"
+      }
+    ]
+  }
+{% endschema %}
+{%- include 'looks-post',
+  post: article
+  copiedLabel: section.settings.copiedLabel,
+  copyLinkLabel: section.settings.copyLinkLabel,
+  shareLabel: section.settings.shareLabel,
+%}

@@ -1,0 +1,259 @@
+{%- unless shade_name_product -%}
+  {%- assign shade_name_product = product -%}
+{%- endunless -%}
+
+{%- assign has_shade_names = false -%}
+{%- assign variant_shade_names = shade_name_product.variants
+  | map: 'metafields'
+  | map: 'findation_hero'
+  | map: 'description'
+  | remove: '{}'
+  | remove: ','
+  | remove: '['
+  | remove: ']'
+-%}
+{%- if variant_shade_names != blank -%}
+  {%- assign has_shade_names = true -%}
+{%- endif -%}
+
+{%- assign swatches = settings.swatches | newline_to_br | split: '<br />' -%}
+{% assign key_ingredients_section = product.metafields.custom.key_ingredients_section.value %}
+{% assign ingredient_titles = key_ingredients_section.ingredient_titles %}
+{% assign ingredient_descriptions = key_ingredients_section.ingredient_descriptions %}
+{%- assign ingredients = product.metafields.ingredients.ingredients -%}
+{%- assign show_quiz = product.metafields.details.show_quiz -%}
+
+{% comment %} {% style %}
+.product__description-accordions button.utility__tab[data-heading="shade-descriptions"],
+.product__description-accordions div[data-heading="shade-descriptions"]{
+  display: none !important;
+}
+{% endstyle %} {% endcomment %}
+
+<div class="product__description-accordions js-accordion">
+  {% comment %} Description {% endcomment %}
+  {%- if product.description != blank and show_description != false -%}
+    {%- capture content -%}
+      <div class="product__description-description">
+        {%- if is_bundle -%}
+          {{ description_bottom }}
+        {%- else -%}
+          {{ product.description  }}
+        {%- endif -%}
+
+        {% for variant in product.variants %}
+          {% if product.selected_or_first_available_variant %}
+            <div class="kit-includes">
+              {% if product.selected_or_first_available_variant.metafields.custom.kit_contents != blank %}
+                {{ product.selected_or_first_available_variant.metafields.custom.kit_contents | metafield_tag }}
+              {% endif %}
+            </div>
+            {% break %}
+          {% endif %}
+        {%- endfor -%}
+      </div>
+      {%- if product.metafields.product.net_weights != blank -%}
+        <p class="product__description-weight">
+          {{ product.metafields.product.net_weights | prepend: '(' | append: ')' }}
+        </p>
+      {%- endif -%}
+    {%- endcapture -%}
+    {%- include 'product-accordion' with index: 1, heading: 'Product Description', content: content, expanded: true, class: 'description-accordion' -%}
+  {%- endif -%}
+
+  
+    {%- if has_shade_names -%}
+      {%- capture shade_descriptions -%}
+        <ul class="product__description-shades">
+          {%- for variant in shade_name_product.variants -%}
+            {%- assign swatch_override = false -%}
+            {%- if variant.metafields.swatch.color != blank -%}
+              {%- assign swatch_override = variant.metafields.swatch.color -%}
+            {%- endif -%}
+            {%- if variant.metafields.swatch.image != blank -%}
+              {%- assign swatch_override = variant.metafields.swatch.image | image_url: width: 100, height: 100 -%}
+            {%- endif -%}
+            {%- unless variant.metafields.config.hide_from_pdp -%}
+              {%- assign shade_position = shade_name_product.options_by_name['Shade'].position -%}
+              {%- assign shade_option_id = 'option' | append: shade_position -%}
+              {%- assign shade_name = variant[shade_option_id] -%}
+              {%- assign shade_description = variant.metafields.findation_hero.description -%}
+              {%- if shade_description != blank -%}
+                <li>
+                  {%- if swatch_override != false -%}
+                    {%- if swatch_override contains '//' -%}
+                      <img src="{{ swatch_override }}" alt="">
+                    {%- else -%}
+                      <i style="background: {{ swatch_override }};"></i>
+                    {%- endif -%}
+                  {%- else -%}
+                    {%- for s in swatches -%}
+                      {%- assign swatch = s | split: '==' -%}
+                      {%- assign swatch_name = swatch | first | strip -%}
+                      {%- assign swatch_value = swatch | last | strip -%}
+          
+                      {%- if swatch_name == variant.title -%}
+                        {%- if swatch_value contains '.' -%}
+                          <img src="{{ swatch_value }}" alt="">
+                        {%- else -%}
+                          <i style="background: {{ swatch_value }};"></i>
+                        {%- endif -%}
+                        {% break %}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- endif -%}
+                  <span class="shade-description">
+                    {%- if variant.metafields.swatch.new == true -%}
+                      <span class="shade-new">NEW </span>
+                    {%- endif -%}
+                    <span class="shade-name">{{ shade_name }}</span> {{ shade_description }}
+                  </span>
+                </li>
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        </ul>
+        {%- if show_quiz == true -%}
+          <div class="find-your-shade">
+            <p>Still haven’t found the perfect shade for you?</p>
+            {%- assign quiz_link = pages[product.metafields.details.quiz_link].url -%}
+            {%- if quiz_link == blank -%}
+              {%- assign quiz_link = settings.shade_form_link -%}
+            {%- endif -%}
+            <a class="quiz-cta" href="{{ quiz_link }}" data-no-history="1">
+              <div class="quiz-cta-text">Find my Shade</div>
+              <div class="quiz-cta-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="14" viewBox="0 0 8 14" fill="none">
+                  <path d="M1 12.7391L7 6.99999L1 1.26086" stroke="#F8F8F8" stroke-linecap="square"/>
+                </svg>
+              </div>
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- include 'product-accordion' with index: 2, heading: 'Shade Descriptions', content: shade_descriptions, expanded: false -%}
+    {%- endif -%}
+  
+
+  {% comment %} Review Highlights {% endcomment %}
+  {%- unless is_bundle -%}
+    {%- capture reviews_content -%} 
+      <div class="js-reviewHighlights" data-product="{{ product.id }}"></div>
+    {%- endcapture -%}
+    {%- include 'product-accordion' with index: 3, heading: 'Review Highlights', content: reviews_content, class: 'js-highlightsWrapper' -%}
+  {%- endunless -%}
+
+  {% comment %} How To {% endcomment %}
+  
+    {%- if how_to_text != blank or how_to_tip != blank -%}
+      {%- capture how_to_content -%}
+        {%- include 'product-description-howto' -%}
+      {%- endcapture -%}
+      {%- include 'product-accordion' with index: 4, heading: 'How to Use', content: how_to_content, expanded: false -%}
+    {%- endif -%}
+
+    {% comment %} Ingredients {% endcomment %}
+    {%- if key_ingredients_section != blank -%}
+      {%- capture ingredients_content -%}
+        <div class="product__description-ingredients">
+          {% for ingredient_title in ingredient_titles.value %}
+            <div class="key-ingredients-section-ingredient">
+              <h2>{{ ingredient_title }}</h2>
+              <p>{{ ingredient_descriptions.value[forloop.index0] }}</p>
+            </div>
+          {% endfor %}
+  
+          <button type="button" class="product__description-ingredients--toggle js-ingredientsToggle">
+            See Full Ingredient List
+          </button>
+          {%- if ingredients != blank -%}
+            {%- include 'product-description-ingredients' with context: 'modal' -%}
+          {%- endif -%}
+        </div>
+      {%- endcapture -%}
+      {%- include 'product-accordion' with index: 6, heading: 'Ingredients', content: ingredients_content, expanded: false -%}
+    {%- endif -%}
+
+  {% comment %} Upsells {% endcomment %}
+  {%- if upsells.size > 0 -%}
+    {%- capture upsell_content -%}
+      <div class="product__description-upsells">
+        {%- for field in upsells -%}
+          {%- assign name = field | first -%}
+          {%- assign upsell_variant = upsells[name].value -%}
+          {%- include 'product-upsell' with upsell_variant, name -%}
+        {%- endfor -%}
+      </div>
+    {%- endcapture -%}
+    {%- include 'product-accordion' with index: 5, heading: 'Pair With', content: upsell_content, expanded: true -%}
+  {%- endif -%}
+
+  {% comment %}
+    {%- if has_shade_breakdown -%}
+      {%- capture shade_breakdown_content -%}
+        {%- include 'shade-chart' -%}
+      {%- endcapture -%}
+      {%- include 'product-accordion' with index: 6, heading: 'Shade Breakdown', content: shade_breakdown_content, class: 'tablet-hidden desktop-hidden', expanded: false -%}
+    {%- endif -%}
+  {% endcomment %}
+
+  {% comment %} Featured Ingredients {% endcomment %}
+  {% comment %}
+    {%- if has_ingredients -%}
+      {%- capture ingredients_content -%}
+        {%- include 'product-description-ingredients' with context: 'content' -%}
+        {%- if ingredients != blank -%}
+          {%- include 'product-description-ingredients' with context: 'modal' -%}
+        {%- endif -%}
+      {%- endcapture -%}
+      {%- include 'product-accordion' with index: 7, heading: 'Ingredients', content: ingredients_content, class: 'tablet-hidden desktop-hidden', expanded: false -%}
+    {%- endif -%}
+  {% endcomment %}
+
+  {% comment %} FAQs {% endcomment %}
+  {% comment %}
+    {%- if faqs.size > 0 -%}
+      {%- capture faqs_content -%}
+        <div class="product__description-faqs">
+          {%- for field in faqs -%}
+            {%- assign name = field | first -%}
+            {%- assign faq = faqs[name].value | split: ' // ' -%}
+            {%- assign question = faq | first -%}
+            {%- assign answer = faq | last -%}
+
+            <div class="product__description-faq">
+              <p class="heading">Q:</p>
+              <p class="cntnt question">{{ question }}</p>
+              <p class="heading">A:</p>
+              <p class="cntnt answer">{{ answer }}</p>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endcapture -%}
+      {%- include 'product-accordion' with index: 8, heading: 'FAQs', content: faqs_content, class: 'tablet-hidden desktop-hidden', expanded: false -%}
+    {%- endif -%}
+  {% endcomment %}
+
+  {% comment %} Shipping & Returns (mobile) {% endcomment %}
+  {% comment %}
+    {%- if shipping_note != blank or returns_note != blank -%}
+      {%- capture shipping_returns_content -%}
+        <div class="product__description-notes">
+          {%- if shipping_note != blank -%}
+            <div>
+              <h3>Shipping</h3>
+              {{ shipping_note }}
+            </div>
+          {%- endif -%}
+          {%- if returns_note != blank -%}
+            <div>
+              <h3>Returns</h3>
+              {{ returns_note }}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endcapture -%}
+      {%- include 'product-accordion' with index: 9, heading: 'Shipping & Returns', content: shipping_returns_content, class: 'tablet-hidden desktop-hidden', expanded: false -%}
+    {%- endif -%}
+  {% endcomment %}
+</div>

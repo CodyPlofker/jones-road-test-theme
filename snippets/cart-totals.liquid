@@ -1,0 +1,15 @@
+<div class="cart-totals">
+  <dl class="cart-totals__summary">
+    <dt>Subtotal</dt><dd class="js-cartTotalsSubtotal"></dd>
+    <dt>Shipping &amp; Handling</dt><dd class="js-cartTotalsShipping"></dd>
+    <dt>Sales Tax</dt><dd>–</dd>
+    <dt>Estimated Total</dt><dd class="js-cartTotalsTotal"></dd>
+  </dl>
+  <form action="/cart" method="post" class="mobile-hidden">
+    <input type="hidden" name="checkout" value="Checkout" />
+    <button class="button cart-totals__checkout js-cartCheckout">
+      Checkout
+    </button>
+  </form>
+  <div class="cart-totals__info mobile-hidden">{{ settings.cart_totals_copy }}</div>
+</div>

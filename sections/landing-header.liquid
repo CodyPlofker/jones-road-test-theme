@@ -1,0 +1,120 @@
+{%- assign config = section.settings -%}
+{%- assign links = section.blocks | map: 'settings' -%}
+
+<div class="landing-header js-landingHeader" data-component="landingHeader" data-show="{{ config.show_header }}">
+  <div class="landing-header__content">
+    <button class="header__toggle js-landingHeaderToggle" aria-label="Toggle Navigation" aria-expanded="false">
+      <span class="header__toggle__icon"></span>
+    </button>
+    <a href="/" class="header__logo">
+      <span class="visually-hidden">Jones Road</span>
+      {% include 'jones-road-logo' %}
+    </a>
+    <ul class="landing-header__links landing-header__links--desktop">
+      {%- for link in links -%}
+        {%- assign is_permalink = false -%}
+        {%- if link.url contains '#' -%}
+          {%- assign is_permalink = true -%}
+        {%- endif -%}
+        <li><a href="{{ link.url }}" class="{% if is_permalink %} js-smoothScroll {% endif %}">{{ link.text }}</a></li>
+      {%- endfor -%}
+    </ul>
+    {%- if config.cta_text != blank -%}
+      {%- assign is_permalink = false -%}
+      {%- if config.cta_link contains '#' -%}
+        {%- assign is_permalink = true -%}
+      {%- endif -%}
+      <a href="{{ config.cta_link }}" class="landing-header__cta landing-header__cta--desktop button {% if is_permalink %} js-smoothScroll {% endif %}">
+        {{ config.cta_text }}
+      </a>
+    {%- endif -%}
+  </div>
+  <ul class="landing-header__links landing-header__links--mobile">
+    {%- for link in links -%}
+      {%- assign is_permalink = false -%}
+      {%- if link.url contains '#' -%}
+        {%- assign is_permalink = true -%}
+      {%- endif -%}
+      <li><a href="{{ link.url }}" class="{% if is_permalink %} js-smoothScroll {% endif %}">{{ link.text }}</a></li>
+    {%- endfor -%}
+    {%- if config.cta_text != blank -%}
+      {%- assign is_permalink = false -%}
+      {%- if config.cta_link contains '#' -%}
+        {%- assign is_permalink = true -%}
+      {%- endif -%}
+      <li>
+        <a href="{{ config.cta_link }}" class="landing-header__cta landing-header__cta--mobile button {% if is_permalink %} js-smoothScroll {% endif %}">
+          {{ config.cta_text }}
+        </a>
+      </li>
+    {%- endif -%}
+  </ul>
+</div>
+
+<style>
+  .header__wrapper {
+    opacity: 0;
+    pointer-events: none;
+    height: 0;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Landing Header",
+    "tag": "header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_header",
+        "label": "Show Header",
+        "default": true,
+        "info": "Uncheck this box to completely remove the header from the page."
+      },
+      {
+        "type": "header",
+        "content": "CTA"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link",
+        "info": "To create a permalink to another section, enter # followed by the ID of the section you want to link to, eg: #product-grid"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "link",
+        "name": "Link",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "CTA Link",
+            "info": "To create a permalink to another section, enter # followed by the ID of the section you want to link to, eg: #product-grid"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Landing Header" }],
+    "templates": ["page"]
+  }
+{% endschema %}

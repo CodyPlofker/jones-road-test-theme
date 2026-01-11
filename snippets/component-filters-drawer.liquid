@@ -1,0 +1,163 @@
+{% assign show_more_number = 1000 %}
+
+<aside class="filters-sidebar">
+  {% liquid
+    assign open = true
+    if collapse_filters
+      assign open = false
+    endif
+  %}
+
+  <div class="facets__main-head-wrapper">
+    <h2 class="facets__heading">Filters</h2>
+    <div class="drawer-close-icon" @click="$store.drawer.DrawerClose()">
+      <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="14" height="15" viewBox="0 0 14 15" fill="none">
+        <path d="M13 1.5L1 13.5M13 13.5L1 1.50001" stroke="black" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </div>
+  <form id="filters-form">
+    {% for f in results.filters %}
+      <div
+        class="filter-section facets__disclosure-vertical js-filter"
+        id="Details-{{ f.param_name | escape }}-{{ section.id }}"
+        x-data="{ open: {{ open }} }"
+      >
+        {% assign visible_value_count = 0 %}
+        {% for v in f.values %}
+          {% if v.count > 0 or v.active %}
+            {% assign visible_value_count = visible_value_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+        {% if visible_value_count > 0 or f.type == 'price_range' %}
+          {% if f.type == 'boolean' or f.param_name == 'filter.v.availability' %}
+            {% assign true_value = f.values | where: 'value', '1' | first %}
+            {% assign input_id = 'Filter-' | append: f.param_name | escape | append: '-' | append: forloop.index %}
+
+            {% if true_value and true_value.count > 0 %}
+              <label class="facet-checkbox facet-switch-toggle">
+                <input
+                  id="{{ input_id }}"
+                  type="checkbox"
+                  name="{{ f.param_name }}"
+                  value="1"
+                  {% if f.values[0].active %}
+                    checked
+                  {% endif %}
+                  class="filter-checkbox-input"
+                >
+                <span class="switch-slider" aria-hidden="true"></span>
+                <span class="facet-checkbox-label">
+                  {{- f.label }}
+                </span>
+              </label>
+            {% endif %}
+          {% else %}
+            <details
+              x-bind:open="open"
+              @toggle="open = $event.target.open"
+            >
+              <summary>
+                <span>
+                  {{ f.label }}
+                </span>
+                <button class="toggle-icon" aria-label="Toggle expand/collapse">
+                  <svg class="icon" viewBox="0 0 24 24" width="24" height="24">
+                    <rect class="line horizontal" x="4" y="11" width="16" height="2" rx="1" />
+                    <rect class="line vertical" x="11" y="4" width="2" height="16" rx="1" />
+                  </svg>
+                </button>
+              </summary>
+              <div
+                class="facets__display-vertical"
+                x-data="{ showMore : $persist(false).as('sm-{{ f.param_name }}') }"
+              >
+                {% if f.type == 'price_range' %}
+                  {% render 'component-filters-price-range', filter: f, id_prefix: 'Filter-', filter_type: filter_type %}
+                {% else %}
+                  {% for v in f.values %}
+                    {% assign input_id = 'Filter-' | append: f.param_name | escape | append: '-' | append: forloop.index %}
+                    <label
+                      class="
+                        facet-checkbox
+                        {% if v.count == 0 and v.active == false %}
+                          disabled
+                        {% endif %}
+                      "
+                      {% if forloop.index > show_more_number %}
+                        x-show="showMore"
+                        x-transition
+                      {% endif %}
+                    >
+                      <input
+                        id="{{ input_id }}"
+                        type="checkbox"
+                        name="{{ v.param_name }}"
+                        value="{{ v.value }}"
+                        {% if v.active %}
+                          checked
+                        {% endif -%}
+                        {% if v.count == 0 and v.active == false %}
+                          disabled
+                        {% endif -%}
+                        class="filter-checkbox-input"
+                      >
+                      <span class="facet-checkbox-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none">
+                          <path d="M9 1.5L3.5 7L1 4.5" stroke="black" stroke-width="1.6666" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                      <span class="facet-checkbox-label">
+                        {{- v.label }}
+                      </span>
+                    </label>
+                  {% endfor %}
+                {% endif %}
+                {%- if f.type != 'price_range' and f.values.size > show_more_number -%}
+                  <button
+                    type="button"
+                    class="filters__show-more"
+                    x-on:click="showMore = !showMore"
+                    x-text="showMore ? 'Show less' : 'Show more'"
+                  >
+                    Show more
+                  </button>
+                {%- endif %}
+              </div>
+            </details>
+          {% endif %}
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div id="js-clear-filters-{{ section.id }}">
+      {% liquid
+        assign has_active_filters = false
+        for f in collection.filters
+          if f.type == 'price_range'
+            if f.min_value.value > 0 or f.max_value.value < f.range_max
+              assign has_active_filters = true
+            endif
+          else
+            if f.active_values.size > 0
+              assign has_active_filters = true
+            endif
+          endif
+        endfor
+      %}
+
+      {% assign current_sort_by = results.sort_by | default: results.default_sort_by %}
+      {% assign clear_filters_url = results.url %}
+
+      {% if current_sort_by != blank %}
+        {% assign clear_filters_url = clear_filters_url | append: '?sort_by=' | append: current_sort_by %}
+      {% endif %}
+
+      {% if has_active_filters %}
+        <div class="filter active-filter-item active-filter-clear-all-drawer" data-render-section-url="{{ clear_filters_url }}">
+          <span>Clear all Filters</span>
+        </div>
+      {% endif %}
+    </div>
+  </form>
+</aside>

@@ -1,0 +1,167 @@
+<style>
+  .product-free-shipping-banner-container,
+  .product-free-shipping-banner-container-mobile {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13.889vw;
+    height: 8.056vw;
+    margin-bottom: 34px;
+    background-color: {{ section.settings.free_shipping_banner_color }};
+  }
+
+  .product-free-shipping-banner-container {
+    display: flex;
+  }
+  .product-free-shipping-banner-container-mobile {
+    display: none;
+  }
+  .product-free-shipping-banner-container p,
+  .product-free-shipping-banner-container-mobile p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    color: {{ section.settings.free_shipping_text_color }};
+    text-align: center;
+    position: relative;
+
+  }
+
+  @media (max-width: 700px) {
+    .product-free-shipping-banner-container {
+      display: none;
+    }
+    .product-free-shipping-banner-container-mobile {
+      display: flex;
+      height: 15vw;
+      gap: 0px;
+    }
+
+    .product-free-shipping-banner-container-mobile p {
+      width: 125px;
+      font-weight: 325;
+      font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+      line-height: 1.3;
+    }
+
+    .shipping-banner-line {
+      width: 11.364vw !important;
+    }
+  }
+
+  @media (min-width: 701px) and (max-width: 900px) {
+    .product-free-shipping-banner-container{
+      gap: 5.889vw;
+    }
+  }
+
+  @media screen and (max-width: 393px) {
+    .product-free-shipping-banner-container-mobile {
+      min-height: 66px;
+    }
+
+    .product-free-shipping-banner-container-mobile p {
+      letter-spacing: 0.2px;
+    }
+
+    .shipping-banner-line {
+      width: 9vw !important;
+    }
+    .product-free-shipping-banner-container,
+    .product-free-shipping-banner-container-mobile {
+      margin-bottom: 0px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .product-free-shipping-banner-container p{
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 0.02em;
+    }
+
+    .product-free-shipping-banner-container{
+      height: 100px;
+      gap: 191px;
+      margin-bottom: 0px;
+    }
+    .product-free-shipping-banner-container > p:first-child::before,
+    .product-free-shipping-banner-container > p:last-child::before {
+      content: '';
+      position: absolute;
+      width: 1px;
+      top: 5px;
+      bottom: 4px;
+      background-color: #000;
+      left: calc(100% + 95px);
+    }
+    .product-free-shipping-banner-container > p:last-child::before {
+      right: calc(100% + 95px);
+      left: unset;
+    }
+  
+  
+  }
+
+  @media screen and (min-width: 1024px) and (max-width: 1439px) {
+    .product-free-shipping-banner-container {
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+  }
+</style>
+
+<div class="product-free-shipping-banner-container">
+  <p>{{ section.settings.free_shipping_banner_text_1 }}</p>
+  <p>{{ section.settings.free_shipping_banner_text_2 }}</p>
+  <p>{{ section.settings.free_shipping_banner_text_3 }}</p>
+</div>
+<div class="product-free-shipping-banner-container-mobile">
+  <p>{{ section.settings.free_shipping_banner_text_1 }}</p>
+  <p class="shipping-banner-line">|</p>
+  <p>{{ section.settings.free_shipping_banner_text_3 }}</p>
+</div>
+
+{% schema %}
+{
+  "name": "Free Shipping Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "free_shipping_banner_color",
+      "label": "Free Shipping Banner color",
+      "default": "#F6F2EB"
+    },
+    {
+      "type": "color",
+      "id": "free_shipping_text_color",
+      "label": "Free Shipping Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_banner_text_1",
+      "label": "Banner Text 1",
+      "default": "Free returns within 30 days"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_banner_text_2",
+      "label": "Banner Text 2",
+      "default": "Free shade matching"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_banner_text_3",
+      "label": "Banner Text 2",
+      "default": "Free exchanges within 45 days"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Free Shipping Banner"
+    }
+  ]
+}
+{% endschema %}

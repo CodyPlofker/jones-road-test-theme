@@ -1,0 +1,17 @@
+<ul class="product__swatches-tabs-wrapper">
+    <li>
+      <button data-tab-title="ALL" type="button" class="product__swatches-btn js-swatchesTabHeading active">ALL</button>
+    </li>
+    {% for swatches_category in swatches_categories %}
+      <li>
+        <button 
+          type="button" 
+          class="product__swatches-btn js-swatchesTabHeading"
+          data-tab-title="{{ swatches_category.category_name | upcase }}"
+          data-swatch-names="{{ swatches_category.category_value.value | join: ',' }}"
+        >
+          {{ swatches_category.category_name }}
+        </button>
+      </li>
+    {% endfor %}
+  </ul>

@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "AuNaturel_03.jpg",
+            "heading": "#1: Even Out And Correct",
+            "description": "<p>Apply Miracle Balm in Au Naturel all over face. Apply The Face Pencils to even out skin tone and correct any darkness under the eyes.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01044",
+            "product_2": "the-face-pencil",
+            "variant_2": "FGFP12358"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "sparkle-wash1_0000s_0000s_0005_JonesRoad_SparkleWAsh_Midas_02_jpg_a89d8828-307b-421d-8e41-22f08f382f93.jpg",
+            "heading": "#2: Subtle Shine",
+            "description": "<p>Fill in brows using The Brow Pencil in Blonde. Swipe Sparkle Wash in Midas on lids. <\/p>",
+            "product_1": "the-brow-pencil",
+            "variant_1": "FGBP23201",
+            "product_2": "sparkle-wash",
+            "variant_2": "FGSW09669-2"
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "eyeshadow_0000s_0001s_0006_JonesRoad_Eyeshadow_BCITW_02_jpg.jpg",
+            "heading": "#3: Define",
+            "description": "<p>Line the upper lash line using The Best Pencil in Black. Using a wet brush, layer The Best Eyeshadow in BCITW on top of The Best Pencil for added depth.<\/p>",
+            "product_1": "the-best-pencil",
+            "variant_1": "FGEL08136",
+            "product_2": "the-best-eyeshadow",
+            "variant_2": "FGES06119-1"
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "PastelPink_03.jpg",
+            "heading": "#4: Add Volume",
+            "description": "<p>Apply two coats of <a href=\"https:\/\/jonesroadbeauty.com\/products\/the-mascara?variant=36186527137942\" title=\"The Mascara | Clean, Cruelty-Free, Vegan\">The Mascara <\/a>for definition and volume. Smooth <a href=\"https:\/\/jonesroadbeauty.com\/products\/cool-gloss?variant=39876394352790\" title=\"Cool Gloss | Pastel Pink\">Cool Gloss in Pastel Pink <\/a>on lips.<\/p>",
+            "product_1": "the-mascara",
+            "variant_1": "",
+            "product_2": "cool-gloss",
+            "variant_2": "FGCG03034"
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/justbobbi_AdelinaSoftFocusSparkle_d52c22e7-6b38-4645-81da-e98394c22328.jpg",
+        "heading": "",
+        "description": "",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(8 products)",
+        "bullets": "<p><a href=\"\/products\/miracle-balm\" target=\"_blank\" title=\"Miracle Balm\">Miracle Balm<\/a><\/p><p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil<\/a><\/p><p><a href=\"\/products\/the-brow-pencil\" target=\"_blank\" title=\"The Brow Pencil\">The Brow Pencil<\/a><\/p><p><a href=\"\/products\/sparkle-wash\" target=\"_blank\" title=\"Sparkle Wash\">Sparkle Wash<\/a><\/p><p><a href=\"\/products\/the-best-pencil\" target=\"_blank\" title=\"The Best Pencil\">The Best Pencil<\/a><\/p><p><a href=\"\/products\/the-best-eyeshadow\" target=\"_blank\" title=\"The Best Eyeshadow\">The Best Eyeshadow<\/a><\/p><p><a href=\"\/products\/the-mascara\" title=\"The Mascara\">The Mascara<\/a><\/p><p><a href=\"\/products\/cool-gloss\" target=\"_blank\" title=\"Cool Gloss\">Cool Gloss<\/a><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

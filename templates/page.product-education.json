@@ -1,0 +1,451 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "89bf049c-e578-4942-835b-4057e673151b": {
+      "type": "dynamic-hero",
+      "settings": {
+        "contentPosition": "center-left",
+        "heading": "What The Foundation:\nTinted Moisture Balm Meets Traditional Foundation",
+        "headingHighlight": true,
+        "highlightColor": "#ffffff",
+        "subheading": "",
+        "subheadingColor": "black",
+        "subheadingFont": "geogrotesque",
+        "subheading_mobile": "",
+        "subheadingColorMobile": "black",
+        "subheadingFontMobile": "geogrotesque",
+        "image": "shopify://shop_images/education-hero-desktop.png",
+        "imageAlt": "Woman holding What the Foundation",
+        "imageMobile": "shopify://shop_images/education-hero-mobile.png"
+      }
+    },
+    "07c399fc-cc25-4ec8-ae33-6cb3b027afb6": {
+      "type": "stepped-image",
+      "blocks": {
+        "adbf5dc1-c43f-42dd-933a-a7d3999a5dcc": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/education-steps-1.png",
+            "heading": "Start with Clean Skin",
+            "description": "Use a cleanser like The Cleansing Stick to remove dirt and impurities. Unless you have very dry skin, skip the moisturizer."
+          }
+        },
+        "6dc68548-b466-43c9-9152-344c7f5e39d0": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/education-steps-2.png",
+            "heading": "Stir before use",
+            "description": "With the back of a brush or The Spatula, stir to combine the natural oils into the formula — similar to how you would shake a foundation bottle."
+          }
+        },
+        "55e862ed-e7ec-4e17-bca3-f0804614b857": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/education-steps-3.png",
+            "heading": "Apply small dots",
+            "description": "A little goes a long way. Apply two to three dots of What The Foundation on your cheeks and forehead to avoid using too much product."
+          }
+        },
+        "f71773a5-0e86-428d-8004-f009a818eb90": {
+          "type": "step",
+          "settings": {
+            "image": "shopify://shop_images/education-steps-4.png",
+            "heading": "Use your fingers or a brush",
+            "description": "Use your fingers or a brush to blend What The Foundation into your skin. Build coverage as needed."
+          }
+        }
+      },
+      "block_order": [
+        "adbf5dc1-c43f-42dd-933a-a7d3999a5dcc",
+        "6dc68548-b466-43c9-9152-344c7f5e39d0",
+        "55e862ed-e7ec-4e17-bca3-f0804614b857",
+        "f71773a5-0e86-428d-8004-f009a818eb90"
+      ],
+      "settings": {
+        "heading": "How to Use:"
+      }
+    },
+    "c86413f1-f5d7-4504-b401-61540c6cfbda": {
+      "type": "images-hover",
+      "blocks": {
+        "c9b555bb-5b74-4b63-b0c7-7bb6902497f9": {
+          "type": "image",
+          "settings": {
+            "heading": "Coverage:",
+            "image": "shopify://shop_images/Frame_188.png",
+            "description": "Light / Medium"
+          }
+        },
+        "4732e544-a3ec-48d6-96bb-e8cd8c516c20": {
+          "type": "image",
+          "settings": {
+            "heading": "Finish:",
+            "image": "shopify://shop_images/Frame_187.png",
+            "description": "Radiant"
+          }
+        },
+        "763fab6c-ae9a-4aec-bb52-5dcb341adff1": {
+          "type": "image",
+          "settings": {
+            "heading": "Formula:",
+            "image": "shopify://shop_images/Frame_185.png",
+            "description": "Tinted moisture balm <em>meets</em> traditional foundation"
+          }
+        },
+        "37ddb3b2-451b-4c8c-b91b-4285c6d73d28": {
+          "type": "image",
+          "settings": {
+            "heading": "Longevity:",
+            "image": "shopify://shop_images/Frame_186.png",
+            "description": "Lasts all day for a flawless look"
+          }
+        }
+      },
+      "block_order": [
+        "c9b555bb-5b74-4b63-b0c7-7bb6902497f9",
+        "4732e544-a3ec-48d6-96bb-e8cd8c516c20",
+        "763fab6c-ae9a-4aec-bb52-5dcb341adff1",
+        "37ddb3b2-451b-4c8c-b91b-4285c6d73d28"
+      ],
+      "settings": {
+        "background": "#f8f8f8",
+        "heading": "About The Formula",
+        "heading_highlight": true,
+        "highlight_color": "#ffffff"
+      }
+    },
+    "fde2fd31-57c4-42b1-8fc6-125913434037": {
+      "type": "video-text",
+      "disabled": true,
+      "settings": {
+        "background": "#ffffff",
+        "video": "shopify://files/videos/MB_Shades.mp4",
+        "heading": "Watch:",
+        "heading_highlight": true,
+        "highlight_color": "#f6f2eb",
+        "description": "<p>Watch Bobbi share everything you need to know about What The Foundation.</p>"
+      }
+    },
+    "a1bc8bea-0527-4246-8338-62897dd14701": {
+      "type": "shade-chart",
+      "settings": {
+        "background": "#f5f2ec",
+        "heading": "Explore the Shades",
+        "product": "what-the-foundation"
+      }
+    },
+    "df76b5bf-bf5e-49d9-b06e-66daaa9f1536": {
+      "type": "stepped-tabs",
+      "blocks": {
+        "edbeabf8-d392-4fc8-941a-cfa45d89ca25": {
+          "type": "tab",
+          "settings": {
+            "name": "Dry",
+            "heading": "Dry Skin:",
+            "steps": "<ol><li>Apply What The Foundation by warming it up with your fingertips and tapping into the complexion, or use The Skin Brush/The Everything Brush to apply.</li><li>Use a little at a time, about a dime-sized amount, and build the product to achieve your desired coverage.</li><li>If you have additional dry spots on the complexion, apply The Oil Stick on top to hydrate rather than more What The Foundation to prevent over-application.</li><li>Optional: Apply the Tinted Face Powder on top, focused across the T-zone, to remove any unwanted shine. </li></ol>"
+          }
+        },
+        "64222267-38a3-4302-a4f7-be2f4651ecfc": {
+          "type": "tab",
+          "settings": {
+            "name": "Balanced",
+            "heading": "Balanced Skin:",
+            "steps": "<ol><li>Apply What The Foundation by warming it up with your fingertips and tapping into the complexion, or use The Skin Brush/The Everything Brush to apply.</li><li>Use a little at a time, about a dime-sized amount, and build the product to achieve your desired coverage.</li><li>Optional: To combat excess shine, apply the Tinted Face Powder on top, focusing across the T-zone.</li><li>Optional: To add extra color and glow, apply Miracle Balm or Shimmer Face Oil on top of your What The Foundation or Tinted Face Powder.</li></ol>"
+          }
+        },
+        "fdd09c88-b6b0-4080-a0b6-0143d9eeed85": {
+          "type": "tab",
+          "settings": {
+            "name": "Combination",
+            "heading": "Combination Skin:",
+            "steps": "<ol><li>Apply What The Foundation by warming it up with your fingertips and tapping into the complexion, or use The Skin Brush/The Everything Brush to apply.</li><li>Use a little at a time, about a dime-sized amount, and build the product to achieve your desired coverage.</li><li>Optional: To combat excess shine, apply the Tinted Face Powder on top, focusing across the T-zone.</li><li>Optional: Feel free to use the Lip and Cheek Stick on top of your What The Foundation or Tinted Face Powder for added color and glow.</li></ol>"
+          }
+        },
+        "4a84917b-975b-4103-b81f-e7c2c91fbb10": {
+          "type": "tab",
+          "settings": {
+            "name": "Oily",
+            "heading": "Oily Skin",
+            "steps": "<ol><li>Apply What The Foundation by warming it up with your fingertips and tapping into the complexion, or use The Skin Brush/The Everything Brush to apply.</li><li>Use a little at a time, about a dime-sized amount, and build the product to achieve your desired coverage.</li><li>Optional: Apply the Tinted Face Powder on top, focused across the T-zone, to bring down any unwanted glow.</li><li>Optional: Consider adding The Best Blush for an extra pop of pigmented color on your face's high points. If you find the Miracle Balm to be overly hydrating, this is a great alternative.</li></ol>"
+          }
+        }
+      },
+      "block_order": [
+        "edbeabf8-d392-4fc8-941a-cfa45d89ca25",
+        "64222267-38a3-4302-a4f7-be2f4651ecfc",
+        "fdd09c88-b6b0-4080-a0b6-0143d9eeed85",
+        "4a84917b-975b-4103-b81f-e7c2c91fbb10"
+      ],
+      "settings": {
+        "heading": "My Skin Type Is…",
+        "subheading": "Bobbi's Tip:",
+        "description": "<p>Some people may need two shades of WTF; one for summer months, one for winter months, or a mix of both for the times in between.</p>"
+      }
+    },
+    "cbad3aa5-6508-44bf-aa18-dbcdd7ee3ea1": {
+      "type": "image-accordions",
+      "blocks": {
+        "106b5edf-f226-47c3-8d4c-f8d430c2f835": {
+          "type": "accordion",
+          "settings": {
+            "heading": "How should I apply What The Foundation?",
+            "description": "<p>Stir before using for optimal consistency. You can skip your moisturizer as WTF provides ample hydration itself. Start with a pea-sized amount and apply all over. Layer as needed.</p>"
+          }
+        },
+        "0b24249d-e646-4036-bf26-5adecd809719": {
+          "type": "accordion",
+          "settings": {
+            "heading": "How does What The Foundation work with other JRB products?",
+            "description": "<p>What The Foundation works seamlessly with other JRB products. We recommend following it up with additional spot concealing using the Face Pencil as needed. Then layer with any of our powder products to set your complexion, add color, and reduce shine.</p>"
+          }
+        },
+        "a2cd969f-62a0-4860-b252-60761fe28f84": {
+          "type": "accordion",
+          "settings": {
+            "heading": "How do I avoid foundation creasing with What The Foundation?",
+            "description": "<p>The trick to avoiding foundation creasing when using What The Foundation is to apply a small amount initially, adding more as needed to prevent over-application. This ensures an even, light layer on your skin. To set your complexion and further prevent creasing, follow up with a light dusting of The Tinted Face Powder.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "106b5edf-f226-47c3-8d4c-f8d430c2f835",
+        "0b24249d-e646-4036-bf26-5adecd809719",
+        "a2cd969f-62a0-4860-b252-60761fe28f84"
+      ],
+      "settings": {
+        "background": "#f5f2ec",
+        "image": "shopify://shop_images/education-accordions.png",
+        "heading": "FAQS"
+      }
+    },
+    "35ee4d52-5aa9-4aec-92d4-88fbd39716f0": {
+      "type": "editorial-products",
+      "blocks": {
+        "9aadf038-56f0-4d47-a17f-0578c9b3bad7": {
+          "type": "product",
+          "settings": {
+            "product": "the-skin-brush",
+            "heading": "",
+            "description": "",
+            "image": "shopify://shop_images/education-related-1.png"
+          }
+        },
+        "3cb54fdf-9bcd-4f2f-8d2d-f0d03312aa06": {
+          "type": "product",
+          "settings": {
+            "product": "tinted-face-powder",
+            "heading": "",
+            "description": "<p>Tinted Face Powder is a finely milled, ultra-lightweight setting powder designed to seamlessly blend into your skin to set your foundation, color correct where needed, and minimize shine without looking like you’re wearing powder.</p>",
+            "image": "shopify://shop_images/education-related-2.png"
+          }
+        }
+      },
+      "block_order": [
+        "9aadf038-56f0-4d47-a17f-0578c9b3bad7",
+        "3cb54fdf-9bcd-4f2f-8d2d-f0d03312aa06"
+      ],
+      "settings": {
+        "heading": "Goes Well with what the foundation"
+      }
+    },
+    "1fa507b5-c692-42b4-b04a-41beafebf1a0": {
+      "type": "info-cards-carousel",
+      "blocks": {
+        "8def364e-ac9d-4082-8f9c-0e702416490f": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WTF_porcelain_web_1.jpg",
+            "heading": "Porcelain",
+            "description": "<p><strong>SHADE DESCRIPTION:<br/></strong>Pale with neutral undertones</p><p><strong>GOES WITH:<br/></strong>Face Pencil shades 1, 2, and 3</p>",
+            "cta_text": "Shop Porcelain",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705191574"
+          }
+        },
+        "aa217992-3a7e-4895-8165-612dfab5d6aa": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WTF_Fair_PDP_03_69f565c8-edea-4675-93ab-f5a8fcb20c65.jpg",
+            "heading": "Fair",
+            "description": "<p><strong>SHADE DESCRIPTION:<br/></strong>Fair with neutral undertones</p><p><strong>Goes With:<br/></strong>Face Pencil shades 5 and 6</p>",
+            "cta_text": "Shop Fair",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705224342"
+          }
+        },
+        "29de7699-ad16-4e4c-a3c7-80494df5ed78": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/info-cards-carousel-4.png",
+            "heading": "Light",
+            "description": "<p><strong>Shade Description:</strong><br/>Light with yellow undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shades 4, 7, and 8</p>",
+            "cta_text": "Shop Light",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705257110"
+          }
+        },
+        "4f1911b9-7723-4382-9181-c9cf61822ffd": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/info-cards-carousel-5.png",
+            "heading": "Beige",
+            "description": "<p><strong>Shade Description:</strong><br/>Light to medium with neutral undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shades 9, 10, and 11</p>",
+            "cta_text": "Shop Beige",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705289878"
+          }
+        },
+        "71c7c87c-249f-4bc4-8825-d0772c71b5de": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/info-cards-carousel-1.png",
+            "heading": "Medium",
+            "description": "<p><strong>Shade Description</strong><br/>Medium with yellow undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shades 12 and 13</p>",
+            "cta_text": "Shop Medium",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705322646"
+          }
+        },
+        "adaf002a-8b3f-4d53-b1e8-62c1495d26f9": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/info-cards-carousel-2.png",
+            "heading": "Medium Honey",
+            "description": "<p><strong>Shade Description:</strong><br/>Medium to tan with neutral undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shades 14, 15, and 16</p>",
+            "cta_text": "Shop Medium Honey",
+            "cta_link": "https://jonesroadbeauty.com/products/what-the-foundation?variant=41597705355414"
+          }
+        },
+        "d9f3f7d1-e6d6-433f-b2ac-561cf01679e7": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/info-cards-carousel-3.png",
+            "heading": "Honey",
+            "description": "<p><strong>Shade Description:</strong><br/>Medium to tan with yellow undertones</p><p><strong>Goes With:<br/></strong>Face Pencil shades 17 and 18</p>",
+            "cta_text": "Shop Honey",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705388182"
+          }
+        },
+        "7ab154b0-4e27-4282-a4b2-0fed9986cb12": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WTF_Pecan_2.jpg",
+            "heading": "Pecan",
+            "description": "<p><strong>Shade Description:<br/></strong>Tan to dark with yellow undertones</p><p><strong>Goes With:<br/></strong>Face Pencil shade 19</p>",
+            "cta_text": "Shop Pecan",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705420950"
+          }
+        },
+        "09e10884-6d8a-44b8-9b04-37ca17badf32": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WTF_Cinnamon_2.jpg",
+            "heading": "Cinnamon",
+            "description": "<p><strong>Shade Description:</strong><br/>Dark with red undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shade 20</p>",
+            "cta_text": "Shop Cinnamon",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705453718"
+          }
+        },
+        "3d5b89a3-5033-41da-9de6-1cb290ca4fd2": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WTF_Chestnut_2.png",
+            "heading": "Chestnut",
+            "description": "<p><strong>Shade Description:</strong><br/>Dark to deep with red undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shades 21, 22, and 23</p>",
+            "cta_text": "Shop Chestnut",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705486486"
+          }
+        },
+        "31378cf9-cbe6-4dd8-8d43-52a23f64fc84": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WTF_Deep_2.jpg",
+            "heading": "Deep",
+            "description": "<p><strong>Shade Description:</strong><br/>Deep with red undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shade 24</p>",
+            "cta_text": "Shop Deep",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705519254"
+          }
+        },
+        "6b368ec8-cb0b-413c-8127-31b2f928a55a": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/WTF_Espresso_3.jpg",
+            "heading": "Espresso",
+            "description": "<p><strong>Shade Description:</strong><br/>Very deep with neutral undertones</p><p><strong>Goes With:</strong><br/>Face Pencil shade 25</p>",
+            "cta_text": "Shop Espresso",
+            "cta_link": "https://www.jonesroadbeauty.com/products/what-the-foundation?variant=41597705552022"
+          }
+        }
+      },
+      "block_order": [
+        "8def364e-ac9d-4082-8f9c-0e702416490f",
+        "aa217992-3a7e-4895-8165-612dfab5d6aa",
+        "29de7699-ad16-4e4c-a3c7-80494df5ed78",
+        "4f1911b9-7723-4382-9181-c9cf61822ffd",
+        "71c7c87c-249f-4bc4-8825-d0772c71b5de",
+        "adaf002a-8b3f-4d53-b1e8-62c1495d26f9",
+        "d9f3f7d1-e6d6-433f-b2ac-561cf01679e7",
+        "7ab154b0-4e27-4282-a4b2-0fed9986cb12",
+        "09e10884-6d8a-44b8-9b04-37ca17badf32",
+        "3d5b89a3-5033-41da-9de6-1cb290ca4fd2",
+        "31378cf9-cbe6-4dd8-8d43-52a23f64fc84",
+        "6b368ec8-cb0b-413c-8127-31b2f928a55a"
+      ],
+      "settings": {
+        "heading": "Explore Shades"
+      }
+    },
+    "82b7e55a-5c39-4630-b405-85940e118fa1": {
+      "type": "featured-articles",
+      "blocks": {
+        "0e8136a3-5411-4f33-be55-b6aa0ae50569": {
+          "type": "article",
+          "settings": {
+            "article": "beauty/introducing-jones-road-wtf-foundation"
+          }
+        },
+        "50a53865-1ac5-4757-95e0-5dc8c7970d8f": {
+          "type": "article",
+          "settings": {
+            "article": "beauty/how-to-match-the-right-foundation-for-your-skin-tone"
+          }
+        },
+        "17e8dd39-b6c0-4475-a82f-3cb121709e75": {
+          "type": "article",
+          "settings": {
+            "article": "beauty/best-makeup-for-sensitive-skin"
+          }
+        }
+      },
+      "block_order": [
+        "0e8136a3-5411-4f33-be55-b6aa0ae50569",
+        "50a53865-1ac5-4757-95e0-5dc8c7970d8f",
+        "17e8dd39-b6c0-4475-a82f-3cb121709e75"
+      ],
+      "settings": {
+        "section_id": "featured-articles",
+        "background": "#ffffff",
+        "heading": "Get to Know What The Foundation",
+        "heading_highlight": false,
+        "highlight_color": "#ffffff",
+        "cta_text": "Read More",
+        "cta_link": ""
+      }
+    }
+  },
+  "order": [
+    "89bf049c-e578-4942-835b-4057e673151b",
+    "07c399fc-cc25-4ec8-ae33-6cb3b027afb6",
+    "c86413f1-f5d7-4504-b401-61540c6cfbda",
+    "fde2fd31-57c4-42b1-8fc6-125913434037",
+    "a1bc8bea-0527-4246-8338-62897dd14701",
+    "df76b5bf-bf5e-49d9-b06e-66daaa9f1536",
+    "cbad3aa5-6508-44bf-aa18-dbcdd7ee3ea1",
+    "35ee4d52-5aa9-4aec-92d4-88fbd39716f0",
+    "1fa507b5-c692-42b4-b04a-41beafebf1a0",
+    "82b7e55a-5c39-4630-b405-85940e118fa1"
+  ]
+}

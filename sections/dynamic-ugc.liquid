@@ -1,0 +1,41 @@
+{% schema %}
+  {
+    "name": "UGC Module",
+    "settings": [
+      {
+        "id": "heading",
+        "label": "Heading",
+        "type": "richtext"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "post",
+        "name": "Instagram Posts",
+        "settings": [
+          {
+            "id": "url",
+            "label": "URL",
+            "type": "url"
+          },
+          {
+            "id": "image",
+            "label": "Image",
+            "type": "image_picker"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Content",
+        "name": "UGC Module"
+      }
+    ]
+  }
+{% endschema %}
+{% include 'ugc',
+  heading: section.settings.heading,
+  posts: section.blocks,
+  skipProductFilter: true,
+%}

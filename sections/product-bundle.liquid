@@ -1,0 +1,178 @@
+{%- assign is_bundle = true -%}
+
+{%- assign product_images = product.images | where: 'attached_to_variant?', false -%}
+
+{%- assign description = product.description | split: '//' -%}
+{%- assign description_bottom = description | last -%}
+
+{%- assign bundle_products = product.metafields.bundle -%}
+
+<div class="product__hero js-bundleHero js-productSection" data-view="productBundle">
+  {% assign first_product = bundle_products['product_1'].value  %}
+  {%- include 'product-media-new' with current_variant: product.selected_or_first_available_variant, carousel_desktop: true -%}
+
+  <div id="product-description" class="product__description">
+
+    {%- include 'product-description-bundle' -%}
+
+    {%- assign how_to_text = product.metafields.how_to.how_to_text -%}
+    {%- assign how_to_tip = product.metafields.how_to.bobbis_tip -%}
+    {%- assign how_to_video = product.metafields.how_to.video -%}
+    {%- assign how_to_poster = product.metafields.how_to.poster -%}
+    {%- assign featured_ingredients = product.metafields.featured_ingredients -%}
+    {%- assign ingredients = product.metafields.ingredients.ingredients -%}
+    {%- assign upsells = product.metafields.upsell -%}
+
+    {%- assign faqs = product.metafields.faqs -%}
+    {%- assign has_faqs = false -%}
+    {%- if faqs.size > 0 -%}
+      {%- assign has_faqs = true -%}
+    {%- endif -%}
+
+    {% comment %} {%- include 'product-description-tabs' -%} {% endcomment %}
+    {%- include 'product-description-accordions' -%}
+
+    {% comment %} {%- if upsells.size > 0 -%}
+      <div class="product__description-upsells--wrapper">
+        <strong class="product__description-upsells--heading">
+          We think you'll love
+        </strong>
+        <div class="product__description-upsells">
+          {%- for field in upsells -%}
+            {%- assign name = field | first -%}
+            {%- assign upsell_variant = upsells[name].value -%}
+            {%- include 'product-upsell' with upsell_variant, name -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endif -%} {% endcomment %}
+  </div>
+  <script type="application/json" class="js-productData">
+    {
+      "id": {{ product.id }},
+      "title": {{ product.title | json }},
+      "categories": {{ product.collections | map: 'title' | json }},
+      "image": "https:{{ product.featured_image.src | img_url: 'grande' }}",
+      "url": "{{ shop.secure_url }}{{ product.url | append: '?country=' | append: localization.country.iso_code }}",
+      "brand": {{ product.vendor | json }},
+      "price": {{ product.price | money | json }},
+      "cap": {{ product.compare_at_price_max | money | json }}
+    }
+  </script>
+</div>
+
+{% comment %} {%- include 'product-tabs' with show_reviews: true -%}
+{%- include 'product-reviews' with class: 'tablet-hidden desktop-hidden' -%} {% endcomment %}
+
+{%- for field in bundle_products -%}
+  {%- assign name = field | first -%}
+  {%- assign bundle_product = bundle_products[name].value -%}
+  {%- assign bundle_product_index = forloop.index -%}
+  {%- include 'config_product' with product: bundle_product -%}
+  {%- if show_findation -%}
+    {%- include 'product-findation' with 
+      product: bundle_product,
+      modal_id: bundle_product_index,
+      is_bundle: true 
+    -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{% schema %}
+  {
+    "name": "Bundle",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Description"
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Tagline",
+        "default": "Bundle is final sale"
+      },
+      {
+        "type": "text",
+        "id": "messaging",
+        "label": "Messaging",
+        "default": "30-Day Guarantee",
+        "info": "Hidden on products tagged with 'final sale'"
+      },
+      {
+        "type": "header",
+        "content": "Free Shipping"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_us",
+        "label": "US Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_cad",
+        "label": "CAD Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_uk",
+        "label": "UK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_eu",
+        "label": "EU Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_ie",
+        "label": "IE Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_bgn",
+        "label": "BGN Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_czk",
+        "label": "CZK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_dkk",
+        "label": "DKK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_huf",
+        "label": "HUF Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_pln",
+        "label": "PLN Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_ron",
+        "label": "RON Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_sek",
+        "label": "SEK Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_aud",
+        "label": "AUD Message"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_nzd",
+        "label": "NZD Message"
+      }
+    ]
+  }
+{% endschema %}

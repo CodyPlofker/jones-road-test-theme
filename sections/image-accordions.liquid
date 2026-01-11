@@ -1,0 +1,95 @@
+{%- assign config = section.settings -%}
+{%- assign accordions = section.blocks | map: 'settings' -%}
+
+<div 
+  id="image-accordions-{{ section.id }}"
+  class="image__accordions"
+  style="background: {{ config.background }};"
+  data-component="imageAccordions"
+>
+  <div class="image__accordions-inner">
+    <div class="image__accordions-image">
+      {%- if config.image != blank -%}
+        <div>
+          {{ config.image | image_url: width: 1000 | image_tag: sizes: '100vw, (min-width: 1024px) 50vw', loading: 'lazy' }}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="image__accordions-content">
+      {%- if config.heading != blank -%}
+        <h2 class="image__accordions-heading">{{ config.heading }}</h2>
+      {%- endif -%}
+      <div class="image__accordions-accordions">
+        {%- for accordion in accordions -%}
+          {%- assign accordion_id = 'tabpanel-' | append: section.id | append: forloop.index -%}
+          <div class="js-accordion">
+            <button aria-expanded="false" aria-controls="{{ accordion_id }}" data-controls="{{ accordion_id }}" class="utility__tab image__accordions-accordion--heading">
+              {{ accordion.heading }}
+            </button>
+            <div aria-hidden="true" id="{{ accordion_id }}" class="utility__tabpanel image__accordions-accordion--description">
+              <div class="text-underline">
+                {{ accordion.description }}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Image + Accordions",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F5F2EC"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "accordion",
+        "name": "Accordion",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Image + Accordions" }]
+  }
+{%- endschema -%}

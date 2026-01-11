@@ -1,0 +1,18 @@
+<div class="pdp" data-view="pdp">
+  <div class="pdp__top">
+    {% include "product-info",
+      product: product,
+      swatches: settings.swatches,
+      variant: 'no-slider',
+    %}
+    {% include "purchase-bar",
+      modifier: "fixed"
+      product: product,
+      swatches: settings.swatches,
+      variant: 'no-slider',
+    %}
+  </div>
+  {% section 'product-content' %}
+{% render 'junip-product-review', product: product %}
+</div>
+{%- include "product-data" -%}

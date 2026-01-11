@@ -1,0 +1,71 @@
+{
+  "sections": {
+    "hero": {
+      "type": "product-hero",
+      "settings": {
+        "tagline": "Clean \/ Cruelty Free",
+        "free_shipping_us": "Free shipping on US orders over $85",
+        "free_shipping_uk": "Free shipping on UK orders over £75",
+        "free_shipping_eu": "Free shipping on UK orders over €75",
+        "shipping": "<p>Jones Road currently ships to the US (excluding Guam and US Virgin Islands), Canada, Ireland, and the UK (including England, Wales, Scotland, and Northern Ireland, excluding Crown Dependencies). We do not offer expedited shipping at this time.<\/p><p>In light of COVID-19, there may be some delays in processing and shipping your order. Unexpected delays can also occur due to weather, staffing and general delays with the carrier. We greatly appreciate your patience and understanding.<\/p><p>Jones Road offers free standard shipping for all US orders over $85, Canada orders over 125 CAD, UK orders over 75 GBP, and Ireland orders over €100. For orders under $85 in the US, standard shipping is $6.95. For orders under 125 CAD in Canada, standard shipping is 13 CAD. For orders under €100 in Ireland, shipping is €12. For orders under 75 GBP in the UK, shipping is calculated at checkout.  <\/p><p>For UK orders, any applicable duties or import taxes are collected at checkout for orders over £135<\/p><p>Orders are processed Monday - Friday, with the exception of US holidays. Orders are typically fulfilled and shipped within 3-4 business days. Once your order has shipped, you’ll receive an email from <a href=\"mailto:hi@jonesroadbeauty.com\">hi@jonesroadbeauty.com<\/a> with tracking information. <\/p>",
+        "returns": "<p>For US orders:<br\/>Returns and exchanges are accepted within 30 days of purchase. We are unable to accept returns or exchanges on kits, sets, or apparel, or to refund shipping charges. To request a return or exchange, go to: https:\/\/returns.jonesroadbeauty.com. Follow the steps at the portal to request your return.<\/p><p>For Canadian, UK, and Ireland orders:<br\/>Returns are accepted within 30 days of purchase. We are unable to accept returns on kits, sets, or apparel, or to refund shipping charges. We are unable to accept exchanges on international orders. To request a return, go to: https:\/\/returns.jonesroadbeauty.com. Follow the steps at the portal to request your return.<\/p><p>For gift returns:<br\/>If you received Jones Road as a gift but didn’t love it, you can return your products for store credit. To request a gift return, have the original order number and gifter’s email address ready, and go to: https:\/\/returns.jonesroadbeauty.com. Follow the steps at the portal to request your return.<\/p>",
+        "findation_toggle": "Compare Shades",
+        "findation_text": "<p>Still need help? <a href=\"mailto:hi@jonesroadbeauty.com\" target=\"_blank\" title=\"mailto:hi@jonesroadbeauty.com\">Send a no-makeup selfie<\/a> to get matched by the experts.<\/p>"
+      }
+    },
+    "callout": {
+      "type": "product-callout",
+      "settings": {
+        "image": "{{ product.metafields.callout.image.value }}",
+        "heading": "{{ product.metafields.callout.heading.value }}",
+        "subheading": "{{ product.metafields.callout.subheading.value }}"
+      }
+    },
+    "related": {
+      "type": "product-related",
+      "blocks": {
+        "b1c6f9fc-7455-4783-9168-7459016fd0aa": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_1.value }}"
+          }
+        },
+        "4b437b53-c679-410f-9cef-03d7d092552e": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_2.value }}"
+          }
+        },
+        "38cb3270-a371-481a-a753-d98307555ea4": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_3.value }}"
+          }
+        },
+        "832ae03d-861d-4aa8-b391-c3f4867e69bc": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_4.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "b1c6f9fc-7455-4783-9168-7459016fd0aa",
+        "4b437b53-c679-410f-9cef-03d7d092552e",
+        "38cb3270-a371-481a-a753-d98307555ea4",
+        "832ae03d-861d-4aa8-b391-c3f4867e69bc"
+      ],
+      "disabled": true,
+      "settings": {
+        "heading": "We think you'll like",
+        "cta_text": "Shop All",
+        "cta_link": "shopify:\/\/collections\/shop-all"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "callout",
+    "related"
+  ]
+}

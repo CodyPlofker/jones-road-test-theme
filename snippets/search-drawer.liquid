@@ -1,0 +1,18 @@
+<div class="js-searchDrawer search" aria-hidden="true">
+  <div class="search__content">
+    <form action="/search" action="get">
+      <input name="q" placeholder="Enter Search" type="text" required aria-label="Search query" />
+      <button class="search__submit" type="submit">
+        <span class="visually-hidden">Submit</span>
+      </button>
+      <input type="hidden" value="product" name="type" />
+    </form>
+    <button class="search__close js-searchClose">
+      <span class="search__close__copy button">Close</span>
+    </button>
+  </div>
+  <div class="search__for js-searchTop" aria-hidden="true">
+    {% include "search-top" %}
+  </div>
+  <div class="search__for js-searchLive" aria-hidden="true"></div>
+</div>

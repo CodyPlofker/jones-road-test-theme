@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "justbobbi_prom_wtf.jpg",
+            "heading": "#1: Prep Your Base",
+            "description": "<p>Apply What The Foundation evenly across your face and neck. Follow up with The Face Pencil to correct any redness or dark spots.<\/p>",
+            "product_1": "what-the-foundation",
+            "variant_1": "FGWT26516",
+            "product_2": "the-face-pencil",
+            "variant_2": ""
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "citylights_getthelook_2.jpg",
+            "heading": "#2: Create a Cool Glow",
+            "description": "<p>Apply the Mini Miracle Balm in Chic to high points of your cheeks, nose, and forehead for a pop of color. Layer with the Mini Miracle Balm in Magic Hour for a hint of highlight.<\/p>",
+            "product_1": "the-city-lights-kit",
+            "variant_1": "FGKT39943",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "beachvacation_4.jpg",
+            "heading": "#3: Add The Finishing Touches",
+            "description": "<p>Line your lips with The Lip Pencil in Nude Pink, then use Cool Gloss in Rosy for a high-shine tint.<\/p><p><br\/>Finish with a few coats of <a href=\"https:\/\/jonesroadbeauty.com\/products\/the-mascara?variant=36186527137942\" title=\"The Mascara | Clean, Cruelty-Free, Vegan\">The Mascara<\/a> on your lashes to give your eyes bold definition.<\/p><p><\/p><p><br\/><\/p>",
+            "product_1": "",
+            "variant_1": "",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "pinkgoldshimmer_coolgloss_GTL.jpg",
+            "heading": "#3: Add Shimmer To The Lips",
+            "description": "<p>Line the upper lash line using The Best Pencil in Black. Using a wet brush, layer The Best Eyeshadow in BCITW on top of The Best Pencil for added depth.<\/p>",
+            "product_1": "the-best-pencil",
+            "variant_1": "FGEL08136",
+            "product_2": "the-best-eyeshadow",
+            "variant_2": "FGES06188"
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/GTL_Citylights_1_f9b37e01-b300-4c15-9484-68e88c3e1ef8.jpg",
+        "heading": "City Chic",
+        "description": "<p>Embrace a cool, wintery glow in your holiday look using The City Lights Kit.<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "",
+        "bullets": "<p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/the-beach-vacation-kit\" target=\"_blank\" title=\"The City Lights Kit\">The City Lights Kit<\/a><\/p><p>What The Foundation<\/p><p>The Face Pencil<\/p><p>The Lip Pencil<br\/><br\/>Kit contains:<\/p><p>Mini Miracle Balm in Chic<\/p><p>Mini Miracle Balm in Magic Hour<\/p><p>Cool Gloss in Rosy<\/p><p>The Mascara<\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

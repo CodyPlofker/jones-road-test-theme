@@ -1,0 +1,39 @@
+{%- if swatches != blank -%}
+  <div class="product-swatch__image{% if isSelected %} is-selected{% endif %}{% if modifier %} product-swatch__image--{{ modifier }}{% endif %}{% unless variant.available %} is-unavailable{% endunless %}" role="presentation">
+    {% for option in product.options_with_values %}
+      {% if option.name contains 'Size' or option.name contains 'size' %}
+        <span class="product-swatch__text">{{ variant.option2 }}</span>
+      {% endif %}
+    {% endfor %}
+    {%- assign swatchItems = swatches | newline_to_br | split: '<br />' -%}
+    {%- assign swatch_override = false -%}
+    {%- if variant.metafields.swatch.color != blank -%}
+      {%- assign swatch_override = variant.metafields.swatch.color -%}
+    {%- endif -%}
+    {%- if variant.metafields.swatch.image != blank -%}
+      {%- assign swatch_override = variant.metafields.swatch.image | image_url: width: 100, height: 100 -%}
+    {%- endif -%}
+
+    {%- if swatch_override != false -%}
+      {%- if swatch_override contains '//' -%}
+        <img src="{{ swatch_override }}" alt="">
+      {%- else -%}
+        <i style="background: {{ swatch_override }};"></i>
+      {%- endif -%}
+    {%- else -%}
+      {%- for swatch in swatchItems -%}
+        {%- assign keyValue = swatch | split: '==' -%}
+        {%- assign key = keyValue | first | strip | downcase -%}
+        {%- assign value = keyValue | last | strip -%}
+        {%- assign optionKey = variant.option1 | strip | downcase -%}
+        {%- if key == optionKey -%}
+          {%- if value contains '.' -%}
+            <img src="{{ value }}" alt="" />
+          {%- else -%}
+            <i style="background: {{ value }}"></i>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {% endif %}
+  </div>
+{%- endif -%}

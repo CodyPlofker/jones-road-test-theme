@@ -1,0 +1,277 @@
+{%- assign upsell_image = product.metafields.upsell_image[name] -%}
+{%- if upsell_image == blank -%}
+  {%- assign upsell_image = upsell_variant.featured_image -%}
+{%- endif -%}
+
+{%- assign upsell_shade_position = upsell_variant.product.options_by_name.Shade.position -%}
+{%- assign upsell_shade_option = 'option' | append: upsell_shade_position -%}
+{%- assign upsell_shade = upsell_variant[upsell_shade_option] -%}
+
+{% liquid
+  assign compliance_product_title = null
+  assign current_country_product = null
+  assign compliance_products = upsell_variant.product.metafields.custom.compliance_products.value
+  if compliance_products
+    assign compliance_product_title = compliance_products.product_title
+    assign iso_code = localization.country.currency.iso_code
+    case iso_code
+      when 'USD'
+        assign current_country_product = compliance_products.usa_product.value
+      when 'CAD'
+        assign current_country_product = compliance_products.canada_product.value
+      when 'GBP'
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when 'EUR'
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "BGN"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "CZK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "DKK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "HUF"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "PLN"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "RON"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "SEK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+    endcase
+  endif
+%}
+
+{% if compliance_products %}
+  {% assign upsell_variant = current_country_product.variants[0] %}
+  <div class="product__upsell">
+    <div class="product__upsell-image-info">
+      <div class="product__upsell-image">
+        <a href="{{ upsell_variant.url }}">
+          {{ upsell_image | image_url: width: 600 | image_tag: width: 150, class: 'secondary-aspect-child' }}
+        </a>
+      </div>
+
+      <div class="product__upsell-info">
+        <div class="product__upsell-title">
+          <a href="{{ upsell_variant.url }}">
+            {{ compliance_product_title }}
+          </a>
+        </div>
+        {%- include 'review-stars', product: upsell_variant.product -%}
+
+        {% assign revealButton = false %}
+        {%- for option in upsell_variant.product.options_with_values -%}
+          <ul
+            class="product__form-swatches product__form-swatches--radio"
+            data-producthandle="{{ upsell_variant.product.handle }}"
+            style="display:none;"
+          >
+            {% assign shades_counter = 0 %}
+            {%- for value in option.values -%}
+              {%- assign option_id = 'option' | append: option.position -%}
+              {% assign is_bundle = false %}
+              {%- include 'function_swatch-available', temp: upsell_variant.product -%}
+              {%- unless is_hidden -%}
+                {%- if is_bundle == true -%}
+                  {%- assign id = value | append: '-' | append: bundle_product_index -%}
+                {%- else -%}
+                  {%- assign id = class | append: '-' | append: value -%}
+                {%- endif -%}
+                {%- if option.name contains 'Color' or option.name contains 'Shade' -%}
+                  {% assign shades_counter = shades_counter | plus: 1 %}
+
+                  {%-
+                    include 'product-swatch' with
+                    is_findation: false,
+                    option_id
+                    id,
+                    is_hidden: false,
+                    is_available: is_swatch_available,
+                    variant: upsell_variant,
+                    product: upsell_variant.product
+                  -%}
+                {%- else -%}
+                  {%-
+                    include 'product-option-value' with
+                    option_id,
+                    id,
+                    is_available: is_swatch_available
+                  -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </ul>
+        {%- endfor -%}
+
+        <div class="product__upsell-shade"></div>
+        
+        {% if shades_counter > 1 %}
+          {% assign revealButton = true %}
+        {% endif %}
+
+        {% if revealButton == true %}
+          <button
+            class="product__upsell-reveal button button--quick-add"
+            data-default-copy="Add to Cart"
+            data-added-copy="Added"
+            data-added-color="black"
+            data-product-id="{{ upsell_variant.product.id }}"
+            data-id="{{ upsell_variant.id }}"
+          >
+            <span class="product__upsell-label">Find Your Shade</span>
+            <span class="product__upsell-price">
+              {%- render 'price' with price: upsell_variant.price -%}
+            </span>
+          </button>
+
+          <button
+            class="product__upsell-add button button--quick-add js-addToBag new-upsell"
+            style="display:none"
+            data-default-copy="Add to Cart"
+            data-added-copy="Added"
+            data-added-color="black"
+            data-product-id="{{ upsell_variant.product.id }}"
+            data-id="{{ upsell_variant.id }}"
+            data-compliance-product="{{ compliance_product_title }}"
+          >
+            <span class="product__upsell-label">Add To bag</span>
+            <span class="product__upsell-price">
+              {%- render 'price' with price: upsell_variant.price -%}
+            </span>
+          </button>
+        {% else %}
+          <button
+            class="product__upsell-add button button--quick-add js-addToBag new-upsell"
+            data-default-copy="Add to Cart"
+            data-added-copy="Added"
+            data-added-color="black"
+            data-product-id="{{ upsell_variant.product.id }}"
+            data-id="{{ upsell_variant.id }}"
+            data-compliance-product="{{ compliance_product_title }}"
+          >
+            <span class="product__upsell-label">Add To bag</span>
+            <span class="product__upsell-price">
+              {%- render 'price' with price: upsell_variant.price -%}
+            </span>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="product__upsell">
+    {% comment %} <a href="{{ upsell_variant.url }}"> {% endcomment %}
+    <div class="product__upsell-image-info">
+      <div class="product__upsell-image">
+        <a href="{{ upsell_variant.url }}">
+          {{ upsell_image | image_url: width: 600 | image_tag: width: 150, class: 'secondary-aspect-child' }}
+        </a>
+      </div>
+
+      <div class="product__upsell-info">
+        <div class="product__upsell-title">
+          <a href="{{ upsell_variant.url }}">
+            {{ upsell_variant.product.title }}
+          </a>
+        </div>
+        {%- include 'review-stars', product: upsell_variant.product -%}
+
+        {% assign revealButton = false %}
+        {%- for option in upsell_variant.product.options_with_values -%}
+          <ul
+            class="product__form-swatches product__form-swatches--radio"
+            data-producthandle="{{ upsell_variant.product.handle }}"
+            style="display:none;"
+          >
+            {% assign shades_counter = 0 %}
+            {%- for value in option.values -%}
+              {%- assign option_id = 'option' | append: option.position -%}
+              {% assign is_bundle = false %}
+              {%- include 'function_swatch-available', temp: upsell_variant.product -%}
+              {%- unless is_hidden -%}
+                {%- if is_bundle == true -%}
+                  {%- assign id = value | append: '-' | append: bundle_product_index -%}
+                {%- else -%}
+                  {%- assign id = class | append: '-' | append: value -%}
+                {%- endif -%}
+                {%- if option.name contains 'Color' or option.name contains 'Shade' -%}
+                  {% assign shades_counter = shades_counter | plus: 1 %}
+
+                  {%-
+                    include 'product-swatch' with
+                    is_findation: false,
+                    option_id
+                    id,
+                    is_hidden: false,
+                    is_available: is_swatch_available,
+                    variant: upsell_variant,
+                    product: upsell_variant.product
+                  -%}
+                {%- else -%}
+                  {%-
+                    include 'product-option-value' with
+                    option_id,
+                    id,
+                    is_available: is_swatch_available
+                  -%}
+                {%- endif -%}
+              {%- endunless -%}
+            {%- endfor -%}
+          </ul>
+        {%- endfor -%}
+
+        <div class="product__upsell-shade"></div>
+        
+        {% if shades_counter > 1 %}
+          {% assign revealButton = true %}
+        {% endif %}
+
+        {% if revealButton == true %}
+          <button
+            class="product__upsell-reveal button button--quick-add"
+            data-default-copy="Add to Cart"
+            data-added-copy="Added"
+            data-added-color="black"
+            data-product-id="{{ upsell_variant.product.id }}"
+            data-id="{{ upsell_variant.id }}"
+          >
+            <span class="product__upsell-label">Find Your Shade</span>
+            <span class="product__upsell-price">
+              {%- render 'price' with price: upsell_variant.price -%}
+            </span>
+          </button>
+
+          <button
+            class="product__upsell-add button button--quick-add js-addToBag new-upsell"
+            style="display:none"
+            data-default-copy="Add to Cart"
+            data-added-copy="Added"
+            data-added-color="black"
+            data-product-id="{{ upsell_variant.product.id }}"
+            data-id="{{ upsell_variant.id }}"
+          >
+            <span class="product__upsell-label">Add To bag</span>
+            <span class="product__upsell-price">
+              {%- render 'price' with price: upsell_variant.price -%}
+            </span>
+          </button>
+        {% else %}
+          <button
+            class="product__upsell-add button button--quick-add js-addToBag new-upsell"
+            data-default-copy="Add to Cart"
+            data-added-copy="Added"
+            data-added-color="black"
+            data-product-id="{{ upsell_variant.product.id }}"
+            data-id="{{ upsell_variant.id }}"
+          >
+            <span class="product__upsell-label">Add To bag</span>
+            <span class="product__upsell-price">
+              {%- render 'price' with price: upsell_variant.price -%}
+            </span>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+    {% comment %} </a> {% endcomment %}
+  </div>
+{% endif %}

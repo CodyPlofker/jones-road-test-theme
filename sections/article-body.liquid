@@ -1,0 +1,28 @@
+{%- assign article_products = article.metafields.shop.products.value -%}
+ 
+<div id="article-body" class="article__body" data-view="article">
+  <div class="article__body-inner">
+    {%- include 'article-header' -%}
+    {%- if article.content != blank -%}
+      <div class="article__body-body">
+        {{ article.content | replace: '<p><img', '<img' }}
+      </div>
+    {%- endif -%}
+  </div>
+  {%- if article_products != blank -%}
+    <div id="article-shop" class="article__shop">
+      <h1 class="article__shop-heading">Shop the article:</h1>
+      <div class="article__shop-products">
+        {%- for product in article_products -%}
+          <div class="article__shop-product">
+            {%- include 'product-card' -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+  {%- include 'article-footer' -%}
+</div>
+
+
+

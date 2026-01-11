@@ -1,0 +1,25 @@
+<a href="{{ link }}" class="listing-promo" {{ promo.shopify_attributes }}>
+  <div class="listing-promo__image">
+    <picture>
+      <source srcset="{{ image | img_url: '375x500', scale: 2 }}"
+              media="(max-width: 375px)" />
+      <source srcset="{{ image | img_url: '700x933', scale: 2 }}"
+              media="(min-width: 376px) and (max-width: 700px)" />
+      <source srcset="{{ image | img_url: '686x652', scale: 2 }} 2x,
+                      {{ image | img_url: '686x652', scale: 1 }} 1x"
+              media="(min-width: 701px) and (max-width: 1023px)" />
+      <source srcset="{{ image | img_url: '960x640', scale: 2 }} 2x,
+                      {{ image | img_url: '960x640', scale: 1 }} 1x"
+              media="(min-width: 1024px) and (max-width: 1440px)" />
+      <source srcset="{{ image | img_url: '1280x853', scale: 2 }} 2x,
+                      {{ image | img_url: '1280x853', scale: 1 }} 1x"
+              media="(min-width: 1441px)" />
+      <img src="{{ image | img_url: '375x500', scale: 2 }}" alt="{{ image.alt }}" class="is-loading" />
+    </picture>
+  </div>
+  <div class="listing-promo__content" data-bg="{{ bg }}">
+    <span>
+      {{ copy }}
+    </span>
+  </div>
+</a>

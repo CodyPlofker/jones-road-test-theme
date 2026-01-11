@@ -1,0 +1,59 @@
+<div id="jrb05-search-element" class="jrb05-search-element">
+  <div class="search__content">
+    <form action="/search" method="get">
+      <div class="jrb05-search-field">
+        <!-- Magnifying‐glass SVG -->
+        <div class="jrb05-search-field-icon">
+          {{ 'search_icon.svg' | inline_asset_content }}
+        </div>
+
+        <input
+          type="text"
+          name="q"
+          placeholder="Enter Search"
+          aria-label="Search query"
+          required
+        >
+      </div>
+
+      <!-- Submit button -->
+      <button class="search__submit" type="submit">
+        <span class="visually-hidden">Submit</span>
+      </button>
+
+      <!-- Always search products -->
+      <input type="hidden" name="type" value="product">
+    </form>
+  </div>
+</div>
+
+<style>
+  #jrb05-search-element {
+    display: none;
+  }
+  #jrb05-search-element .search__submit {
+    right: 10px;
+    top: 8px;
+  }
+  #jrb05-search-element .jrb05-search-field {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #jrb05-search-element .search__content {
+    padding: 11px 70px 11px 24px;
+  }
+  #jrb05-search-element input[name="q"] {
+    font-size: 16px;
+  }
+  @media(max-width:767px) {
+    #jrb05-search-element {
+      display: block;
+    }
+    {% comment %} hiding search from mobile nav footer - start {% endcomment %}
+    ul.header__nav__secondary > li:first-child {
+      display:none;
+    }
+    {% comment %} hiding search from mobile nav footer  - end {% endcomment %}
+  }
+</style>

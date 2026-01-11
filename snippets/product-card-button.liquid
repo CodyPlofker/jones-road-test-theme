@@ -1,0 +1,33 @@
+<a 
+  href="{{ product.url }}"
+  class="button product__card-button {% if hide_button == true %} desktop-hidden {% endif %}"
+>
+  <div class="product__card-button--text">
+    {%- if product.template_suffix == 'bundle' -%}
+      Customize
+    {%- else -%}
+      Shop Now
+    {%- endif -%}
+  </div>
+
+  <div class="product__card-button--price">
+    {%- if product.template_suffix == 'bundle' -%}
+      {% if compare_at_price > product.price %}
+        <span class="product__card-button--sale bundle">
+          {{ compare_at_price | money_without_trailing_zeros }}
+        </span>
+      {% endif %}
+      <span class="product__card-button--regular bundle">
+        {%- render 'price' with price: bundle_price -%}
+      </span>
+    {%- else -%}
+      {% if product.compare_at_price != blank and product.compare_at_price != product.price %}
+        <span class="product__card-button--sale">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+      {% endif %}
+
+      <span class="product__card-button--regular">
+        {%- render 'price' with price: product.price -%}
+      </span>
+    {%- endif -%}
+  </div>
+</a>

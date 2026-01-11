@@ -1,0 +1,53 @@
+<div class="blockquote-section" style="background: {{ section.settings.bg_color }};">
+  {% if section.settings.url != blank %}<a href="{{ section.settings.url }}" target="_blank" style="color: {{ section.settings.text_color }};">{% endif %}
+    <div class="blockquote-section__inner">
+      <p class="blockquote-section__quote">{{ section.settings.quote }}</p>
+      <p class="blockquote-section__author">{{ section.settings.author | prepend: '— ' }}</p>
+    </div>
+  {% if section.settings.url != blank %}</a>{% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Blockquote",
+    "class": "blockquote-section__section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#F5F2EC"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text Color",
+        "default": "#000"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "textarea",
+        "id": "quote",
+        "label": "Quote"
+      },
+      {
+        "type": "text",
+        "id": "author",
+        "label": "Author"
+      },
+      {
+        "type": "url",
+        "id": "url",
+        "label": "URL"
+      }
+    ],
+    "presets": [{ "name": "Blockquote" }]
+  }
+{% endschema %}

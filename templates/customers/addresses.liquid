@@ -1,0 +1,14 @@
+<div class="account" data-view="account">
+  <div class="account__content js-scroll">
+    {% include 'account-nav' %}
+    {% include 'account-addresses',
+        addresses: customer.addresses,
+        addresses_count: customer.addresses_count,
+        default_address: customer.default_address,
+        new_address: customer.new_address,
+    %}
+    {% include 'account-footer',
+      customer: customer,
+    %}
+  </div>
+</div>

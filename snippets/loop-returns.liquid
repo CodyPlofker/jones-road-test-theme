@@ -1,0 +1,30 @@
+<script src="https://unpkg.com/@loophq/onstore-sdk@latest/dist/loop-onstore-sdk.js" ></script>
+<script> 
+	window.LoopOnstore && window.LoopOnstore.init({ 
+		key: "1cff00316d2ea3df5ebff8ebb4d3fe5db0d6682d", 
+		attach: "[action$=cart] button"
+	});
+</script>
+
+<style>
+    .loop-returns-activated  shopify-payment-terms {
+        display: none;
+    }
+
+    .loop-returns-activated .loop-onstore {
+        z-index: 19;
+    }
+
+    .loop-returns-activated .product-tile__price--bundle .product-tile__price__old,
+    .loop-returns-activated .product__form-price--bundle .product__form-price--sale {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .loop-returns-activated .product-tile__price--bundle .product-tile__price__new,
+    .loop-returns-activated .product__form-price--bundle .product__form-price--regular {
+        display: none;
+        visibility: hidden;
+    }
+    
+</style>

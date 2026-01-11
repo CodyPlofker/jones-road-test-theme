@@ -1,0 +1,116 @@
+{%- assign should_show_findation = false -%}
+{%- if show_findation == true -%}
+  {%- assign should_show_findation = true -%}
+{%- endif -%}
+
+{% liquid
+  assign compliance_product_title = null
+  assign current_country_product = null
+  assign compliance_products = product.metafields.custom.compliance_products.value
+  if compliance_products
+    assign compliance_product_title = compliance_products.product_title
+    assign iso_code = localization.country.currency.iso_code
+    case iso_code
+      when "USD"
+        assign current_country_product = compliance_products.usa_product.value
+      when "CAD"
+        assign current_country_product = compliance_products.canada_product.value
+      when "GBP"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "EUR"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "BGN"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "CZK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "DKK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "HUF"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "PLN"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "RON"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "SEK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+    endcase
+  endif
+%}
+
+{% liquid
+  assign is_tabs_layout = product.metafields.custom.swatches_tabs_layout
+%}
+
+{% liquid
+  assign is_tabs_layout = product.metafields.custom.swatches_tabs_layout
+%}
+
+<div class="product__description-main" {% if is_tabs_layout == true %} data-tabs-layout{% endif %}>
+  <h1 class="product__description-title">
+    {% if current_country_product.id == product.id %}
+    <b>{{ compliance_product_title }}</b>
+    {% else %}
+    <b>{{ product.title | remove: '[bggy pdp dev copy]' }}</b>
+    {% endif %}
+    {%- if subtitle != blank -%}
+      <span>{{ subtitle }}</span>
+    {%- endif -%}
+  </h1>
+  {% comment %} {%- if weight.size > 0 -%}
+    <p class="product__description-weight">
+      {{ weight_copy | prepend: '(' | append: ')' }}
+    </p>
+  {%- endif -%} {% endcomment %}
+  {% comment %} {%- if product.metafields.product.net_weights != blank -%}
+    <p class="product__description-weight">
+      {{ product.metafields.product.net_weights | prepend: '(' | append: ')' }}
+    </p>
+  {%- endif -%} {% endcomment %}
+  <div class="product__stars-container">
+    {%- include 'review-stars' with class: 'product__description-stars' -%}
+  </div>
+  {% comment %} {%- if tagline != blank -%}
+    <p class="product__description-tagline">
+      {{ tagline }}
+    </p>
+  {%- endif -%} {% endcomment %}
+  {%- if product.tags contains 'sesami-service' -%}
+    {% include 'sesami-custom-atc' %}
+  {%- else -%}
+    {%- assign final_sale = false -%}
+    {%- if tagline == 'Final Sale' or product.tags contains 'final sale' -%}
+      {%- assign final_sale = true -%}
+    {%- endif -%}
+    {%- include 'product-form' with 
+      style: 'radio', 
+      should_show_findation,
+      is_findation: false,
+      is_linked: true,
+      show_button: true,
+      show_shop_pay: true,
+      final_sale,
+      class: 'product__description-form'
+    -%}
+  {%- endif -%}
+  
+    {% render "pdq-product-promise" %}
+
+  <div class="product__form-observe js-stickyAtcObserve"></div>
+  {% comment %} {%- unless product.tags contains 'final sale' -%}
+    {%- if section.settings.messaging != blank -%}
+      <p class="product__description-message">
+        {{ section.settings.messaging }}
+      </p>
+    {%- endif -%}
+  {%- endunless -%} {% endcomment %}
+  {%- if us_copy != blank or uk_copy != blank or eu_copy != blank -%}
+    <p class="product__description-message">
+      {% render 'icon-shipping' %}  {%- include 'component_localized-copy' with us_copy, uk_copy, eu_copy, cad_copy, irl_copy, bgn_copy, czk_copy, dkk_copy, huf_copy, pln_copy, ron_copy, sek_copy, aud_copy, nzd_copy -%}
+    </p>
+    {% if localization.country.iso_code == 'US' %}
+      <p class="product__description-message">
+        {% render 'icon-free-returns' %} Free & Easy Returns
+      </p>
+    {% endif %}
+  {%- endif -%}
+</div>

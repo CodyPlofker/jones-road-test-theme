@@ -1,0 +1,305 @@
+{%- assign default_media = current_variant.metafields.carousel -%}
+{%- assign custom_carousel = current_variant.metafields.custom.carousel_media -%}
+{%- assign has_custom_carousel = false -%}
+{%- if custom_carousel -%}
+  {%- assign has_custom_carousel = true -%}
+{%- endif -%}
+{% assign before_after_index = '' %}
+{%- assign before_image = '' -%}
+{%- assign after_image = '' -%}
+{% if current_variant.metafields.custom.before_after_index %}
+  {% assign before_after_index = current_variant.metafields.custom.before_after_index %}
+  {%- assign variant_before-after-images = current_variant.metafields.custom.before_after_images.value -%}
+  {%- for field in variant_before-after-images -%}
+    {%- if forloop.index0 == 0 -%}
+      {%- assign before_image = field | image_url: width: 1500 -%}
+    {%- else -%}
+      {%- assign after_image = field | image_url: width: 1500 -%}
+    {%- endif -%}
+  {%- endfor -%}
+{% endif %}
+
+{%- assign should_show_featured = false -%}
+{%- if template.name == 'product' and template.suffix == 'bundle' -%}
+  {%- assign should_show_featured = true -%}
+{%- endif -%}
+
+<div id="product-media" class="product__media {{ class }} {% if carousel_desktop == true %} no-grid {% endif %}">
+
+  {%- assign hasFlag = false -%}
+  {%- assign hasSaleFlag = false -%}
+  {%- assign flag = '' -%}
+  {%- for product_tag in product.tags -%}
+    {%- if product_tag contains 'flag_' -%}
+      {%- assign hasFlag = true -%}
+      {%- assign flag = product_tag | split: 'flag_' | last -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {% assign holiday_tags = settings.tag_list | split: ',' %}
+  {% assign is_holiday_tag = false %}
+  {% for holiday_tag in holiday_tags %}
+    {% assign trimmed_holiday_tag = holiday_tag | strip %}
+    {% if flag == trimmed_holiday_tag %}
+      {% assign is_holiday_tag = true %}
+      {% break %}
+    {% endif %}
+  {% endfor %}
+
+  {% if hasFlag and is_holiday_tag %}
+    <div class="product__media-flag product__media-flag--holiday" style="--tag-color: {{ settings.tag_color | default: '#f50a99' }}; --holiday-tag-bg-color: {{ settings.tag_bg_color | default: '#f50a99' }}; --holiday-tag-text-color: {{ settings.tag_bg_text_color | default: '#fff' }};"> 
+      {{ flag }}
+    </div>
+  {% endif %}
+
+  <div class="scrollable-product-secondary-images">
+    <div class="product-secondary-images aabbcc">
+      {%- unless product.has_only_default_variant -%}
+        {{ current_variant.image | image_url: width: 1500 | image_tag: width: 500, class: 'secondary-aspect-child' }}
+
+        {%- if has_custom_carousel -%}
+          {%- for media in custom_carousel.value -%}
+            {%- if before_after_index and forloop.index == before_after_index -%}
+              {% render 'before-after-images', before_src: before_image, after_src: after_image %}
+            {% else %}
+              {%- include 'component_media' with media, width: 1500, render_width: 500, class: 'secondary-aspect-child', video_autoplay: true -%}
+            {% endif %}
+          {%- endfor -%}
+        {%- elsif default_media.size > 0 -%}
+          {%- for field in default_media -%}
+            {%- assign name = field | first -%}
+            {%- assign media = default_media[name].value -%}
+
+            {%- if before_after_index and forloop.index == before_after_index -%}
+              {% render 'before-after-images', before_src: before_image, after_src: after_image %}
+            {% else %}
+              {%- include 'component_media' with media, width: 1500, render_width: 500, class: 'secondary-aspect-child' -%}
+            {% endif %}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endunless -%}
+      {%- unless has_custom_carousel -%}
+      {%- for media in product.media -%}
+        {%- assign is_variant_image = false -%}
+        {%- for variant in product.variants -%}
+          {%- if media == variant.image -%}
+            {%- assign is_variant_image = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if media.media_type == 'image' -%}
+          {%- unless is_variant_image -%}
+            {%- if should_show_featured -%}
+              {{ media | image_url: width: 1500, height: 1500 | image_tag: width: 500, class: 'secondary-aspect-child' }}
+
+
+
+            {%- else -%}
+              {%- unless media == product.featured_image -%}
+                {{ media | image_url: width: 1500, height: 1500 | image_tag: width: 500, class: 'secondary-aspect-child' }}
+
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endunless -%}
+        {%- elsif media.media_type == 'video' -%}
+          <video class="secondary-aspect-child" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback>
+            {%- for source in media.sources -%}
+              <source src="{{ source.url }}" type="{{ source.mime_type }}" width="{{ source.width }}">
+            {%- endfor -%}
+          </video>
+
+        {%- else -%}
+          {{
+            media
+            | external_video_url: controls: '0', loop: '1', muted: '1', modestbranding: '1'
+            | external_video_tag: class: 'secondary-aspect-child yt-embed', data-id: media.external_id
+          }}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- endunless -%}
+    </div>
+    <svg class="secondary-images-scroll-svg" xmlns="http://www.w3.org/2000/svg" width="21" height="13" viewBox="0 0 21 13" fill="none" style="display: none;">
+      <path d="M2.17383 2.26953L10.4815 10.5772L18.7892 2.26953" stroke="#999999" stroke-width="2.07692" stroke-linecap="square"/>
+    </svg>
+  </div>
+
+  <div class="swiper-container js-productMedia" data-desktop="{{ carousel_desktop }}">
+    <div class="swiper-wrapper">
+      {%- unless product.has_only_default_variant -%}
+        <div class="product__media-slide swiper-slide js-productMediaSlide">
+          <div class="aspect-1-1">
+            {{ current_variant.image | image_url: width: 1500 | image_tag: width: 500, class: 'aspect-child', fetchpriority: 'high', loading: 'eager' }}
+          </div>
+        </div>
+        {%- if has_custom_carousel -%}
+          {%- for media in custom_carousel.value -%}
+            {%- if before_after_index and forloop.index == before_after_index -%}
+              <div class="product__media-slide swiper-slide js-productMediaSlide disable-swipe">
+                <div class="aspect-1-1">
+                  {% render 'before-after-images', before_src: before_image, after_src: after_image %}
+                </div>
+              </div>
+            {% else %}
+              <div class="product__media-slide swiper-slide js-productMediaSlide">
+                <div class="aspect-1-1">
+                  {%- include 'component_media' with media, width: 1500, render_width: 500, class: 'aspect-child' -%}
+                </div>
+              </div>
+            {% endif %}
+          {%- endfor -%}
+        {%- elsif default_media.size > 0 -%}
+          {%- for field in default_media -%}
+            {%- assign name = field | first -%}
+            {%- assign media = default_media[name].value -%}
+
+            {%- if before_after_index and forloop.index == before_after_index -%}
+              <div class="product__media-slide swiper-slide js-productMediaSlide disable-swipe">
+                <div class="aspect-1-1">
+                  {% render 'before-after-images', before_src: before_image, after_src: after_image %}
+                </div>
+              </div>
+            {% else %}
+              <div class="product__media-slide swiper-slide js-productMediaSlide">
+                <div class="aspect-1-1">
+                  {%- include 'component_media' with media, width: 1500, render_width: 500, class: 'aspect-child' -%}
+                </div>
+              </div>
+            {% endif %}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endunless -%}
+      {%- unless has_custom_carousel -%}
+      {%- for media in product.media -%}
+        {%- assign is_variant_image = false -%}
+        {%- for variant in product.variants -%}
+          {%- if media == variant.image -%}
+            {%- assign is_variant_image = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if media.media_type == 'image' -%}
+          {%- unless is_variant_image -%}
+            {%- if should_show_featured -%}
+              <div class="product__media-slide swiper-slide js-productMediaSlide">
+                <div class="aspect-1-1">
+                  {{ media | image_url: width: 1500, height: 1500 | image_tag: width: 500, class: 'aspect-child' }}
+                </div>
+              </div>
+            {%- else -%}
+              {%- unless media == product.featured_image -%}
+                <div class="product__media-slide swiper-slide js-productMediaSlide">
+                  <div class="aspect-1-1">
+                    {{ media | image_url: width: 1500, height: 1500 | image_tag: width: 500, class: 'aspect-child' }}
+                  </div>
+                </div>
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endunless -%}
+        {%- elsif media.media_type == 'video' -%}
+          <div class="product__media-slide swiper-slide js-productMediaSlide">
+            <div class="aspect-1-1">
+              <video class="aspect-child" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback>
+                {%- for source in media.sources -%}
+                  <source src="{{ source.url }}" type="{{ source.mime_type }}" width="{{ source.width }}">
+                {%- endfor -%}
+              </video>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="product__media-slide swiper-slide js-productMediaSlide js-productVideo">
+            <div class="aspect-1-1">
+              {{
+                media
+                | external_video_url: controls: '0', loop: '1', muted: '1', modestbranding: '1'
+                | external_video_tag: class: 'aspect-child yt-embed', data-id: media.external_id
+              }}
+              {% comment %} {{ media | media_tag }} {% endcomment %}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+      {%- endunless -%}
+    </div>
+    <div class="product__media-pagination js-productMediaPag"></div>
+    {%- if carousel_desktop -%}
+      <div class="product__media-prev js-productMediaPrev" style="display: none !important;">
+        <svg width="18" height="35" viewBox="0 0 18 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L17 17.5L1 34" stroke="#7B7B7B"/>
+        </svg>
+      </div>
+      <div class="product__media-next js-productMediaNext" style="display: none !important;">
+        <svg width="18" height="35" viewBox="0 0 18 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L17 17.5L1 34" stroke="#7B7B7B"/>
+        </svg>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="product-secondary-images-mobile" style="display: none !important;">
+    {%- unless product.has_only_default_variant -%}
+      {{ current_variant.image | image_url: width: 1500 | image_tag: width: 500, class: 'secondary-aspect-child' }}
+
+      {%- if has_custom_carousel -%}
+        {%- for media in custom_carousel.value -%}
+          {%- if before_after_index and forloop.index == before_after_index -%}
+            {% render 'before-after-images', before_src: before_image, after_src: after_image %}
+          {% else %}
+            {%- include 'component_media' with media, width: 1500, render_width: 500, class: 'secondary-aspect-child' -%}
+          {% endif %}
+        {%- endfor -%}
+      {%- elsif default_media.size > 0 -%}
+        {%- for field in default_media -%}
+          {%- assign name = field | first -%}
+          {%- assign media = default_media[name].value -%}
+
+          {%- if before_after_index and forloop.index == before_after_index -%}
+            {% render 'before-after-images', before_src: before_image, after_src: after_image %}
+          {% else %}
+            {%- include 'component_media' with media, width: 1500, render_width: 500, class: 'secondary-aspect-child' -%}
+          {% endif %}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endunless -%}
+    {%- unless has_custom_carousel -%}
+    {%- for media in product.media -%}
+      {%- assign is_variant_image = false -%}
+      {%- for variant in product.variants -%}
+        {%- if media == variant.image -%}
+          {%- assign is_variant_image = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if media.media_type == 'image' -%}
+        {%- unless is_variant_image -%}
+          {%- if should_show_featured -%}
+            {{ media | image_url: width: 1500, height: 1500 | image_tag: width: 500, class: 'secondary-aspect-child' }}
+
+          {%- else -%}
+            {%- unless media == product.featured_image -%}
+              {{ media | image_url: width: 1500, height: 1500 | image_tag: width: 500, class: 'secondary-aspect-child' }}
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endunless -%}
+      {%- elsif media.media_type == 'video' -%}
+        <video class="secondary-aspect-child" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback>
+          {%- for source in media.sources -%}
+            <source src="{{ source.url }}" type="{{ source.mime_type }}" width="{{ source.width }}">
+          {%- endfor -%}
+        </video>
+
+      {%- else -%}
+        {{
+          media
+          | external_video_url: controls: '0', loop: '1', muted: '1', modestbranding: '1'
+          | external_video_tag: class: 'secondary-aspect-child yt-embed', data-id: media.external_id
+        }}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- endunless -%}
+  </div>
+
+  {% if show_how_to != false %}
+    {%- if how_to_video != blank or how_to_video_external != blank -%}
+      {%- include 'product-how-to-video' with class: 'desktop' -%}
+    {%- endif -%}
+  {% endif %}
+</div>
+
+

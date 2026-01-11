@@ -1,0 +1,54 @@
+<div id="product-tabs" class="product__tabs mobile-hidden js-productSection">
+  <ul class="product__tabs-header">
+    {%- if show_reviews -%}
+      <li class="product__tabs-heading js-productTabHeading active" data-tab="reviews">
+        <h2>Reviews</h2>
+      </li>
+    {%- endif -%}
+    {%- if has_faqs -%}
+      <li class="product__tabs-heading js-productTabHeading {% unless show_reviews %} active {% endunless %}" data-tab="faqs">
+        <h2>FAQs</h2>
+      </li>
+    {%- endif -%}
+    {%- if has_ingredients -%}
+      <li class="product__tabs-heading js-productTabHeading {% unless show_reviews or has_faqs %} active {% endunless %}" data-tab="ingredients">
+        <h2>Ingredients</h2>
+      </li>
+    {%- endif -%}
+    {%- if has_notes -%}
+      <li class="product__tabs-heading js-productTabHeading {% unless show_reviews or has_faqs or has_ingredients %} active {% endunless %}" data-tab="shipping_returns">
+        <h2>Shipping & Returns</h2>
+      </li>
+    {%- endif -%}
+    {%- if has_shade_breakdown -%}
+      <li class="product__tabs-heading js-productTabHeading {% unless show_reviews or has_faqs or has_ingredients or has_notes %} active {% endunless %}" data-tab="shade_breakdown">
+        <h2>Shade Breakdown</h2>
+      </li>
+    {%- endif -%}
+  </ul>
+  {%- if show_reviews -%}
+    <div class="product__tabs-content js-productTabContent active" data-content="reviews">
+      {% render 'junip-product-review', product: product %}
+    </div>
+  {%- endif -%}
+  {%- if has_faqs -%}
+    <div class="product__tabs-content js-productTabContent {% unless show_reviews %} active {% endunless %}" data-content="faqs">
+      {{ faqs_content }}
+    </div>
+  {%- endif -%}
+  {%- if has_ingredients -%}
+    <div class="product__tabs-content js-productTabContent {% unless show_reviews or has_faqs %} active {% endunless %}" data-content="ingredients">
+      {{ ingredients_content }}
+    </div>
+  {%- endif -%}
+  {%- if has_notes -%}
+    <div class="product__tabs-content js-productTabContent text-underline {% unless show_reviews or has_faqs or has_ingredients %} active {% endunless %}" data-content="shipping_returns">
+      {{ shipping_returns_content }}
+    </div>
+  {%- endif -%}
+  {%- if has_shade_breakdown -%}
+    <div class="product__tabs-content js-productTabContent {% unless show_reviews or has_faqs or has_ingredients or has_notes %} active {% endunless %}" data-content="shade_breakdown">
+      {{ shade_breakdown_content }}
+    </div>
+  {%- endif -%}
+</div>

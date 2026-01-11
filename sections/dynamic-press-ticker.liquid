@@ -1,0 +1,32 @@
+{% schema %}
+  {
+   "name": "Press Ticker module",
+   "blocks": [
+      {
+        "type": "Quote",
+        "name": "Quote",
+        "settings":[
+          {
+            "id": "quote",
+            "label": "Quote",
+            "type": "text"
+          },
+          {
+            "id": "logo",
+            "label": "Logo",
+            "type": "image_picker"
+          }
+        ]
+      }
+   ],
+   "presets": [
+      {
+        "category": "Content",
+        "name": "Press Ticker module"
+      }
+   ]
+  }
+{% endschema %}
+{% include "press-ticker",
+  blocks: section.blocks,
+%}

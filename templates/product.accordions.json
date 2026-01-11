@@ -1,0 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero": {
+      "type": "product-hero",
+      "settings": {
+        "tagline": "Clean \/ Cruelty Free",
+        "messaging": "30-Day Guarantee",
+        "free_shipping_us": "Free shipping on US orders over $85",
+        "free_shipping_cad": "Free shipping on CAN orders over $125",
+        "free_shipping_uk": "Free shipping on UK orders over £75",
+        "free_shipping_eu": "Duties & Taxes included. Free shipping on EU orders over €85",
+        "free_shipping_ie": "Duties & Taxes included. Free shipping on EU orders over €85",
+        "shipping": "<p>Jones Road currently ships to the US (excluding Guam and the US Virgin Islands), Canada, the UK (including England, Wales, Scotland, and Northern Ireland, excluding Crown Dependencies), and to select EU countries including Austria, Belgium, Croatia, Cyprus, Estonia, Finland, France, Germany, Greece, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Portugal, Slovak Republic, Slovenia, Spain.<\/p><p>US: Free standard shipping for orders over $85. For orders under $85, shipping is $6.95.<\/p><p>Canada: Free standard shipping for orders over $125 CAD. For orders under $125 CAD, shipping is $13 CAD.<\/p><p>UK: Free standard shipping for orders over £75 GBP. For orders under £75 GBP, shipping is calculated at checkout.<\/p><p>EU: Free standard shipping for orders over €85 EUR. For orders under €85 EUR, shipping is €7 EUR in Germany, France, Ireland, Italy, Spain, Netherlands, Portugal, Belgium, Austria, Finland, Luxembourg. For orders under €85 EUR, shipping is €9 EUR in Croatia, Cyprus, Malta, Latvia, Lithuania, Slovenia and Slovak Republic.<\/p><p>For Canada orders over $125 CAD, any applicable duties or import taxes will be collected at checkout.<\/p><p>For UK orders over £135, any applicable duties or import taxes will be collected at checkout.<\/p><p>For EU orders, any applicable duties or import taxes are included in the pricing. No additional fees will be incurred upon delivery.<\/p><p>Orders are processed Monday - Friday, with the exception of US holidays. Orders are typically fulfilled and shipped within 3-4 business days. Once your order has shipped, you’ll receive an email from <a href=\"mailto:hi@jonesroadbeauty.com\">hi@jonesroadbeauty.com<\/a> with tracking information. <\/p>",
+        "returns": "<p>To request a return or exchange, please visit <a href=\"https:\/\/returns.jonesroadbeauty.com\/\"><span style=\"text-decoration:underline\">https:\/\/returns.jonesroadbeauty.com<\/span><\/a> and follow the steps provided. Kindly note that we will process your request as soon as possible. In the EU, for returns and exchanges over €140 EUR, a €6.95 restocking fee will apply.<\/p><p>For gift returns:<br\/>To process a return or exchange for product(s) received as a gift, please head to the Jones Road beauty Returns and Exchanges Portal. Enter the order number and associated shipping zip code associated. In the EU, for returns and exchanges over €140 EUR, a €6.95 restocking fee will apply.<\/p>",
+        "findation_toggle": "Compare Shades",
+        "findation_text": "<p>Still need help? <a href=\"mailto:hi@jonesroadbeauty.com\" target=\"_blank\" title=\"mailto:hi@jonesroadbeauty.com\">Send a no-makeup selfie<\/a> to get matched by the experts.<\/p>"
+      }
+    },
+    "callout": {
+      "type": "product-callout",
+      "settings": {
+        "image": "{{ product.metafields.callout.image.value }}",
+        "heading": "{{ product.metafields.callout.heading.value }}",
+        "subheading": "{{ product.metafields.callout.subheading.value }}"
+      }
+    },
+    "related": {
+      "type": "product-related",
+      "blocks": {
+        "b1c6f9fc-7455-4783-9168-7459016fd0aa": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_1.value }}"
+          }
+        },
+        "4b437b53-c679-410f-9cef-03d7d092552e": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_2.value }}"
+          }
+        },
+        "38cb3270-a371-481a-a753-d98307555ea4": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_3.value }}"
+          }
+        },
+        "832ae03d-861d-4aa8-b391-c3f4867e69bc": {
+          "type": "product",
+          "settings": {
+            "product": "{{ product.metafields.related_products.product_4.value }}"
+          }
+        }
+      },
+      "block_order": [
+        "b1c6f9fc-7455-4783-9168-7459016fd0aa",
+        "4b437b53-c679-410f-9cef-03d7d092552e",
+        "38cb3270-a371-481a-a753-d98307555ea4",
+        "832ae03d-861d-4aa8-b391-c3f4867e69bc"
+      ],
+      "settings": {
+        "heading": "We think you'll like",
+        "cta_text": "Shop All",
+        "cta_link": "shopify:\/\/collections\/shop-all"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "callout",
+    "related"
+  ]
+}

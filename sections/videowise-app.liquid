@@ -1,0 +1,23 @@
+<div class="videowise-app-wrapper" style="display: none;">
+    {{ section.settings.videowise }}
+</div>
+
+{% schema %}
+{
+  "name": "Videowise APP",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "liquid",
+      "id": "videowise",
+      "label": "Videowise code"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Videowise APP"
+    }
+  ]
+}
+{% endschema %}

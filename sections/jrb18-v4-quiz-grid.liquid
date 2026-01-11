@@ -1,0 +1,392 @@
+{%- assign config = section.settings -%}
+
+<style>
+  /* JRB18 V4 Grid Styles */
+  #{{ config.section_id | default: 'jrb18-quiz-grid' }} {
+    scroll-margin-top: 70px;
+  }
+
+  #jrb18-v4-grid-{{ section.id }} {
+    display: grid;
+    grid-template-columns: repeat(2, 170px);
+    gap: 16px;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+
+  .jrb18-v4-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .jrb18-v4-image {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .jrb18-v4-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .jrb18-v4-title {
+    font-family: 'GeogrotesqueCondBoldWeb', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .jrb18-v4-stars {
+    line-height: 1;
+    min-height: 20px;
+  }
+
+  .jrb18-v4-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    background: #000;
+    color: #fff;
+    border-radius: 3px;
+    font-family: 'BaseMonoWideWeb';
+    font-size: 13px;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .jrb18-v4-cta:hover {
+    background: #fff;
+    color: #000;
+    border: 1px solid #d0d0d0;
+  }
+
+  .jrb18-quiz-grid__heading {
+    margin-bottom: 20px !important;
+  }
+
+  /* Responsive Grid */
+  @media (min-width: 580px) and (max-width: 767px) {
+    #jrb18-v4-grid-{{ section.id }} {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      justify-content: center;
+    }
+    .jrb18-v4-image img {
+      height: 23vw;
+      object-fit: cover;
+    }
+  }
+
+  @media (max-width: 579px) {
+    #jrb18-v4-grid-{{ section.id }} {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      justify-content: center;
+    }
+    .jrb18-v4-image img {
+      height: 35vw;
+      object-fit: cover;
+    }
+    .jrb18-v4-cta {
+      padding: 0 !important;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    #jrb18-v4-grid-{{ section.id }} {
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: 40px;
+      column-gap: 20px;
+      justify-content: stretch;
+    }
+    .jrb18-v4-image img {
+      height: 18vw;
+      object-fit: cover;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1098px) {
+    #jrb18-v4-grid-{{ section.id }} {
+      grid-template-columns: repeat(4, 1fr);
+      row-gap: 40px;
+      column-gap: 20px;
+      justify-content: stretch;
+    }
+    .jrb18-v4-image {
+      min-height: 190px;
+    }
+  }
+
+  @media (min-width: 1099px) and (max-width: 1499px) {
+    #jrb18-v4-grid-{{ section.id }} {
+      grid-template-columns: repeat(5, 1fr);
+      row-gap: 40px;
+      column-gap: 20px;
+      justify-content: stretch;
+    }
+    .jrb18-v4-image {
+      min-height: 150px;
+    }
+  }
+
+  @media (min-width: 1500px) {
+    #jrb18-v4-grid-{{ section.id }} {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .jrb18-v4-image {
+      min-height: 175px;
+    }
+    .jrb18-v4-image img {
+      min-height: 185px;
+    }
+  }
+
+  @media (min-width: 1700px) {
+    .jrb18-v4-image img {
+      height: 12vw;
+    }
+  }
+
+  @media (min-width: 2560px) {
+    .jrb18-v4-title {
+      font-size: 22px;
+    }
+  }
+</style>
+
+<div
+  id="{{ config.section_id | default: 'jrb18-quiz-grid' }}"
+  class="imagetext__product"
+  style="background: {{ config.background }};"
+>
+  <div class="imagetext__product-container">
+    {%- if config.heading != blank -%}
+      <h2 class="imagetext__product-heading jrb18-quiz-grid__heading">
+        {{ config.heading }}
+      </h2>
+    {%- endif -%}
+
+    <div id="jrb18-v4-grid-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        {%- assign product = all_products[block.settings.product] -%}
+        
+        <div class="jrb18-v4-card" {{ block.shopify_attributes }}>
+          {%- comment -%} Product Image {%- endcomment -%}
+          <div class="jrb18-v4-image">
+            {%- if block.settings.custom_image != blank -%}
+              <img
+                src="{{ block.settings.custom_image | image_url: width: 600 }}"
+                srcset="{{ block.settings.custom_image | image_url: width: 1200 }} 2x"
+                alt="{{ block.settings.custom_image.alt | default: product.title }}"
+                width="600"
+                height="450"
+                loading="lazy"
+              >
+            {%- elsif product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 600 }}"
+                srcset="{{ product.featured_image | image_url: width: 1200 }} 2x"
+                alt="{{ product.featured_image.alt | default: product.title }}"
+                width="600"
+                height="450"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+
+          {%- comment -%} Product Title {%- endcomment -%}
+          <h4 class="jrb18-v4-title">
+            {%- if block.settings.custom_title != blank -%}
+              {{ block.settings.custom_title }}
+            {%- elsif product.title -%}
+              {{ product.title }}
+            {%- endif -%}
+          </h4>
+
+          {%- comment -%} Review Stars {%- endcomment -%}
+          {%- if block.settings.show_reviews and product != blank -%}
+            <div class="jrb18-v4-stars">
+              {%- include 'review-stars' -%}
+            </div>
+          {%- else -%}
+            <div class="jrb18-v4-stars"></div>
+          {%- endif -%}
+
+          {%- comment -%} CTA Button {%- endcomment -%}
+          {%- if block.settings.quiz_url != blank -%}
+            <a href="{{ block.settings.quiz_url }}" class="jrb18-v4-cta">
+              {{ block.settings.cta_text | default: 'Take the Quiz' }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{%- schema -%}
+{
+  "name": "JRB18 Quiz Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "section_id",
+      "label": "Section ID",
+      "info": "Used to create a permalink to the section. Must be unique, all lower-case, with hyphens instead of spaces.",
+      "default": "jrb18-quiz-grid"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Explore our Quizzes"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quiz_item",
+      "name": "Quiz Item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product",
+          "info": "Select a product for review stars and default image/title"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_image",
+          "label": "Custom Image (Optional)",
+          "info": "Override the product's featured image"
+        },
+        {
+          "type": "text",
+          "id": "custom_title",
+          "label": "Custom Title (Optional)",
+          "info": "Override the product title. Use <br> for line breaks."
+        },
+        {
+          "type": "checkbox",
+          "id": "show_reviews",
+          "label": "Show Review Stars",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Quiz Link"
+        },
+        {
+          "type": "url",
+          "id": "quiz_url",
+          "label": "Quiz URL",
+          "info": "The page/URL for the quiz"
+        },
+        {
+          "type": "text",
+          "id": "cta_text",
+          "label": "Button Text",
+          "default": "Take the Quiz"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "JRB18 Quiz Grid",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "quiz_item",
+          "settings": {
+            "product": "miracle-balm",
+            "custom_image": "shopify://shop_images/quiz-landing-3.png",
+            "custom_title": "Miracle<br>Balm",
+            "show_reviews": true,
+            "quiz_url": "/pages/miracle-balm-custom-quiz",
+            "cta_text": "Take the Quiz"
+          }
+        },
+        {
+          "type": "quiz_item",
+          "settings": {
+            "product": "just-enough-tinted-moisturizer",
+            "custom_image": "shopify://shop_images/JRB18-V4-JETM.webp",
+            "custom_title": "Just Enough Tinted<br>Moisturizer",
+            "show_reviews": true,
+            "quiz_url": "/pages/just-enough-tinted-moisturizer-shade-finder",
+            "cta_text": "Take the Quiz"
+          }
+        },
+        {
+          "type": "quiz_item",
+          "settings": {
+            "product": "what-the-foundation",
+            "custom_image": "shopify://shop_images/quiz-landing-2.png",
+            "custom_title": "What The<br>Foundation",
+            "show_reviews": true,
+            "quiz_url": "/pages/what-the-foundation-custom-quiz",
+            "cta_text": "Take the Quiz"
+          }
+        },
+        {
+          "type": "quiz_item",
+          "settings": {
+            "product": "the-face-pencil",
+            "custom_image": "shopify://shop_images/quiz-landing-1.png",
+            "custom_title": "The Face Pencil & The<br>Neutralizer Pencil",
+            "show_reviews": true,
+            "quiz_url": "/pages/face-pencil-and-neutralizer-quiz",
+            "cta_text": "Take the Quiz"
+          }
+        },
+        {
+          "type": "quiz_item",
+          "settings": {
+            "product": "the-bronzer",
+            "custom_image": "shopify://shop_images/BEST_BRONZER_GROUP_096_G_1.png",
+            "custom_title": "The<br>Bronzer",
+            "show_reviews": true,
+            "quiz_url": "/pages/the-bronzer-quiz",
+            "cta_text": "Take the Quiz"
+          }
+        },
+        {
+          "type": "quiz_item",
+          "settings": {
+            "product": "tinted-face-powder",
+            "custom_image": "shopify://shop_images/TintedPowder_quiz_1.png",
+            "custom_title": "Tinted Face<br>Powder",
+            "show_reviews": true,
+            "quiz_url": "/pages/tinted-face-powder-quiz",
+            "cta_text": "Take the Quiz"
+          }
+        }
+      ]
+    }
+  ]
+}
+{%- endschema -%}

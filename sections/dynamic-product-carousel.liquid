@@ -1,0 +1,36 @@
+{% schema %}
+  {
+    "name": "Product carousel",
+    "blocks": [
+      {
+        "type": "tile",
+        "name": "Tile",
+        "settings": [
+          {
+            "id": "product",
+            "label": "Product",
+            "type": "product"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "category": "Content",
+        "name": "Product carousel"
+      }
+    ]
+  }
+{% endschema %}
+{%- capture productString -%}
+{%- for block in section.blocks -%}
+{{ block.settings.product }}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign productHandles = productString | split: ',' -%}
+{% include 'product-carousel',
+  className: 'product-carousel',
+  jsClass: 'js-productCarousel',
+  productHandles: productHandles,
+  withNav: true,
+%}

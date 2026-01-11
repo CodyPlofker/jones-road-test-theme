@@ -1,0 +1,80 @@
+{% schema %}
+  {
+    "name": "Looks Hero",
+    "settings": [
+      {
+        "id": "heroHeading",
+        "label": "Heading",
+        "type": "textarea"
+      },
+      {
+        "id": "contentPosition",
+        "label": "Content position",
+        "type": "select",
+        "options": [
+          {
+            "value": "bottom-left",
+            "label": "bottom-left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "bottom-right"
+          },
+          {
+            "value": "center",
+            "label": "center"
+          },
+          {
+            "value": "center-left",
+            "label": "center-left"
+          },
+          {
+            "value": "center-right",
+            "label": "center-right"
+          }
+        ]
+      },
+      {
+        "id": "headingColor",
+        "label": "Heading color",
+        "type": "select",
+        "options": [
+          {
+            "value": "black",
+            "label": "black"
+          },
+          {
+            "value": "white",
+            "label": "white"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "headingHighlight",
+        "default": false,
+        "label": "Heading Highlight"
+      },
+      {
+        "id": "heroImage",
+        "label": "Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "heroImageMobile",
+        "label": "Image Mobile",
+        "type": "image_picker"
+      }
+    ]
+  }
+{% endschema %}
+{% if section.settings.heroImage != blank %}
+{% include 'looks-hero',
+  contentPosition: section.settings.contentPosition,
+  headingColor: section.settings.headingColor,
+  headingHighlight: section.settings.headingHighlight,
+  heroHeading: section.settings.heroHeading,
+  heroImage: section.settings.heroImage,
+  heroImageMobile: section.settings.heroImageMobile,
+%}
+{% endif %}

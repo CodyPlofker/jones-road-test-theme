@@ -1,0 +1,9 @@
+<div id="reviews" class="product__reviews js-productReviews {{ class }}" data-product="{{ product.id }}">
+  <div class="product__reviews-header">
+    <div class="product__reviews-heading">
+      <h2>Reviews</h2>
+      {% render 'junip-product-review', product: product %}
+    </div>
+    {% comment %} <a class="button js-reviewsButton" target="_blank" data-product="{{ product.id }}">Write A Review</a> {% endcomment %}
+  </div>
+</div>

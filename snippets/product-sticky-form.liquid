@@ -1,0 +1,58 @@
+{% liquid
+  assign compliance_product_title = null
+  assign compliance_products = product.metafields.custom.compliance_products.value
+  if compliance_products
+    assign compliance_product_title = compliance_products.product_title
+    assign iso_code = localization.country.currency.iso_code
+    case iso_code
+      when "USD"
+        assign current_country_product = compliance_products.usa_product.value
+      when "CAD"
+        assign current_country_product = compliance_products.canada_product.value
+      when "GBP"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "EUR"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "BGN"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "CZK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "DKK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "HUF"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "PLN"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "RON"
+        assign current_country_product = compliance_products.eu_uk_product.value
+      when "SEK"
+        assign current_country_product = compliance_products.eu_uk_product.value
+    endcase
+  endif
+%}
+
+<div class="product__sticky">
+  <div class="product__sticky-inner">
+    <div class="product__sticky-info">
+      {% if current_country_product.id == product.id %}
+        <h2 class="product__sticky-title">{{ compliance_product_title }}</h2>
+      {% else %}
+        <h2 class="product__sticky-title">{{ product.title | remove: '[bggy pdp dev copy]' }}</h2>
+      {% endif %}
+      <div class="product__stars-container">
+        {%- include 'review-stars' with class: 'product__sticky-stars' -%}
+      </div>
+    </div>
+    {%- include 'product-form' with 
+      style: 'select', 
+      should_show_findation: false,
+      is_findation: false,
+      is_linked: true,
+      show_button: true,
+      class: 'product__sticky-form', 
+      description: '',
+      hide_swatch_description: true,
+      compliance_product_title_sticky: compliance_product_title
+    -%}
+  </div>
+</div>

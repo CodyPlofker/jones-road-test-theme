@@ -1,0 +1,79 @@
+{% schema %}
+  {
+   "name":"Product Listing Promo",
+   "blocks":[
+      {
+        "type":"listingPromo",
+        "name":"Promo",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text",
+            "info": "Internal use"
+          },
+          {
+            "id": "bg",
+            "label": "Background Color",
+            "type": "select",
+            "options": [
+              {
+                "value":"black",
+                "label":"black"
+              },
+              {
+                "value": "white",
+                "label": "white"
+              }
+            ]
+          },
+          {
+            "id": "link",
+            "label": "Link",
+            "type": "url"
+          },
+          {
+            "id": "image",
+            "label": "Image",
+            "type": "image_picker"
+          },
+          {
+            "id": "copy",
+            "label": "Copy",
+            "type": "html"
+          },
+          {
+            "id": "collectionHandle",
+            "label": "Collection",
+            "type": "collection"
+          }
+        ]
+      }
+   ]
+  }
+{% endschema %}
+<div class="plp" data-view="plp" data-template="{{ template.suffix }}">
+  {%- unless template.suffix == 'alt' -%}
+    {% include 'collection-banner' %}
+  {%- endunless -%}
+  <div class="plp__items">
+    {%- for product in collection.products -%}
+      {%- unless product.tags contains 'hide' -%}
+        {%- include 'product-tile' with product -%}
+      
+        {%- if forloop.index == 4 -%}
+          {%- for promo in section.blocks -%}
+            {%- if promo.settings.collectionHandle == collection.handle -%}
+              {%- include "listing-promo",
+                link: promo.settings.link,
+                image: promo.settings.image,
+                bg: promo.settings.bg,
+                copy: promo.settings.copy,
+              -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  </div>
+</div>

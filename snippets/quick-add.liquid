@@ -1,0 +1,71 @@
+<div class="quick-add js-quickAdd" aria-hidden="true" id="quick-add-{{ product.id }}">
+  <div class="quick-add__content">
+    <form class="js-quickAddForm">
+      <legend class="visually-hidden">Select a shade</legend>
+      <ul>
+      {%- for variant in product.variants -%}
+        {%- assign isVariantSelected = false -%}
+        {%- if variant.id == product.selected_or_first_available_variant.id -%}
+        {%- assign isVariantSelected = true -%}
+        {%- assign swatchNo = forloop.index -%}
+        {%- endif -%}
+        <li>
+          <input
+          {% if forloop.index == 1 %}checked{% endif %}
+          name="quick-add-{{ product.id }}"
+          value="{{ variant.id }}"
+          type="radio"
+          id="quick-add-{{ variant.id }}"
+          data-price="{{ variant.price | money_without_trailing_zeros }}"
+          data-id="quick-add-{{ product.id }}"
+          {% unless variant.available %}disabled{% endunless %}
+        />
+          <label for="quick-add-{{ variant.id }}">
+            {% include 'swatch-image', swatches: swatches, variant: variant, modifier: 'quick-add' %}
+            <span class="quick-add__label">
+              {% if settings.generate_shade_numbers %}<span class="quick-add__no">{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }}</span>{% endif %}
+              {{ variant.option1 }}
+            </span>
+          </label>
+          <script type="text/template" class="js-quickAddImage" data-id="{{ variant.id }}">
+            {%- assign image = variant.image -%}
+            <img src="{{ image.src | image_url }}" alt="{{ image.alt }}" />
+          </script>
+        </li>
+      {%- endfor -%}
+      </ul>
+      {%- if product.available -%}
+        {% liquid
+          assign compliance_product_title = null
+          assign compliance_products = product.metafields.custom.compliance_products.value
+          if compliance_products
+            assign compliance_product_title = compliance_products.product_title
+          endif
+        %}
+      <button type="submit" data-product-id="{{ product.id }}" data-compliance-product="{{ compliance_product_title }}" class="button button--short button--wide js-quickAddButtonNew"> 
+        <span class="js-quickAddButtonCopy" data-default-copy="Add to Bag" data-added-copy="Added">Add to Bag</span>
+        <span class="quick-add__mobile-price js-quickAddPrice">{{ product.price | money_without_trailing_zeros }}</span>
+      </button>
+      {%- else -%}
+      <button type="submit" disabled class="button button--short button--wide">
+        Sold Out
+      </button>
+      {%- endif -%}
+    </form>
+  </div>
+  <button class="quick-add__close js-quickAddClose" aria-controls="quick-add-{{ product.id }}">
+    <span class="visually-hidden">Close</span>
+  </button>
+  <script type="text/json" class="js-quickAddDataKlaviyo">
+    {
+      "Name": {{ product.title|json }},
+      "ProductID": {{ product.id|json }},
+      "Categories": {{ product.collections|map:'title'|json }},
+      "ImageURL": "https:{{ product.featured_image.src|img_url:'grande' }}",
+      "URL": "{{ shop.secure_url }}{{ product.url | append: '?country=' | append: localization.country.iso_code }}",
+      "Brand": {{ product.vendor|json }},
+      "Price": {{ product.price|money|json }},
+      "CompareAtPrice": {{ product.compare_at_price_max|money|json }}
+    }
+  </script>
+</div>

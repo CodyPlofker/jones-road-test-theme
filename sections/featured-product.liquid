@@ -1,0 +1,116 @@
+{%- assign config = section.settings -%}
+{%- assign featured_product = all_products[config.product] -%}
+
+{%- assign product_image = config.image -%}
+{%- if config.image == blank -%}
+  {%- assign product_image = featured_product.featured_image -%}
+{%- endif -%}
+
+{%- assign product_title = config.heading -%}
+{%- if config.heading == blank -%}
+  {%- assign product_title = featured_product.title -%}
+{%- endif -%}
+
+{%- assign product_subtitle = config.subheading -%}
+{%- if config.subheading == blank -%}
+  {%- assign product_subtitle = featured_product.metafields.details.subtitle -%}
+{%- endif -%}
+
+{%- assign product_description = config.description -%}
+{%- if config.description == blank -%}
+  {%- assign product_description = featured_product.description -%}
+{%- endif -%}
+
+<div id="{{ config.section_id }}" class="featured-product" data-component="featuredProduct">
+  {%- if product_image != blank -%}
+    <div class="featured-product__image">
+      <div class="aspect-1-1">
+        {{ product_image | image_url: width: 1000 | image_tag: width: 500, class: 'aspect-child' }}
+      </div>
+    </div>
+  {%- endif -%}
+  <div class="featured-product__content">
+    {%- if product_title != blank -%}
+      <h2 class="featured-product__title">{{ product_title }}</h2>
+    {%- endif -%}
+    {%- if product_subtitle != blank -%}
+      <p class="featured-product__subtitle">{{ product_subtitle }}</p>
+    {%- endif -%}
+    {%- if product_description != blank -%}
+      <div class="featured-product__description text-underline">{{ product_description }}</div>
+    {%- endif -%}
+    {%- if config.cta_text != blank -%}
+      {%- assign is_permalink = false -%}
+        {%- if config.cta_link contains '#' -%}
+          {%- assign is_permalink = true -%}
+        {%- endif -%}
+        <a href="{{ config.cta_link }}" class="featured-product__button button {% if is_permalink %} js-smoothScroll {% endif %}">
+          {{ config.cta_text }}
+        </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Featured Product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "featured-product"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "If left blank, the product's featured image will be used."
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "info": "If left blank, the product's title will be used."
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading",
+        "info": "If left blank, the product's subtitle will be used."
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "info": "If left blank, the product's description will be used."
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link",
+        "info": "To create a permalink to another section, enter # followed by the ID of the section you want to link to, eg: #product-grid"
+      }
+    ],
+    "presets": [{ "name": "Featured Product" }]
+  }
+{% endschema %}

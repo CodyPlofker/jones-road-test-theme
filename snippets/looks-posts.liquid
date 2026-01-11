@@ -1,0 +1,13 @@
+<div class="looks-posts">
+  {%- for post in posts -%}
+  {%- include 'looks-post', post: post -%}
+  {%- endfor -%}
+  {% if paginate.pages > 1 %}
+  <div class="looks-posts__pagination">
+    {% for i in (1..paginate.pages) %}
+    <span class="page{% if forloop.index == paginate.current_page %} current{% endif %}"><a href="{{ blog.url }}?page={{ forloop.index }}" title="Go to page {{ forloop.index }}">{{ forloop.index }}</a></span>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="looks__modal-wrap" id="looks-modal" aria-hidden="true"></div>
+</div>

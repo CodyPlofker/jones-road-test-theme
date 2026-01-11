@@ -1,0 +1,30 @@
+{% layout none %}
+
+{%- assign categories = linklists[settings.blog_categories].links -%}
+
+{%- assign all_blogs = categories | map: 'object' -%}
+[
+{% if blog.handle == 'justbobbi' %}
+  {% for b in all_blogs %}
+    {% paginate b.articles by 50, window_size: 100 %}
+      { 
+        "blog_id": {{ b.id | json }}, 
+        "total_articles": {{ paginate.items | json }}, 
+        "pages": {{ paginate.pages | json }}, 
+        "parts": {{ paginate.parts | map: 'url' | json }}, 
+        "articles":{{ b.articles | json }} 
+      }{% unless forloop.last %},{% endunless %}
+    {% endpaginate %}
+  {% endfor %}
+{% else %}
+  {% paginate blog.articles by 50, window_size: 100 %}
+    { 
+      "blog_id": {{ blog.id | json }},
+      "total_articles": {{ paginate.items | json }},
+      "pages": {{ paginate.pages | json }},
+      "parts": {{ paginate.parts | map: 'url' | json }},
+      "articles": {{ blog.articles | json }} 
+    }
+  {% endpaginate %}
+{% endif %}
+]

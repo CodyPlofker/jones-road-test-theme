@@ -1,0 +1,70 @@
+<div class="js-formValidation">
+  {% form 'create_customer' %}
+    <div class="form">
+      <div class="form__cell">
+        <div class="form__errors login__form__errors">{{ form.errors | default_errors }}</div>
+      </div>
+      <div class="form__cell">
+        <label for="customer-first_name">First Name</label>
+        <input
+          {% if form.first_name %}value="{{ form.first_name }}"{% endif %}
+          id="customer-first_name"
+          name="customer[first_name]"
+          placeholder="First Name"
+          required
+          type="text"
+        />
+      </div>
+      <div class="form__cell">
+        <label for="customer-last_name">Last Name</label>
+        <input
+          {% if form.last_name %}value="{{ form.last_name }}"{% endif %}
+          id="customer-last_name"
+          name="customer[last_name]"
+          placeholder="Last Name"
+          required
+          type="text"
+        />
+      </div>
+      <div class="form__cell">
+        <label for="customer-email">Email Address</label>
+        <input
+          {% if form.email %}value="{{ form.email }}"{% endif %}
+          id="customer-email"
+          name="customer[email]"
+          placeholder="Email Address"
+          required
+          type="email"
+        />
+      </div>
+      <div class="form__cell">
+        <label for="register-password">Password</label>
+        <input
+          id="register-password"
+          minlength="8"
+          name="customer[password]"
+          placeholder="Password"
+          required
+          type="password"
+        />
+      </div>
+      <div class="form__cell">
+        <div class="checkbox">
+          <input
+            {% if form.accepts_marketing %}checked{% endif %}
+            id="login-signup"
+            name="customer[accepts_marketing]"
+            type="checkbox"
+            value="1"
+          />
+          <label for="login-signup">
+            Subscribe me to Jones Road Newsletter
+          </label>
+        </div>
+      </div>
+      <div class="form__cell form__cell--spaced">
+        <button class="button" type="submit">Submit</button>
+      </div>
+    </div>
+  {% endform %}
+</div>

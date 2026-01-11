@@ -1,0 +1,29 @@
+<ul class="account__section">
+{%- if orders.size < 1 -%}
+<div class="account__info">
+  <span id="address-section-heading" tabindex="-1">You don’t have any orders yet.<span>
+</div>
+{%- else -%}
+{%- for order in orders -%}
+  <li class="account__order">
+    <div>
+      <span>Order No.</span>
+      <b>{{ order.name }}</b>
+      <span>Order Date</span>
+      <b>{{ order.created_at | date: "%m/%d/%y" }}</b>
+    </div>
+    <div>
+      <span>Payment Status</span>
+      <b>{{ order.financial_status_label }}</b>
+      <span>Fulfillment Status</span>
+      <b>{{ order.fulfillment_status_label }}</b>
+    </div>
+    <div class="account__order__total">
+      <span>Order Total</span>
+      <b>{%- render 'price' price: order.total_price, format: 'full' -%}</b>
+      <a class="button" href="{{ order.customer_url }}">View details</a>
+    </div>
+  </li>
+{%- endfor -%}
+{%- endif -%}
+</ul>

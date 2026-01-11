@@ -1,0 +1,29 @@
+<div class="utility utility--stockists" data-view="utility">
+  <div class="utility__cols">
+    <div class="utility__col">
+      <h1>{{ title }}</h1>
+      <div class="utility__intro text-underline">
+        {{ intro }}
+      </div>
+    </div>
+    <div class="utility__col text-underline">
+      <h2>Online</h2>
+      {{ online }}
+
+      <div class="utility__tabs">
+        {%- for region in regions -%}
+        <div class="js-accordion" {{ region.shopify_attributes }}>
+          <button aria-expanded="{% if forloop.index == 1 %}true{% else %}false{% endif %}" aria-controls="tabpanel-{{ forloop.index }}" data-controls="tabpanel-{{ forloop.index }}" class="utility__tab">
+            {{ region.settings.title }}
+          </button>
+          <div aria-hidden="{% if forloop.index == 1 %}false{% else %}true{% endif %}" id="tabpanel-{{ forloop.index }}" class="utility__tabpanel">
+            <div class="text-underline">
+              {{ region.settings.stores }}
+            </div>
+          </div>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>

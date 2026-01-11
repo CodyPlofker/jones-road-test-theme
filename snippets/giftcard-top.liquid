@@ -1,0 +1,19 @@
+<div class="giftcard__top">
+  <div class="giftcard__top__image">
+    <div class="giftcard__top__image__wrap">
+      {%- include 'product-info-picture', image: product.images[0] -%}
+    </div>
+  </div>
+  <div class="giftcard__top__description">
+    <h1 class="giftcard__top__title">{{ product.title }}</h1>
+    {%- include 'review-stars' with class: 'product-info__stars' -%}
+    {% if product.description != blank %}<div class="giftcard__top__copy">{{ product.description }}</div>{% endif%}
+    <div class="giftcard__bar js-giftcardBar">
+      <h1 class="giftcard__top__title">{{ product.title }}</h1>
+      <div class="giftcard__bar__controls">
+        {% include "giftcard-selector", product: product %}
+        <button class="giftcard__bar__button button js-addToBag" data-id="{{ product.selected_or_first_available_variant.id }}">Add to bag</button>
+      </div>
+    </div>
+  </div>
+</div>

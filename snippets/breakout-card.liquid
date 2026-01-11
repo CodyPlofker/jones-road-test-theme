@@ -1,0 +1,324 @@
+{% comment %}
+  Parameters:
+  - card_image_vv: Image for the breakout card
+  - card_image_vv_mobile: Image for the breakout card on mobile
+  - background_color: Background color for the card
+  - title: Card title
+  - is_multi_line_title: Boolean for multi-line title
+  - multi_line_title: Array of title lines
+  - title_bold: Boolean for bold title
+  - title_font_size_desktop: Font size for the title on desktop
+  - title_font_size_mobile: Font size for the title on mobile
+  - title_color: Color for the title
+  - title_font_family: Font family for the title
+  - title_background_color: Background color for title
+  - content: Card content text
+  - content_font_size_desktop: Font size for the content on desktop
+  - content_font_size_mobile: Font size for the content on mobile
+  - content_color: Color for the content
+  - content_font_family: Font family for the content
+  - button_label: Text for the button
+  - button_color: Color for the button text
+  - button_background: Background color for the button
+  - button_link: Link for the button
+  - desktop_breakout_card_cta_vertical_padding: Vertical padding for the CTA on desktop
+  - desktop_breakout_card_cta_horizontal_padding: Horizontal padding for the CTA on desktop
+  - mobile_breakout_card_cta_vertical_padding: Vertical padding for the CTA on mobile
+  - mobile_breakout_card_cta_horizontal_padding: Horizontal padding for the CTA on mobile
+  - desktop_breakout_card_cta_top_spacing: Top spacing (margin-top) for the CTA on desktop
+  - mobile_breakout_card_cta_top_spacing: Top spacing (margin-top) for the CTA on mobile
+  - add_link_to_image: Boolean to add link to image
+  - content_alignment: Content alignment for the card
+  - button_font_size_desktop: Font size for the button on desktop
+  - button_font_size_mobile: Font size for the button on mobile
+  - border_color: Border color for the button
+{% endcomment %}
+
+<style>
+  .small-breakout-card.breakout-card.style-{{forloop.index}} .breakout-card-image-text-container .breakout-card-text-container h2 {
+    font-size: {{title_font_size_desktop}}px;
+
+    @media (max-width: 767px) {
+      font-size: {{title_font_size_mobile}}px;
+    }
+  }
+
+  .small-breakout-card.breakout-card.style-{{forloop.index}} .breakout-card-image-text-container .breakout-card-text-container .breakout-card-content {
+    font-size: {{content_font_size_desktop}}px;
+
+    @media (max-width: 767px) {
+      font-size: {{content_font_size_mobile}}px;
+    }
+  }
+
+  .small-breakout-card.breakout-card.style-{{forloop.index}} .breakout-card-multi-line-title h2 span{
+    background-color: {{title_background_color}};
+  }
+
+  .small-breakout-card.breakout-card.style-{{forloop.index}} .breakout-card-text-container button{
+    font-size: {{button_font_size_desktop}}px;
+    padding: {{desktop_breakout_card_cta_vertical_padding}}px {{desktop_breakout_card_cta_horizontal_padding}}px;
+    margin-top: {{desktop_breakout_card_cta_top_spacing}}px;
+
+    @media (max-width: 767px) {
+      font-size: {{button_font_size_mobile}}px;
+      padding: {{mobile_breakout_card_cta_vertical_padding}}px {{mobile_breakout_card_cta_horizontal_padding}}px;
+      margin-top: {{mobile_breakout_card_cta_top_spacing}}px;
+    }
+  }
+
+  .small-breakout-card.breakout-card.style-{{forloop.index}} .breakout-card-text-container button{
+    color: {{ button_color }};
+    background-color: {{ button_background}};
+    border-color: {{ border_color }};
+  }
+  
+  .small-breakout-card.breakout-card.style-{{forloop.index}} .breakout-card-text-container button:hover{
+    background-color: {{ button_background_hover | default: '#fff' }};
+    color: {{ button_font_color_hover | default: '#000' }};
+    border-color: {{ button_border_color_hover | default: '#000' }};
+  }
+
+
+  {% if content_alignment == 'Center' %}
+    .small-breakout-card.breakout-card.style-{{forloop.index}} *{
+      text-align: center !important;
+      align-items: center !important;
+      justify-content: center !important;
+      align-self: center !important;
+    }
+  {% elsif content_alignment == 'Right' %}
+    .small-breakout-card.breakout-card.style-{{forloop.index}} *{
+      text-align: right !important;
+      align-items: flex-end !important;
+      align-self: flex-end !important;
+    }
+  {% endif %}
+</style>
+
+{%- assign show_button = false -%}
+{% if button_label != blank and button_link != blank %}
+  {%- assign show_button = true -%}
+{% endif %}
+
+<div
+  class="product__card product__card--opacity-{{ opacity }} product__card-text-alignment-{{ text_alignment | default: 'Left' | handleize }} product__card-text-block-alignment-{{ text_block_alignment | default: 'Middle' | handleize  }} breakout-card breakout-card-new-design--{{ new_design }} small-breakout-card style-{{forloop.index}} {{ content_alignment }}"
+  {% if add_link_to_image and show_button %}
+    onclick="window.location.href='{{ button_link }}'" style="cursor: pointer;"
+  {% endif %}
+>
+  {% if card_image_vv %}
+    <div class="breakout-card-image-text-container">
+      {% if card_image_vv_mobile %}
+        {%- capture mobile_srcset -%}
+          {{ card_image_vv_mobile | image_url: width: 360 }} 360w,
+          {{ card_image_vv_mobile | image_url: width: 720 }} 720w,
+          {{ card_image_vv_mobile | image_url: width: 1080 }} 1080w,
+          {{ card_image_vv_mobile | image_url: width: 1440 }} 1440w
+        {%- endcapture -%}
+
+        {% if index == 1 %}
+        {{ card_image_vv_mobile | image_url: width: 360 | image_tag:
+          srcset: mobile_srcset,
+          sizes: "(min-width: 1024px) 25vw, (min-width: 768px) 33.33vw, 50vw",
+          class: "breakout-card-image-mobile",
+          preload: true,
+          fetchpriority: 'high',
+          loading: 'eager',
+          width: "100%",
+          height: "100%"
+        }}
+        {% else %}
+          {{ card_image_vv_mobile | image_url: width: 360 | image_tag:
+            srcset: mobile_srcset,
+            sizes: "(min-width: 1024px) 25vw, (min-width: 768px) 33.33vw, 50vw",
+            class: "breakout-card-image-mobile",
+            width: "100%",
+            height: "100%"
+          }}
+        {% endif %}
+
+        {%- capture desktop_srcset -%}
+          {{ card_image_vv | image_url: width: 360 }} 360w,
+          {{ card_image_vv | image_url: width: 720 }} 720w,
+          {{ card_image_vv | image_url: width: 1080 }} 1080w,
+          {{ card_image_vv | image_url: width: 1440 }} 1440w
+        {%- endcapture -%}
+
+        {% if index == 1 %}
+        {{ card_image_vv | image_url: width: 720 | image_tag:
+          srcset: desktop_srcset,
+          sizes: "(min-width: 1024px) 25vw, (min-width: 768px) 33.33vw, 50vw",
+          class: "breakout-card-image-desktop",
+          preload: true,
+          fetchpriority: 'high',
+          loading: 'eager',
+          width: "100%",
+          height: "100%"
+        }}
+        {% else %}
+          {{ card_image_vv | image_url: width: 720 | image_tag:
+            srcset: desktop_srcset,
+            sizes: "(min-width: 1024px) 25vw, (min-width: 768px) 33.33vw, 50vw",
+            class: "breakout-card-image-desktop",
+            width: "100%",
+            height: "100%"
+          }}
+        {% endif %}
+
+      {% else %}
+        <img src="{{ card_image_vv | img_url: 'master' }}" width="100%" height="100%">
+      {% endif %}
+
+      <div class="breakout-card-text-container breakout-card-image-overlay">
+        {% if is_multi_line_title %}
+          <div class="breakout-card-multi-line-title {% if title_background_color == 'transparent' or title_background_color == blank %}no-background{% endif %}">
+            <h2
+              style="
+                color: {{ title_color }};
+                {% if title_font_family == 'Geogrotesque' %}
+                  font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif;
+                {% elsif title_font_family == 'Base Mono' %}
+                  font-family: BaseMonoWideWeb, Courier, Courier New, sans-serif;
+                {% elsif title_font_family == 'Canela' %}
+                  font-family: Canela, Arial, sans-serif;
+                {% elsif title_font_family == 'ArticulatCF' %}
+                  font-family: ArticulatCF, Arial, sans-serif;
+                {% elsif title_font_family == 'Copyright' %}
+                  font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+                {% endif %}
+              "
+            >
+            {% for line in multi_line_title %}
+                <span>{{ line }}</span>
+              {% endfor %}
+            </h2>
+          </div>
+        {% else %}
+          <h2
+            style="
+              color: {{ title_color }};
+              background-color: {{title_background_color}};
+              {% if title_font_family == 'Geogrotesque' %}
+                font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif;
+              {% elsif title_font_family == 'Base Mono' %}
+                font-family: BaseMonoWideWeb, Courier, Courier New, sans-serif;
+              {% elsif title_font_family == 'Canela' %}
+                font-family: Canela, Arial, sans-serif;
+              {% elsif title_font_family == 'ArticulatCF' %}
+                font-family: ArticulatCF, Arial, sans-serif;
+              {% elsif title_font_family == 'Copyright' %}
+                font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+              {% endif %}
+            "
+          >
+            {{ title }}
+          </h2>
+        {% endif %}
+
+        <div class="breakout-card-content"
+          style="
+            color: {{ content_color }};
+            {% if content_font_family == 'Geogrotesque' %}
+              font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif;
+            {% elsif content_font_family == 'Base Mono' %}
+              font-family: BaseMonoWideWeb, Courier, Courier New, sans-serif;
+            {% elsif content_font_family == 'Canela' %}
+              font-family: Canela, Arial, sans-serif;
+            {% elsif content_font_family == 'ArticulatCF' %}
+              font-family: ArticulatCF, Arial, sans-serif;
+            {% elsif content_font_family == 'Copyright' %}
+              font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+            {% endif %}
+          "
+        >
+          {{ content }}
+        </div>
+        {% if show_button %}
+          <a href="{{ button_link }}">
+            <button style="{% if button_link %}cursor: pointer;{% endif %}">{{ button_label }}</button>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="breakout-card-image-text-container">
+      <div class="breakout-card-text-container" style="background-color: {{ background_color }}">
+        {% if is_multi_line_title %}
+          <div class="breakout-card-multi-line-title {% if title_background_color == 'transparent' or title_background_color == blank %}no-background{% endif %}">
+            <h2
+              style="
+                color: {{ title_color }};
+                {% if title_font_family == 'Geogrotesque' %}
+                  font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif;
+                {% elsif title_font_family == 'Base Mono' %}
+                  font-family: BaseMonoWideWeb, Courier, Courier New, sans-serif;
+                {% elsif title_font_family == 'Canela' %}
+                  font-family: Canela, Arial, sans-serif;
+                {% elsif title_font_family == 'ArticulatCF' %}
+                  font-family: ArticulatCF, Arial, sans-serif;
+                {% elsif title_font_family == 'Canela' %}
+                  font-family: Canela, Arial, sans-serif;
+                {% elsif title_font_family == 'ArticulatCF' %}
+                  font-family: ArticulatCF, Arial, sans-serif;
+                {% elsif title_font_family == 'Copyright' %}
+                  font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+                {% endif %}
+              "
+            >
+            {% for line in multi_line_title %}
+                <span>{{ line }}</span>
+              {% endfor %}
+            </h2>
+          </div>
+        {% else %}
+          <h2
+            style="
+              color: {{ title_color }};
+              {% if title_font_family == 'Geogrotesque' %}
+                font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif;
+              {% elsif title_font_family == 'Base Mono' %}
+                font-family: BaseMonoWideWeb, Courier, Courier New, sans-serif;
+              {% elsif title_font_family == 'Canela' %}
+                font-family: Canela, Arial, sans-serif;
+              {% elsif title_font_family == 'ArticulatCF' %}
+                font-family: ArticulatCF, Arial, sans-serif;
+              {% elsif title_font_family == 'Copyright' %}
+                font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+              {% endif %}
+            "
+          >
+            {{ title }}
+          </h2>
+        {% endif %}
+        <div class="breakout-card-content"
+          style="
+            color: {{ content_color }};
+            {% if content_font_family == 'Geogrotesque' %}
+              font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif;
+            {% elsif content_font_family == 'Base Mono' %}
+              font-family: BaseMonoWideWeb, Courier, Courier New, sans-serif;
+            {% elsif content_font_family == 'Canela' %}
+              font-family: Canela, Arial, sans-serif;
+            {% elsif content_font_family == 'ArticulatCF' %}
+              font-family: ArticulatCF, Arial, sans-serif;
+            {% elsif content_font_family == 'Copyright' %}
+              font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+            {% elsif content_font_family == 'Canela' %}
+              font-family: Canela, Arial, sans-serif;
+            {% elsif content_font_family == 'ArticulatCF' %}
+              font-family: 'ArticulatCF','GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+            {% endif %}
+          "
+        >
+          {{ content }}
+        </div>
+        {% if show_button %}
+          <a href="{{ button_link }}">
+            <button style="{% if button_link %}cursor: pointer;{% endif %}">{{ button_label }}</button>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,54 @@
+{%- assign config = section.settings -%}
+
+<div 
+  id="shade-chart-{{ section.id }}"
+  class="section__shadechart"
+  style="background: {{ config.background }};"
+>
+  {%- if config.heading != blank -%}
+    <h2 class="section__shadechart-heading">
+      <span>{{ config.heading }}</span>
+    </h2>
+  {%- endif -%}
+  {%- if config.product != blank -%}
+    {%- include 'shade-chart' with 
+      product: all_products[config.product],
+      class: 'section__shadechart-chart'
+    -%}
+  {%- endif -%}
+</div>
+
+{%- schema -%}
+  {
+    "name": "Shade Chart",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product",
+        "info": "Choose the product with the shade chart you would like to display."
+      }
+    ],
+    "presets": [{ "name": "Shade Chart" }]
+  }
+{%- endschema -%}

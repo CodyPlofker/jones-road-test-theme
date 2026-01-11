@@ -1,0 +1,35 @@
+{% schema %}
+  {
+    "name": "Form Page",
+    "settings": [
+      {
+        "id": "heading",
+        "label": "Heading",
+        "type": "text"
+      },
+      {
+        "id": "copy",
+        "label": "Copy",
+        "type": "richtext"
+      },
+      {
+        "id": "markup",
+        "label": "Form Markup",
+        "type": "html"
+      },
+      {
+        "id": "image",
+        "label": "Image",
+        "type": "image_picker"
+      }
+    ]
+  }
+{% endschema %}
+<div class="about" data-view="page">
+  {% include 'form-tiles',
+    copy: section.settings.copy,
+    heading: section.settings.heading,
+    image: section.settings.image,
+    markup: section.settings.markup,
+  %}
+</div>

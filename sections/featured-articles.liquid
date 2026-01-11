@@ -1,0 +1,116 @@
+{%- assign config = section.settings -%}
+{%- assign blocks = section.blocks | map: 'settings' -%}
+
+<div id="{{ config.section_id }}" class="featured__articles" style="background: {{ config.background }};">
+  <div class="featured__articles-container">
+    {%- if config.heading != blank -%}
+      <h2 
+        class="featured__articles-heading {% if config.heading_highlight %} highlight {% endif %}"
+        style="--highlight: {{ config.highlight_color }}"
+      >
+        <span>{{ config.heading }}</span>
+      </h2>
+    {%- endif -%}
+    <ul class="featured__articles-articles">
+      {%- for block in blocks -%}
+        <li class="featured__articles-article">
+          <div class="featured__articles-article--image">
+            {%- include 'component_media' with 
+              media: block.article.image,
+              width: 1000,
+              sizes: '50vw, (min-width: 1024px) 30vw'
+            -%}
+          </div>
+          <div class="featured__articles-article--info">
+            <h3>{{ block.article.title }}</h3>
+            <p class="author">{{ block.article.metafields.body.author | prepend: 'By ' }}</p>
+            <a href="{{ block.article.url }}" class="button">
+              Read More
+            </a>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if config.cta_text != blank -%}
+      <a href="{{ config.cta_link }}" class="featured__articles-cta">
+        {{ config.cta_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Featured Articles",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "featured-articles"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "checkbox",
+        "id": "heading_highlight",
+        "default": false,
+        "label": "Heading Highlight"
+      },
+      {
+        "type": "color",
+        "id": "highlight_color",
+        "label": "Highlight Color",
+        "default": "#fff"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text",
+        "default": "View More"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "article",
+        "name": "Article",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "article",
+            "id": "article",
+            "label": "Article"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Featured Articles" }]
+  }
+{%- endschema -%}

@@ -1,0 +1,124 @@
+{%- assign config = section.settings -%}
+{%- assign columns = section.blocks | map: 'settings' -%}
+
+<div id="{{ config.section_id | default: 'columns-cta' }}" class="columns__cta" style="background: {{ config.background }};">
+  <div class="columns__cta-container">
+    {%- if config.heading != blank or config.subheading != blank -%}
+      <div class="columns__cta-header">
+        {%- if config.heading != blank -%}
+          {%- assign heading = config.heading | remove: '<p>' | remove: '</p>' | newline_to_br -%}
+          <h2 class="columns__cta-heading {% if config.show_highlight %} highlight {% endif %}" style="--highlight: {{ config.heading_highlight }};">
+            <span>{{ heading }}</span>
+          </h2>
+        {%- endif -%}
+        {%- if config.subheading != blank -%}
+          <p class="columns__cta-subheading">{{ config.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if columns.size > 0 -%}
+      <div class="columns__cta-columns">
+        {%- for column in columns -%}
+          <div class="columns__cta-column">
+            {%- if column.heading != blank -%}
+              <h3 class="columns__cta-column--heading">{{ column.heading }}</h3>
+            {%- endif -%}
+            {%- if column.description != blank -%}
+              <div class="columns__cta-column--description text-underline">{{ column.description }}</div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if config.cta_text != blank -%}
+      <a href="{{ config.cta_link }}" class="columns__cta-button button">
+        {{ config.cta_text }}
+      </a>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Columns CTA",
+    "max_blocks": 3,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "columns-cta"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F6F2EB"
+      },
+      {
+        "type": "color",
+        "id": "heading_highlight",
+        "label": "Heading Highlight",
+        "default": "#fff"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_highlight",
+        "label": "Show Highlight",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "textarea",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "subheading",
+        "label": "Subheading"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "column",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Columns CTA" }]
+  }
+{%- endschema -%}

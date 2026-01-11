@@ -1,0 +1,61 @@
+{% assign video_id = section.settings.video_url.id %}
+
+<div class="demo__video">
+  {% if section.settings.heading != blank %}
+    <h2 class="demo__video-heading">
+      <span>
+        {{ section.settings.heading }}
+      </span>
+    </h2>
+  {% endif %}
+
+  {%- if section.settings.video_url.type == 'youtube' -%}
+    <div class="demo__video-video-wrapper">
+    <div class="demo__video-video">
+    <iframe
+      src="https://www.youtube.com/embed/{{ video_id }}?enablejsapi=1&autoplay=1"
+      class="js-youtube"
+      allow="encrypted-media"
+      allowfullscreen
+      title="{{ section.settings.heading | escape }}"
+    ></iframe>
+    </div>
+  </div>
+  {%- endif -%}
+
+  <a href="{{ section.settings.video_url }}" class="button demo__video-button" >{{ section.settings.button_text }}</a>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Demo Video",
+    "settings": [
+      {
+        "id": "heading",
+        "label": "Heading",
+        "type": "text",
+        "default": "Demo Video"
+      },
+      {
+        "type": "video_url",
+        "id": "video_url",
+        "accept": ["youtube"],
+        "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "label": "Video URL"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button Text",
+        "default": "Watch Video"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Demo Video"
+      }
+    ]
+  }
+{% endschema %}

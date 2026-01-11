@@ -1,0 +1,13 @@
+<div class="pdp__reviews" id="pdp-reviews">
+  <div class="pdp__reviews__heading">Reviews</div>
+  <div class="yotpo yotpo-main-widget"
+    data-product-id="{{ product.id }}"
+    data-price="{{ product.price }}"
+    data-currency="USD"
+    data-name="{{ product.title }}"
+    data-url="{{ product.url }}"
+    data-image-url="{{ product.featured_image | img_url: '600x800', crop: 'center' }}"
+    data-description="{{ product.description | escape }}"
+    data-product-tags="product">
+  </div>
+</div>

@@ -1,0 +1,97 @@
+{%- assign config = section.settings -%}
+{%- assign quickadd_products = section.blocks | map: 'settings' -%}
+
+<div 
+  id="quickadd-products-{{ section.id }}"
+  class="quickadd__products js-quickaddProducts"
+>
+  {%- if config.heading != blank -%}
+    <h2 class="quickadd__products-heading">{{ config.heading }}</h2>
+  {%- endif -%}
+  {%- if quickadd_products.size > 0 -%}
+    <ul class="quickadd__prodcuts-products">
+      {%- for block in quickadd_products -%}
+        {%- assign product = all_products[block.product] -%}
+        {%- assign current_variant = nil -%}
+
+        {%- if block.variant_id != blank -%}
+          {%- assign current_variant = product.variants | where: 'id', block.variant_id | first -%}
+        {%- endif -%}
+
+        {%- unless current_variant != blank -%}
+          {%- assign current_variant = product.selected_or_first_available_variant -%}
+        {%- endunless -%}
+
+        <li class="quickadd__products-product">
+          <div class="quickadd__products-product--image">
+            {{ current_variant.image | image_url: width: 1000 | image_tag: sizes: '200px, (min-width: 1024px) 300px'}}
+          </div>
+          <div class="quickadd__products-product--info">
+            <h3 class="quickadd__products-product--title">
+              {{ product.title }}
+            </h3>
+            {%- if block.variant_id != blank -%}
+              <p class="quickadd__products-product--variant">
+                {{ current_variant.title }}
+              </p>
+            {%- endif -%}
+            <button 
+              type="button"
+              class="quickadd__products-product--button button js-quickaddButton"
+              data-id="{{ current_variant.id }}"
+              {% unless current_variant.available %} disabled {% endunless %}
+            >
+              {%- if current_variant.available -%}
+                Add to Cart
+              {%- else -%}
+                Sold Out
+              {%- endif -%}
+            </button>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+{%- schema -%}
+  {
+    "name": "Quick-Add Products",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "text",
+            "id": "variant_id",
+            "label": "Variant ID",
+            "info": "If left blank, the first available variant will be added to cart."
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Quick-Add Products" }]
+  }
+{%- endschema -%}

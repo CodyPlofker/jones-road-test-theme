@@ -1,0 +1,61 @@
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "id": "newsletterTitle",
+        "label": "Newsletter Title",
+        "type": "text"
+      },
+      {
+        "id": "newsletterHed",
+        "label": "Newsletter Intro",
+        "type": "text"
+      },
+      {
+        "id": "newsletterPlaceholder",
+        "label": "Newsletter Messaging (US)",
+        "type": "text"
+      },
+      {
+        "id": "newsletter_placeholder_ca",
+        "label": "Newsletter Messaging (CA)",
+        "type": "text"
+      },
+      {
+        "id": "newsletter_placeholder_eu",
+        "label": "Newsletter Messaging (EU)",
+        "type": "text"
+      },
+      {
+        "id": "newsletter_placeholder_uk",
+        "label": "Newsletter Messaging (UK)",
+        "type": "text"
+      },
+      {
+        "id": "newsletter_placeholder_irl",
+        "label": "Newsletter Messaging (IRL)",
+        "type": "text"
+      },
+      {
+        "id": "newsletterSuccess",
+        "label": "Newsletter Success",
+        "type": "text"
+      },
+      {
+        "type": "textarea",
+        "id": "disclaimer",
+        "label": "Disclaimer",
+        "default": "Bobbi Brown left her namesake company in 2016 and is no longer affiliated or associated with the Bobbi Brown Cosmetics Company or the Bobbi Brown branded products."
+      }
+    ]
+  }
+{% endschema %}
+
+{% include 'footer',
+  disclaimer: section.settings.disclaimer,
+  newsletterTitle: section.settings.newsletterTitle,
+  newsletterHed: section.settings.newsletterHed,
+  newsletterPlaceholder: section.settings.newsletterPlaceholder,
+  newsletterSuccess: section.settings.newsletterSuccess,
+%}

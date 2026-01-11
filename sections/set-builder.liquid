@@ -1,0 +1,577 @@
+{%- include 'config_set-builder' -%}
+
+{% liquid
+  assign shade_8_discount = 25
+  assign shade_6_discount = 20
+  assign shade_4_discount = 15
+  
+  # Calculate discounted price for current variant (ATC button)
+  assign current_quantity = current_variant.metafields.set_builder.shades | plus: 0
+  
+  if current_quantity == 8
+    assign current_discount_percentage = shade_8_discount
+  elsif current_quantity == 6
+    assign current_discount_percentage = shade_6_discount
+  elsif current_quantity == 4
+    assign current_discount_percentage = shade_4_discount
+  else
+    assign current_discount_percentage = 0
+  endif
+  
+  if current_discount_percentage > 0
+    assign discount_multiplier = 100 | minus: current_discount_percentage
+    assign current_discounted_price = current_variant.price | times: discount_multiplier | divided_by: 100
+  else
+    assign current_discounted_price = current_variant.price
+  endif
+%}
+
+<div class="set-builder--inner js-productSection" data-view="setBuilder">
+  <div class="set-builder--info js-setBuilderInfo">
+    <div class="set-builder--header">
+      <div class="set-builder--header-top">
+        {%- include 'review-stars' with class: 'set-builder--stars' -%}
+        {%- if config.badge != blank -%}
+          <strong class="set-builder--header-badge">
+            {{ config.badge }}
+          </strong>
+        {%- endif -%}
+      </div>
+      <div class="set-builder--header-heading">
+        {%- if config.subheading != blank -%}
+          <span class="set-builder--subheading">
+            {{ config.subheading }}
+          </span>
+        {%- endif -%}
+        <h2 class="set-builder--heading">
+          {{ product.title }}
+        </h2>
+        {%- if config.description != blank -%}
+          <div class="set-builder--description">
+            {{ config.description }}
+          </div>
+        {%- endif -%}
+        {%- if config.tagline != blank -%}
+          <strong class="set-builder--tagline">
+            {{ config.tagline }}
+          </strong>
+        {%- endif -%}
+      </div>
+    </div>
+    {%- form 'product',
+      product,
+      data-bundle: product.title,
+      data-id: product.id,
+      data-image: bundle_image,
+      data-url: bundle_url,
+      data-shade-quantity: current_variant.title,
+      data-shade-discount: current_discount,
+      class: 'set-builder--form js-setBuilderForm'
+    -%}
+      <div class="bfcm-pdp-progress-container">
+        <div class="bfcm-pdp-progress-wrapper">
+          <div class="bfcm-pdp-progress-bar">
+            <div class="bfcm-pdp-tier-markers">
+              <div class="tier-marker-pdp tier-marker-pdp--achieved" data-tier="base">
+                <div class="tier-marker-pdp__circle filled"></div>
+                <div class="tier-marker-pdp__label">SET OF 4</div>
+                <div class="tier-marker-pdp__discount">15% OFF</div>
+              </div>
+
+              <div class="tier-marker-pdp tier-marker-pdp--pending" data-tier="discount">
+                <div class="tier-marker-pdp__circle empty"></div>
+                <div class="tier-marker-pdp__label">SET OF 6</div>
+                <div class="tier-marker-pdp__discount">20% OFF</div>
+              </div>
+
+              <div class="tier-marker-pdp tier-marker-pdp--pending" data-tier="discount">
+                <div class="tier-marker-pdp__circle empty"></div>
+                <div class="tier-marker-pdp__label">SET OF 8</div>
+                <div class="tier-marker-pdp__discount">25% OFF</div>
+              </div>
+            </div>
+            <div class="bfcm-pdp-progress-track">
+              <div class="bfcm-pdp-progress-fill js-setBuilderProgressFill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bfcm-pdp-next-goal">Add <strong>4</strong> more balms to get <strong>25% OFF</strong> your set</div>
+      </div>
+      <fieldset id="set-builder-quantities">
+        <legend class="visually-hidden">Select Quantity</legend>
+        <ul class="set-builder--quantities">
+            {%- for variant in product.variants -%}
+            {%- assign variant_quantity = variant.metafields.set_builder.shades | plus: 0 -%}
+            {%- assign variant_discount = variant.metafields.set_builder.discount | split: '[' | last | remove: ']' -%}
+            {%- assign variant_badge = variant.metafields.set_builder.badge -%}
+            {%- assign variant_free_shipping = variant.metafields.set_builder.free_shipping | default: false -%}
+            
+            {%- comment -%} Determine discount percentage based on shade quantity {%- endcomment -%}
+            {%- if variant_quantity == 8 -%}
+              {%- assign discount_percentage = shade_8_discount -%}
+            {%- elsif variant_quantity == 6 -%}
+              {%- assign discount_percentage = shade_6_discount -%}
+            {%- elsif variant_quantity == 4 -%}
+              {%- assign discount_percentage = shade_4_discount -%}
+            {%- else -%}
+              {%- assign discount_percentage = 0 -%}
+            {%- endif -%}
+            
+            {%- if variant_quantity > 0 -%}
+              {%- comment -%} Calculate original unit price {%- endcomment -%}
+              {%- assign unit_price_cents = variant.price | divided_by: variant_quantity -%}
+              {%- assign unit_price_rounded = unit_price_cents | round: 0 -%}
+              
+              {%- comment -%} Calculate discounted price: Apply discount to total, then divide by quantity {%- endcomment -%}
+              {%- if discount_percentage > 0 -%}
+                {%- assign discount_multiplier = 100 | minus: discount_percentage -%}
+                {%- assign discounted_total_price = variant.price | times: discount_multiplier | divided_by: 100 -%}
+                {%- assign discounted_unit_price = discounted_total_price | divided_by: variant_quantity -%}
+                {%- assign discounted_unit_price_rounded = discounted_unit_price | round: 0 -%}
+              {%- else -%}
+                {%- assign discounted_unit_price_rounded = unit_price_rounded -%}
+              {%- endif -%}
+            {%- else -%}
+              {%- assign unit_price_rounded = variant.price -%}
+              {%- assign discounted_unit_price_rounded = variant.price -%}
+            {%- endif -%}
+
+            <li class="set-builder--quantity">
+              {%- if variant_badge != blank -%}
+                {%- assign badge_lowercase = variant_badge | downcase -%}
+                {%- assign is_special_badge = false -%}
+                {%- if badge_lowercase contains 'most popular' or variant_quantity == 6 -%}
+                  {%- assign is_special_badge = true -%}
+                {%- endif -%}
+                <strong class="set-builder--quantity-badge{% if is_special_badge %} set-builder--quantity-badge--outlined{% endif %}">
+                  {{ variant_badge }}
+                </strong>
+              {%- endif -%}
+              <label for="{{ variant.title }}" class="set-builder--quantity-label">
+                <input
+                  type="radio"
+                  id="{{ variant.title }}"
+                  name="shade_quantity"
+                  value="{{ variant_quantity }}"
+                  class="js-setBuilderQuantity js-setBuilderProgressUpdate"
+                  data-title="{{ variant.title }}"
+                  data-price="{{ variant.price | divided_by: 100 }}"
+                  data-cap="{{ variant.compare_at_price | divided_by: 100 }}"
+                  data-discount="{{ variant_discount }}"
+                  data-url="{{ variant.url }}"
+                  data-freeshipping="{{ variant_free_shipping }}"
+                  data-quantity="{{ variant_quantity }}"
+                  {% if variant == current_variant %}
+                    checked
+                  {% endif %}
+                >
+                <div class="set-builder--quantity-heading">
+                  <span class="label">SET OF {{ variant_quantity }}</span>
+                </div>
+                <div class="set-builder--quantity-price">
+                  {%- if discount_percentage > 0 -%}
+                    <span>{{ discounted_unit_price_rounded | money_without_trailing_zeros }}/ea</span>
+                  {%- else -%}
+                    <span>{{ unit_price_rounded | money_without_trailing_zeros }}/ea</span>
+                {%- endif -%}
+                </div>
+              </label>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </fieldset>
+      <input type="hidden" name="discount" value="{{ current_discount }}" class="js-setBuilderDiscount">
+      <fieldset
+        id="set-builder-shades"
+        class="set-builder--shades js-setBuilderShades"
+      >
+        <div class="set-builder--shades-header">
+          <legend>
+            Choose Your Shades <span class="js-setBuilderCurrentQuantity">{{ current_variant.title }}</span>
+          </legend>
+          <span class="set-builder--quantity-badge shipping js-setBuilderFreeShipping {% unless current_variant.price > free_shipping_threshold %} hidden {% endunless %}">
+            + Free Shipping
+          </span>
+        </div>
+        <ul class="set-builder--shades-shades">
+          {%- for i in (1..maximum_quantity) -%}
+            {%- assign input_id = 'shade-' | append: i -%}
+            <li class="set-builder--shade">
+              <input
+                type="hidden"
+                id="{{ input_id }}"
+                name="shades"
+                value=""
+                {% if i > current_quantity %}
+                  disabled
+                {% endif %}
+              >
+              <label
+                for="{{ input_id }}"
+                class="{% if i <= current_quantity %} active {% endif %} js-setBuilderShade"
+                data-index="{{ i }}"
+              >
+                <span class="label"> <span class="visually-hidden">Select shade #</span>{{ i }} </span>
+                <span class="remove"></span>
+              </label>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </fieldset>
+      <div class="set-builder--form-footer js-setBuilderFormFooter">
+        <button
+          type="submit"
+          class="set-builder--button button js-setBuilderSubmit"
+          disabled
+        >
+          <span class="copy">
+            Choose <span class="js-setBuilderCurrentQuantity">{{ current_variant.title }}</span>
+          </span>
+          <span class="price">
+            {%- if current_discount_percentage > 0 -%}
+              <s class="js-setBuilderCap">
+                {%- render 'price', price: current_variant.price -%}
+              </s>
+              <span class="js-setBuilderPrice">
+                {%- render 'price', price: current_discounted_price -%}
+              </span>
+            {%- else -%}
+              <span class="js-setBuilderPrice">
+                {%- render 'price', price: current_variant.price -%}
+              </span>
+            {%- endif -%}
+          </span>
+        </button>
+      </div>
+      {% comment %}
+        <div class="set-builder--form-shoppay">
+          {{ form | payment_terms }}
+        </div>
+      {% endcomment %}
+      <div class="set-builder--form-shoppay-container">
+        {% assign payment_terms = form | payment_terms %}
+        {%- if payment_terms != blank -%}
+          <div class="set-builder--form-shoppay">
+            {% render 'icon-shop-pay' %}
+            {{ payment_terms }}
+          </div>
+        {%- endif -%}
+        {%- assign us_copy = section.settings.free_shipping_us -%}
+        {%- assign uk_copy = section.settings.free_shipping_uk -%}
+        {%- assign eu_copy = section.settings.free_shipping_eu -%}
+        {%- assign irl_copy = section.settings.free_shipping_ie -%}
+        {%- assign cad_copy = section.settings.free_shipping_cad -%}
+        {%- assign bgn_copy = section.settings.free_shipping_bgn -%}
+        {%- assign czk_copy = section.settings.free_shipping_czk -%}
+        {%- assign dkk_copy = section.settings.free_shipping_dkk -%}
+        {%- assign huf_copy = section.settings.free_shipping_huf -%}
+        {%- assign pln_copy = section.settings.free_shipping_pln -%}
+        {%- assign ron_copy = section.settings.free_shipping_ron -%}
+        {%- assign sek_copy = section.settings.free_shipping_sek -%}
+        {%- assign aud_copy = section.settings.free_shipping_aud -%}
+        {%- assign nzd_copy = section.settings.free_shipping_nzd -%}
+        {%- if us_copy != blank or uk_copy != blank or eu_copy != blank -%}
+          <p class="product__description-message">
+            {% render 'icon-shipping' %}
+            {%- include 'component_localized-copy' with us_copy, uk_copy, eu_copy, cad_copy, irl_copy, bgn_copy, czk_copy, dkk_copy, huf_copy, pln_copy, ron_copy, sek_copy, aud_copy, nzd_copy -%}
+          </p>
+          {% if localization.country.iso_code == 'US' %}
+            <p class="product__description-message">{% render 'icon-free-returns' %} Free & Easy Returns</p>
+          {% endif %}
+        {%- endif -%}
+      </div>
+    {%- endform -%}
+  </div>
+  <div class="set-builder--variants js-setBuilderVariants">
+    {%- assign swatches = settings.swatches | newline_to_br | split: '<br />' -%}
+    {%- for variant in set_variants -%}
+      {%- assign variant_image = variant.image -%}
+      {%- assign hover_image = variant.metafields.product_card.hover_image -%}
+      {%- assign variant_description = variant.metafields.findation_hero.description -%}
+      {%- assign variant_flag = variant.metafields.product_card.flag -%}
+
+      {%- assign variant_swatch = variant.metafields.swatch.color -%}
+      {%- if variant_swatch == blank -%}
+        {%- for s in swatches -%}
+          {%- assign swatch = s | split: '==' -%}
+          {%- assign swatch_name = swatch | first | strip -%}
+          {%- assign swatch_value = swatch | last | strip -%}
+          {%- if swatch_name == variant.title -%}
+            {%- assign variant_swatch = swatch_value -%}
+            {%- break -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+
+      <div
+        class="set-builder--variant js-setBuilderShadeVariant js-productCard"
+        data-carousel="true"
+        data-id="{{ variant.id }}">
+        <div class="set-builder--variant-images">
+          {%- if hover_image != blank -%}
+            <div class="swiper-container js-productCardCarousel">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <figure>
+                    {%- render 'component_image', image: variant_image, width: 720, widths: '360, 720', sizes: '500' -%}
+                  </figure>
+                </div>
+                <div class="hover swiper-slide">
+                  <figure>
+                    {%- render 'component_image', image: hover_image, width: 720, widths: '360, 720', sizes: '500' -%}
+                  </figure>
+                </div>
+              </div>
+              <div class="swiper-pagination js-productCardCarouselPag"></div>
+            </div>
+          {%- else -%}
+            <figure>
+              {%- render 'component_image', image: variant_image, width: 720, widths: '360, 720', sizes: '500' -%}
+            </figure>
+          {%- endif -%}
+          {%- if variant_flag != blank -%}
+            <span class="set-builder--variant-flag">
+              {{ variant_flag }}
+            </span>
+          {%- endif -%}
+        </div>
+        <div class="set-builder--variant-info">
+          <h3 class="set-builder--variant-title">
+            {{ variant.title }}
+          </h3>
+          {%- if variant_description != blank -%}
+            <p class="set-builder--variant-description">
+              {{ variant_description }}
+            </p>
+          {%- endif -%}
+          <button
+            type="button"
+            class="set-builder--variant-add button js-setBuilderAdd"
+            data-id="{{ variant.id }}"
+            data-title="{{ variant.title }}"
+            data-swatch="{{ variant_swatch }}"
+            data-image="url({{ variant.image | img_url: '120x' }})"
+            data-product="{{ variant.product.id }}"
+          >
+            Add to Set
+          </button>
+          <div class="set-builder--variant-quantity" role="presentation">
+            <button
+              type="button"
+              class="js-setBuilderRemove"
+              data-variant="{{ variant.id }}"
+            >
+              <span class="visually-hidden">Decrease quantity</span>
+            </button>
+            <span
+              class="quantity js-setBuilderShadeQuantity"
+              data-id="{{ variant.id }}"
+            >
+              1
+            </span>
+            <button
+              type="button"
+              class="js-setBuilderAdd"
+              data-id="{{ variant.id }}"
+              data-title="{{ variant.title }}"
+              data-swatch="{{ variant_swatch }}"
+              data-image="url({{ variant.image | img_url: '120x' }})"
+              data-product="{{ variant.product.id }}"
+            >
+              <span class="visually-hidden">Increase quantity</span>
+            </button>
+          </div>
+          {%- if config.show_findation -%}
+            <button
+              type="button"
+              aria-haspopup="dialog"
+              aria-controls="{{ findation_modal_id }}"
+              data-id="{{ variant.id }}"
+              class="set-builder--variant-findation js-setBuilderFindationToggle"
+            >
+              Show Details
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  <div class="set-builder--accordions js-setBuilderAccordions">
+    {%- include 'product-description-accordions' with shade_name_product: set_variants[0].product -%}
+  </div>
+
+  {%- if config.show_findation -%}
+    <div id="{{ findation_modal_id }}" class="set-builder--findation js-setBuilderFindation">
+      <div class="set-builder--findation-overlay js-setBuilderFindationClose"></div>
+      <div class="set-builder--findation-modal">
+        <button
+          type="button"
+          class="set-builder--findation-close js-setBuilderFindationClose"
+          aria-controls="{{ findation_modal_id }}"
+        >
+          <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7418 21.6846L6.5997 7.54248L8.01392 6.12827L22.1561 20.2704L20.7418 21.6846Z" fill="black"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.59966 20.7417L20.7418 6.59961L22.156 8.01382L8.01387 22.156L6.59966 20.7417Z" fill="black"/>
+          </svg>
+        </button>
+        <div class="set-builder--findation-image js-setBuilderFindationImage"></div>
+        <div class="set-builder--findation-info js-setBuilderFindationInfo"></div>
+      </div>
+    </div>
+
+    <script type="application/json" class="js-setBuilderFindationData">
+      {
+        {%- for variant in set_variants -%}
+          {%- assign findation_images = variant.metafields.findation -%}
+          {%- assign findation_description = variant.metafields.findation_hero.description -%}
+          {%- assign findation_quiz_link = pages[variant.product.metafields.details.quiz_link].url -%}
+          "{{ variant.id }}": {
+            "title": {{ variant.title | json }},
+            "description": {{ findation_description | json }},
+            {%- if findation_quiz_link != blank -%}
+              "link": "{{ findation_quiz_link }}",
+            {%- endif -%}
+            "product_id": {{ variant.product.id }},
+            "images": [
+              {%- for i in (1..4) -%}
+                {%- assign metafield_key = 'image_' | append: forloop.index -%}
+                {%- assign image = findation_images[metafield_key] -%}
+                {
+                  "src": "{{ image | img_url: 'x750' }}",
+                  "srcset": "{{ image | img_url: 'x1500' }} 2x",
+                  "alt": {{ image.alt | json | escape }}
+                }{%- unless forloop.last -%},{%- endunless -%}
+              {%- endfor -%}
+            ]
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      }
+    </script>
+  {%- endif -%}
+</div>
+
+{%- include 'product-tabs' with show_reviews: true -%}
+{% comment %} {%- include 'product-reviews' with class: 'tablet-hidden desktop-hidden' -%} {% endcomment %}
+
+{%- schema -%}
+{
+  "name": "Set Builder",
+  "tag": "section",
+  "class": "set-builder",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_findation",
+      "label": "Show Findation Modal",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Build Your Own"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Our best-selling Miracle Balm, in customizable sets of Minis. Select your favorite shades and add more to save more. Only available for a limited time.</p>"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "info": "Displays above the title"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Bundle is final sale"
+    },
+    {
+      "type": "header",
+      "content": "Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_us",
+      "label": "US Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_cad",
+      "label": "CAD Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_uk",
+      "label": "UK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_eu",
+      "label": "EU Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_ie",
+      "label": "IE Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_bgn",
+      "label": "BGN Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_czk",
+      "label": "CZK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_dkk",
+      "label": "DKK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_huf",
+      "label": "HUF Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_pln",
+      "label": "PLN Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_ron",
+      "label": "RON Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_sek",
+      "label": "SEK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_aud",
+      "label": "AUD Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_nzd",
+      "label": "NZD Message"
+    }
+  ]
+}
+{%- endschema -%}

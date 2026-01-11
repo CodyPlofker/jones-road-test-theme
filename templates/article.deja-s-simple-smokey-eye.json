@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "facepencils_101set.jpg",
+            "heading": "#1: Brighten The Under Eye",
+            "description": "<p>Apply The Face Pencils to even out your skin tone and, using a lighter shade, brighten the under eye area. Create a thick line on the upper lash line using The Best Pencil in Navy. <\/p>",
+            "product_1": "the-face-pencil",
+            "variant_1": "FGFP12358",
+            "product_2": "the-best-pencil",
+            "variant_2": "FGEL08143"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "BP_Navy_03_6b549181-a661-4c63-8fbb-4cab51f2b56d.png",
+            "heading": "#2: Smudge it Out",
+            "description": "<p>With your finger, gently smudge and soften the line, blending it over to your lid. Add a touch of Miracle Balm in Au Naturel or Eye Cream to avoid dragging and tugging.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01044",
+            "product_2": "eye-cream",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "justbobbi_Diary_Resolutions_Mascara.jpg",
+            "heading": "#3: Define",
+            "description": "<p>Go back in with The Best Pencil to create a sharper line and elongate the eye shape. Sweep The Mascara on your lashes for added volume and definition.<\/p>",
+            "product_1": "the-best-pencil",
+            "variant_1": "FGEL08143",
+            "product_2": "the-mascara",
+            "variant_2": "FGMA02051"
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "justbobbi_Diary_DejaSmokey_02.jpg",
+            "heading": "#4: Subtle Shine",
+            "description": "<p>Apply Miracle Balm in Tawny on lips and cheeks to brighten up your complexion with a subtle wash of color. Layer Cool Gloss in Original on your lips for extra moisture and shine.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01013",
+            "product_2": "cool-gloss",
+            "variant_2": "FGCG03068"
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Deja_1d9490d1-b5ec-4aa6-b7b0-e82acc32797b.jpg",
+        "heading": "",
+        "description": "",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(6 products)",
+        "bullets": "<p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil<\/a><\/p><p><a href=\"\/products\/the-best-pencil\" target=\"_blank\" title=\"The Best Pencil\">The Best Pencil<\/a><\/p><p><a href=\"\/products\/miracle-balm\" target=\"_blank\" title=\"Miracle Balm\">Miracle Balm<\/a><\/p><p><a href=\"\/products\/eye-cream\" target=\"_blank\" title=\"Eye Cream\">Eye Cream<\/a><\/p><p><a href=\"\/products\/the-mascara\" target=\"_blank\" title=\"The Mascara\">The Mascara<\/a><\/p><p><a href=\"\/products\/cool-gloss\" target=\"_blank\" title=\"Cool Gloss\">Cool Gloss<\/a><\/p><p><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

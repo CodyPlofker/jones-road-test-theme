@@ -1,0 +1,116 @@
+{%- assign heading = section.settings.heading -%}
+{%- assign cta_text = section.settings.cta_text -%}
+{%- assign cta_link = section.settings.cta_link -%}
+{%- assign products = section.blocks | map: 'settings' -%}
+
+{%- assign has_products = false -%}
+{%- capture related_content -%}
+  {%- for prod in products -%}
+    {%- assign related_product = all_products[prod.product] -%}
+    {% liquid
+      assign compliance_product_title = null
+      assign current_country_product = null
+      assign compliance_products = related_product.metafields.custom.compliance_products.value
+      if compliance_products
+        assign compliance_product_title = compliance_products.product_title
+        assign iso_code = localization.country.currency.iso_code
+        case iso_code
+          when "USD"
+            assign current_country_product = compliance_products.usa_product.value
+          when "CAD"
+            assign current_country_product = compliance_products.canada_product.value
+          when "GBP"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "EUR"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "BGN"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "CZK"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "DKK"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "HUF"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "PLN"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "RON"
+            assign current_country_product = compliance_products.eu_uk_product.value
+          when "SEK"
+            assign current_country_product = compliance_products.eu_uk_product.value
+        endcase
+      endif
+    %}
+
+    {% if compliance_products %}
+      {% if current_country_product.id == related_product.id %}
+        {%- assign has_products = true -%}
+        {%- include 'product-tile' with product: related_product, class: 'product-tile--related swiper-slide', show_reviews: true, compliance_product_title: compliance_product_title -%}
+      {% else %}
+        {% continue %}
+      {% endif %}
+    {% else %}
+    {%- if related_product.id != blank -%}
+      {%- assign has_products = true -%}
+      {%- include 'product-tile' with product: related_product, class: 'product-tile--related swiper-slide', show_reviews: true -%}
+    {%- endif -%}
+    {% endif %}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if has_products -%}
+  <div class="product__related">
+    <div class="product__related-header">
+      <h2>{{ heading }}</h2>
+      {%- if cta_text != blank -%}
+        <a href="{{ cta_link }}">{{ cta_text }}</a>
+      {%- endif -%}
+    </div>
+    <div class="swiper-container js-productRelated product-related-container">
+      <div class="swiper-wrapper product-related-wrapper">
+        {{ related_content }}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Related Products",
+    "max_blocks": 4,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "We think you'll like"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

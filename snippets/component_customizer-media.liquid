@@ -1,0 +1,27 @@
+
+{%- assign extension = media | split: '.' | last -%}
+
+{%- assign is_image = false -%}
+{%- if extension == 'png' or extension == 'jpg' or extension == 'gif' -%}
+  {%- assign is_image = true -%}
+{%- endif -%}
+
+{%- unless no_render -%}
+  {%- if is_image -%}
+    <img class="{{ class }}" src="{{ media | file_img_url: src }}" src="{{ media | file_img_url: srcset }}">
+  {%- else -%}
+    <div class="media__video {{ class }} js-mediaVideo" data-autoplay="{{ autoplay | default: false }}">
+      <video data-component="mediaVideo" class="{{ class }}" width="1000" playsinline disablepictureinpicture disableremoteplayback {% if autoplay %} autoplay muted="true" loop {% endif %} {% if poster != blank %} poster="{{ poster | img_url: '500x' }}" {% endif %}>
+        <source src="{{ media | file_url }}" type="video/mp4" width="1000">
+      </video>
+      {%- unless autoplay -%}
+        <div class="media__video-play {{ class }}">
+          <svg width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="42" cy="42" r="39.5" fill="#A0A0A0" fill-opacity="0.5" stroke="white" stroke-width="5"/>
+            <path d="M29 19L64 42.5L29 66V19Z" fill="white"/>
+          </svg>
+        </div>
+      {%- endunless -%}
+    </div>
+  {%- endif -%}
+{%- endunless -%} 

@@ -1,0 +1,14 @@
+<div class="product__description-howto">
+  {%- if how_to_text != blank -%}
+    <p class="js-productVariantOverride" data-override="how_to">{{ how_to_text }}</p>
+  {%- endif -%}
+  {%- if how_to_tip != blank -%}
+    <div class="product__description-tip">
+      <h3>Bobbi's Tip:</h3>
+      <p>{{ how_to_tip }}</p>
+    </div>
+  {%- endif -%}
+  {%- if how_to_video != blank -%}
+    {%- include 'product-how-to-video' with class: 'mobile' -%}
+  {%- endif -%}
+</div>

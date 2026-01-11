@@ -1,0 +1,20 @@
+<script type="text/json" class="js-pdpData">
+  {
+    "productId": {{ product.id }},
+    "productTitle": {{ product.title | json }},
+    "variantId": {{ product.selected_or_first_available_variant.id }},
+    "variantTitle": {{ product.selected_or_first_available_variant.title | json }}
+  }
+</script>
+<script type="application/json" class="js-pdpDataKlaviyo">
+  {
+    "Name": {{ product.title|json }},
+    "ProductID": {{ product.id|json }},
+    "Categories": {{ product.collections|map:'title'|json }},
+    "ImageURL": "https:{{ product.featured_image.src|img_url:'grande' }}",
+    "URL": "{{ shop.secure_url }}{{ product.url | append: '?country=' | append: localization.country.iso_code }}",
+    "Brand": {{ product.vendor|json }},
+    "Price": {{ product.price|money|json }},
+    "CompareAtPrice": {{ product.compare_at_price_max|money|json }}
+  }
+</script>

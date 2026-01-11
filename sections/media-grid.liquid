@@ -1,0 +1,179 @@
+{%- assign config = section.settings -%}
+
+<div id="{{ config.id }}" class="media-grid js-mediaGrid" data-component="mediaGrid" style="background: {{ config.background }};">
+  {%- if config.heading != blank -%}
+    {%- assign heading = config.heading | remove: '<p>' | remove: '</p>' | newline_to_br -%}
+    <h1 class="media-grid__heading {% if config.show_highlight %} highlight {% endif %}" style="--highlight: {{ config.heading_highlight }}; --color: {{ config.heading_color }};">
+      <span>{{ heading }}</span>
+    </h1>
+  {%- endif -%}
+  <div class="media-grid__grid swiper-container js-mediaGridCarousel">
+    <div class="swiper-wrapper">
+      {%- for media_block in section.blocks -%}
+        {%- assign block = media_block.settings -%}
+        <div class="media-grid__media swiper-slide" {{ media_block.shopify_attributes }}>
+          <div class="aspect-1-1">
+            {%- include 'component_customizer-media' with 
+              media: block.media,
+              poster: block.poster,
+              src: '550x550', 
+              srcset: '1100x1100', 
+              class: 'aspect-child' 
+            -%}
+          </div>
+          <div class="media-grid__media-content">
+            {%- if block.heading != blank -%}
+              <h2 class="media-grid__media-heading text-underline">{{ block.heading }}</h2>
+            {%- endif -%}
+            {%- if block.description != blank -%}
+              <div class="media-grid__media-description text-underline">{{ block.description }}</div>
+            {%- endif -%}
+            {%- if block.tagline != blank -%}
+              <p class="media-grid__media-tagline">{{ block.tagline }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class="media-grid__pagination js-mediaGridNav">
+    <div class="prev">
+      <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L3 3.5L1 6" stroke="#828282"/>
+      </svg>
+    </div>   
+    <div class="bullets js-mediaGridPag"></div>
+    <div class="next">
+      <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L3 3.5L1 6" stroke="#828282"/>
+      </svg>
+    </div>      
+  </div>
+  {%- if config.cta_text != blank -%}
+    {%- assign is_permalink = false -%}
+    {%- if config.cta_link contains '#' -%}
+      {%- assign is_permalink = true -%}
+    {%- endif -%}
+    <a href="{{ config.cta_link }}" class="media-grid__button button {% if is_permalink %} js-smoothScroll {% endif %}" style="--bg: {{ config.cta_background }}; --color: {{ config.cta_color }};">
+      {{ config.cta_text }}
+    </a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Media Grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "media-grid"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#E5E5E5"
+      },
+      {
+        "type": "header",
+        "content": "Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading Color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "heading_highlight",
+        "label": "Heading Highlight",
+        "default": "#fff"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_highlight",
+        "label": "Show Highlight"
+      },
+      {
+        "type": "header",
+        "content": "CTA"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link",
+        "info": "To create a permalink to another section, enter # followed by the ID of the section you want to link to, eg: #product-grid"
+      },
+      {
+        "type": "color",
+        "id": "cta_color",
+        "label": "CTA Color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "cta_background",
+        "label": "CTA Background",
+        "default": "#000"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "media_text",
+        "name": "Media & Text",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "media",
+            "label": "Media",
+            "info": "Upload an image or video to [files](https://jonesroad.myshopify.com/admin/settings/files) and paste the file name and extension here, eg: size-chart.pdf"
+          },
+          {
+            "type": "image_picker",
+            "id": "poster",
+            "label": "Poster",
+            "info": "For use with videos – choose an image to display until the video is played (eg: a frame from the video)."
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "text",
+            "id": "tagline",
+            "label": "Tagline"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Media Grid" }]
+  }
+{% endschema %}

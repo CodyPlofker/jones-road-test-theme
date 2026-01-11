@@ -1,0 +1,38 @@
+<div class="split__half{% if text != blank %} has-text{% endif %}">
+  {%- if ctaLink != blank -%}
+  <a href="{{ ctaLink }}">
+  {%- endif -%}
+    <picture>
+      <source media="(min-width: 1601px)"
+              srcset="{{ image | img_url: '1920x1152', scale: 1, crop: 'center' }} 1x,
+                      {{ image | img_url: '1920x1152', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1281px) and (max-width: 1600px)"
+              srcset="{{ image | img_url: '1600x960', scale: 1, crop: 'center' }} 1x,
+                      {{ image | img_url: '1600x960', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1024px) and (max-width: 1280px)"
+              srcset="{{ image | img_url: '1280x768', scale: 1, crop: 'center' }} 1x,
+                    {{ image | img_url: '1280x768', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 701px) and (max-width: 1023px)"
+              srcset="{{ image | img_url: '1023x877', scale: 2, crop: 'center' }}" />
+      <source media="(min-width: 376px) and (max-width: 700px)"
+              srcset="{{ image | img_url: '700x1050', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 375px)"
+              srcset="{{ image | img_url: '375x562', scale: 2, crop: 'center' }}" />
+      <img class="is-loading" src="{{ image | img_url: '375x562', scale: 2, crop: 'center' }}" alt="{{ imageAlt }}" />
+    </picture>
+    {% if text != blank or ctaText != blank %}
+      <div class="split__content">
+        {% if text != blank %}
+          <div class="split__text split__text--{{ textColor }}">
+            <span>{{ text | newline_to_br }}</span>
+          </div>
+        {% endif %}
+        {% if ctaText != blank %}
+          <span class="split__button button">{{ ctaText }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+  {%- if ctaLink != blank -%}
+  </a>
+  {%- endif -%}
+</div>

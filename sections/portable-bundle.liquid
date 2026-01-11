@@ -1,0 +1,123 @@
+{%- assign config = section.settings -%}
+{%- assign bundle_product = all_products[config.product] -%}
+
+{%- if bundle_product != blank -%}
+  <div 
+    id="portable-bundle-{{ section.id }}"
+    class="portable__bundle js-portableBundle"
+    data-component="portableBundle"
+    style="--min-height: calc(100vw - calc(100vw / {{ config.image_desktop.aspect_ratio }}))"
+  >
+    {%- if config.heading != blank -%}
+      <h2 class="portable__bundle-heading">
+        <span>{{ config.heading }}</span>
+      </h2>
+    {%- endif -%}
+    <div class="portable__bundle-image">
+      <div class="portable__bundle-image--mobile">
+        {{ config.image_mobile | image_url: width: 1000 | image_tag: sizes: '100vw' }}
+      </div>
+      <div class="portable__bundle-image--desktop">
+        {{ config.image_desktop | image_url: width: 2000 | image_tag: sizes: '100vw' }}
+      </div>
+    </div>
+    <div class="portable__bundle-product js-portableBundleProduct" style="--background: {{ config.bg_color }};">
+      <h3 class="portable__bundle-product--heading">
+        {{ bundle_product.title }}
+        <button type="button" class="toggle js-portableBundleToggle">
+          Go Back
+        </button>
+      </h3>
+      {%- include 'review-stars' with
+        product: bundle_product,
+        show_count: false,
+        class: 'portable__bundle-product--stars'
+      -%}
+      <div class="portable__bundle-product--description text-underline">
+        {%- if config.description != blank -%}
+          {{ config.description }}
+        {%- else -%}
+          {{ bundle_product.description }}
+        {%- endif -%}
+      </div>
+      <button 
+        type="button"
+        class="portable__bundle-product--button button js-portableBundleToggle"
+      >
+        {{ config.cta_text }}
+      </button>
+      <div class="portable__bundle-product--form">
+        {%- include 'product-form-bundle' with 
+          product: bundle_product,
+          cta: config.cta_text,
+          bundle_products: bundle_product.metafields.bundle,
+          show_findation: false,
+          show_stars: true,
+          show_swatch_description: true
+        -%}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{%- schema -%}
+  {
+    "name": "Portable Bundle",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section Heading"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_desktop",
+        "label": "Background Image (desktop)",
+        "info": "Choose an image with a good amount of right whitespace for the bundle selectors."
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Background Image (mobile)",
+        "info": "Choose an image with a good amount of top whitespace for the heading."
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color (mobile)",
+        "info": "Choose the color that matches the bottom of the image."
+      },
+      {
+        "type": "header",
+        "content": "Bundle"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "info": "Defaults to product's description if none set."
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text",
+        "default": "Customize my set"
+      }
+    ],
+    "presets": [{ "name": "Portable Bundle" }]
+  }
+{%- endschema -%}

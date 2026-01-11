@@ -1,0 +1,11 @@
+<div class="account" data-view="account">
+  <div class="account__content js-scroll">
+    {% include 'account-nav' %}
+    {% include 'account-orders',
+      orders: customer.orders,
+    %}
+    {% include 'account-footer',
+      customer: customer,
+    %}
+  </div>
+</div>

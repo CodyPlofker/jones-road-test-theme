@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "facepencils_101set.jpg",
+            "heading": "#1: Prep the Skin",
+            "description": "<p>Prep skin by applying a sheer layer of Miracle Cream to cheeks, forehead, corners of mouth, and neck. Prep the under eye area with Eye Cream.<\/p>",
+            "product_1": "miracle-cream",
+            "variant_1": "",
+            "product_2": "eye-cream",
+            "variant_2": "FGEC10334"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "justbobbi_Diary_FacePencils_Featured_348f7a0c-159b-4c42-bb9e-437c4b6235ed.jpg",
+            "heading": "#2: Conceal and Brighten",
+            "description": "<p>Apply The Face Pencils to conceal, spot correct, and brighten. Apply Miracle Balm in Dusty Rose on cheeks, lips, and neck.<\/p>",
+            "product_1": "the-face-pencil",
+            "variant_1": "FGFP12358",
+            "product_2": "miracle-balm",
+            "variant_2": "FGMB01037"
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "JonesRoad_BestEyeliner_Black_02_750x1000_crop_center_2x_e0afa866-216a-4249-a811-8d517830413c.jpg",
+            "heading": "#3: Define",
+            "description": "<p>Fill in brows with The Best Eyeshadow in Brown, emphasizing the tail of the brows. Use a bone colored shadow all over lids, and up to the brow bone. Apply The Best Pencil in Black as close to the lash line, going back and forth for a bolder line.<\/p>",
+            "product_1": "the-best-eyeshadow",
+            "variant_1": "FGES06174",
+            "product_2": "the-best-pencil",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "cool_gloss_psd_0000s_0002s_0004_JonesRoad_CoolGloss_PinkGoldenShimmer_01_jpg.jpg",
+            "heading": "#4: Subtle Shine",
+            "description": "<p>Apply 2 coats of The Mascara for length and definition. For dimension and shimmer, add Cool Gloss in Pink Gold Shimmer to the lips.<\/p>",
+            "product_1": "the-mascara",
+            "variant_1": "",
+            "product_2": "cool-gloss",
+            "variant_2": "FGCG03099"
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/justbobbi_Diary_BestPencil_Shona_1.jpg",
+        "heading": "",
+        "description": "",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(8 products)",
+        "bullets": "<p><a href=\"\/products\/miracle-cream\" target=\"_blank\" title=\"Miracle Cream\">Miracle Cream<\/a><\/p><p><a href=\"\/products\/eye-cream\" target=\"_blank\" title=\"Eye Cream\">The Eye Cream<\/a><\/p><p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil<\/a><\/p><p><a href=\"\/products\/miracle-balm\" target=\"_blank\" title=\"Miracle Balm\">Miracle Balm<\/a><\/p><p><a href=\"\/products\/the-best-eyeshadow\" target=\"_blank\" title=\"The Best Eyeshadow\">The Best Eyeshadow<\/a><\/p><p><a href=\"\/products\/the-best-pencil\" target=\"_blank\" title=\"The Best Pencil\">The Best Pencil<\/a><\/p><p><a href=\"\/products\/the-mascara\" target=\"_blank\" title=\"The Mascara\">The Mascara<\/a><\/p><p><a href=\"\/products\/cool-gloss\" target=\"_blank\" title=\"Cool Gloss\">Cool Gloss<\/a><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

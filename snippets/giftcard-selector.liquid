@@ -1,0 +1,31 @@
+{%- assign pseudoRandom = "now" | date: "%N" -%}
+<div class="giftcard__selector">
+  <div class="giftcard__selector__items">
+    <button class="giftcard__selector__selected js-swatchSelector" data-controls="swatch-list-{{ pseudoRandom }}">
+      {% if product.selected_variant %}
+        <span role="presentation">
+          {%- render 'price' price: product.selected_variant.pric, format: 'full' -%}
+        </span>
+      {% endif %}
+      <span {% if product.selected_variant != blank %}class="visually-hidden"{% endif %}>Select amount</span>
+    </button>
+    <div class="giftcard__selector__items__scroll">
+      <ul id="swatch-list-{{ pseudoRandom }}">
+        {%- for variant in product.variants | reverse -%}
+          {%- assign isVariantSelected = false -%}
+          {%- if variant.id == product.selected_or_first_available_variant.id -%}
+          {%- assign isVariantSelected = true -%}
+          {%- endif -%}
+          <li>
+            <a href="{{ product.url | append: '?country=' | append: localization.country.iso_code }}&variant={{ variant.id }}">
+              {% if isVariantSelected %}<span class="visually-hidden">Currently selected:</span>{% endif %}
+              <span>
+                {%- render 'price' price: variant.price, format: 'full' -%}
+              </span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  </div>
+</div>

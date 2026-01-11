@@ -1,0 +1,180 @@
+{%- if currentVariant -%}
+  {%- assign selectedVariant = product.variants | where: "option1", currentVariant -%}
+{%- else -%}
+  {%- assign selectedVariant = product.selected_or_first_available_variant -%}
+{%- endif -%}
+
+{%- assign card_image = product.metafields.product_card.image -%}
+{%- if card_image == blank -%}
+  {%- assign card_image = product.featured_image -%}
+{%- endif -%}
+
+{%- assign hover_image = product.metafields.product_card.hover_image -%}
+{%- if hover_image == blank -%}
+  {%- assign hover_image = product.images[1] -%}
+{%- endif -%}
+
+{%- assign isBundle = false -%}
+{%- if product.template_suffix == 'bundle' or product.template_suffix == 'set-builder' -%}
+  {%- assign isBundle = true -%}
+{%- endif -%}
+
+{%- capture classNames -%}
+  {{ class }} 
+  {% if isQuickAddDisabled == true %} product-tile--no-quick-add{% endif %}
+  {% if product.images.size < 2 %} product-tile--single-image{% endif %}
+  {% if widthModifier != blank %} product-tile--{{ widthModifier }}{% else %} product-tile--third{% endif %}
+  {% unless hover_image != blank %} no-hover {% endunless %}
+  {% for tag in product.tags %}
+    {% if tag contains 'hide-' %}
+       hidden--{{ tag | split: 'hide-' | last }} 
+    {% endif %}
+    {% if tag == 'hide' %}
+       hidden 
+    {% endif %}
+  {% endfor %}
+{%- endcapture -%}
+
+{%- assign hasFlag = false -%}
+{%- assign hasSaleFlag = false -%}
+{%- assign flags = '' -%}
+{%- for tag in product.tags -%}
+  {%- if tag contains 'flag_' -%}
+    {%- assign hasFlag = true -%}
+    {%- assign flag_text = tag | split: "flag_" | last -%}
+    {%- if flags == '' -%}
+      {%- assign flags = flag_text -%}
+    {%- else -%}
+      {%- assign flags = flags | append: '||' | append: flag_text -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign flag_array = flags | split: '||' -%}
+{%- assign holiday_tags = settings.tag_list | split: ',' -%}
+{%- assign outline_tags = settings.outline_tag_list | split: ',' -%}
+
+<div class="product-tile {{ classNames }}">
+  <div class="product-tile__inner">
+    {% if hasFlag and hasSaleFlag %}
+      <div class="product-tile__flag">
+        {{ discount }}% Off
+      </div>
+    {% elsif hasFlag %}
+      <div class="product-tile__flag-container">
+        {% for flag in flag_array %}
+          {% assign is_holiday_tag = false %}
+          {% assign is_outline_tag = false %}
+          {% for outline_tag in outline_tags %}
+            {% assign trimmed_outline_tag = outline_tag | strip %}
+            {% if flag == trimmed_outline_tag %}
+              {% assign is_outline_tag = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          {% for holiday_tag in holiday_tags %}
+            {% assign trimmed_holiday_tag = holiday_tag | strip %}
+            {% if flag == trimmed_holiday_tag %}
+              {% assign is_holiday_tag = true %}
+              {% break %}
+            {% endif %}
+          {% endfor %}
+          <div class="product-tile__flag {% if is_holiday_tag %}product__card-flag--holiday{% endif %} {% if is_outline_tag %}product__card-flag--outline{% endif %}" style="--tag-color: {{ settings.tag_color | default: '#f50a99' }}; --holiday-tag-bg-color: {{ settings.tag_bg_color | default: '#f50a99' }}; --holiday-tag-text-color: {{ settings.tag_bg_text_color | default: '#fff' }}; --outline-tag-color: {{ settings.outline_tag_color | default: '#f50a99' }};">
+            {{ flag }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+    {%- if hover_image != blank -%}
+      <div class="product-tile__hover">
+        <img 
+          src="{{ hover_image | img_url: '640x853', scale: 1  }}"
+          srcset="{{ hover_image | img_url: '640x853', scale: 2 }} 2x"
+          alt="{{ hover_image.alt }}"
+        >
+      </div>
+    {%- endif -%}
+    <div class="product-tile__image">
+      <img class="product-tile__image__img"
+        src="{{ card_image | img_url: '640x853', scale: 1 }}" 
+        srcset="{{ card_image | img_url: '640x853', scale: 2 }} 2x" 
+        alt="{{ card_image.alt }}"
+      >
+      <div role="presentation" class="product-tile__preview js-quickAddPreview"></div>
+    </div>
+
+  {%- assign hasBadge = false -%}
+  {%- assign hasSelectSize = false -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains 'plp_select_size' -%}
+      {%- assign hasSelectSize = true -%}
+    {%- endif -%}
+  {%- endfor -%}
+
+  {%- include 'product-awards' with context: 'tile' -%}
+
+  <div class="product-tile__info">
+    <a href="{{ product.url | append: '?country=' | append: localization.country.iso_code }}">
+      {% if compliance_product_title %}
+        <div class="product-tile__name">{{ compliance_product_title }}</div>
+      {% else %}
+        <div class="product-tile__name">{{ product.title }}</div>
+      {% endif %}
+
+      {% if show_reviews %}
+        {%- assign class_name = reviews_class | append: ' product-tile__reviews' -%}
+        {%- include 'review-stars' with class: class_name -%}
+      {% endif %}
+      <div class="product-tile__price {% if isBundle %} product-tile__price--bundle {% endif %}">
+        {% if product.compare_at_price and product.compare_at_price > product.price %}
+        <span class="product-tile__price__old">
+          <span class="visually-hidden">Original price:</span>
+          {{ product.compare_at_price | money }}
+        </span>
+        <span class="product-tile__price__new">{{ product.price | money }}</span>
+        {% else %}
+        <span class="igPrice">{{ product.price | money_without_trailing_zeros }}</span>
+        {% endif %}
+      </div>
+    </a>
+
+    {%- unless isQuickAddDisabled -%}
+      {%- if isBundle -%}
+        <div class="product-tile__quick-add">
+          <a href="{{ product.url | append: '?country=' | append: localization.country.iso_code }}" class="button button--quick-add">Customize</a>
+        </div>
+      {%- elsif product.variants.size > 1 and product.available -%}
+        {%- if product.variants.size > 8 and product.template_suffix != 'giftcard' -%}
+          <div class="product-tile__quick-add">
+            <a href="{{ product.url | append: '?country=' | append: localization.country.iso_code }}" class="button button--quick-add js-moreVariantsLink">
+              Available in {{product.variants.size}} Shades
+            </a>
+          </div>
+        {%- else -%}
+          <div class="product-tile__quick-add">
+            <button aria-controls="quick-add-{{ product.id }}" aria-expanded="false" class="button button--quick-add js-quickAddOpen">
+              {%- if product.template_suffix == 'giftcard' -%}
+                Select amount
+              {%- else -%}
+                {%- if hasSelectSize -%}Select Size{%- else -%}Select a Shade{%- endif -%}
+              {% endif %}
+            </button>
+          </div>
+        {% endif %}
+      {%- else -%}
+        {%- if product.first_available_variant -%}
+        <div class="product-tile__quick-add">
+          <button class="button button--quick-add js-addToBag" data-default-copy="Add to Cart" data-added-copy="Added" data-added-color="black" data-product-id="{{ product.id }}" data-id="{{ product.first_available_variant.id }}">
+            Add to Cart
+          </button>
+        </div>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endunless -%}
+  </div>
+  {%- unless isQuickAddDisabled -%}
+    {%- include 'quick-add', product: product, swatches: settings.swatches -%}
+  {%- endunless -%}
+  </div>
+  
+</div>

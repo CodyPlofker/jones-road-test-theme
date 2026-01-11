@@ -1,0 +1,72 @@
+{%- assign config = section.settings -%}
+
+{%- assign free_shipping_threshold = settings.cart_free_shipping_amount | times: 100 -%}
+
+{%- comment -%} Find the variant with 8 shades as default {%- endcomment -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- for variant in product.variants -%}
+  {%- assign shade_count = variant.metafields.set_builder.shades | plus: 0 -%}
+  {%- if shade_count == 6 and variant.available -%}
+    {%- assign current_variant = variant -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign set_variants = product.metafields.set_builder.variants.value | where: 'available' -%}
+
+{%- assign current_quantity = current_variant.metafields.set_builder.shades | plus: 0 -%}
+{%- assign all_quantities = product.variants | map: 'metafields' | map: 'set_builder' | map: 'shades' -%}
+{%- assign minimum_quantity = current_quantity -%}
+{%- assign maximum_quantity = 0 -%}
+
+{%- for quantity in all_quantities -%}
+  {%- assign q = quantity | plus: 0 -%}
+  {%- if q > maximum_quantity -%}
+    {%- assign maximum_quantity = q -%}
+  {%- endif -%}
+  {%- if q < minimum_quantity -%}
+    {%- assign minimum_quantity = q -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign current_discount = current_variant.metafields.set_builder.discount | split: '[' | last | remove: ']' -%}
+
+{%- assign bundle_url = product.url | append: '?country=' | append: localization.country.iso_code -%}
+{%- assign bundle_image = product.featured_image | img_url: '200x300' -%}
+
+{%- assign findation_modal_id = 'set-builder-findation-' | append: section.id -%}
+
+{%- assign how_to_text = product.metafields.how_to.how_to_text -%}
+{%- assign how_to_tip = product.metafields.how_to.bobbis_tip -%}
+{%- assign how_to_video = product.metafields.how_to.video -%}
+{%- assign how_to_video_external = product.metafields.how_to.external_video -%}
+{%- assign how_to_poster = product.metafields.how_to.poster -%}
+
+{%- assign upsells = product.metafields.upsell -%}
+
+{%- assign featured_ingredients = product.metafields.featured_ingredients -%}
+{%- assign ingredients = product.metafields.ingredients.ingredients -%}
+
+{%- assign faqs = product.metafields.faqs -%}
+{%- assign has_faqs = false -%}
+{%- if faqs.size > 0 -%}
+  {%- assign has_faqs = true -%}
+{%- endif -%}
+
+{%- assign shipping_note = section.settings.shipping -%}
+{%- assign returns_note = section.settings.returns -%}
+{%- assign has_notes = false -%}
+{%- if shipping_note != blank or returns_note != blank -%}
+  {%- assign has_notes = true -%}
+{%- endif -%}
+
+{%- assign has_shade_breakdown = false -%}
+{%- assign shade_breakdown_columns = product.metafields.shade_breakdown.columns.value -%}
+{%- if shade_breakdown_columns != blank -%}
+  {%- assign has_shade_breakdown = true -%}
+{%- endif -%}
+
+{%- assign has_ingredients = false -%}
+{%- if featured_ingredients.size > 0 or ingredients != blank -%}
+  {%- assign has_ingredients = true -%}
+{%- endif -%}

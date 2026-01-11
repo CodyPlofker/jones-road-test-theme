@@ -1,0 +1,19 @@
+{%- assign input_name = option_id -%}
+{%- if input_name_override -%}
+  {%- assign input_name = input_name_override -%}
+{%- endif -%}
+
+<div class="product__form-radio">
+  <input 
+    type="radio"
+    id="{{ id }}"
+    name="{{ input_name }}"
+    value="{{ value }}"
+    class='visually-hidden'
+    data-option="{{ option_id }}"
+    {%- if selected_value == value -%} checked="checked" {%- endif -%}
+  >
+  <label for="{{ id }}">
+    {{ value }}
+  </label>
+</div>

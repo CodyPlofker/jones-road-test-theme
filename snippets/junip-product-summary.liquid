@@ -1,0 +1,47 @@
+{% assign enabled = shop.metafields.junip.onsite_enabled | default: false %}
+{% assign starColor = shop.metafields.junip.star_color | default: "#FDB600" %}
+{% assign showCount = shop.metafields.junip.review_count_enabled | default: false %}
+{% assign rating = product.metafields.junip.rating_average | default: 0 | round: 2 %}
+{% assign count = product.metafields.junip.rating_count | default: 0 | round: 2 %}
+
+<span
+  class="junip-product-summary"
+  data-product-id="{{ product.id }}"
+  data-product-rating-count="{{ product.metafields.junip.rating_count }}"
+  data-product-rating-average="{{ product.metafields.junip.rating_average }}">
+  {% if enabled %}
+    {% if count > 0 %}
+      <div class="junip-product-summary-stars-wrapper" style="--junipStarColor: {{ starColor }}; text-align: inherit;">
+        <div class="junip-product-summary-star-ratings-container" aria-label="{{rating}} stars, {{count}} reviews" style="display: inline-flex; margin-left: -1px; align-items: center;">
+          <div class="junip-stars-container" style="display: flex; align-items: center; position: relative;">
+            <div class="junip-stars-outline" style="display: flex; align-items: center;">
+              {% for i in (1..5) %}
+                <div class="junip-product-summary-star junip-star-outline" style="height: 20px; width: 20px; padding: 2px; z-index: inherit;">
+                  <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" role="img" style="display: block; margin: auto; width: auto; height: auto;">
+                    <title>Outline star</title>
+                    <path d="M9.38711 11.9007L12.0835 14.3853L11.8206 10.7253L15.4448 10.1683L12.4256 8.11108L14.2545 4.92967L10.7338 6.00159L9.38711 2.59757L8.04044 6.00159L4.5197 4.92967L6.34863 8.11108L3.32946 10.1683L6.9536 10.7253L6.69072 14.3853L9.38711 11.9007ZM5.56489 16.7222L5.93736 11.5359L0.787109 10.7443L5.07899 7.81986L2.48771 3.31213L7.476 4.83087L9.38711 0L11.2982 4.83087L16.2865 3.31213L13.6952 7.81986L17.9871 10.7443L12.8369 11.5359L13.2093 16.7222L9.38711 13.2L5.56489 16.7222Z" fill="var(--junipStarColor)"/>
+                  </svg>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="junip-stars-filled" style="width: {{rating | times: 20}}%; display: flex; align-items: center; position: absolute; top: 0; left: 0; overflow: hidden; height: 100%;">
+              {% for i in (1..5) %}
+                <div class="junip-product-summary-star junip-star-filled" style="height: 20px; width: 20px; padding: 2px; z-index: inherit; flex-shrink: 0;">
+                  <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" role="img" style="display: block; margin: auto; width: auto; height: auto;">
+                    <title>Filled star</title>
+                    <path d="M5.36372 16.7222L5.73622 11.5359L0.585938 10.7443L4.87784 7.81986L2.2865 3.31213L7.27483 4.83087L9.18594 0L11.097 4.83087L16.0853 3.31213L13.4941 7.81986L17.7859 10.7443L12.6357 11.5359L13.0082 16.7222L9.18594 13.2L5.36372 16.7222Z" fill="var(--junipStarColor)"/>
+                  </svg>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% if showCount %}
+            <div class="junip-product-summary-review-count" style="color: inherit; margin-left: 3px;">
+              ({{count}})
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+</span>

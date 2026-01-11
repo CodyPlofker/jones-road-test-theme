@@ -1,0 +1,72 @@
+{%- assign config = section.settings -%}
+
+{%- if config.embed != blank -%}
+  <div class="quiz__embed oct-quiz-content js-quiz" data-component="quiz" data-alt-style="{{ section.settings.show_alt_style }}">
+    <div class="quiz__embed-embed">
+      {{ config.embed }}
+    </div>
+    <div
+      class="quiz__embed-results oct-quiz-wrapper--result-page js-quizResults"
+      data-heading-results="{{ config.results_heading }}"
+      data-heading-answers="{{ config.answers_heading }}"
+      data-heading-products="{{ config.products_heading }}"
+      data-review-product="{{ all_products[config.review_product].id }}"
+    >
+      {% comment %} Append Results Here {% endcomment %}
+    </div>
+  </div>
+{%- endif -%}
+
+{%- schema -%}
+{
+  "name": "Quiz Embed",
+  "tag": "section",
+  "class": "oct-quiz-wrapper js-quizSection",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "html",
+      "id": "embed",
+      "label": "Quiz Embed"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_alt_style",
+      "label": "Show Alternative Style",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Results Page"
+    },
+    {
+      "type": "text",
+      "id": "results_heading",
+      "label": "Results Heading",
+      "default": "Meet The Secret To No-Makeup Makeup"
+    },
+    {
+      "type": "product",
+      "id": "review_product",
+      "label": "Review Product",
+      "info": "Choose the product with the reviews summary you want to display."
+    },
+    {
+      "type": "text",
+      "id": "answers_heading",
+      "label": "Answers Heading",
+      "default": "Here are your Quiz Results"
+    },
+    {
+      "type": "text",
+      "id": "products_heading",
+      "label": "Product Suggestions Heading",
+      "default": "Based On Your Results, We Suggest:"
+    }
+  ],
+  "presets": [{ "name": "Quiz Embed" }]
+}
+{%- endschema -%}

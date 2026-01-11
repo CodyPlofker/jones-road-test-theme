@@ -1,0 +1,55 @@
+{%- assign img = section.settings.image -%}
+{%- assign heading = section.settings.heading -%}
+{%- assign subheading = section.settings.subheading -%}
+
+{%- if heading != blank or subheading != blank or img != blank -%}
+  <div class="product__callout">
+    <div class="product__callout-image aspect-ratio">
+      {%- include 'component_media' with media: img, width: 1440, render_width: 2880, class: 'aspect-child' -%}
+    </div>
+    {%- if heading != blank or subheading != blank -%}
+      <div class="product__callout-content">
+        {%- if heading != blank -%}
+          {%- assign headings = heading | split: ' ' -%}
+          <h2 class="product__callout-heading">
+            {%- for heading in headings -%}
+              <span>{{ heading }}</span>
+            {%- endfor -%}
+          </h2>
+        {%- endif -%}
+        {%- if subheading != blank -%}
+          <p class="product__callout-subheading">
+            {{ subheading }}
+          </p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Callout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "subheading",
+        "label": "Subheading"
+      }
+    ]
+  }
+{% endschema %}

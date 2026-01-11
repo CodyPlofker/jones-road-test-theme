@@ -1,0 +1,11 @@
+<div class="about-marquee">
+  <h3 class="about-marquee__heading">{{ heading }}</h3>
+  <div class="swiper-container js-aboutMarquee">
+    <ul class="about-marquee__items swiper-wrapper">
+      <li class="swiper-slide about-marquee__item-heading">{{ heading }}</li>
+      {% for item in blocks %}
+      <li class="swiper-slide text-underline" {{ block.shopify_attributes }}>{{ item.settings.copy }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

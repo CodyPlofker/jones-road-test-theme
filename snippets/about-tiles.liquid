@@ -1,0 +1,32 @@
+{%- for block in blocks -%}
+<div class="about-tiles" {{ block.shopify_attributes }}>
+  <div class="about-tiles__copy text-underline">
+    <h2 class="about-tiles__heading">
+      {{ block.settings.heading }}
+    </h2>
+    {{ block.settings.copy }}
+  </div>
+  <div class="about-tiles__image">
+    <picture>
+      <source media="(min-width: 1601px)"
+              srcset="{{ block.settings.image | img_url: '960x1152', scale: 1, crop: 'center' }} 1x,
+                      {{ block.settings.image | img_url: '960x1152', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1281px) and (max-width: 1600px)"
+              srcset="{{ block.settings.image | img_url: '800x960', scale: 1, crop: 'center' }} 1x,
+                      {{ block.settings.image | img_url: '800x960', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1024px) and (max-width: 1280px)"
+              srcset="{{ block.settings.image | img_url: '640x768', scale: 1, crop: 'center' }} 1x,
+                      {{ block.settings.image | img_url: '640x768', scale: 2, crop: 'center' }} 2x" />
+      <source media="(max-width: 1023px) and (min-width: 769px)"
+              srcset="{{ block.settings.image | img_url: '1023x1128', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 768px) and (min-width: 415px)"
+              srcset="{{ block.settings.image | img_url: '768x922', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 414px) and (min-width: 376px)"
+              srcset="{{ block.settings.image | img_url: '414x497', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 375px)"
+              srcset="{{ block.settings.image | img_url: '375x450', scale: 2, crop: 'center' }}" />
+      <img src="{{ block.settings.image | img_url: '375x450', scale: 2, crop: 'center' }}" alt="{{ block.settings.image.alt }}" />
+    </picture>
+  </div>
+</div>
+{%- endfor -%}

@@ -1,0 +1,434 @@
+{%- assign bundle_url = product.url | append: '?country=' | append: localization.country.iso_code -%}
+{%- assign bundle_image = product.featured_image | img_url: '200x300' -%}
+{%- assign bundle_available = true -%}
+{%- assign bundle_discount = product.metafields.bundle_config.discount -%}
+{%- assign bundle_price = 0 -%}
+
+{%- assign discount_code = bundle_discount | split: '[' | last | split: ']' | first -%}
+{%- assign discount_value = bundle_discount | split: '% ' | first -%}
+{%- assign compare_at_price = 0 -%}
+
+{%- assign bundle_size = 0 -%}
+{%- assign bundle_products_array = '' -%}
+
+{% comment %} Free gift variant based on the product metafield {% endcomment %}
+{% assign free_gift_variant = product.metafields.custom.free_gift_with_product %}
+
+{% if free_gift_variant %}
+  {% assign free_gift_variant_id = free_gift_variant | split: '/' | last %}
+{% endif %}
+
+{%- comment -%} Build array of products for step counting {%- endcomment -%}
+{%- for field in bundle_products -%}
+  {%- assign bundle_product = bundle_products[field.first].value -%}
+  {%- if bundle_product -%}
+    {%- assign bundle_size = bundle_size | plus: 1 -%}
+    {%- assign bundle_price = bundle_price | plus: bundle_product.price -%}
+    {%- assign compare_at_price = compare_at_price | plus: bundle_product.price -%}
+    {%- unless bundle_product.available -%}
+      {%- assign bundle_available = false -%}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+
+<div class="bundle-stepper js-bundleStepper">
+  {%- comment -%} Main Content Section {%- endcomment -%}
+  <div class="bundle-stepper__main-content">
+    <h1 class="bundle-stepper__heading">Choose Your Shades</h1>
+
+    {%- comment -%} Step Progress Indicator {%- endcomment -%}
+    <div class="bundle-stepper__steps js-bundleSteps">
+      {%- for field in bundle_products -%}
+        {%- assign bundle_product = bundle_products[field.first].value -%}
+        {%- if bundle_product -%}
+          {%- assign step_number = forloop.index -%}
+          <div class="bundle-stepper__step js-bundleStep" data-step="{{ step_number }}">
+            <div class="bundle-stepper__step-indicator">
+              <span class="bundle-stepper__step-number">{{ step_number }}</span>
+            </div>
+            <div class="bundle-stepper__step-label js-bundleStepLabel">
+              {%- assign title_parts = bundle_product.title | split: ' ' -%}
+              {%- if title_parts.size > 1 -%}
+                <span class="bundle-stepper__step-title">{{ title_parts | slice: 0, 2 | join: ' ' }}</span>
+                <span class="bundle-stepper__step-subtitle">{{ title_parts | slice: 2, 10 | join: ' ' }}</span>
+              {%- else -%}
+                <span class="bundle-stepper__step-title">{{ bundle_product.title }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Step Content Wrapper {%- endcomment -%}
+    <div class="bundle-stepper__content-wrapper">
+      <div class="bundle-stepper__content js-bundleStepContent">
+        {%- for field in bundle_products -%}
+          {%- assign name = field | first -%}
+          {%- assign bundle_product = bundle_products[name].value -%}
+          {%- assign bundle_variant = bundle_product.selected_or_first_available_variant -%}
+          {%- assign bundle_product_index = forloop.index -%}
+          {%- assign step_number = forloop.index -%}
+
+          {%- if bundle_product -%}
+            {%- include 'config_product' with product: bundle_product -%}
+
+            <div
+              class="bundle-stepper__step-content js-bundleStepPanel"
+              data-step="{{ step_number }}" data-product-id="{{ bundle_product.id }}"
+              {% if bundle_product.variants.size == 1 %}data-variant-id="{{ bundle_product.variants.first.id }}"{% endif %}
+              style="display: {% if forloop.first %}block{% else %}none{% endif %};"
+            >
+              {%- comment -%} Product Section {%- endcomment -%}
+              <div class="bundle-stepper__product-section">
+                <div class="bundle-stepper__product-image">
+                  <div class="image">
+                    {%- include 'component_media' with media: bundle_product.featured_image, width: 350, render_width: 700 -%}
+                  </div>
+                </div>
+
+                <div class="bundle-stepper__product-info">
+                  <h2 class="bundle-stepper__product-title">{{ bundle_product.title | upcase }}</h2>
+                  <p class="bundle-stepper__product-description">
+                    {%- if bundle_product.metafields.custom.bundle_product_description != blank -%}
+                      {{ bundle_product.metafields.custom.bundle_product_description }}
+                    {%- endif -%}
+                  </p>
+                </div>
+              </div>
+
+              {% comment %} Recommended Shades {% endcomment %}
+              <div class="js-recommendedShades" data-step="{{ step_number }}"></div>
+
+              {%- comment -%} Shade Selection {%- endcomment -%}
+              {%- unless bundle_product.has_only_default_variant -%}
+                <div class="bundle-stepper__shade-selection">
+                  <p class="bundle-stepper__shade-label">Choose your shade:</p>
+
+                  {%- for option in bundle_product.options_with_values -%}
+                    {%- assign option_name = 'option' | append: option.position -%}
+                    {%- assign option_id = 'option' | append: option.position | append: '-' | append: bundle_product_index -%}
+
+                    <div class="bundle__product-option js-bundleOption {% if bundle_product.variants.size == 1 %}bundle-stepper__shade-selection--single{% endif %}">
+                      <div class="bundle-loader"></div>
+                      <ul class="product__form-swatches product__form-swatches--radio bundle-stepper__swatches">
+                        {%- for value in option.values -%}
+                          {%- assign id = value | append: '-' | append: bundle_product_index -%}
+                          {%- include 'function_swatch-available' with product: bundle_product, option_id: option_name -%}
+                          {%-
+                            include 'product-swatch' with
+                            id,
+                            option_id,
+                            product: bundle_product,
+                            is_available: is_swatch_available
+                          -%}
+                        {%- endfor -%}
+                      </ul>
+
+                      <legend
+                        class="product__form-value js-bundleVariantLabel bundle-stepper__shade-description"
+                        data-option="{{ option_id }}"
+                      >
+                        <span class="name"></span>
+                        <span class="description"></span>
+                      </legend>
+                    </div>
+                  {%- endfor -%}
+
+                  {%- assign quiz_link = pages[bundle_product.metafields.details.quiz_link].url -%}
+                  {%- if quiz_link == blank -%}
+                    {%- assign quiz_link = settings.shade_form_link -%}
+                  {%- endif -%}
+                  {% unless bundle_product.metafields.details.quiz_link == blank %}
+                    <a class="product__form-cta bundle-stepper__product-quiz-link" target="_blank" href="{{ quiz_link }}" data-no-history="1">Find my Shade</a>
+                  {% endunless %}
+                </div>
+                {% comment %} Recommended Note on step 2 dynamically updating based on the selected variant {% endcomment %}
+                <div class="bundle-stepper__recommended-note" data-step="{{ step_number }}"></div>
+              {%- endunless -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- comment -%} Review Step - Final Summary {%- endcomment -%}
+      <div class="bundle-stepper__step-content bundle-stepper__review js-bundleStepPanel" data-step="review" style="display: none;">
+        <div class="bundle-stepper__review-content js-bundleReviewContent">
+          {%- for field in bundle_products -%}
+            {%- assign bundle_product = bundle_products[field.first].value -%}
+            {%- assign bundle_product_index = forloop.index -%}
+
+            {%- if bundle_product -%}
+              <div class="bundle-stepper__review-item js-bundleReviewItem" data-product-index="{{ bundle_product_index }}">
+                <div class="bundle-stepper__review-header">
+                  <div class="bundle-stepper__review-swatch js-bundleReviewSwatch">
+                    <!-- Will be populated by JavaScript -->
+                  </div>
+
+                  <div class="bundle-stepper__review-info">
+                    <h3 class="bundle-stepper__review-title">{{ bundle_product.title | upcase }}</h3>
+                    <p class="bundle-stepper__review-shade js-bundleReviewShade"></p>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="bundle-stepper__edit-button js-bundleEditButton {% if bundle_product.has_only_default_variant or bundle_product.variants.size == 1 %}bundle-stepper__edit-button--single{% endif %}"
+                    data-product-index="{{ bundle_product_index }}"
+                  >
+                    <span class="bundle-stepper__edit-button-text">EDIT</span>
+                    <span class="bundle-stepper__edit-button-arrow">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+                        <path d="M4 6.21143L8 10.2114L12 6.21143" stroke="white" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+
+                {%- comment -%} Edit Mode Section (Hidden by default) {%- endcomment -%}
+                <div
+                  class="bundle-stepper__edit-overlay js-bundleEditOverlay"
+                  data-product-index="{{ bundle_product_index }}"
+                  style="display: none;"
+                >
+
+                  <div class="bundle-stepper__edit-swatches js-bundleEditSwatches {% if bundle_product.has_only_default_variant or bundle_product.variants.size == 1 %}bundle-stepper__edit-swatches--single{% endif %}" data-product-index="{{ bundle_product_index }}">
+                    <!-- Swatches will be populated by JavaScript -->
+                  </div>
+
+                  <div class="bundle-stepper__selected-shade-info">
+                    <p class="bundle-stepper__selected-shade-name"></p>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+
+          <div class="bundle-stepper__review-status js-bundleReviewStatus">
+            <span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="10" viewBox="0 0 15 10" fill="none">
+                <path d="M13.5 1L5.25 9L1.5 5.36364" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              All shades selected! Ready to add to cart.
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {%- comment -%} Navigation {%- endcomment -%}
+      <div class="bundle-stepper__navigation js-bundleNavigation">
+        <button type="button" class="bundle-stepper__nav-button bundle-stepper__nav-button--prev js-bundlePrevStep" disabled>
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+            <path d="M5 9L1 5L5 1" stroke="black" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>PREVIOUS</span>
+        </button>
+
+        <button type="button" class="bundle-stepper__nav-button bundle-stepper__nav-button--next js-bundleNextStep" disabled>
+          <span>NEXT</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10" fill="none">
+            <path d="M1 9L5 5L1 1" stroke="#F8FAFC" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Form Section - Wraps all interactive elements {%- endcomment -%}
+  {%- form 'product',
+    product,
+    class: 'product__form product__bundle-form js-productForm js-bundleForm',
+    data-bundle: product.title,
+    data-id: product.id,
+    data-image: bundle_image,
+    data-url: bundle_url,
+    data-discount: discount_code,
+    data-checkout: false,
+    data-steps: bundle_size,
+    data-free-gift-variant: free_gift_variant_id
+  -%}
+    {%- comment -%} Hidden Bundle Product Data - All form inputs must be inside the form {%- endcomment -%}
+    {%- for field in bundle_products -%}
+      {%- assign name = field | first -%}
+      {%- assign bundle_product = bundle_products[name].value -%}
+      {%- assign bundle_variant = bundle_product.selected_or_first_available_variant -%}
+      {%- assign bundle_product_index = forloop.index -%}
+
+      {%- if bundle_product -%}
+        {%- include 'config_product' with product: bundle_product -%}
+
+        {% comment %} Default Product Data {% endcomment %}
+        {% assign default_product = bundle_product %}
+
+        {% capture default_product_data %}
+          
+          {
+            "id": "{{ default_product.id }}",
+            "title": {{ default_product.title | json }},
+            "categories": "{{ default_product.collections | map: 'title' | join: ', ' }}",
+            "description": "{{ default_product.metafields.custom.bundle_product_description }}",
+            "image": "https:{{ default_product.featured_image | image_url: width: 500 }}",
+            "url": "{{ default_product.url | append: '?country=' | append: localization.country.iso_code }}",
+            "brand": "{{ default_product.vendor }}",
+            "price": "{{ default_product.price | money_without_trailing_zeros }}",
+            "cap": "{{ default_product.compare_at_price_max | money }}",
+            "quiz_link": "{{ quiz_link }}",
+            "reviews": {
+              "average": "{{ default_product.metafields.junip.rating_average | default: 0 }}",
+              "count": "{{ default_product.metafields.junip.rating_count | default: 0 }}"
+            },
+            "options": [
+              {% for option in default_product.options_with_values %}
+                {
+                  "id": "option{{ option.position }}",
+                  "name": "{{ option.name }}",
+                  "position": "{{ option.position }}",
+                  "values": [{% for value in option.values %}"{{ value }}"{% unless forloop.last %}, {% endunless %}{% endfor %}]
+                }{% unless forloop.last %}, {% endunless %}
+              {% endfor %}
+            ],
+            "variants": [
+              {% for variant in default_product.variants %}
+                {% assign swatch_override = false %}
+              
+                {% if variant.metafields.swatch.color != blank %}
+                  {% assign swatch_override = variant.metafields.swatch.color %}
+                {% endif %}
+                {% if variant.metafields.swatch.image != blank %}
+                  {% assign swatch_override = variant.metafields.swatch.image | image_url: width: 100, height: 100 %}
+                {% endif %}
+
+                {%- assign default_findation_description = variant.metafields.findation_hero.description -%}
+          
+                {% assign fallback_swatch = '' %}
+                {% if swatch_override == false %}
+                  {% for s in swatches %}
+                    {% assign swatch = s | split: '==' %}
+                    {% assign swatch_name = swatch | first | strip %}
+                    {% assign swatch_value = swatch | last | strip %}
+                    {% if swatch_name == variant.title %}
+                      {% assign fallback_swatch = swatch_value | remove_first: '#' %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {
+                  "id": "{{ variant.id }}",
+                  "title": "{{ variant.title }}",
+                  "selected": false,
+                  "available": {{ variant.available }},
+                  "swatch": {% if swatch_override != false %}"{{ swatch_override }}"{% elsif fallback_swatch contains '.' %}"{{ fallback_swatch }}"{% else %}"{{ fallback_swatch | prepend: '#' }}"{% endif %},
+                  {% if default_findation_description != blank %}
+                    "description": "{{ default_findation_description }}",
+                  {% endif %}
+                  "price": "{{ variant.price | money_without_trailing_zeros }}",
+                  "cap": "{{ variant.compare_at_price | money_without_trailing_zeros }}",
+                  "options": {{ variant.options | json }},
+                  "product_id": {{ default_product.id }},
+                  "product_title": {{ default_product.title | json }},
+                  "overrides": [],
+                  "media": [
+                    {
+                      "src": "{{ variant.image | image_url: width: 500 }}",
+                      "srcset": "{{ variant.image | image_url: width: 1000 }}",
+                      "type": "image",
+                      "extension": "{{ variant.image.src | split: '.' | last }}"
+                    }
+                  ]
+                }{% unless forloop.last %}, {% endunless %}
+              {% endfor %}
+            ]
+          }
+        {% endcapture %}
+
+        <div
+          class="bundle__product js-bundleProduct"
+          data-index="{{ forloop.index }}"
+          data-default-bundle-product="{{ default_product_data | escape }}"
+          data-product-url="{{ bundle_product.url | append: '?view=json-data' }}"
+          style="display: none;"
+        >
+          <input
+            type="hidden"
+            id="product-{{ bundle_product_index }}"
+            value="{{ bundle_variant.id }}"
+            class="js-bundleVariant"
+            data-product="{{ bundle_product.id }}"
+            data-available="{{ bundle_variant.available }}"
+            data-title="{{ bundle_variant.title }}"
+          >
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- comment -%} Purchase Section - Separate styling wrapper {%- endcomment -%}
+    {%- assign discount = discount_value | divided_by: 100.00 | times: bundle_price -%}
+    {%- assign compare_at_price = compare_at_price -%}
+    {%- assign bundle_price = bundle_price | minus: discount -%}
+
+    {%- assign total_products = 0 -%}
+    {%- for field in bundle_products -%}
+      {%- assign bundle_product = bundle_products[field.first].value -%}
+      {%- if bundle_product -%}
+        {%- assign total_products = total_products | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    <div class="bundle-stepper__purchase-section">
+      <div class="bundle-stepper__quantity-section" style="display: none;">
+        <label for="quantity" class="bundle-stepper__quantity-label">Quantity:</label>
+        <div class="bundle-stepper__quantity-controls">
+          <button type="button" class="bundle-stepper__quantity-btn js-quantityDecrease">−</button>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            value="1"
+            min="1"
+            max="10"
+            class="bundle-stepper__quantity-input js-quantityInput"
+          >
+          <button type="button" class="bundle-stepper__quantity-btn js-quantityIncrease">+</button>
+        </div>
+      </div>
+
+      {% comment %} {% endcomment %}
+      {%- assign quiz_link = pages[product.metafields.details.quiz_link].url -%}
+      {%- if quiz_link == blank -%}
+        {%- assign quiz_link = settings.shade_form_link -%}
+      {%- endif -%}
+      <div class="quiz-link-container mobile-only">
+        <a class="product__form-cta" target="_blank" href="{{ quiz_link }}" data-no-history="1">Find my Shade</a>
+      </div>
+
+      <button
+        type="submit"
+        class="bundle-stepper__add-to-cart-btn js-bundleFormSubmit js-bundleStepperSubmit"
+        data-available="{{ bundle_available }}"
+        data-total-products="{{ total_products }}"
+        disabled
+      >
+        <span class="bundle-stepper__add-to-cart-text js-bundleFormCopy">ADD TO CART</span>
+        <div class="bundle-stepper__add-to-cart-price">
+          {% if compare_at_price > bundle_price %}
+            <span class="bundle-stepper__price-sale">{{ compare_at_price | money_without_trailing_zeros }}</span>
+          {% endif %}
+          <span class="bundle-stepper__price-regular">{{ bundle_price | money_without_trailing_zeros }}</span>
+        </div>
+      </button>
+    </div>
+  {%- endform -%}
+</div>
+
+{%- comment -%} Include findation modals for each product {%- endcomment -%}
+{%- for field in bundle_products -%}
+  {%- assign bundle_product = bundle_products[field.first].value -%}
+  {%- assign bundle_product_index = forloop.index -%}
+  {%- if bundle_product and show_findation -%}
+    {%-
+      include 'product-findation' with
+      product: bundle_product,
+      modal_id: bundle_product_index,
+      is_bundle: true
+    -%}
+  {%- endif -%}
+{%- endfor -%}

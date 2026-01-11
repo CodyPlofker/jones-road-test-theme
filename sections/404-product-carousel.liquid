@@ -1,0 +1,41 @@
+{% schema %}
+  {
+    "name": "Product carousel",
+    "settings": [
+      {
+        "id": "heading",
+        "label": "Heading",
+        "type": "text",
+        "default": "Shop best sellers"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "tile",
+        "name": "Tile",
+        "settings": [
+          {
+            "id": "product",
+            "label": "Product",
+            "type": "product"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{%- capture productString -%}
+{%- for block in section.blocks -%}
+{{ block.settings.product }}{%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+{%- endcapture -%}
+{%- assign productHandles = productString | split: "," -%}
+
+{% include "404-heading", heading: section.settings.heading %}
+
+{% include "product-carousel",
+  className: "product-carousel",
+  jsClass: "js-productCarousel",
+  productHandles: productHandles,
+  withNav: false,
+%}

@@ -1,0 +1,851 @@
+{% style %}
+  .secondary-announcement-bar--{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+  .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    height: {{ section.settings.section_height_desktop }}px;
+  }
+  .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__inner:empty {
+    display: none;
+  }
+  .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__heading{
+    {% if section.settings.font_family_heading == 'rw' %}
+      font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+    {% elsif section.settings.font_family_heading == 'gc' %}
+      font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+    {% elsif section.settings.font_family_heading == 'bm' %}
+      font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+    {% elsif section.settings.font_family_heading == 'cl' %}
+      font-family: 'Canela', serif;
+    {% elsif section.settings.font_family_heading == 'acf' %}
+      font-family: "articulat-cf";
+    {% elsif section.settings.font_family_heading == 'acfbold' %}
+      font-family: "articulat-heavy-cf";
+    {% endif %}
+    font-weight: {{ section.settings.font_weight_heading }};
+    font-size: {{ section.settings.font_size_heading }}px;
+    color: {{ section.settings.heading_color }};
+    line-height: 1;
+  }
+  .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__content{
+    {% if section.settings.font_family_content == 'rw' %}
+      font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+    {% elsif section.settings.font_family_content == 'gc' %}
+      font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+    {% elsif section.settings.font_family_content == 'bm' %}
+      font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+    {% elsif section.settings.font_family_content == 'cl' %}
+      font-family: 'Canela', serif;
+    {% elsif section.settings.font_family_content == 'acf' %}
+      font-family: "articulat-cf";
+    {% elsif section.settings.font_family_content == 'acfbold' %}
+      font-family: "articulat-heavy-cf";
+    {% endif %}
+    font-weight: {{ section.settings.font_weight_content }};
+    font-size: {{ section.settings.font_size_content }}px;
+    color: {{ section.settings.content_color }};
+    line-height: 1.1;
+  }
+  .secondary-announcement-bar__content {
+    display: flex;
+    align-items: center;
+  }
+  .secondary-announcement-bar-text-align-desktop--center .secondary-announcement-bar__inner {
+    justify-content: center;
+  }
+  .secondary-announcement-bar-text-align-desktop--right .secondary-announcement-bar__inner {
+    justify-content: flex-end;
+  }
+  .secondary-announcement-bar-text-align-desktop--left .secondary-announcement-bar__inner {
+    justify-content: flex-start;
+  }
+  .secondary-announcement-bar__content span{
+    padding-right: {{ section.settings.separator_space }}px;
+    padding-left: {{ section.settings.separator_space }}px;
+    position: relative;
+  }
+  .secondary-announcement-bar__content.secondary-announcement-bar-separator span::before{
+    content: "{{ section.settings.separator }}";
+    position: absolute;
+    left: -1px;
+    top: 0;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-family: inherit;
+  }
+  .secondary-announcement-bar__content.secondary-announcement-bar-separator span:first-child::before{
+    display: none;
+  }
+  .secondary-announcement-bar__content.secondary-announcement-bar-separator span:last-child{
+    padding-right: 0;
+  }
+
+  /* Countdown Styles */
+  .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__countdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 15px;
+    {% if section.settings.font_family_countdown == 'rw' %}
+      font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'gc' %}
+      font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'bm' %}
+      font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'cl' %}
+      font-family: 'Canela', serif;
+    {% elsif section.settings.font_family_countdown == 'acf' %}
+      font-family: "articulat-cf";
+    {% elsif section.settings.font_family_countdown == 'acfbold' %}
+      font-family: "articulat-heavy-cf";
+    {% endif %}
+    font-size: {{ section.settings.font_size_countdown }}px;
+    font-weight: {{ section.settings.font_weight_countdown }};
+    color: {{ section.settings.countdown_color }};
+    line-height: 1;
+  }
+  .secondary-announcement-bar--{{ section.id }} .countdown-unit {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .secondary-announcement-bar--{{ section.id }} .countdown-digit {
+    min-width: 24px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: {{ section.settings.border_width }}px solid {{ section.settings.border_color }};
+    border-radius: {{ section.settings.border_radius }}px;
+    padding: 0px;
+    {% if section.settings.font_family_countdown == 'rw' %}
+      font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'gc' %}
+      font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'bm' %}
+      font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'cl' %}
+      font-family: 'Canela', serif;
+    {% elsif section.settings.font_family_countdown == 'acf' %}
+      font-family: "articulat-cf";
+    {% elsif section.settings.font_family_countdown == 'acfbold' %}
+      font-family: "articulat-heavy-cf";
+    {% endif %}
+    font-weight: {{ section.settings.font_weight_countdown }};
+    font-size: {{ section.settings.font_size_countdown }}px;
+    color: {{ section.settings.countdown_color }};
+    line-height: 1;
+  }
+  .secondary-announcement-bar--{{ section.id }} .countdown-separator {
+    {% if section.settings.font_family_countdown == 'rw' %}
+      font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'gc' %}
+      font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'bm' %}
+      font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+    {% elsif section.settings.font_family_countdown == 'cl' %}
+      font-family: 'Canela', serif;
+    {% elsif section.settings.font_family_countdown == 'acf' %}
+      font-family: "articulat-cf";
+    {% elsif section.settings.font_family_countdown == 'acfbold' %}
+      font-family: "articulat-heavy-cf";
+    {% endif %}
+    font-weight: {{ section.settings.font_weight_countdown }};
+    font-size: {{ section.settings.font_size_countdown }}px;
+    color: {{ section.settings.countdown_color }};
+    line-height: 1;
+  }
+
+  @media screen and (max-width: 1023px) {
+    .secondary-announcement-bar--{{ section.id }} {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .secondary-announcement-bar--{{ section.id }} {
+      height: {{ section.settings.section_height_mobile }}px;
+      background-color: {{ section.settings.bg_color_mobile }};
+    }
+    .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__inner{
+      flex-direction: column;
+      gap: 7px;
+    }
+    .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__heading{
+      font-size: {{ section.settings.font_size_heading_mobile }}px;
+      font-weight: {{ section.settings.font_weight_heading_mobile }};
+      color: {{ section.settings.heading_color_mobile }};
+      {% if section.settings.font_family_heading_mobile == 'rw' %}
+        font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+      {% elsif section.settings.font_family_heading_mobile == 'gc' %}
+        font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+      {% elsif section.settings.font_family_heading_mobile == 'bm' %}
+        font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+      {% elsif section.settings.font_family_heading_mobile == 'cl' %}
+        font-family: 'Canela', serif;
+      {% elsif section.settings.font_family_heading_mobile == 'acf' %}
+        font-family: "articulat-cf";
+      {% elsif section.settings.font_family_heading_mobile == 'acfbold' %}
+        font-family: "articulat-heavy-cf";
+      {% endif %}
+    }
+    .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__content{
+      font-size: {{ section.settings.font_size_content_mobile }}px;
+      font-weight: {{ section.settings.font_weight_content_mobile }};
+      color: {{ section.settings.content_color_mobile }};
+      {% if section.settings.font_family_content_mobile == 'rw' %}
+        font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+      {% elsif section.settings.font_family_content_mobile == 'gc' %}
+        font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+      {% elsif section.settings.font_family_content_mobile == 'bm' %}
+        font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+      {% elsif section.settings.font_family_content_mobile == 'cl' %}
+        font-family: 'Canela', serif;
+      {% elsif section.settings.font_family_content_mobile == 'acf' %}
+        font-family: "articulat-cf";
+      {% elsif section.settings.font_family_content_mobile == 'acfbold' %}
+        font-family: "articulat-heavy-cf";
+      {% endif %}
+    }
+    .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__content.secondary-announcement-bar-separator span{
+      padding-right: {{ section.settings.separator_space_mobile }}px;
+      padding-left: {{ section.settings.separator_space_mobile }}px;
+    }
+    .secondary-announcement-bar-text-align-mobile--center .secondary-announcement-bar__inner {
+      justify-content: center;
+      text-align: center;
+    }
+    .secondary-announcement-bar-text-align-mobile--right .secondary-announcement-bar__inner {
+      justify-content: center;
+      text-align: right;
+      align-items: flex-end;
+    }
+    .secondary-announcement-bar-text-align-mobile--left .secondary-announcement-bar__inner {
+      justify-content: center;
+      text-align: left;
+      align-items: flex-start;
+    }
+    .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__content span:first-child {
+        padding-left: 0px;
+    }
+    .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__content span:last-child {
+        padding-right: 0px;
+    }
+    .secondary-announcement-bar--{{ section.id }} .secondary-announcement-bar__countdown {
+      margin-left: 0;
+      margin-top: 5px;
+      font-size: {{ section.settings.font_size_countdown_mobile }}px;
+      font-weight: {{ section.settings.font_weight_countdown_mobile }};
+      color: {{ section.settings.countdown_color_mobile }};
+      {% if section.settings.font_family_countdown_mobile == 'rw' %}
+        font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'gc' %}
+        font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'bm' %}
+        font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'cl' %}
+        font-family: 'Canela', serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'acf' %}
+        font-family: "articulat-cf";
+      {% elsif section.settings.font_family_countdown_mobile == 'acfbold' %}
+        font-family: "articulat-heavy-cf";
+      {% endif %}
+    }
+    .secondary-announcement-bar--{{ section.id }} .countdown-digit {
+      border: {{ section.settings.border_width_mobile }}px solid {{ section.settings.border_color_mobile }};
+      border-radius: {{ section.settings.border_radius_mobile }}px;
+      {% if section.settings.font_family_countdown_mobile == 'rw' %}
+        font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'gc' %}
+        font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'bm' %}
+        font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'cl' %}
+        font-family: 'Canela', serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'acf' %}
+        font-family: "articulat-cf";
+      {% elsif section.settings.font_family_countdown_mobile == 'acfbold' %}
+        font-family: "articulat-heavy-cf";
+      {% endif %}
+      font-size: {{ section.settings.font_size_countdown_mobile }}px;
+      font-weight: {{ section.settings.font_weight_countdown_mobile }};
+      color: {{ section.settings.countdown_color_mobile }};
+      line-height: 1;
+    }
+    .secondary-announcement-bar--{{ section.id }} .countdown-separator {
+      {% if section.settings.font_family_countdown_mobile == 'rw' %}
+        font-family: 'RingsideWideWeb', 'Helvetica', 'Arial', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'gc' %}
+        font-family: 'GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'bm' %}
+        font-family: 'BaseMonoWideWeb', 'Courier', 'Courier New', sans-serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'cl' %}
+        font-family: 'Canela', serif;
+      {% elsif section.settings.font_family_countdown_mobile == 'acf' %}
+        font-family: "articulat-cf";
+      {% elsif section.settings.font_family_countdown_mobile == 'acfbold' %}
+        font-family: "articulat-heavy-cf";
+      {% endif %}
+      font-size: {{ section.settings.font_size_countdown_mobile }}px;
+      font-weight: {{ section.settings.font_weight_countdown_mobile }};
+      color: {{ section.settings.countdown_color_mobile }};
+      line-height: 1;
+    }
+  }
+{% endstyle %}
+
+
+{% assign heading = blank %}
+{% assign content = blank %}
+
+{% comment %} Regional countdown settings from metaobject {% endcomment %}
+{% comment %} Use 'not_set' sentinel for booleans since false == blank can be unreliable in Liquid {% endcomment %}
+{% assign regional_hide_countdown = 'not_set' %}
+{% assign regional_hide_bar_after_countdown = 'not_set' %}
+{% assign regional_countdown_end_date = blank %}
+{% assign regional_countdown_end_time = blank %}
+
+{% for item in shop.metaobjects.secondary_announcement_bar.values %}
+  {% if item.country == localization.country.currency.iso_code %}
+    {% assign heading = item.heading %}
+    {% assign content = item.content %}
+    {% comment %} Capture regional countdown settings if available {% endcomment %}
+    {% if item.hide_countdown == true or item.hide_countdown == false %}
+      {% assign regional_hide_countdown = item.hide_countdown %}
+    {% endif %}
+    {% if item.hide_bar_after_countdown == true or item.hide_bar_after_countdown == false %}
+      {% assign regional_hide_bar_after_countdown = item.hide_bar_after_countdown %}
+    {% endif %}
+    {% assign regional_countdown_end_date = item.countdown_end_date %}
+    {% assign regional_countdown_end_time = item.countdown_end_time %}
+  {% endif %}
+{% endfor %}
+
+{% comment %} Determine which countdown settings to use (regional takes priority, global is fallback) {% endcomment %}
+{% if regional_countdown_end_date != blank %}
+  {% assign use_countdown_end_date = regional_countdown_end_date %}
+{% else %}
+  {% assign use_countdown_end_date = section.settings.countdown_end_date %}
+{% endif %}
+
+{% if regional_countdown_end_time != blank %}
+  {% assign use_countdown_end_time = regional_countdown_end_time %}
+{% else %}
+  {% assign use_countdown_end_time = section.settings.countdown_end_time %}
+{% endif %}
+
+{% comment %} For hide_countdown: regional boolean takes priority if explicitly set (true or false), otherwise use global {% endcomment %}
+{% if regional_hide_countdown != 'not_set' %}
+  {% assign use_hide_countdown = regional_hide_countdown %}
+{% else %}
+  {% assign use_hide_countdown = section.settings.hide_countdown %}
+{% endif %}
+
+{% comment %} For hide_bar_after_countdown: regional boolean takes priority if explicitly set, otherwise use global {% endcomment %}
+{% if regional_hide_bar_after_countdown != 'not_set' %}
+  {% assign use_hide_bar_after_countdown = regional_hide_bar_after_countdown %}
+{% else %}
+  {% assign use_hide_bar_after_countdown = section.settings.hide_bar_after_countdown %}
+{% endif %}
+
+{% if section.settings.hide_announcement_bar == false %}
+  {% if heading != blank or content != blank %}
+    <div class="secondary-announcement-bar secondary-announcement-bar-text-align-desktop--{{ section.settings.text_alignment_desktop }} secondary-announcement-bar-text-align-mobile--{{ section.settings.text_alignment_mobile }} secondary-announcement-bar--{{ section.id }}">
+      <div class="secondary-announcement-bar__inner">
+        {%- if section.settings.hide_heading == false -%}
+          {%- if heading != blank -%}
+            <h2 class="secondary-announcement-bar__heading">{{ heading }}</h2>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if section.settings.hide_content == false -%}
+          {%- if content != blank -%}
+            <div class="secondary-announcement-bar__content {% if section.settings.separator != blank %}secondary-announcement-bar-separator{% endif %}">
+              {% for line in content.value %}
+                <span class="secondary-announcement-bar__line">{{ line }}</span>
+              {% endfor %}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+        {%- if use_hide_countdown == false and use_countdown_end_date != blank -%}
+          <div class="secondary-announcement-bar__countdown" 
+              data-component="announcementCountdown"
+              data-end-date="{{ use_countdown_end_date }}" 
+              data-end-time="{{ use_countdown_end_time }}"
+              data-hide-bar-after-countdown="{{ use_hide_bar_after_countdown }}"
+              data-section-id="{{ section.id }}">
+            <div class="countdown-unit">
+              <span class="countdown-digit countdown-days-1">0</span>
+              <span class="countdown-digit countdown-days-2">0</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-digit countdown-hours-1">0</span>
+              <span class="countdown-digit countdown-hours-2">0</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-digit countdown-minutes-1">0</span>
+              <span class="countdown-digit countdown-minutes-2">0</span>
+            </div>
+            <span class="countdown-separator">:</span>
+            <div class="countdown-unit">
+              <span class="countdown-digit countdown-seconds-1">0</span>
+              <span class="countdown-digit countdown-seconds-2">0</span>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {% endif %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "section",
+  "class": "secondary-announcement-bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "SECTION SETTINGS"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_announcement_bar",
+      "label": "Hide Bar",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color (Desktop)",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_mobile",
+      "label": "Background Color (Mobile)",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "section_height_desktop",
+      "label": "Section Height (Desktop)",
+      "min": 20,
+      "max": 120,
+      "step": 1,
+      "unit": "px",
+      "default": 51
+    },
+    {
+      "type": "range",
+      "id": "section_height_mobile",
+      "label": "Section Height (Mobile)",
+      "min": 30,
+      "max": 130,
+      "step": 1,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment_desktop",
+      "label": "Text Alignment (Desktop)",
+      "default": "center"
+    },
+    {
+      "type": "text_alignment",
+      "id": "text_alignment_mobile",
+      "label": "Text Alignment (Mobile)",
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "SEPARATOR"
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Separator",
+      "default": "|"
+    },
+    {
+      "type": "range",
+      "id": "separator_space",
+      "label": "Separator Space (Desktop)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 20,
+      "visible_if": "{{ section.settings.separator != blank }}"
+    },
+    {
+      "type": "range",
+      "id": "separator_space_mobile",
+      "label": "Separator Space (Mobile)",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 10,
+      "visible_if": "{{ section.settings.separator != blank }}"
+    },
+    {
+      "type": "header",
+      "content": "TEXT SETTINGS (HEADING)"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_heading",
+      "label": "Hide Heading",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Color (Desktop)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color_mobile",
+      "label": "Color (Mobile)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "font_family_heading",
+      "label": "Font Family (Desktop)",
+      "options": [
+        { "label": "RingsideWideWeb", "value": "rw" },
+        { "label": "GeogrotesqueCondBoldWeb", "value": "gc" },
+        { "label": "BaseMonoWideWeb", "value": "bm" },
+        { "label": "Canela", "value": "cl" },
+        { "label": "ArticulatCF", "value": "acf" },
+        { "label": "ArticulatCF Bold", "value": "acfbold" }
+      ],
+      "default": "acf"
+    },
+    {
+      "type": "select",
+      "id": "font_family_heading_mobile",
+      "label": "Font Family (Mobile)",
+      "options": [
+        { "label": "RingsideWideWeb", "value": "rw" },
+        { "label": "GeogrotesqueCondBoldWeb", "value": "gc" },
+        { "label": "BaseMonoWideWeb", "value": "bm" },
+        { "label": "Canela", "value": "cl" },
+        { "label": "ArticulatCF", "value": "acf" },
+        { "label": "ArticulatCF Bold", "value": "acfbold" }
+      ],
+      "default": "acf"
+    },
+    {
+      "type": "range",
+      "id": "font_size_heading",
+      "label": "Font Size (Desktop)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_heading_mobile",
+      "label": "Font Size (Mobile)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "font_weight_heading",
+      "label": "Font Weight (Desktop)",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "range",
+      "id": "font_weight_heading_mobile",
+      "label": "Font Weight (Mobile)",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "TEXT SETTINGS (CONTENT)"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_content",
+      "label": "Hide Content",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "content_color",
+      "label": "Color (Desktop)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "content_color_mobile",
+      "label": "Color (Mobile)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "font_family_content",
+      "label": "Font Family (Desktop)",
+      "options": [
+        { "label": "RingsideWideWeb", "value": "rw" },
+        { "label": "GeogrotesqueCondBoldWeb", "value": "gc" },
+        { "label": "BaseMonoWideWeb", "value": "bm" },
+        { "label": "Canela", "value": "cl" },
+        { "label": "ArticulatCF", "value": "acf" },
+        { "label": "ArticulatCF Bold", "value": "acfbold" }
+      ],
+      "default": "acf"
+    },
+    {
+      "type": "select",
+      "id": "font_family_content_mobile",
+      "label": "Font Family (Mobile)",
+      "options": [
+        { "label": "RingsideWideWeb", "value": "rw" },
+        { "label": "GeogrotesqueCondBoldWeb", "value": "gc" },
+        { "label": "BaseMonoWideWeb", "value": "bm" },
+        { "label": "Canela", "value": "cl" },
+        { "label": "ArticulatCF", "value": "acf" },
+        { "label": "ArticulatCF Bold", "value": "acfbold" }
+      ],
+      "default": "acf"
+    },
+    {
+      "type": "range",
+      "id": "font_size_content",
+      "label": "Font Size (Desktop)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "font_size_content_mobile",
+      "label": "Font Size (Mobile)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "range",
+      "id": "font_weight_content",
+      "label": "Font Weight (Desktop)",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 500
+    },
+    {
+      "type": "range",
+      "id": "font_weight_content_mobile",
+      "label": "Font Weight (Mobile)",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "COUNTDOWN (Global Defaults)"
+    },
+    {
+      "type": "paragraph",
+      "content": "These are global default settings. Regional metaobject settings (hide_countdown, hide_bar_after_countdown, countdown_end_date, countdown_end_time) will override these if defined."
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_countdown",
+      "label": "Hide Countdown",
+      "info": "Can be overridden by regional metaobject setting",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_bar_after_countdown",
+      "label": "Hide Bar After Countdown Ends",
+      "info": "When enabled, the entire announcement bar will be hidden after the countdown reaches zero. Can be overridden by regional metaobject setting",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "countdown_end_date",
+      "label": "End Date (Default)",
+      "info": "Format: YYYY-MM-DD (e.g., 2024-12-31). Timezone: Eastern Time (ET). Can be overridden by regional metaobject setting",
+      "placeholder": "2024-12-31"
+    },
+    {
+      "type": "text",
+      "id": "countdown_end_time",
+      "label": "End Time (Default)",
+      "info": "Format: HH:MM:SS (e.g., 23:59:59). Timezone: Eastern Time (ET). Can be overridden by regional metaobject setting",
+      "default": "23:59:59",
+      "placeholder": "23:59:59"
+    },
+    {
+      "type": "color",
+      "id": "countdown_color",
+      "label": "Countdown Color (Desktop)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "countdown_color_mobile",
+      "label": "Countdown Color (Mobile)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "font_family_countdown",
+      "label": "Font Family (Desktop)",
+      "options": [
+        { "label": "RingsideWideWeb", "value": "rw" },
+        { "label": "GeogrotesqueCondBoldWeb", "value": "gc" },
+        { "label": "BaseMonoWideWeb", "value": "bm" },
+        { "label": "Canela", "value": "cl" },
+        { "label": "ArticulatCF", "value": "acf" },
+        { "label": "ArticulatCF Bold", "value": "acfbold" }
+      ],
+      "default": "acf"
+    },
+    {
+      "type": "select",
+      "id": "font_family_countdown_mobile",
+      "label": "Font Family (Mobile)",
+      "options": [
+        { "label": "RingsideWideWeb", "value": "rw" },
+        { "label": "GeogrotesqueCondBoldWeb", "value": "gc" },
+        { "label": "BaseMonoWideWeb", "value": "bm" },
+        { "label": "Canela", "value": "cl" },
+        { "label": "ArticulatCF", "value": "acf" },
+        { "label": "ArticulatCF Bold", "value": "acfbold" }
+      ],
+      "default": "acf"
+    },
+    {
+      "type": "range",
+      "id": "font_size_countdown",
+      "label": "Font Size (Desktop)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "font_size_countdown_mobile",
+      "label": "Font Size (Mobile)",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "font_weight_countdown",
+      "label": "Font Weight (Desktop)",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "font_weight_countdown_mobile",
+      "label": "Font Weight (Mobile)",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border Color (Desktop)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "border_color_mobile",
+      "label": "Border Color (Mobile)",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "border_width",
+      "label": "Border Width (Desktop)",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_width_mobile",
+      "label": "Border Width (Mobile)",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius (Desktop)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius_mobile",
+      "label": "Border Radius (Mobile)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

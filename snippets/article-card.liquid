@@ -1,0 +1,15 @@
+<a href="{{ article.url }}" class="article__card">
+  <div class="article__card-image">
+    {%- include 'component_media' with media: article.image, width: 1000, render_width: 415 -%}
+  </div>
+  <div class="article__card-content">
+    {%- unless context == 'look' -%}
+      {%- assign article_blog = article.handle | split: '/blogs/' | last | split: '/' | first -%}
+      <p class="article__card-blog">{{ article_blog | capitalize }}</p>
+    {%- endunless -%}
+    <h2 class="article__card-title">{{ article.title }}</h2>
+    {%- if context == 'look' -%}
+      <button type="button" class="button article__card-button">Read More</button>
+    {%- endif -%}
+  </div>
+</a>

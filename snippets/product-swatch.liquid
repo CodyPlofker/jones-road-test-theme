@@ -1,0 +1,123 @@
+{%- assign swatches = settings.swatches | newline_to_br | split: '<br />' -%}
+{%- if is_bundle -%}
+  {%- assign variants_with_value = product.variants | where: option_id_bundle, value -%}
+{%- else -%}
+  {%- assign variants_with_value = product.variants | where: option_id, value -%}
+{%- endif -%}
+{%- assign swatch_variant = variants_with_value | first -%}
+
+{%- assign swatch_override = false -%}
+{%- assign swatch_description = '' -%}
+{%- assign swatch_new = false -%}
+
+{%- for variant in variants_with_value -%}
+  {%- assign kit_includes = '' -%}
+  {%- if variant.metafields.custom.kit_contents != blank -%}
+    {%- assign kit_includes = variant.metafields.custom.kit_contents | metafield_tag -%}
+  {%- endif -%}
+  {% assign swatch_image = '' %}
+  {%- if variant.image != blank -%}
+    {%- assign swatch_image = variant.image | image_url -%}
+  {%- endif -%}
+  {%- if variant.metafields.swatch.new -%}
+    {%- assign swatch_new = true -%}
+  {%- endif -%}
+  {%- if variant.metafields.swatch.color != blank -%}
+    {%- assign swatch_override = variant.metafields.swatch.color -%}
+  {%- endif -%}
+  {%- if variant.metafields.swatch.image != blank -%}
+    {%- assign swatch_override = variant.metafields.swatch.image | image_url: width: 100, height: 100 -%}
+  {%- endif -%}
+  {%- if variant.metafields.findation_hero.description != blank -%}
+    {%- assign swatch_description = variant.metafields.findation_hero.description -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign input_name = option_id -%}
+{%- if input_name_override -%}
+  {%- assign input_name = input_name_override -%}
+{%- endif -%}
+
+{%- assign show_swatch = true -%}
+{%- if display_only -%}
+  {%- unless option.name contains 'Color' or option.name contains 'Shade' -%}
+    {%- assign show_swatch = false -%}
+  {%- endunless -%}
+{%- endif -%}
+
+<li class="product__form-swatch {{ class }} {% if is_hidden %} hidden {% endif %}">
+  {%- if show_arrow -%}
+    <svg class="arrow" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M13 1L7.00002 7L1 0.999999" stroke="black"/>
+    </svg>
+  {%- endif -%}
+  <div
+    class="product__form-swatch--inner {% if display_only %} js-productFormSelected {% else %} js-productFormSwatch {% endif %} {% unless is_available %} is-unavailable {% endunless %}"
+    data-value="{{ value }}"
+    data-option="{{ option_id }}"
+    data-option-name="{{ option.name }}"
+    data-description="{{ swatch_description | remove: '"' }}"
+    data-kit-includes='{{ kit_includes }}'
+    data-findation="{{ is_findation }}"
+    data-linked="{{ is_linked }}"
+    data-isnew="{{ swatch_new }}"
+    data-stepped="{{ is_stepped }}"
+    data-image='{{ swatch_image }}'
+  >
+    {%- if show_label -%}
+      <div class="product__form-swatch-info"> 
+        <span class="product__form-title">{{ compliance_product_title_sticky | default: product.title | remove: '[bggy pdp dev copy]' }}</span>
+        <span class="product__form-value">
+          <span class="name">
+            {%- if value == blank %}Select a Shade{% else %}{{ value }}{% endif -%}
+          </span>
+          {%- unless hide_swatch_description -%}
+            <span class="description">{{ swatch_description }}</span>
+          {%- endunless -%}
+        </span>
+      </div>
+    {%- endif -%}
+    {% comment %} findation and bundles need to match!! {% endcomment %}
+    {%- if show_swatch -%}
+      <input
+        type="radio"
+        id="{{ id }}"
+        name="{{ input_name }}"
+        value="{{ value }}"
+        class="visually-hidden"
+        data-option="{{ option_id }}"
+        {%- if selected_value == value -%}
+          checked
+        {%- endif -%}
+      >
+      <label for="{{ id }}" class="{% if display_only %} checked {% endif %} {% if swatch_new %} is-new {% endif %}">
+        <span class="visually-hidden">{{ swatch_variant.title }}</span>
+        {%- if swatch_override != false -%}
+          {%- if swatch_override contains '//' -%}
+            <img src="{{ swatch_override }}" alt="">
+          {%- else -%}
+            <i style="background: {{ swatch_override }};"></i>
+          {%- endif -%}
+        {%- else -%}
+          {%- for s in swatches -%}
+            {%- assign swatch = s | split: '==' -%}
+            {%- assign swatch_name = swatch | first | strip -%}
+            {%- assign swatch_value = swatch | last | strip -%}
+
+            {%- if swatch_name == value -%}
+              {%- if swatch_value contains '.' -%}
+                <img src="{{ swatch_value }}" alt="">
+              {%- else -%}
+                <i style="background: {{ swatch_value }};"></i>
+              {%- endif -%}
+              {% break %}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </label>
+    {%- else -%}
+      <span></span>
+    {%- endif -%}
+  </div>
+</li>

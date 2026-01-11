@@ -1,0 +1,175 @@
+{%- assign config = section.settings -%}
+{%- assign reviews = section.blocks | map: 'settings' -%}
+
+{%- capture autoplay -%}
+  {%- if config.autoplay -%} { "delay": {{ config.speed }} } {%- else -%} false {%- endif -%}
+{%- endcapture -%}
+
+<div 
+  id="reviews-carousel-{{ section.id }}"
+  class="reviews__carousel js-reviewsCarousel"
+  data-component="reviewsCarousel"
+>
+  {%- if config.heading != blank -%}
+    <h2 class="reviews__carousel-heading">{{ config.heading }}</h2>
+  {%- endif -%}
+  {%- if reviews.size > 0 -%}
+    <div 
+      {% if reviews.size > 1 %}
+        {% assign loop = true %}
+      {% else %}
+        {% assign loop = false %}
+      {% endif %}
+      class="reviews__carousel-carousel swiper-container js-reviewsCarouselSwiper"
+      data-autoplay="{{ autoplay | escape }}"
+      data-loop="{{ loop }}"
+    >
+      <div class="swiper-wrapper">
+        {%- for review in reviews -%}
+          <div class="reviews__carousel-review swiper-slide js-reviewsCarouselSlide">
+            <div class="reviews__carousel-review--body">
+              <span class="reviews__carousel-review--stars">
+                {%- for i in (1..review.rating) -%}
+                  <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.5 0L5 3.5L1 2.5L3 5.5L0 7.5L3.5 8V11.5L6.5 9.5L9 11.5V8L12.5 7.5L9.5 5.5L11.5 2.5L8 3.5L6.5 0Z" fill="#FF009C"/>
+                  </svg>
+                {%- endfor -%}
+              </span>
+              {%- if review.heading != blank -%}
+                <h3 class="reviews__carousel-review--heading">
+                  {{ review.heading }}
+                </h3>
+              {%- endif -%}
+              {%- if review.description != blank -%}
+                <p class="reviews__carousel-review--description">
+                  {{ review.description | prepend: '“' | append: '”' }}
+                </p>
+              {%- endif -%}
+            </div>
+            <div class="reviews__carousel-review--footer">
+              {%- if review.author != blank -%}
+                <p class="reviews__carousel-review--author">
+                  <span class="visually-hidden">Written by </span>{{ review.author }}
+                </p>
+              {%- endif -%}
+              {%- if review.verified -%}
+                <div class="reviews__carousel-review--verified">
+                  <svg width="14" height="13" viewBox="0 0 14 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M5.11992 12.2043L4.02439 10.3592L1.94864 9.89796L2.15045 7.76455L0.737793 6.15008L2.15045 4.53561L1.94864 2.40221L4.02439 1.94093L5.11992 0.0958252L7.08035 0.931889L9.04078 0.0958252L10.1363 1.94093L12.2121 2.40221L12.0102 4.53561L13.4229 6.15008L12.0102 7.76455L12.2121 9.89796L10.1363 10.3592L9.04078 12.2043L7.08035 11.3683L5.11992 12.2043ZM6.47492 8.197L9.73269 4.93923L8.92546 4.10317L6.47492 6.5537L5.23524 5.34285L4.42801 6.15008L6.47492 8.197Z" fill="#FF009C"/>
+                  </svg>
+                  <span>Verified Buyer</span>
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- if reviews.size > 1 -%}
+      <div class="reviews__carousel-controls">
+        <button 
+          type="button"
+          class="reviews__carousel-arrow prev js-reviewsCarouselNav"
+          aria-label="Previous Review"
+        >
+          <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.810188 7.3486C0.37961 7.77918 0.37961 8.47729 0.810188 8.90787L7.82686 15.9245C8.25744 16.3551 8.95555 16.3551 9.38612 15.9245C9.8167 15.494 9.8167 14.7959 9.38612 14.3653L3.14908 8.12823L9.38612 1.89119C9.8167 1.46061 9.8167 0.762507 9.38612 0.331929C8.95555 -0.098649 8.25744 -0.098649 7.82686 0.331929L0.810188 7.3486ZM2.69238 7.02567H1.58982L1.58982 9.2308H2.69238V7.02567Z" fill="black"/>
+          </svg>
+        </button>
+        <div class="reviews__carousel-pagination js-reviewsCarouselDots">
+          {% comment %} Append Pagination Here {% endcomment %}
+        </div>
+        <button 
+          type="button"
+          class="reviews__carousel-arrow next js-reviewsCarouselNav"
+          aria-label="Next Review"
+        >
+          <svg width="10" height="17" viewBox="0 0 10 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9.29235 7.3486C9.72293 7.77918 9.72293 8.47729 9.29235 8.90787L2.27568 15.9245C1.8451 16.3551 1.14699 16.3551 0.716415 15.9245C0.285837 15.494 0.285837 14.7959 0.716415 14.3653L6.95346 8.12823L0.716415 1.89119C0.285837 1.46061 0.285837 0.762507 0.716415 0.331929C1.14699 -0.098649 1.8451 -0.098649 2.27568 0.331929L9.29235 7.3486ZM7.41016 7.02567H8.51272V9.2308H7.41016V7.02567Z" fill="black"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+
+{%- schema -%}
+  {
+    "name": "Reviews Carousel",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "autoplay",
+        "label": "Autoplay",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "speed",
+        "min": 1000,
+        "max": 5000,
+        "step": 500,
+        "unit": "ms",
+        "label": "Autoplay Speed",
+        "default": 3000
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "review",
+        "name": "Review",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "range",
+            "id": "rating",
+            "label": "Rating",
+            "min": 1,
+            "max": 5,
+            "step": 1,
+            "default": 5
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "inline_richtext",
+            "id": "description",
+            "label": "Description"
+          },
+          {
+            "type": "text",
+            "id": "author",
+            "label": "Author"
+          },
+          {
+            "type": "checkbox",
+            "id": "verified",
+            "label": "Verified buyer",
+            "default": true
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Reviews Carousel" }]
+  }
+{%- endschema -%}

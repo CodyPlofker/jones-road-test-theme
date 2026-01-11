@@ -1,0 +1,156 @@
+{% assign reviews_stats = product.metafields.custom.reviews_stats.value %}
+
+<div class="junip-product-reviews-section">
+  <h1 class="junip-product-review-title">Reviews</h1>
+  <div class="review-stats-container">
+    <div class="review-stat">
+      <span class="stat-number">{{ product.metafields.junip.rating_average | round: 2 }}</span>
+      <span class="junip-product-summary junip-product-summary-review-stat" data-product-id="{{product.id}}"></span>
+      <span class="stat-description stat-description-review-count"> Based on {{ product.metafields.junip.rating_count }} Reviews </span>
+    </div>
+    {%- if reviews_stats.heading_one != blank or reviews_stats.description_one != blank -%}
+      <div class="review-stat">
+        {%- if reviews_stats.heading_one != blank -%}
+          <h2 class="stat-number">{{ reviews_stats.heading_one }}</h2>
+        {%- endif -%}
+        {%- if reviews_stats.description_one != blank -%}
+          <div class="stat-description">{{ reviews_stats.description_one | metafield_tag }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if reviews_stats.heading_two != blank or reviews_stats.description_two != blank -%}
+      <div class="review-stat">
+        {%- if reviews_stats.heading_two != blank -%}
+          <h2 class="stat-number">{{ reviews_stats.heading_two }}</h2>
+        {%- endif -%}
+        {%- if reviews_stats.description_two != blank -%}
+          <div class="stat-description third">{{ reviews_stats.description_two | metafield_tag }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if reviews_stats.heading_three != blank or reviews_stats.description_three != blank -%}
+      <div class="review-stat">
+        {%- if reviews_stats.heading_three != blank -%}
+          <h2 class="stat-number">{{ reviews_stats.heading_three }}</h2>
+        {%- endif -%}
+        {%- if reviews_stats.description_three != blank -%}
+          <div class="stat-description">{{ reviews_stats.description_three | metafield_tag }}</div>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% render 'junip-product-review', product: product %}
+
+<style>
+  .junip-product-reviews-section {
+    padding-top: 68px;
+  }
+  .review-stats-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-block: 1px solid #e0e0e0;
+    padding: 28px 35px 35px !important;
+    margin: 0 auto;
+    gap: 30px;
+  }
+  .junip-product-review-container h2.junip-product-review-title,
+  .junip-product-review-summary-wrapper + .junip-separator {
+    display: none;
+  }
+  .junip-product-review-summary-wrapper + .junip-separator + .junip-filters {
+    margin-top: 28px;
+  }
+  .junip-product-review-container {
+    padding-top: 0 !important;
+  }
+  .review-stat {
+    flex: 1;
+    background-color: #f4f4f4;
+    padding: 36.04px 20px;
+    text-align: center;
+    margin: 0;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .review-stat .junip-product-summary-star-ratings-container {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .review-stat .junip-product-summary-review-count {
+    display: none;
+  }
+  .stat-number {
+    display: block;
+    font-family: 'BaseMonoWideWeb';
+    font-size: 40px;
+    margin: 0 0 15px 0;
+    font-weight: normal;
+    line-height: 1;
+  }
+  .stat-description :where(h1,h2,h3,h4,h5,h6) {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+  .stat-description :where(ul,ol) {
+    list-style: revert-layer;
+    padding-left: 20px;
+    text-align: left;
+  }
+  .stat-description :where(ul,ol) li {
+    margin-bottom: 3px;
+  }
+  .stat-description :where(strong, strong em) {
+    font-weight: 600;
+  }
+  .stat-description :where(em, em strong) {
+    font-style: italic;
+  }
+  .stat-description {
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.2;
+    font-family: 'RingsideWideWeb';
+    letter-spacing: 0;
+  }
+  .stat-description-review-count {
+    margin-top: 6px;
+    display: block;
+  }
+  @media (max-width: 1080px) {
+    .review-stat {
+      flex: 1 0 calc(50% - 30px);
+    }
+  }
+
+  @media (max-width: 700px) {
+    .stat-number {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+    .stat-description :where(h1,h2,h3,h4,h5,h6) {
+      font-size: 16px;
+    }
+    .review-stats-container {
+      padding: 33px 20px 24px !important;
+      gap: 12px;
+    }
+    .review-stat {
+      padding: 19.8px 18px;
+    }
+    .stat-description {
+      font-size: 13px;
+      line-height: 120%;
+    }
+    .stat-description.stat-description-review-count {
+      margin-top: 2px;
+    }
+    .junip-product-reviews-section {
+      padding-top: 12px;
+    }
+  }
+</style>

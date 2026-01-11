@@ -1,0 +1,208 @@
+<div
+  aria-hidden="true"
+  aria-label="{{ link.title }} submenu"
+  class="header__subnav__menu header__megamenu__menu"
+  id="subnav-{{ link.title | handle }}"
+>
+  <div class="header-megamenu-menu-inner">
+    <div class="header-megamenu-menu-column header-megamenu-menu-column--image">
+      {% assign menu_handle = link.title | handle %}
+      {% assign nav_image_cards = shop.metaobjects.nav_image_card.values %}
+      {% for nav_card in nav_image_cards %}
+        {% assign nav_card_handle = nav_card.nav_title.value | handle %}
+        {% if nav_card_handle == menu_handle %}
+          {% if nav_card.image_1 != blank %}
+            <div class="header-megamenu-menu-image-block">
+              <div class="header-megamenu-menu-image-block-image">
+                <a href="{{ nav_card.link_1.value }}">
+                  <img
+                    src="{{ nav_card.image_1 | image_url: width: auto }}"
+                    alt="{{ nav_card.heading_1.value }}"
+                    width=""
+                    height=""
+                    loading="lazy"
+                  >
+                </a>
+              </div>
+              <div class="header-megamenu-menu-image-block-text">
+                {% if nav_card.heading_1.value != blank %}
+                  <a class="header-megamenu-menu-image-block-text-title" href="{{ nav_card.link_1.value }}">
+                    <span>{{ nav_card.heading_1.value }}</span>
+                  </a>
+                {% endif %}
+                {% if nav_card.description_1 != blank %}
+                  <div class="header-megamenu-menu-image-block-text-description">
+                    {{ nav_card.description_1 | metafield_tag }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          {% if nav_card.image_2 != blank %}
+            <div class="header-megamenu-menu-image-block">
+              <div class="header-megamenu-menu-image-block-image">
+                <a href="{{ nav_card.link_2.value }}">
+                  <img
+                    src="{{ nav_card.image_2 | image_url: width: auto }}"
+                    alt="{{ nav_card.heading_2.value }}"
+                    width=""
+                    height=""
+                    loading="lazy"
+                  >
+                </a>
+              </div>
+              <div class="header-megamenu-menu-image-block-text">
+                {% if nav_card.heading_2.value != blank %}
+                  <a class="header-megamenu-menu-image-block-text-title" href="{{ nav_card.link_2.value }}">
+                    <span>{{ nav_card.heading_2.value }}</span>
+                  </a>
+                {% endif %}
+                {% if nav_card.description_2 != blank %}
+                  <div class="header-megamenu-menu-image-block-text-description">
+                    {{ nav_card.description_2 | metafield_tag }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endif %}
+          {% break %}
+        {% endif %}
+      {% endfor %}
+    </div>
+    <div class="header-megamenu-menu-column header-megamenu-menu-column--nav">
+      <div class="header-megamenu-menu-nav-blocks">
+        <div class="header-megamenu-menu-nav-heading">
+          <span>{{ link.title }}</span>
+        </div>
+        <div class="header-megamenu-menu-nav-blocks-items">
+          {% if links.size > 0 %}
+            <div class="header-megamenu-menu-nav-blocks-item header-megamenu-menu-nav-blocks-item--submenu-dropdown-list">
+              <ul class="header-megamenu-menu-nav-blocks-item-list">
+                {% for sublink in links %}
+                  {%- assign sublink_badge = sublink.object.metafields.navigation.badge -%}
+                  <li class="header-megamenu-menu-nav-blocks-item-list-item">
+                    <a
+                      href="{{ sublink.url }}"
+                      {% if subLink.url contains 'http' %}
+                        target="_blank" rel="noreferrer noopener"
+                      {% endif %}
+                    >
+                      {{ sublink.title }}
+                      {%- if sublink_badge != blank -%}
+                        <strong class="header__nav__badge">{{ sublink_badge }}</strong>
+                      {%- endif -%}
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% else %}
+            <div class="header-megamenu-menu-nav-blocks-item header-megamenu-menu-nav-blocks-item--left">
+              {% assign collection_handle = link.title | handleize %}
+              {% assign item_collection = collections[collection_handle] %}
+              {% assign products = item_collection.products %}
+              <ul class="header-megamenu-menu-nav-blocks-item-list">
+                {% for item in products limit: 5 %}
+                  <li class="header-megamenu-menu-nav-blocks-item-list-item">
+                    <a href="{{ item.url }}">
+                      <div class="header-megamenu-menu-nav-blocks-item-image">
+                        <img src="{{ item.featured_image | image_url: width: 55 }}" alt="{{ item.title }}" width="" height="" loading="lazy">
+                      </div>
+                      <div class="header-megamenu-menu-nav-blocks-item-content">
+                        <div class="header-megamenu-menu-nav-blocks-item-content-title">
+                          {{ item.title }}
+                        </div>
+                        <div class="header-megamenu-menu-nav-blocks-item-content-row">
+                          {% if item.metafields.custom.show_product_review_stars == true %}
+                            <div class="header-megamenu-menu-nav-blocks-item-content-review">
+                              <span class="junip-product-summary" data-product-id="{{item.id}}"></span>
+                            </div>
+                          {% endif %}
+                          {% if item.metafields.custom.show_product_tag == true and item.metafields.custom.product_tag != blank %}
+                            <div class="header-megamenu-menu-nav-blocks-item-content-tag">
+                              {{ item.metafields.custom.product_tag }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+              <ul class="header-megamenu-menu-nav-blocks-item-list header-megamenu-menu-nav-blocks-item-list--v1">
+                {% for item in products limit: 6 %}
+                  <li class="header-megamenu-menu-nav-blocks-item-list-item">
+                    <a href="{{ item.url }}">
+                      <div class="header-megamenu-menu-nav-blocks-item-image">
+                        <img src="{{ item.featured_image | image_url: width: 55 }}" alt="{{ item.title }}" width="" height="" loading="lazy">
+                      </div>
+                      <div class="header-megamenu-menu-nav-blocks-item-content">
+                        <div class="header-megamenu-menu-nav-blocks-item-content-title">
+                          {{ item.title }}
+                        </div>
+                        <div class="header-megamenu-menu-nav-blocks-item-content-row">
+                          {% if item.metafields.custom.show_product_review_stars == true %}
+                            <div class="header-megamenu-menu-nav-blocks-item-content-review">
+                              <span class="junip-product-summary" data-product-id="{{item.id}}"></span>
+                            </div>
+                          {% endif %}
+                          {% if item.metafields.custom.show_product_tag == true and item.metafields.custom.product_tag != blank %}
+                            <div class="header-megamenu-menu-nav-blocks-item-content-tag">
+                              {{ item.metafields.custom.product_tag }}
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="header-megamenu-menu-nav-blocks-item header-megamenu-menu-nav-blocks-item--right">
+              <div class="header-megamenu-menu-nav-blocks-item-list">
+                <ul>
+                  {% for item in products offset: 5 limit: 5 %}
+                    <li>
+                      <a href="{{ item.url }}">
+                        {{ item.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                  <li class="shop-all-list">
+                    <a href="{{ link.url }}">
+                      {% if link.title contains 'Shop All' %}
+                        {{ link.title }}
+                      {% else %}
+                        Shop all {{ link.title }}
+                      {% endif %}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div class="header-megamenu-menu-nav-blocks-item-list header-megamenu-menu-nav-blocks-item-list--v1">
+                <ul>
+                  {% for item in products offset: 6 limit: 5 %}
+                    <li>
+                      <a href="{{ item.url }}">
+                        {{ item.title }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                  <li class="shop-all-list">
+                    <a href="{{ link.url }}">
+                      {% if link.title contains 'Shop All' %}
+                        {{ link.title }}
+                      {% else %}
+                        Shop all {{ link.title }}
+                      {% endif %}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

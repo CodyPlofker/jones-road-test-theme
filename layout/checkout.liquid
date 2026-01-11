@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="{{ locale }}" dir="{{ direction }}" class="{{ checkout_html_classes }}">
+  <head>
+    <!-- begin Convert Experiences code-->
+    <script type="text/javascript" src="//cdn-4.convertexperiments.com/js/10041711-10041988.js"></script>
+    <!-- end Convert Experiences code -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, height=device-height, minimum-scale=1.0, user-scalable=0">
+    <meta name="referrer" content="origin">
+    <title>{{ page_title }}</title>
+    {{ content_for_header }}
+    {{ checkout_stylesheets }}
+    {{ checkout_scripts }}
+    {{ 'checkout.js' | asset_url | script_tag }}
+  </head>
+  <body>
+    {{ skip_to_content_link }}
+    <header class="banner" data-header role="banner">
+      <div class="wrap">
+        {{ content_for_logo }}
+      </div>
+    </header>
+    {{ order_summary_toggle }}
+    <div class="content" data-content>
+      <div class="wrap">
+        <div class="main">
+          <header class="main__header" role="banner">
+            {{ content_for_logo }}
+            {{ breadcrumb }}
+            {{ alternative_payment_methods }}
+          </header>
+          <main class="main__content" role="main">
+            {{ content_for_layout }}
+          </main>
+          <footer class="main__footer" role="contentinfo">
+            {{ content_for_footer }}
+          </footer>
+        </div>
+        <aside class="sidebar" role="complementary">
+          <div class="sidebar__header">
+            {{ content_for_logo }}
+          </div>
+          <div class="sidebar__content">
+            {{ content_for_order_summary }}
+          </div>
+        </aside>
+      </div>
+    </div>
+    {{ tracking_code }}
+    <script>
+      var elContactForm = document.querySelector('.step[data-step="contact_information"] form');
+      elContactForm.addEventListener('submit', function(ev)) {
+        var elEmail = ev.currentTarget.querySelector('input#checkout_email');
+        var elPhone = ev.currentTarget.querySelector('input#checkout_shipping_address_phone');
+        ttq && ttq.identify({
+          email: elEmail.value,
+          phone_number: elPhone.value,
+        })
+      }
+    </script>
+  <div data-rebuy-id="61519"></div>
+  <div class="js-checkoutUpsells"></div>
+  <script async src="https://cdn.rebuyengine.com/onsite/js/rebuy.js?shop=jonesroad.myshopify.com"></script>
+  <script>
+    (()=>{var s=["checkout_shipping_address_first_name","checkout_shipping_address_last_name","checkout_shipping_address_company","checkout_shipping_address_address1","checkout_shipping_address_address2","checkout_shipping_address_city","checkout_shipping_address_zip","checkout_shipping_address_phone","checkout_billing_address_first_name","checkout_billing_address_last_name","checkout_billing_address_address1","checkout_billing_address_address2"];function r(e){let t=e.key;!e.isComposing&&!t.match(/[A-z0-9\s]/)&&e.preventDefault()}function d(e){e.target.value=e.target.value.replace(/[^a-zA-Z0-9 ]/gm,"")}function i(e){e.target.value=e.target.value.replace(/[^a-zA-Z0-9 ]/gm,"")}function c(e){e.target.value=e.target.value.replace(/[^a-zA-Z0-9 ]/gm,"")}function o(e){e.value=e.value.replace(/[^a-zA-Z0-9 ]/gm,"")}function a(){s.forEach(e=>{let t=document.getElementById(e);t!=null&&(o(t),t.addEventListener("keypress",r),t.addEventListener("input",d),t.addEventListener("paste",i),t.addEventListener("blur",c))})}function u(){s.forEach(e=>{let t=document.getElementById(e);t!=null&&(t.removeEventListener("keypress",r),t.removeEventListener("input",d),t.removeEventListener("paste",i),t.removeEventListener("blur",c))})}["page:load","page:change"].forEach(e=>{document.addEventListener(e,()=>{Shopify.Checkout.locale=="en-GB"&&a();let n=document.getElementById("checkout_shipping_address_country");n?.addEventListener("change",l=>{l.target.selectedOptions[0].dataset.code=="GB"?a():u()})})});})();
+  </script>
+</body>
+</html>

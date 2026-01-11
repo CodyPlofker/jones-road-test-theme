@@ -1,0 +1,81 @@
+<style>
+@media (max-width: 700px) {
+  #shopify-section-{{section.id }} .press-logos__logo {
+    width: calc(100% / {{ section.settings.logos_per_row_mobile }});
+  }
+}
+</style>
+
+<div id="{{ section.settings.section_id }}" class="press-logos" style="background: {{ section.settings.bg_color }}">
+  <div class="press-logos__inner">
+    {% for block in section.blocks %}
+      <div class="press-logos__logo">
+        <img 
+          src="{{ block.settings.logo | img_url: 'x26' }}"
+          srcset="{{ block.settings.logo | img_url: 'x52' }} 2x"
+          alt="{{ block.settings.logo.alt }}"
+          height="26"
+          {% if template contains 'index' %}
+            loading="lazy"
+          {% endif %}
+        >
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Press Logos",
+    "tag": "section",
+    "class": "press-logos__section",
+    "max_blocks": 5,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "press"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background color",
+        "default": "#000000"
+      },
+    {
+      "type": "range",
+      "id": "logos_per_row_mobile",
+      "label": "Logos per row on mobile",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "default": 3
+    }
+    ],
+    "blocks": [
+      {
+        "type": "logo",
+        "name": "Logo",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Press Logos" }]
+  }
+{% endschema %}

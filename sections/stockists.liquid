@@ -1,0 +1,41 @@
+{% schema %}
+  {
+    "name": "Stockists",
+    "settings": [
+      {
+        "id": "intro",
+        "label": "Intro",
+        "type": "richtext" // EE
+      },
+      {
+        "id": "online",
+        "label": "Online",
+        "type": "richtext" // EE
+      }
+    ],
+    "blocks": [
+      {
+        "type": "region",
+        "name": "Regions",
+        "settings": [
+          {
+            "id": "title",
+            "label": "Title",
+            "type": "text"
+          },
+          {
+            "id": "stores",
+            "label": "Stores",
+            "type": "richtext" // EE
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{% include 'stockists-page',
+  intro: section.settings.intro,
+  online: section.settings.online,
+  regions: section.blocks,
+  title: page.title,
+%}

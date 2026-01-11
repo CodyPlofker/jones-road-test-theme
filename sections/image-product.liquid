@@ -1,0 +1,136 @@
+{%- assign config = section.settings -%}
+
+<div 
+  class="image-product--inner"
+  style="--desktop-layout: {{ config.layout_desktop }};"
+>
+  <div class="image-product--product">
+    {%- if config.product != blank -%}
+      {%- if config.show_product_image -%}
+        {%- assign product_image = config.product_image | default: config.product.featured_image -%}
+        <figure class="image-product--product-image">
+          {%- render 'component_image', 
+            image: product_image,
+            width: 1500,
+            widths: '375, 550, 750, 1100, 1500',
+            sizes: '(min-width: 768px) 50vw, 100vw'
+          -%}
+        </figure>
+      {%- endif -%}
+      <div class="image-product--product-info">
+        <h2 class="image-product--product-title">
+          {{ config.product_title | default: config.product.title }}
+        </h2>
+        <div class="image-product--product-description text-underline">
+          {{ config.product_description | default: config.product.description }}
+        </div>
+      </div>
+      {%- render 'product-card-button', product: config.product -%}
+    {%- endif -%}
+  </div>
+  <div class="image-product--image {% if config.badge != blank %} {% if config.layout_desktop == 'row' %} badge-left {% else %} badge-right {% endif %} {% endif %}">
+    <figure>
+      {%- render 'component_image', 
+        image: config.image,
+        width: 1500,
+        widths: '375, 550, 750, 1100, 1500',
+        sizes: '(min-width: 768px) 50vw, 100vw'
+      -%}
+    </figure>
+    {%- if config.badge != blank -%}
+      <figure class="badge">
+        {%- render 'component_image', 
+          image: config.badge,
+          width: 600,
+          widths: '150, 300, 600',
+          sizes: '(min-width: 768px) 300px, 150px'
+        -%}
+      </figure>
+    {%- endif -%}
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Image & Product",
+    "tag": "section",
+    "class": "image-product",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Product"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      },
+      {
+        "type": "text",
+        "id": "product_title",
+        "label": "Product Title",
+        "info": "Defaults to the title set in the product admin."
+      },
+      {
+        "type": "richtext",
+        "id": "product_description",
+        "label": "Product Description",
+        "info": "Defaults to the description set in the product admin."
+      },
+      {
+        "type": "image_picker",
+        "id": "product_image",
+        "label": "Product Image",
+        "info": "Defaults to the image set in the product admin."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_image",
+        "label": "Show product image",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "badge",
+        "label": "Badge"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "select",
+        "id": "layout_desktop",
+        "label": "Desktop layout",
+        "options": [
+          { "label": "Image on Left", "value": "row-reverse" },
+          { "label": "Image on Right", "value": "row" }
+        ],
+        "default": "row-reverse"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image & Product",
+        "settings": {
+          "product": "the-beach-vacation-kit",
+          "product_title": "The Beach Vacation Kit",
+          "product_description": "<p>The Beach Vacation Kit is ideal for anyone who loves a warm, sun- inspired glow for the holidays. Use it on vacation or simply to channel warm weather wherever you are.</p>",
+          "show_product_image": true,
+          "image": "shopify:\/\/shop_images\/jr-holiday-product-1.png",
+          "badge": "shopify:\/\/shop_images\/jr-holiday-badge-1.png",
+          "layout_desktop": "row-reverse"
+        }
+      }
+    ]
+  }
+{%- endschema -%}

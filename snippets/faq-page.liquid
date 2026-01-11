@@ -1,0 +1,27 @@
+<div class="utility utility--faq" data-view="utility">
+  <div class="utility__single">
+    <h1>{{ title }}</h1>
+    {%- for block in blocks -%}
+    {%- if block.type == 'heading' -%}
+    {%- if forloop.index > 1 -%}
+      </div>
+    </div>
+    {%- endif -%}
+    <h2>{{ block.settings.title }}</h2>
+    <div class="utility__tabs utility__tabs--faq" {{ block.shopify_attributes }}>
+      <div class="js-accordion">
+      {%- else -%}
+        <button aria-expanded="false{" aria-controls="tabpanel-{{ forloop.index }}" data-controls="tabpanel-{{ forloop.index }}" class="utility__tab utility__tab--faq">
+          {{ block.settings.title }}
+        </button>
+        <div aria-hidden="true" id="tabpanel-{{ forloop.index }}" class="utility__tabpanel utility__tabpanel--faq">
+          <div>
+            {{ block.settings.answer }}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</div>

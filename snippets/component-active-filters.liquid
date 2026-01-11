@@ -1,0 +1,65 @@
+{% assign current_sort_by = collection.sort_by | default: collection.default_sort_by %}
+{% assign clear_filters_url = collection.url %}
+
+{% if current_sort_by != blank %}
+  {% assign clear_filters_url = clear_filters_url | append: '?sort_by=' | append: current_sort_by %}
+{% endif %}
+
+<div id="active-filter-group-{{ section.id }}" class="active-filter-group__item-wrapper">
+  {% liquid
+    assign has_active_filters = false
+    for f in collection.filters
+      if f.type == 'price_range'
+        if f.min_value.value > 0 or f.max_value.value < f.range_max
+          assign has_active_filters = true
+        endif
+      else
+        if f.active_values.size > 0
+          assign has_active_filters = true
+        endif
+      endif
+    endfor
+  %}
+  {% if has_active_filters %}
+    <div class="active-filter-group__item-wrapper-inner">
+
+      {%- for f in collection.filters -%}
+        {% if f.type == 'price_range' and f.min_value.value > 0 or f.max_value.value < f.range_max %}
+          {% assign min = f.min_value.value %}
+          {% assign max = f.max_value.value %}
+          <div class="filter active-filter-item">
+            <span>
+              {{- f.label | escape }}: {{ min | money_without_trailing_zeros }} - {{ max | money_without_trailing_zeros -}}
+            </span>
+            <div
+              class="filter-close"
+              data-render-section-url="{{ f.url_to_remove }}"
+            >
+              <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M1 1.00024L9 9.00024M9 1.00024L1 9.00024" stroke="#545454" stroke-width="0.8" stroke-linecap="round"/>
+              </svg>
+          </div>
+          </div>
+        {% else %}
+          {% for v in f.active_values %}
+            <div class="filter active-filter-item">
+              <span>{{ f.label | escape }}: {{ v.label | escape -}}</span>
+              <div
+                class="filter-close"
+                data-render-section-url="{{ v.url_to_remove }}"
+              >
+                <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10" fill="none">
+                  <path d="M1 1.00024L9 9.00024M9 1.00024L1 9.00024" stroke="#545454" stroke-width="0.8" stroke-linecap="round"/>
+              </svg>
+            </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {%- endfor -%}
+
+        <div class="filter active-filter-item active-filter-clear-all" data-render-section-url="{{ clear_filters_url }}">
+          <span>Clear all</span>
+        </div>
+    </div>
+  {% endif %}
+</div>

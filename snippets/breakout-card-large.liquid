@@ -1,0 +1,139 @@
+{% comment %}
+  Parameters:
+  - card_image_vv: Image for the breakout card
+  - card_image_vv_mobile: Image for the breakout card on mobile
+  - background_color: Background color for the card
+  - content_alignment: Content alignment for the card
+  - title: Card title
+  - is_multi_line_title: Boolean for multi-line title
+  - multi_line_title: Array of title lines
+  - title_color: Color for the title
+  - title_font_family: Font family for the title
+  - title_background_color: Background color for title
+  - title_background_line_height: Line height for title background
+  - content: Card content text
+  - content_color: Color for the content
+  - content_font_family: Font family for the content
+  - button_label: Text for the button
+  - button_color: Color for the button text
+  - button_background: Background color for the button
+  - button_link: Link for the button
+  - button_border_color: Border color for the button
+  - button_font_size_desktop: Font size for the button on desktop
+  - button_font_size_mobile: Font size for the button on mobile
+  - add_link_to_image: Boolean to add link to image
+{% endcomment %}
+
+<style>
+  .style-{{ forloop.index }} .collection__grid-full-width-text {
+        background-color: {{ background_color }};
+        text-align: {{ content_alignment }};
+    }
+
+  .style-{{ forloop.index }} .collection__grid-full-width-text-container h2{
+      font-size: {{ title_font_size_desktop }}px;
+
+      @media (max-width: 767px) {
+        font-size: {{ title_font_size_mobile }}px;
+      }
+    }
+
+  .style-{{ forloop.index }} .collection__grid-full-width-text-container .breakout-card-large-content{
+      font-size: {{ content_font_size_desktop }}px;
+
+      @media (max-width: 767px) {
+        font-size: {{ content_font_size_mobile }}px;
+      }
+  }
+
+  .style-{{ forloop.index }} .collection__grid-full-width-text-container button{
+      font-size: {{ button_font_size_desktop }}px;
+      color: {{ button_color }};
+      background-color: {{ button_background }};
+      border-color: {{ button_border_color }}; 
+
+      @media (max-width: 767px) {
+        font-size: {{ button_font_size_mobile }}px;
+      }
+  }
+
+  .style-{{ forloop.index }} .collection__grid-full-width-text-container button:hover{
+    background-color: #fff;
+    color: #000;
+  }
+
+  .style-{{ forloop.index }} .collection__grid-full-width-text-container h2 span{
+    background-color: {{ title_background_color }};
+  }
+</style>
+
+<div class="collection__grid-full-width-image">
+  {% if add_link_to_image %}
+    <a href="{{ button_link }}">
+      {% if card_image_vv_mobile %}
+        <img class="breakout-card-image-mobile" src="{{ card_image_vv_mobile | img_url: 'master' }}" width="100%" height="100%">
+        <img class="breakout-card-image-desktop" src="{{ card_image_vv | img_url: 'master' }}" width="100%" height="100%">
+      {% else %}
+        <img src="{{ card_image_vv | img_url: 'master' }}" width="100%" height="100%">
+      {% endif %}
+    </a>
+  {% else %}
+    {% if card_image_vv_mobile %}
+      <img class="breakout-card-image-mobile" src="{{ card_image_vv_mobile | img_url: 'master' }}" width="100%" height="100%">
+      <img class="breakout-card-image-desktop" src="{{ card_image_vv | img_url: 'master' }}" width="100%" height="100%">
+    {% else %}
+      <img src="{{ card_image_vv | img_url: 'master' }}" width="100%" height="100%">
+    {% endif %}
+  {% endif %}
+</div>
+<div class="collection__grid-full-width-text">
+  <div class="collection__grid-full-width-text-container">
+    {% capture font_family %}
+      {% if title_font_family == 'Geogrotesque' %}
+        GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif
+      {% elsif title_font_family == 'Base Mono' %}
+        BaseMonoWideWeb, Courier, Courier New, sans-serif
+      {% elsif title_font_family == 'Canela' %}
+        Canela, Arial, sans-serif
+      {% elsif title_font_family == 'ArticulatCF' %}
+        ArticulatCF, Arial, sans-serif
+      {% else %}
+        RingsideWideWeb, Helvetica, Arial, sans-serif
+      {% endif %}
+    {% endcapture %}
+
+    {% if is_multi_line_title %}
+      <h2 class="multi-line-title {% if title_background_color == 'transparent' or title_background_color == blank %}no-background{% endif %}" style="color: {{ title_color }}; font-family: {{ font_family | strip }}">
+        {% for line in multi_line_title %}
+          <span>{{ line }}</span>
+        {% endfor %}
+      </h2>
+    {% else %}
+      <h2 class="{% if title_background_color == 'transparent' or title_background_color == blank %}no-background{% endif %}" style="color: {{ title_color }}; background-color: {{ title_background_color }}; font-family: {{ font_family | strip }}">{{ title }}</h2>
+    {% endif %}
+
+    <div class="breakout-card-large-content"
+      style="
+        color: {{ content_color }};
+        {% if content_font_family == 'Geogrotesque' %}
+          font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif;
+        {% elsif content_font_family == 'Base Mono' %}
+          font-family: BaseMonoWideWeb, Courier, Courier New, sans-serif;
+        {% elsif content_font_family == 'Canela' %}
+          font-family: Canela, Arial, sans-serif;
+        {% elsif content_font_family == 'ArticulatCF' %}
+          font-family: ArticulatCF, Arial, sans-serif;
+        {% elsif content_font_family == 'Copyright' %}
+          font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+        {% endif %};
+      "
+    >
+      {{ content }}
+    </div>
+    <a href="{{ button_link }}">
+      <button style="{% if button_link %}cursor: pointer;{% endif %}">
+        {{ button_label }}
+      </button>
+    </a>
+  </div>
+</div>

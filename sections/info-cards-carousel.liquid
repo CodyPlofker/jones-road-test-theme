@@ -1,0 +1,123 @@
+{%- assign config = section.settings -%}
+{%- assign cards = section.blocks | map: 'settings' -%}
+
+<div 
+  id="info-cards-carousel-{{ section.id }}"
+  class="infocards__carousel js-infoCards"
+  data-component="infoCardsCarousel"
+>
+  <div class="infocards__carousel-inner">
+    {%- if config.heading != blank -%}
+      <h2 class="infocards__carousel-heading">
+        <span>{{ config.heading }}</span>
+      </h2>
+    {%- endif -%}
+    <button 
+      type="button"
+      class="infocards__carousel-nav prev js-infoCardsNav"
+      aria-label="Previous Slide"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" viewBox="0 0 14 23" fill="none">
+        <path d="M13 1L2 11.5L13 22" stroke="#4D4D4D" stroke-width="2"/>
+      </svg>
+    </button>
+    <div class="infocards__carousel-carousel swiper-container js-infoCardsCarousel"> 
+      <div class="swiper-wrapper">
+        {%- for card in cards -%}
+          <div class="swiper-slide js-infoCardsSlide">
+            <div class="infocards__carousel-card">
+              <div class="infocards__carousel-card--image">
+                {%- if card.image != blank -%}
+                  {{ card.image | image_url: width: 1000 | image_tag: sizes: '50vw, (min-width: 1024px) 400px', loading: 'lazy' }}
+                {%- endif -%}
+              </div>
+              <div class="infocards__carousel-card--info">
+                {%- if card.heading != blank -%}
+                  <h3 class="infocards__carousel-card--heading">
+                    {{ card.heading }}
+                  </h3>
+                {%- endif -%}
+                {%- if card.description != blank -%}
+                  <div class="infocards__carousel-card--description text-underline">
+                    {{ card.description }}
+                  </div>
+                {%- endif -%}
+                {%- if card.cta_text != blank -%}
+                  <a class="infocards__carousel-card--cta button" href="{{ card.cta_link }}">
+                    {{ card.cta_text }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <button 
+      type="button"
+      class="infocards__carousel-nav next js-infoCardsNav"
+      aria-label="Next Slide"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="15" height="25" viewBox="0 0 15 25" fill="none">
+        <path d="M1 1L13 12.5L1 24" stroke="#4D4D4D" stroke-width="2"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Info Cards Carousel",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "card",
+        "name": "Card",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "info": "Create headings by making the font bold."
+          },
+          {
+            "type": "text",
+            "id": "cta_text",
+            "label": "CTA Text"
+          },
+          {
+            "type": "url",
+            "id": "cta_link",
+            "label": "CTA Link"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Info Cards Carousel" }]
+  }
+{%- endschema -%}

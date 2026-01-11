@@ -1,0 +1,84 @@
+{%- assign pseudoRandom = "now" | date: "%N" -%}
+{%- if tipHeading == blank -%}
+{%- assign tipHeading = "Bobbi's Tip" -%}
+{%- endif -%}
+<div class="tip js-tip" id="bobbis-tip">
+  <div class="tip__half">
+    {%- if image != blank -%}
+    <picture>
+      <source media="(min-width: 1601px)"
+              srcset="{{ image | img_url: '1920x1152', scale: 1, crop: 'center' }} 1x,
+                      {{ image | img_url: '1920x1152', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1281px) and (max-width: 1600px)"
+              srcset="{{ image | img_url: '1600x960', scale: 1, crop: 'center' }} 1x,
+                      {{ image | img_url: '1600x960', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1024px) and (max-width: 1280px)"
+              srcset="{{ image | img_url: '1280x768', scale: 1, crop: 'center' }} 1x,
+                    {{ image | img_url: '1280x768', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 701px) and (max-width: 1023px)"
+              srcset="{{ image | img_url: '1023x877', scale: 2, crop: 'center' }}" />
+      <source media="(min-width: 376px) and (max-width: 700px)"
+              srcset="{{ image | img_url: '700x1050', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 375px)"
+              srcset="{{ image | img_url: '375x562', scale: 2, crop: 'center' }}" />
+      <img class="is-loading" src="{{ image | img_url: '375x562', scale: 2, crop: 'center' }}" alt="{{ imageAlt }}" />
+    </picture>
+    {%- endif -%}
+
+    {%- if video.id != blank -%}
+    <div class="tip__video{% if videoRatio == 'portrait' %} tip__video--portrait{% endif %}">
+    {%- if video.type == 'vimeo' -%}
+      <iframe src="https://player.vimeo.com/video/{{ video.id }}?color=ffffff&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    {%- elsif video.type == 'youtube' -%}
+      <iframe src="https://www.youtube.com/embed/{{ video.id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {%- endif -%}
+    </div>
+    {%- endif -%}
+  </div>
+  <div class="tip__half">
+    <div class="tip__content">
+      <div class="tip__heading">{{ tipHeading }}</div>
+      <div class="tip__text text-underline">{{ tipText }}</div>
+      {%- if pairWith.size > 0 -%}
+      <div class="tip__pair">
+        <span>Pair with:</span>
+        <ul>
+          {% for rawHandle in pairWith %}
+          {%- assign pairHandle = rawHandle | strip -%}
+          {%- assign relatedProduct = all_products[pairHandle] -%}
+          {% unless relatedProduct == blank %}
+          <li><a href="{{ relatedProduct.url | append: '?country=' | append: localization.country.iso_code }}">{{ relatedProduct.title }}{% unless forloop.last %}, {% endunless %}</a></li>
+          {% endunless %}
+          {% endfor %}
+        </ul>
+      </div>
+      {%- endif -%}
+      {%- if howToUse.size > 0 -%}
+      <div class="tip__how">
+        <div class="tip__heading">How to use</div>
+        <div class="tip__how__steps" role="list">
+          {%- for item in howToUse -%}
+            {%- if forloop.index < 3 -%}
+              <div class="tip__how__step-item" role="listitem">{{ item }}</div>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if howToUse.size > 2 -%}
+            <div class="tip__how__steps__toggleable" id="tipToggle{{ pseudoRandom }}">
+              <div>
+                {%- for item in howToUse -%}
+                {%- if forloop.index > 2 -%}
+                  <div class="tip__how__step-item" role="listitem">{{ item }}</div>
+                {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+        {%- if howToUse.size > 2 -%}
+        <button class="tip__how__more js-toggleHeightTip" data-controls="tipToggle{{ pseudoRandom }}">Continue Reading</button>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,110 @@
+{%- assign config = section.settings -%}
+
+<div 
+  class="bobbis-note--inner"
+  style="
+    background: {{ config.background }};
+    color: {{ config.color }};
+  "
+>
+  <div class="bobbis-note--content">
+    {%- if config.heading != blank -%}
+      <h2 class="bobbis-note--heading">
+        {{ config.heading }}
+      </h2>
+    {%- endif -%}
+    {%- if config.description != blank -%}
+      <div class="bobbis-note--description text-underline">
+        {{ config.description }}
+      </div>
+    {%- endif -%}
+    {%- if config.signature != blank -%}
+      <figure class="bobbis-note--signature">
+        {%- render 'component_image', 
+          image: config.signature,
+          width: 200,
+          widths: '100, 200',
+          sizes: '100px'
+        -%}
+      </figure>
+    {%- endif -%}
+  </div>
+  <div class="bobbis-note--image">
+    <figure>
+      {%- render 'component_image', 
+        image: config.image,
+        width: 1500,
+        widths: '550, 750, 1100, 1500',
+        sizes: '40vw'
+      -%}
+    </figure>
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Bobbi's Note",
+    "tag": "section",
+    "class": "bobbis-note",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Colors"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#464343"
+      },
+      {
+        "type": "color",
+        "id": "color",
+        "label": "Text",
+        "default": "#ffffff"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "A note from our Founder"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type": "header",
+        "content": "Images"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "signature",
+        "label": "Signature"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Bobbi's Note",
+        "settings": {
+          "background": "#464343",
+          "color": "#ffffff",
+          "heading": "A note from our Founder",
+          "description": "<p>When I launched Jones Road, I had one main goal in mind—to give everyone the tools they need to look and feel like their best, most authentic selves. Over the years, we’ve created a wide range of products that are moisturizing, easy to use, and keep skin looking like natural skin. And now, I’m excited to introduce our 2024 Holiday Collection, where the no-makeup makeup ethos meets a touch of festive shimmer. Whether you’re going for a subtle glow or a fully made-up look, this collection has versatile options for any occasion.</p>",
+          "image": "shopify:\/\/shop_images\/jr-holiday-note.png",
+          "signature": "shopify:\/\/shop_images\/jr-holiday-note-signature.png"
+        }
+      }
+    ]
+  }
+{%- endschema -%}

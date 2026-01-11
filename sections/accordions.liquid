@@ -1,0 +1,96 @@
+{%- assign config = section.settings -%}
+
+<div id="{{ config.section_id }}" class="accordion-section" data-component="accordionSection" style="background: {{ config.background }};">
+  {%- if config.heading != blank -%}
+    <h2 class="accordion-section__heading">{{ config.heading }}</h2>
+  {%- endif -%}
+  <div class="accordion-section__accordions js-accordion">
+    {%- for block in section.blocks -%}
+      {%- assign index = section.id | append: '-' | append: forloop.index -%}
+      <div {{ block.shopify_attributes }}>
+        {%- if forloop.first -%}
+          {%- include 'product-accordion' with heading: block.settings.heading, content: block.settings.content, expanded: true, index -%}
+        {%- else -%}
+          {%- include 'product-accordion' with heading: block.settings.heading, content: block.settings.content, expanded: false, index -%}
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+  {%- if config.cta_text != blank -%}
+    {%- assign is_permalink = false -%}
+    {%- if config.cta_link contains '#' -%}
+      {%- assign is_permalink = true -%}
+    {%- endif -%}
+    <a href="{{ config.cta_link }}" class="accordion-section__button button {% if is_permalink %} js-smoothScroll {% endif %}">
+      {{ config.cta_text }}
+    </a>
+  {%- endif -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Accordions",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "accordions"
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link",
+        "info": "To create a permalink to another section, enter # followed by the ID of the section you want to link to, eg: #product-grid"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "accordion",
+        "name": "Accordion",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading"
+          },
+          {
+            "type": "richtext",
+            "id": "content",
+            "label": "Content"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Accordions" }]
+  }
+{% endschema %}

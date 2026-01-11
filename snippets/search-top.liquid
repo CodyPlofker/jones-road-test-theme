@@ -1,0 +1,22 @@
+{%- capture topSearches -%}
+  {%- for index in (1..3) -%}
+    {%- assign settingsKey = 'top_search_' | append: index -%}
+    {%- assign topHandle = settings[settingsKey] -%}
+    {%- assign topProduct = all_products[topHandle] -%}
+    {%- unless topProduct == blank -%}
+      <li>
+        <a href="{{ topProduct.url | append: '?country=' | append: localization.country.iso_code }}">
+          <img src="{{ topProduct.featured_image.src | img_url: '67x87', scale: 2, crop: 'center' }}" alt="{{ topProduct.featured_image.alt }}" loading="lazy" >
+          <b>{{ topProduct.title }}</b>
+        </a>
+      </li>
+    {%- endunless -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- unless topSearches == blank -%}
+  <div class="search__for__heading">Top searches:</div>
+  <ul class="search__for__list">
+    {{ topSearches }}
+  </ul>
+{%- endunless -%}

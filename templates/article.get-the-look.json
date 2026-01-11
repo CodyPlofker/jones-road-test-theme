@@ -1,0 +1,83 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "LIP_AND_CHEEK_SWATCH_STORY_3.mp4",
+            "heading": "#1: Prep the Skin",
+            "description": "<p>Start by applying moisturizer and Eye Cream. Touch up any redness and darkness under the eyes using your go-to Face Pencil shades. Keep in mind that you might need to adjust your shades in the summer if you tan easily.<\/p>",
+            "product_1": "eye-cream",
+            "variant_1": "FGEC10334",
+            "product_2": "the-face-pencil",
+            "variant_2": "FGFP12389"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "JR_063021_1_2678_1.png",
+            "heading": "#2: Smoke it Out",
+            "description": "<p>Apply The Best Eyeshadow in Peachy Nude across lids using the Eye Fluffy Brush. Continue to build color and intensity using the Eye Detail Brush. You can extend slightly beyond the crease towards the brow bone and outer corner of the eyes.<\/p>",
+            "product_1": "the-best-eyeshadow",
+            "variant_1": "FGES06508",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "Mascara_098_1.png",
+            "heading": "#3: Define",
+            "description": "<p>Whenever you’re using a peach- or pink-toned shade, adding definition around the eyes is key. Fill in any sparse areas of the brows using The Brow Pencil (Mollye wears Light Brunette) and finish with a few coats of The Mascara in Black.<\/p>",
+            "product_1": "the-mascara",
+            "variant_1": "FGMA02051",
+            "product_2": "the-brow-pencil",
+            "variant_2": "FGBP23225"
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "JR_030922_1791_copy_1.png",
+            "heading": "#4: Subtle Shine",
+            "description": "<p>When it comes to the lips, keep it monochromatic by applying a little bit of the same Peachy Nude shadow to lips using your finger. Add Miracle Balm in Au Naturel on top for hydration.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01044",
+            "product_2": "",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/PeachyNude_GTL_1.png",
+        "heading": "About the Look",
+        "description": "<p>Give the classic smokey eye an update for the summer with a sunset-inspired shade of peach. The key to a good smokey eye is to keep the rest of your look simple, with a focus on beautiful skin.<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(6-8 products)",
+        "bullets": "<p><a href=\"\/products\/eye-cream\" target=\"_blank\" title=\"Eye Cream\">Eye Cream<\/a><\/p><p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">Face Pencil<\/a><\/p><p><a href=\"\/products\/the-best-eyeshadow\" target=\"_blank\" title=\"The Best Eyeshadow\">Best Eyeshadow<\/a><\/p><p><a href=\"\/products\/eye-fluffy-brush\" target=\"_blank\" title=\"Eye Fluffy Brush\">Eye Fluffy Brush<\/a><\/p><p><a href=\"\/products\/eye-blending-brush\" target=\"_blank\" title=\"Eye Blending Brush\">Eye Blending Brush<\/a><\/p><p><a href=\"\/products\/the-mascara\" title=\"The Mascara\">The Mascara<\/a><\/p><p><a href=\"\/products\/the-brow-pencil\" target=\"_blank\" title=\"The Brow Pencil\">Brow Pencil<\/a><\/p><p><a href=\"\/products\/miracle-balm\" target=\"_blank\" title=\"Miracle Balm\">Miracle Balm<\/a><\/p>"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

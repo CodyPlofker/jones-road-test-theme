@@ -1,0 +1,86 @@
+{%- for tag in product.tags -%}
+  {%- if tag contains 'findation' -%}
+    {%- assign hasFindation = true -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- capture description -%}
+  <p>{{ product.description | split: '<p>' | last }}
+{%- endcapture -%}
+
+{% unless product.has_only_default_variant %}
+  {%- capture swatchList -%}
+    {%- include 'swatch-selector',
+      modifier: 'list',
+      product: product,
+      swatches: swatches,
+    -%}
+  {%- endcapture -%}
+{%- endunless -%}
+
+<div class="product-info__description product-info__description--{{ modifier }} {% if isBundle %} template-bundle {% endif %}">
+  <h1 class="product-info__title"><b>{{ product.title }}</b>{% unless product.has_only_default_variant %} {{ product.selected_or_first_available_variant.option2 }}{% endunless %}</h1>
+  {%- assign weight = 0 -%}
+  {%- for tag in product.tags -%}
+    {%- if tag contains 'weight_' -%}
+      {%- assign weight = tag | split: '_' | last | times: 1 -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {% if weight > 0 %}<div class="product-info__weight">({{ weight }} g / {{ weight | times: 0.035274 | round: 2 }} oz)</div>{% endif %}
+  {%- include 'review-stars' with class: 'product-info__stars' -%}
+  
+  {% if modifier == "mobile" %}
+    {%- if hasFindation -%}
+      <div class="product-info__shade">
+        <a class="button button--mid button--hover" href="{{ settings.shade_form_link }}" data-no-history="1">Find My Shade</a>
+        {%- if settings.enable_need_help_link -%}
+        <a class="button button--mid button--outline" href="{{ settings.need_help_link }}" data-no-history="1">Need Help?</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {% if swatchList != blank %}{{ swatchList }}{% endif %}
+    {% unless isBundle %}
+      {% include "purchase-bar",
+        modifier: "static",
+        product: product,
+        subtitle: subtitle,
+      %}
+    {% endunless %}
+  {%- endif -%}
+
+  {% if description != blank %}
+    <div class="product-info__copy">{{ description }}</div>
+  {% endif%}
+
+  <div class="product-info__tip-link js-tipLink"></div>
+  {% if modifier == "desktop" %}
+    {%- if hasFindation -%}
+    <div class="product-info__shade">
+      <a class="button button--mid button--hover {% if settings.enable_need_help_link == false %} button--wide {% endif %}" href="{{ settings.shade_form_link }}" data-no-history="1">Find My Shade</a>
+      {%- if settings.enable_need_help_link -%}
+      <a class="button button--mid button--outline" href="{{ settings.need_help_link }}" data-no-history="1">Need Help?</a>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+    {% if swatchList != blank %}{{ swatchList }}{% endif %}
+  {% endif %}
+
+  {% if bundles and bundles.size > 0 %}
+    {% assign bundle = '' %}
+    {% assign discount = 'lus' %}
+    {% assign discount_val = 15 %}
+    {% assign cap = 0 %}
+    
+    {% for block in bundles %}
+      {% if block.settings.bundle == product.handle %}
+        {% assign discount = block.settings.discount | split: '/' | last %}
+        {% assign discount_val = block.settings.discount | split: '/' | first %}
+        {% assign bundle = block %}
+      {% endif %}
+    {% endfor %}
+    
+    {% include 'product-bundle-selectors' with bundle, discount, discount_val, cap %}
+  {% endif %}
+</div>
+
+

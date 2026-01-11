@@ -1,0 +1,126 @@
+<div aria-hidden="true" aria-label="{{ link.title }} submenu" class="header-megamenu-menu-mobile">
+  <div class="header-megamenu-menu-inner-mobile">
+    <div class="header-megamenu-menu-mobile-back-heading js-headerSubNavMobileBacktrigger">
+      <span>
+        {{ 'icon_chevron_back.svg' | inline_asset_content }}
+        Back
+      </span>
+    </div>
+    <div class="header-megamenu-menu-mobile-content">
+      <div class="header-megamenu-menu-mobile-content-heading">
+        <a href="{{ link.url }}">
+          <span>{{ link.title }}</span>
+        </a>
+      </div>
+      <div class="header-megamenu-menu-mobile-content-inner">
+        <div class="header-megamenu-menu-mobile-content-grid-block">
+          {% assign collection_handle = link.title | handleize %}
+          {% assign item_collection = collections[collection_handle] %}
+          {% assign products = item_collection.products %}
+          <ul class="header-megamenu-menu-mobile-image-block-v1">
+            {% for item in products limit: 4 %}
+              <li>
+                <a href="{{ item.url }}">
+                  <div class="header-megamenu-menu-nav-blocks-item-image">
+                    <img src="{{ item.featured_image | image_url: width: auto }}" alt="{{ item.title }}" width="" height="" loading="lazy">
+                  </div>
+                  <div class="header-megamenu-menu-nav-blocks-item-content">
+                    <div class="header-megamenu-menu-nav-blocks-item-content-title">
+                      {{ item.title }}
+                    </div>
+                    {%- assign hasFlag = false -%}
+                    {%- for flag in item.tags -%}
+                      {%- if flag contains 'flag_' -%}
+                        {%- assign hasFlag = true -%}
+                        {%- assign flag = flag | split: 'flag_' | last -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {% if hasFlag %}
+                      <div class="header-megamenu-menu-nav-blocks-item-content-tag">
+                        {{ flag }}
+                      </div>
+                    {% endif %}
+                    <div class="header-megamenu-menu-nav-blocks-item-content-review">
+                      <span class="junip-product-summary" data-product-id="{{item.id}}"></span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+          <div class="header-megamenu-menu-mobile-image-block">
+            <div class="swiper-container js-headerMegamenuMobileImageBlockCarousel">
+              <button class="swiper-arrow swiper-button-prev" type="button">
+                {{ 'slider_arrow.svg' | inline_asset_content }}
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="swiper-arrow swiper-button-next" type="button">
+                {{ 'slider_arrow.svg' | inline_asset_content }}
+                <span class="visually-hidden">Next</span>
+              </button>
+              <div class="swiper-wrapper">
+                {% for item in products limit: 3 %}
+                  <div class="swiper-slide">
+                    <div class="header-megamenu-menu-mobile-image-block-item">
+                      <a href="{{ item.url }}">
+                        <div class="header-megamenu-menu-nav-blocks-item-image">
+                          <img src="{{ item.featured_image | image_url: width: auto }}" alt="{{ item.title }}" width="" height="" loading="lazy">
+                        </div>
+                        <div class="header-megamenu-menu-nav-blocks-item-content">
+                          <div class="header-megamenu-menu-nav-blocks-item-content-title">
+                            {{ item.title }}
+                          </div>
+                          {%- assign hasFlag = false -%}
+                          {%- for flag in item.tags -%}
+                            {%- if flag contains 'flag_' -%}
+                              {%- assign hasFlag = true -%}
+                              {%- assign flag = flag | split: 'flag_' | last -%}
+                            {%- endif -%}
+                          {%- endfor -%}
+                          {% if hasFlag %}
+                            <div class="header-megamenu-menu-nav-blocks-item-content-tag">
+                              {{ flag }}
+                            </div>
+                          {% endif %}
+                          <div class="header-megamenu-menu-nav-blocks-item-content-review">
+                            <span class="junip-product-summary" data-product-id="{{item.id}}"></span>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-megamenu-menu-mobile-content-nav-list">
+          <ul class="header-megamenu-menu-mobile-content-nav-list-v1">
+            {% for item in products offset: 4 limit: 6 %}
+              <li>
+                <a href="{{ item.url }}">
+                  {{ item.title }}
+                </a>
+              </li>
+            {% endfor %}
+            <li class="shop-all-list">
+              <a href="{{ link.url }}"> Shop all {{ link.title }} </a>
+            </li>
+          </ul>
+          <ul class="header-megamenu-menu-mobile-content-nav-list-default">
+            {% for item in products offset: 3 limit: 6 %}
+              <li>
+                <a href="{{ item.url }}">
+                  {{ item.title }}
+                </a>
+              </li>
+            {% endfor %}
+            <li class="shop-all-list">
+              <a href="{{ link.url }}"> Shop all {{ link.title }} </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

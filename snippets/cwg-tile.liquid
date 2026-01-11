@@ -1,0 +1,74 @@
+{%- assign tileImage = product.image.src -%}
+{%- assign tileImageAlt = product.image.alt -%}
+{%- if image != blank -%}
+{%- assign tileImage = image -%}
+{%- assign tileImageAlt = imageAlt -%}
+{%- endif -%}
+<div class="cwg__tile{% if isWide %} cwg__tile--wide{% endif %}" {{ block.shopify_attributes }}>
+  <a class="cwg__tile__content" href="{{ product.url }}" title="{{ product.title }} {{ product.price }}">
+    {% if gridType == '1x1' %}
+    <picture>
+      <source media="(min-width: 1601px)"
+        srcset="{{ tileImage | img_url: '960x1200', scale: 1, crop: 'center' }} 1x,
+                {{ tileImage | img_url: '960x1200', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1281px) and (max-width: 1600px)"
+        srcset="{{ tileImage | img_url: '800x1000', scale: 1, crop: 'center' }} 1x,
+                {{ tileImage | img_url: '800x1000', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1024px) and (max-width: 1280px)"
+        srcset="{{ tileImage | img_url: '640x800', scale: 1, crop: 'center' }} 1x,
+              {{ tileImage | img_url: '640x800', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 701px) and (max-width: 1023px)"
+        srcset="{{ tileImage | img_url: '512x639', scale: 2, crop: 'center' }}" />
+      <source media="(min-width: 376px) and (max-width: 700px)"
+        srcset="{{ tileImage | img_url: '700x875', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 375px)"
+        srcset="{{ tileImage | img_url: '375x469', scale: 2, crop: 'center' }}" />
+      <img class="is-loading" src="{{ tileImage | img_url: '375x469', scale: 2, crop: 'center' }}" alt="{{ tileImageAlt }}" />
+    </picture>
+    {% elsif isWide and gridType == '3x3' %}
+    <picture>
+      <source media="(min-width: 1601px)"
+        srcset="{{ tileImage | img_url: '640x427', scale: 1, crop: 'center' }} 1x,
+                {{ tileImage | img_url: '640x427', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1281px) and (max-width: 1600px)"
+        srcset="{{ tileImage | img_url: '533x356', scale: 1, crop: 'center' }} 1x,
+                {{ tileImage | img_url: '533x356', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1024px) and (max-width: 1280px)"
+        srcset="{{ tileImage | img_url: '427x284', scale: 1, crop: 'center' }} 1x,
+              {{ tileImage | img_url: '427x284', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 701px) and (max-width: 1023px)"
+        srcset="{{ tileImage | img_url: '341x227', scale: 2, crop: 'center' }}" />
+      <source media="(min-width: 376px) and (max-width: 700px)"
+        srcset="{{ tileImage | img_url: '467x311', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 375px)"
+        srcset="{{ tileImage | img_url: '250x167', scale: 2, crop: 'center' }}" />
+      <img class="is-loading" src="{{ tileImage | img_url: '250x167', scale: 2, crop: 'center' }}" alt="{{ tileImageAlt }}" />
+    </picture>
+    {% elsif gridType == '3x3' %}
+    <picture>
+      <source media="(min-width: 1601px)"
+        srcset="{{ tileImage | img_url: '320x427', scale: 1, crop: 'center' }} 1x,
+                {{ tileImage | img_url: '320x427', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1281px) and (max-width: 1600px)"
+        srcset="{{ tileImage | img_url: '267x356', scale: 1, crop: 'center' }} 1x,
+                {{ tileImage | img_url: '267x356', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1024px) and (max-width: 1280px)"
+        srcset="{{ tileImage | img_url: '213x284', scale: 1, crop: 'center' }} 1x,
+              {{ tileImage | img_url: '213x284', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 701px) and (max-width: 1023px)"
+        srcset="{{ tileImage | img_url: '170x227', scale: 2, crop: 'center' }}" />
+      <source media="(min-width: 376px) and (max-width: 700px)"
+        srcset="{{ tileImage | img_url: '233x311', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 375px)"
+        srcset="{{ tileImage | img_url: '125x167', scale: 2, crop: 'center' }}" />
+      <img class="is-loading" src="{{ tileImage | img_url: '125x167', scale: 2, crop: 'center' }}" alt="{{ tileImageAlt }}" />
+    </picture>
+    {% else %}
+    <img class="is-loading" src="{{ tileImage | img_url }}" alt="{{ tileImageAlt }}" />
+    {% endif %}
+    <div class="cwg__tile__caption">
+      <div class="cwg__tile__name">{{ product.title }}</div>
+      <div class="cwg__tile__price">{{ product.price }}</div>
+    </div>
+  </a>
+</div>

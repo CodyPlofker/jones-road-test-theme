@@ -1,0 +1,91 @@
+{%- assign config = section.settings -%}
+{%- assign links = section.blocks | map: 'settings' -%}
+
+<div class="landing-footer" data-component="landingFooter" data-show="{{ config.show_footer }}" style="background: {{ config.background }};">
+  {%- if config.description != blank -%}
+    <div class="landing-footer__description text-underline">
+      {{ config.description }}
+    </div>
+  {%- endif -%}
+  {%- if links.size > 0 -%}
+    <ul class="landing-footer__links">
+      {%- for link in links -%}
+        {%- assign is_permalink = false -%}
+        {%- if link.url contains '#' -%}
+          {%- assign is_permalink = true -%}
+        {%- endif -%}
+        <li><a href="{{ link.url }}" class="{% if is_permalink %} js-smoothScroll {% endif %}">{{ link.text }}</a></li>
+        {%- unless forloop.last -%}
+          <li>|</li>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+</div>
+
+<style>
+  footer.footer { 
+    display: none;
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Landing Footer",
+    "tag": "footer",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_footer",
+        "label": "Show Footer",
+        "default": true,
+        "info": "Uncheck this box to completely remove the footer from the page."
+      },
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background",
+        "default": "#F6F2EB"
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "info": "Displays above the links."
+      }
+    ],
+    "blocks": [
+      {
+        "type": "link",
+        "name": "Link",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "CTA Link",
+            "info": "To create a permalink to another section, enter # followed by the ID of the section you want to link to, eg: #product-grid"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Landing Footer" }],
+    "templates": ["page"]
+  }
+{% endschema %}

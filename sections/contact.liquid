@@ -1,0 +1,16 @@
+{% schema %}
+  {
+    "name": "Contact Page",
+    "settings": [
+      {
+        "id": "intro",
+        "label": "Intro",
+        "type": "richtext"
+      }
+    ]
+  }
+{% endschema %}
+{% include 'contact-page',
+  intro: section.settings.intro,
+  content: page.content,
+  title: page.title %}

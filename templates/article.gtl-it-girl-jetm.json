@@ -1,0 +1,84 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "richeyecream_4.jpg",
+            "heading": "#1: Skincare",
+            "description": "<p>Just Enough Tinted Moisturizer features a hydrating formula, but adding extra moisture where you need it is always a good idea. Start by applying a small dab of Rich Eye Cream to your under eyes. <\/p><p>Pro Tip: This will also help your under-eye makeup glide on smoothly later.<\/p>",
+            "product_1": "rich-eye-cream",
+            "variant_1": "FGRC55414",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "JETM_light_1.jpg",
+            "heading": "#2: Complexion",
+            "description": "<p>Then apply <a href=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\">Just Enough Tinted Moisturizer <\/a>to your face and neck — blend it in to enhance your skin and lightly conceal redness. Use The Neutralizer Pencil to cancel out any darkness under your eyes, and layer with The Face Pencil on top, dotting a little more wherever you’d like some extra coverage.<\/p><p> Pro Tip: We recommend going with a lighter shade of The Face Pencil for your under eyes to brighten.<\/p>",
+            "product_1": "the-face-pencil",
+            "variant_1": "",
+            "product_2": "the-neutralizer-pencil",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "MB_dustyrose_2.jpg",
+            "heading": "#3: Face",
+            "description": "<p>Enhance your complexion with warmth and a subtle, healthy glow — sweep The Bronzer in Dusty Rose along the high points of your face, then dab Miracle Balm in Dusty Rose onto your cheeks. For a polished finish, dust Tinted Face Powder in Untinted lightly across your face. <\/p><p>Pro Tip: Tinted Face Powder will also help set your makeup, making it ideal for day-to-night looks.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "",
+            "product_2": "the-bronzer",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "lippencil_ruby_2_resized.jpg",
+            "heading": "#4: Eyes & Lips",
+            "description": "<p>Lastly, define and bring out your eyes by lining with The Best Pencil in Brown and applying a few coats of The Mascara. Want to turn the look up for your post-sunset plans? Add a bold lip with The Lip Pencil in Ruby. <\/p><p>Pro Tip: Make the look your own with extra shine or pigment by layering one of our other lip products on top.<\/p>",
+            "product_1": "the-best-pencil",
+            "variant_1": "",
+            "product_2": "the-lip-pencil",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/GTL_ItGirl.jpg",
+        "heading": "Just Enough for Day to Night",
+        "description": "<p>Light enough for brunch yet polished enough for a night out, this skin-forward look enhances your natural features while still feeling authentic to you. Use the NEW <a href=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\"><span style=\"text-decoration:underline\">Just Enough Tinted Moisturizer<\/span><\/a> for a quick and easy boost of confidence that never feels overdone — in seconds you’ll have the right amount of tint and coverage for wherever the day takes you. <\/p><p>To get Isabel’s day-to-night look, follow these four simple steps.<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "",
+        "bullets": "<p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\">Just Enough Tinted Moisturizer<\/a><\/p><p><a href=\"\/products\/rich-eye-cream\" target=\"_blank\" title=\"Rich Eye Cream\">Rich Eye Cream<\/a><\/p><p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\"><span style=\"text-decoration:underline\">The Face Pencil<\/span><\/a><\/p><p><a href=\"\/products\/the-neutralizer-pencil\" target=\"_blank\" title=\"The Neutralizer Pencil\"><span style=\"text-decoration:underline\">The Neutralizer Pencil<\/span><\/a><\/p><p><a href=\"\/products\/the-bronzer\" title=\"The Bronzer\"><span style=\"text-decoration:underline\">The Bronzer<\/span><\/a><\/p><p><a href=\"\/products\/miracle-balm\" target=\"_blank\" title=\"Miracle Balm\"><span style=\"text-decoration:underline\">Miracle Balm<\/span><\/a><\/p><p><a href=\"\/products\/tinted-face-powder\" target=\"_blank\" title=\"Tinted Face Powder\"><span style=\"text-decoration:underline\">Tinted Face Powder <\/span><\/a><\/p><p><a href=\"\/products\/the-best-pencil\" target=\"_blank\" title=\"The Best Pencil\"><span style=\"text-decoration:underline\">The Best Pencil<\/span><\/a><\/p><p><a href=\"\/products\/the-mascara\" target=\"_blank\" title=\"The Mascara\"><span style=\"text-decoration:underline\">The Mascara<\/span><\/a><\/p><p><a href=\"\/products\/the-lip-pencil\" target=\"_blank\" title=\"The Lip Pencil\"><span style=\"text-decoration:underline\">The Lip Pencil <\/span><\/a><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

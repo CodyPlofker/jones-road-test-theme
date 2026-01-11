@@ -1,0 +1,76 @@
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "E18D1720-7EEA-4E5C-B263-A8135767C045.jpg",
+            "heading": "#1: Prep the Skin",
+            "description": "<p>Start by applying a small amount of Light Moisture Cream all over the face. Add more if needed. Use a touch of Eye Cream under the eyes to prep for The Face Pencil.<\/p>",
+            "product_1": "light-moisture-cream",
+            "variant_1": "FGLM22195",
+            "product_2": "eye-cream",
+            "variant_2": "FGEC10334"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "60EE2EA8-81D2-48EF-AF9C-24EB57E50884.jpg",
+            "heading": "#2: Conceal and Correct",
+            "description": "<p>Use The Face Pencil to cover redness and dark spots, correct discoloration, and lighten dark circles. Use Tinted Face Powder to further color correct where needed, and minimize shine.<\/p>",
+            "product_1": "the-face-pencil",
+            "variant_1": "FGFP12396",
+            "product_2": "tinted-face-powder",
+            "variant_2": "FGTP28291"
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "5E758347-4CD8-4BB0-9C0B-FC7FECE6D56D.jpg",
+            "heading": "#3: Add Warmth To The Skin",
+            "description": "<p>Apply The Bronzer to places where the sun naturally touches the face—like the forehead, cheeks, and bridge of the nose—using the Bronzer Brush. Also works perfectly on the neck to seamlessly blend the face to the body.<\/p>",
+            "product_1": "the-bronzer",
+            "variant_1": "FGBR29796",
+            "product_2": "the-bronzer-brush",
+            "variant_2": "FGMD17864"
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "JR_030922_1791_copy_1.png",
+            "heading": "#4: Subtle Shine",
+            "description": "<p>When it comes to the lips, keep it monochromatic by applying a little bit of the same Peachy Nude shadow to lips using your finger. Add Miracle Balm in Au Naturel on top for hydration.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01044",
+            "product_2": "",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/AdelinaGetTheLook.png",
+        "heading": "About the Look",
+        "description": "<p>This is our take on a simple, matte look, focusing on flawless complexion and adding warmth to the skin.<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(5 products)",
+        "bullets": "<p>Light Moisture Cream<\/p><p>Eye Cream<\/p><p>The Face Pencil<\/p><p>Tinted Face Powder<\/p><p>The Bronzer<\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

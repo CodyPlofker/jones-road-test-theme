@@ -1,0 +1,2022 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "jones-road",
+    "theme_version": "0.1.0",
+    "theme_author": "praesens.co",
+    "theme_documentation_url": "https:\/\/github.com\/praesensco\/jones-road",
+    "theme_support_url": "https:\/\/github.com\/praesensco\/jones-road"
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "header_nav_desktop",
+        "label": "Desktop Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "header_nav_mobile",
+        "label": "Mobile Navigation"
+      },
+      {
+        "type": "header",
+        "content": "New Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "header_nav_desktop_new",
+        "label": "Main Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "header_nav_desktop_new_secondary",
+        "label": "Secondary Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "header_nav_mobile_new",
+        "label": "Mobile Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "header_nav_mobile_new_secondary",
+        "label": "Mobile Navigation Secondary"
+      },
+      {
+        "type": "header",
+        "content": "Megamenu Image Block 1 (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "megamenu_image_1",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "megamenu_title_1",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "megamenu_description_1",
+        "label": "Description"
+      },
+      {
+        "type": "url",
+        "id": "megamenu_url_1",
+        "label": "URL"
+      },
+      {
+        "type": "header",
+        "content": "Megamenu Image Block 2 (Mobile)"
+      },
+      {
+        "type": "image_picker",
+        "id": "megamenu_image_2",
+        "label": "Image"
+      },
+      {
+        "type": "text",
+        "id": "megamenu_title_2",
+        "label": "Title"
+      },
+      {
+        "type": "textarea",
+        "id": "megamenu_description_2",
+        "label": "Description"
+      },
+      {
+        "type": "url",
+        "id": "megamenu_url_2",
+        "label": "URL"
+      },
+      {
+        "type": "select",
+        "label": "Navigation Style",
+        "id": "navigation_style",
+        "default": "control",
+        "options": [
+          {
+            "label": "Control",
+            "value": "control"
+          },
+          {
+            "label": "Variation 1",
+            "value": "v1"
+          },
+          {
+            "label": "Variation 2",
+            "value": "v2"
+          },
+          {
+            "label": "Variation 3",
+            "value": "v3"
+          },
+          {
+            "label": "Variation 4",
+            "value": "v4"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary Color",
+        "default": "#f50a99"
+      },
+      {
+        "type": "image_picker",
+        "id": "star_image_cart_drawer_fill",
+        "label": "Star Icon (Fill)",
+        "info": "The default will be pink star"
+      },
+      {
+        "type": "image_picker",
+        "id": "star_image_cart_drawer_outline",
+        "label": "Star Icon (Outline)",
+        "info": "The default will be pink star"
+      }
+    ]
+  },
+  {
+    "name": "Tags",
+    "settings": [
+      {
+        "type": "color",
+        "id": "tag_color",
+        "label": "Tag Color",
+        "default": "#f50a99"
+      },
+      {
+        "type": "textarea",
+        "id": "tag_list",
+        "label": "Holiday Tags",
+        "info": "Enter tags (separated by commas) to apply background color. Example: New, Bestseller, Limited Edition, etc."
+      },
+      {
+        "type": "color",
+        "id": "tag_bg_color",
+        "label": "Holiday Tag Background Color",
+        "info": "This will be only applicable for the tags that is available in the Holiday Tags List",
+        "default": "#f50a99"
+      },
+      {
+        "type": "color",
+        "id": "tag_bg_text_color",
+        "label": "Holiday Tag Color",
+        "info": "This color will only apply to tags with a background color defined in the Holiday Tags List",
+        "default": "#fff"
+      },
+      {
+        "type": "textarea",
+        "id": "outline_tag_list",
+        "label": "Outline Tags",
+        "info": "Enter tags (separated by commas) to apply outline color. Example: New, Bestseller, Limited Edition, etc."
+      },
+      {
+        "type": "color",
+        "id": "outline_tag_color",
+        "label": "Outline Tag Color",
+        "info": "This color will only apply to tags defined in the Outline Tags List",
+        "default": "#ED1B2E"
+      },
+      {
+        "type": "textarea",
+        "id": "navigation_titles",
+        "label": "Category Titles",
+        "info": "Enter category titles (separated by commas) to apply color. Example: Face, Eyes, Lips, Skin Care, Kits, Tools, Apparel"
+      },
+      {
+        "type": "color",
+        "id": "navigation_color",
+        "label": "Category Color",
+        "info": "This color will only apply to the category titles defined in the Category Titles List",
+        "default": "#f50a99"
+      }
+    ]
+  },
+  {
+    "name": "Breakout Card",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Breakout Card CTA Padding"
+      },
+      {
+        "type": "range",
+        "id": "desktop_breakout_card_cta_vertical_padding",
+        "label": "Desktop Breakout Card CTA Vertical Padding",
+        "min": 0,
+        "max": 60,
+        "step": 1,
+        "default": 8,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "desktop_breakout_card_cta_horizontal_padding",
+        "label": "Desktop Breakout Card CTA Horizontal Padding",
+        "min": 0,
+        "max": 60,
+        "step": 1,
+        "default": 35,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "mobile_breakout_card_cta_vertical_padding",
+        "label": "Mobile Breakout Card CTA Vertical Padding",
+        "min": 0,
+        "max": 60,
+        "step": 1,
+        "default": 2,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "mobile_breakout_card_cta_horizontal_padding",
+        "label": "Mobile Breakout Card CTA Horizontal Padding",
+        "min": 0,
+        "max": 60,
+        "step": 1,
+        "default": 15,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "desktop_breakout_card_cta_top_spacing",
+        "label": "Desktop Breakout Card CTA Top Spacing",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 15,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "mobile_breakout_card_cta_top_spacing",
+        "label": "Mobile Breakout Card CTA Top Spacing",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 15,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "product",
+        "id": "custom_product",
+        "label": "Select a Product"
+      },
+      {
+        "type": "text",
+        "id": "cart_contact_heading",
+        "label": "Cart contact heading",
+        "default": "Any Questions?"
+      },
+      {
+        "type": "richtext",
+        "id": "cart_contact",
+        "label": "Cart contact text",
+        "default": "<p>Give us a call <a href=\"tel:001234567890\">+1(123)456-7890<\/a> or email us at <a href=\"mailto:info@jonesroadbeauty.com\">info@jonesroadbeauty.com<\/a>.<\/p>"
+      },
+      {
+        "type": "text",
+        "id": "cart_empty_copy",
+        "label": "Cart empty copy",
+        "default": "You currently have no items in your cart."
+      },
+      {
+        "type": "richtext",
+        "id": "cart_empty_links",
+        "label": "Cart empty links",
+        "info": "Add the text for each link on a new line (hard return) and insert the links"
+      },
+      {
+        "type": "text",
+        "id": "cart_returns_note",
+        "label": "Returns Note",
+        "default": "Easy Returns & Exchanges"
+      },
+      {
+        "type": "url",
+        "id": "cart_empty_link",
+        "label": "Cart empty link",
+        "default": "\/"
+      },
+      {
+        "type": "text",
+        "id": "cart_crosssell_cta",
+        "label": "Cross Sell CTA",
+        "default": "Add our bestseller"
+      },
+      {
+        "type": "header",
+        "content": "BFCM Promotion",
+        "info": "When enabled, the regional threshold values below will be used to create tiered discounts in the cart. Tiers are displayed in ascending order based on the threshold amounts, with 10% OFF as the default first tier."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_bfcm_promotion",
+        "label": "Enable BFCM Promotion",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - USA"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable",
+        "label": "Free Shipping Enable (USA)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount",
+        "label": "Free Shipping Threshold {$)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_usd",
+        "label": "15% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_usd",
+        "label": "20% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - CAD"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_cad",
+        "label": "Free Shipping Enable (CAD)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_cad",
+        "label": "Free Shipping Threshold ($)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_cad",
+        "label": "15% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_cad",
+        "label": "20% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - GBP"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_gbp",
+        "label": "Free Shipping Enable (GBP)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_gbp",
+        "label": "Free Shipping Threshold (£)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_gbp",
+        "label": "15% Tier Threshold (£)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_gbp",
+        "label": "20% Tier Threshold (£)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - EUR"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_eur",
+        "label": "Free Shipping Enable (EUR)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_eur",
+        "label": "Free Shipping Threshold (€)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_eur",
+        "label": "15% Tier Threshold (€)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_eur",
+        "label": "20% Tier Threshold (€)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - BGN"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_bgn",
+        "label": "Free Shipping Enable (BGN)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_bgn",
+        "label": "Free Shipping Threshold (лв)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_bgn",
+        "label": "15% Tier Threshold (лв)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_bgn",
+        "label": "20% Tier Threshold (лв)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - CZK"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_czk",
+        "label": "Free Shipping Enable (CZK)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_czk",
+        "label": "Free Shipping Threshold (Kč)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_czk",
+        "label": "15% Tier Threshold (Kč)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_czk",
+        "label": "20% Tier Threshold (Kč)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - DKK"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_dkk",
+        "label": "Free Shipping Enable (DKK)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_dkk",
+        "label": "Free Shipping Threshold (kr)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_dkk",
+        "label": "15% Tier Threshold (kr)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_dkk",
+        "label": "20% Tier Threshold (kr)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - HUF"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_huf",
+        "label": "Free Shipping Enable (HUF)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_huf",
+        "label": "Free Shipping Threshold (Ft)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_huf",
+        "label": "15% Tier Threshold (Ft)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_huf",
+        "label": "20% Tier Threshold (Ft)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - PLN"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_pln",
+        "label": "Free Shipping Enable (PLN)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_pln",
+        "label": "Free Shipping Threshold (zł)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_pln",
+        "label": "15% Tier Threshold (zł)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_pln",
+        "label": "20% Tier Threshold (zł)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - RON"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_ron",
+        "label": "Free Shipping Enable (RON)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_ron",
+        "label": "Free Shipping Threshold (lei)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_ron",
+        "label": "15% Tier Threshold (lei)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_ron",
+        "label": "20% Tier Threshold (lei)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - SEK"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_sek",
+        "label": "Free Shipping Enable (SEK)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_sek",
+        "label": "Free Shipping Threshold (kr)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_sek",
+        "label": "15% Tier Threshold (kr)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_sek",
+        "label": "20% Tier Threshold (kr)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - AUD"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_aud",
+        "label": "Free Shipping Enable (AUD)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_aud",
+        "label": "Free Shipping Threshold ($)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_aud",
+        "label": "15% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_aud",
+        "label": "20% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "FREE SHIPPING PROGRESS BAR - NZD"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_free_shipping_enable_nzd",
+        "label": "Free Shipping Enable (NZD)"
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_amount_nzd",
+        "label": "Free Shipping Threshold ($)"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_15_percent_tier_threshold_nzd",
+        "label": "15% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "bfcm_20_percent_tier_threshold_nzd",
+        "label": "20% Tier Threshold ($)",
+        "visible_if": "{{ settings.enable_bfcm_promotion == true }}"
+      },
+      {
+        "type": "header",
+        "content": "Gift With Purchase"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_gwp_enabled",
+        "label": "Enable GWP"
+      },
+      {
+        "type": "product",
+        "id": "cart_gwp_product",
+        "label": "GWP Product"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_gwp_threshold_enabled",
+        "label": "Require Minimum Spend"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold",
+        "label": "Minimum Spend (USA)",
+        "default": 100,
+        "info": "Minimum spend in dollars"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_cad",
+        "label": "Minimum Spend (CAD)",
+        "default": 125,
+        "info": "Minimum spend in dollars"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_gbp",
+        "label": "Minimum Spend (GBP)",
+        "default": 100,
+        "info": "Minimum spend in pounds"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_eur",
+        "label": "Minimum Spend (EUR)",
+        "default": 100,
+        "info": "Minimum spend in euros"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_bgn",
+        "label": "Minimum Spend (BGN)",
+        "default": 100,
+        "info": "Minimum spend in leva"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_czk",
+        "label": "Minimum Spend (CZK)",
+        "default": 100,
+        "info": "Minimum spend in koruny"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_dkk",
+        "label": "Minimum Spend (DKK)",
+        "default": 100,
+        "info": "Minimum spend in kroner"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_huf",
+        "label": "Minimum Spend (HUF)",
+        "default": 100,
+        "info": "Minimum spend in forint"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_pln",
+        "label": "Minimum Spend (PLN)",
+        "default": 100,
+        "info": "Minimum spend in zloty"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_ron",
+        "label": "Minimum Spend (RON)",
+        "default": 100,
+        "info": "Minimum spend in lei"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_sek",
+        "label": "Minimum Spend (SEK)",
+        "default": 100,
+        "info": "Minimum spend in kroner"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_aud",
+        "label": "Minimum Spend (AUD)",
+        "default": 100,
+        "info": "Minimum spend in dollars"
+      },
+      {
+        "type": "number",
+        "id": "cart_gwp_threshold_nzd",
+        "label": "Minimum Spend (NZD)",
+        "default": 100,
+        "info": "Minimum spend in dollars"
+      },
+      {
+        "type": "header",
+        "content": "Test Promotion Settings [DEV ONLY]"
+      },
+      {
+        "type": "paragraph",
+        "content": "Careful! These settings are used to test the launch of the promotion. They are only used in the development environment."
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_test_promotion",
+        "label": "Enable Test Promotion",
+        "info": "When enabled, the test promotion will be added to all new cart items.",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "test_promotion_property",
+        "label": "Test Promotion Property Key",
+        "info": "This property will be added as a hidden property key to cart items to indicate that the promotion is a test. This property will be used to identify the test promotion in the cart. An example of a property key is '_TestPromotion'.",
+        "default": "_TestPromotion",
+        "visible_if": "{{ settings.enable_test_promotion == true }}"
+      },
+      {
+        "type": "text",
+        "id": "test_promotion_property_value",
+        "label": "Test Promotion Property Key Value",
+        "info": "This property value will be added as a hidden property value to cart items to indicate that the promotion is a test. This value will be used to identify the test promotion in the cart. An example of a property value is 'TEST_PROMOTION'.",
+        "default": "TEST_PROMOTION",
+        "visible_if": "{{ settings.enable_test_promotion == true }}"
+      }
+    ]
+  },
+  {
+    "name": "Low Stock",
+    "settings": [
+      {
+        "default": "Only a few left – make it yours!",
+        "id": "low_stock_message",
+        "label": "Low stock message",
+        "type": "text"
+      },
+      {
+        "default": 3,
+        "id": "low_stock_threshold",
+        "label": "Low stock threshold",
+        "max": 99,
+        "min": 1,
+        "step": 1,
+        "type": "range"
+      }
+    ]
+  },
+  {
+    "name": "Product Options",
+    "settings": [
+      {
+        "default": true,
+        "id": "generate_shade_numbers",
+        "info": "Check to automatically generate share numbers",
+        "label": "Generate Shade Numbers",
+        "type": "checkbox"
+      }
+    ]
+  },
+  {
+    "name": "Waitlist",
+    "settings": [
+      {
+        "default": false,
+        "id": "waitlist_enabled",
+        "info": "Check to show the waitlist on PDP.",
+        "label": "Enable Waitlist",
+        "type": "checkbox"
+      },
+      {
+        "default": "Notify me",
+        "id": "waitlist_cta",
+        "label": "Waitlist CTA text",
+        "type": "text"
+      },
+      {
+        "default": "Enter your e-mail address and we will notify you if this product becomes available again.",
+        "id": "waitlist_copy",
+        "label": "Waitlist popup text",
+        "type": "text"
+      },
+      {
+        "id": "waitlist_caption",
+        "label": "Waitlist caption text",
+        "type": "richtext"
+      },
+      {
+        "default": "If the item becomes available again, we’ll notify you by e-mail.",
+        "id": "waitlist_popup_success",
+        "label": "Waitlist success text",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "name": "Legal\/Cookies",
+    "settings": [
+      {
+        "type": "html",
+        "id": "cookies",
+        "label": "Cookies Notification copy"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "newsletter_modal_enable",
+        "label": "Enable Newsletter Modal"
+      },
+      {
+        "type": "text",
+        "id": "klaviyo_list_id",
+        "label": "Klaviyo List ID"
+      },
+      {
+        "type": "html",
+        "id": "newsletter_modal_heading",
+        "label": "Newsletter Modal Heading"
+      },
+      {
+        "type": "html",
+        "id": "newsletter_modal_legal",
+        "label": "Newsletter Modal Legal"
+      },
+      {
+        "type": "html",
+        "id": "newsletter_modal_success",
+        "label": "Newsletter Modal Success Message"
+      }
+    ]
+  },
+  {
+    "name": "Header promo",
+    "settings": [
+      {
+        "type": "header",
+        "content": "USA SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_usa",
+        "label": "Enable (USA)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_usa",
+        "label": "Background Color (USA)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_usa",
+        "label": "Text & Icon Color (USA)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_usa",
+        "label": "Delay (USA)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_usa_01",
+        "label": "Text 1 (USA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_usa_01_mobile",
+        "label": "Text 1 (USA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_usa_02",
+        "label": "Text 2 (USA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_usa_02_mobile",
+        "label": "Text 2 (USA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_usa_03",
+        "label": "Text 3 (USA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_usa_03_mobile",
+        "label": "Text 3 (USA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "CAD SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_cad",
+        "label": "Enable (CAD)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_cad",
+        "label": "Background Color (CAD)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_cad",
+        "label": "Text & Icon Color (CAD)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_cad",
+        "label": "Delay (CAD)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cad_01",
+        "label": "Text 1 (CAD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cad_01_mobile",
+        "label": "Text 1 (CAD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cad_02",
+        "label": "Text 2 (CAD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cad_02_mobile",
+        "label": "Text 2 (CAD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cad_03",
+        "label": "Text 3 (CAD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cad_03_mobile",
+        "label": "Text 3 (CAD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "UK SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_uk",
+        "label": "Enable (UK)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_uk",
+        "label": "Background Color (UK)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_uk",
+        "label": "Text & Icon Color (UK)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_uk",
+        "label": "Delay (UK)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_uk_01",
+        "label": "Text 1 (UK) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_uk_01_mobile",
+        "label": "Text 1 (UK) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_uk_02",
+        "label": "Text 2 (UK) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_uk_02_mobile",
+        "label": "Text 2 (UK) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_uk_03",
+        "label": "Text 3 (UK) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_uk_03_mobile",
+        "label": "Text 3 (UK) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "EUR SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_eur",
+        "label": "Enable (EUR)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_eur",
+        "label": "Background Color (EUR)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_eur",
+        "label": "Text & Icon Color (EUR)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_eur",
+        "label": "Delay (EUR)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_eur_01",
+        "label": "Text 1 (EUR) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_eur_01_mobile",
+        "label": "Text 1 (EUR) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_eur_02",
+        "label": "Text 2 (EUR) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_eur_02_mobile",
+        "label": "Text 2 (EUR) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_eur_03",
+        "label": "Text 3 (EUR) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_eur_03_mobile",
+        "label": "Text 3 (EUR) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "BULGARIA SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_bul",
+        "label": "Enable (BULGARIA)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_bul",
+        "label": "Background Color (BULGARIA)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_bul",
+        "label": "Text & Icon Color (BULGARIA)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_bul",
+        "label": "Delay (BULGARIA)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_bul_01",
+        "label": "Text 1 (BULGARIA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_bul_01_mobile",
+        "label": "Text 1 (BULGARIA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_bul_02",
+        "label": "Text 2 (BULGARIA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_bul_02_mobile",
+        "label": "Text 2 (BULGARIA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_bul_03",
+        "label": "Text 3 (BULGARIA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_bul_03_mobile",
+        "label": "Text 3 (BULGARIA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "CZECH REPUBLIC SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_cr",
+        "label": "Enable (CZECH REPUBLIC)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_cr",
+        "label": "Background Color (CZECH REPUBLIC)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_cr",
+        "label": "Text & Icon Color (CZECH REPUBLIC)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_cr",
+        "label": "Delay (CZECH REPUBLIC)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cr_01",
+        "label": "Text 1 (CZECH REPUBLIC) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cr_01_mobile",
+        "label": "Text 1 (CZECH REPUBLIC) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cr_02",
+        "label": "Text 2 (CZECH REPUBLIC) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cr_02_mobile",
+        "label": "Text 2 (CZECH REPUBLIC) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cr_03",
+        "label": "Text 3 (CZECH REPUBLIC) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_cr_03_mobile",
+        "label": "Text 3 (CZECH REPUBLIC) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "DENMARK SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_den",
+        "label": "Enable (DENMARK)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_den",
+        "label": "Background Color (DENMARK)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_den",
+        "label": "Text & Icon Color (DENMARK)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_den",
+        "label": "Delay (DENMARK)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_den_01",
+        "label": "Text 1 (DENMARK) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_den_01_mobile",
+        "label": "Text 1 (DENMARK) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_den_02",
+        "label": "Text 2 (DENMARK) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_den_02_mobile",
+        "label": "Text 2 (DENMARK) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_den_03",
+        "label": "Text 3 (DENMARK) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_den_03_mobile",
+        "label": "Text 3 (DENMARK) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "HUNGARY SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_hun",
+        "label": "Enable (HUNGARY)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_hun",
+        "label": "Background Color (HUNGARY)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_hun",
+        "label": "Text & Icon Color (HUNGARY)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_hun",
+        "label": "Delay (HUNGARY)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_hun_01",
+        "label": "Text 1 (HUNGARY) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_hun_01_mobile",
+        "label": "Text 1 (HUNGARY) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_hun_02",
+        "label": "Text 2 (HUNGARY) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_hun_02_mobile",
+        "label": "Text 2 (HUNGARY) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_hun_03",
+        "label": "Text 3 (HUNGARY) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_hun_03_mobile",
+        "label": "Text 3 (HUNGARY) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "POLAND SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_pol",
+        "label": "Enable (POLAND)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_pol",
+        "label": "Background Color (POLAND)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_pol",
+        "label": "Text & Icon Color (POLAND)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_pol",
+        "label": "Delay (POLAND)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_pol_01",
+        "label": "Text 1 (POLAND) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_pol_01_mobile",
+        "label": "Text 1 (POLAND) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_pol_02",
+        "label": "Text 2 (POLAND) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_pol_02_mobile",
+        "label": "Text 2 (POLAND) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_pol_03",
+        "label": "Text 3 (POLAND) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_pol_03_mobile",
+        "label": "Text 3 (POLAND) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "ROMANIA SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_rom",
+        "label": "Enable (ROMANIA)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_rom",
+        "label": "Background Color (ROMANIA)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_rom",
+        "label": "Text & Icon Color (ROMANIA)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_rom",
+        "label": "Delay (ROMANIA)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_rom_01",
+        "label": "Text 1 (ROMANIA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_rom_01_mobile",
+        "label": "Text 1 (ROMANIA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_rom_02",
+        "label": "Text 2 (ROMANIA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_rom_02_mobile",
+        "label": "Text 2 (ROMANIA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_rom_03",
+        "label": "Text 3 (ROMANIA) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_rom_03_mobile",
+        "label": "Text 3 (ROMANIA) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "SWEDEN SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_swe",
+        "label": "Enable (SWEDEN)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_swe",
+        "label": "Background Color (SWEDEN)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_swe",
+        "label": "Text & Icon Color (SWEDEN)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_swe",
+        "label": "Delay (SWEDEN)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_swe_01",
+        "label": "Text 1 (SWEDEN) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_swe_01_mobile",
+        "label": "Text 1 (SWEDEN) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_swe_02",
+        "label": "Text 2 (SWEDEN) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_swe_02_mobile",
+        "label": "Text 2 (SWEDEN) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_swe_03",
+        "label": "Text 3 (SWEDEN) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_swe_03_mobile",
+        "label": "Text 3 (SWEDEN) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "AUD SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_aud",
+        "label": "Enable (AUD)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_aud",
+        "label": "Background Color (AUD)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_aud",
+        "label": "Text & Icon Color (AUD)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_aud",
+        "label": "Delay (AUD)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_aud_01",
+        "label": "Text 1 (AUD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_aud_01_mobile",
+        "label": "Text 1 (AUD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_aud_02",
+        "label": "Text 2 (AUD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_aud_02_mobile",
+        "label": "Text 2 (AUD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_aud_03",
+        "label": "Text 3 (AUD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_aud_03_mobile",
+        "label": "Text 3 (AUD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "header",
+        "content": "NZD SETTINGS"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_header_promo_nzd",
+        "label": "Enable (NZD)",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "header_promo_bgcolor_nzd",
+        "label": "Background Color (NZD)",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "header_promo_color_nzd",
+        "label": "Text & Icon Color (NZD)",
+        "default": "#ffffff"
+      },
+      {
+        "type": "range",
+        "id": "header_promo_delay_nzd",
+        "label": "Delay (NZD)",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "sec",
+        "default": 4,
+        "info": "Delay between each slide"
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_nzd_01",
+        "label": "Text 1 (NZD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_nzd_01_mobile",
+        "label": "Text 1 (NZD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_nzd_02",
+        "label": "Text 2 (NZD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_nzd_02_mobile",
+        "label": "Text 2 (NZD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_nzd_03",
+        "label": "Text 3 (NZD) - Desktop",
+        "info": "Any italic text will become underlined in the header."
+      },
+      {
+        "type": "richtext",
+        "id": "header_promo_richtext_nzd_03_mobile",
+        "label": "Text 3 (NZD) - Mobile",
+        "info": "Any italic text will become underlined in the header."
+      },
+    ]
+  },
+  {
+    "name": "Currency selector",
+    "settings": [
+      {
+        "id": "currency_selector_enabled",
+        "label": "Enable currency selector",
+        "type": "checkbox"
+      },
+      {
+        "content": "Define a list of countries to be displayed in the currency selector. Type each item (country name, country alpha-2 code, currency ISO code, currency symbol, flag) in a new line in comma-separated CSV format.",
+        "type": "paragraph"
+      },
+      {
+        "default": "United Kingdom, GB, GBP, £\nUnited States, US, USD, $",
+        "id": "currency_selector_countries_map",
+        "info": "Example: United States, US, USD, $, https:\/\/cdn.shopify.com\/s\/files\/1\/0424\/9527\/9254\/files\/united-states-of-america-flag-icon-64.png?v=1722345040",
+        "label": "Country data",
+        "type": "textarea"
+      }
+    ]
+  },
+  {
+    "name": "Top searches",
+    "settings": [
+      {
+        "id": "top_search_1",
+        "label": "Top search #1",
+        "type": "product"
+      },
+      {
+        "id": "top_search_2",
+        "label": "Top search #2",
+        "type": "product"
+      },
+      {
+        "id": "top_search_3",
+        "label": "Top search #3",
+        "type": "product"
+      }
+    ]
+  },
+  {
+    "name": "Rewiews & Tracking",
+    "settings": [
+      {
+        "type": "text",
+        "id": "GTM_ID",
+        "label": "Google Tag Manager ID"
+      },
+      {
+        "type": "text",
+        "id": "inject_code",
+        "label": "Head Code Injection"
+      },
+      {
+        "id": "yotpo_key",
+        "info": "Leave blank to disable reviews.",
+        "label": "Yotpo App Key",
+        "type": "text"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "og_image",
+        "label": "og:image",
+        "info": "1200x630px"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram link"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook link"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter link"
+      }
+    ]
+  },
+  {
+    "name": "Contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Contact phone number"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact email address"
+      },
+      {
+        "type": "text",
+        "id": "contact_press_email",
+        "label": "Press email address"
+      }
+    ]
+  },
+  {
+    "name": "Swatches",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "swatches",
+        "label": "Swatches",
+        "info": "Type swatches, one line each, in format [name==value]. Valid values are color HEX codes and absolute links for Shopify-hosted images (jpg\/png)."
+      }
+    ]
+  },
+  {
+    "name": "Findation",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "findation_enabled",
+        "label": "Enable Findation"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_need_help_link",
+        "label": "Enable Need Help? Link"
+      },
+      {
+        "type": "url",
+        "id": "shade_form_link",
+        "label": "Shade Page Link"
+      },
+      {
+        "type": "url",
+        "id": "need_help_link",
+        "label": "Need Help? Page Link"
+      }
+    ]
+  },
+  {
+    "name": "Blogs",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "blog_categories",
+        "label": "Categories"
+      }
+    ]
+  },
+  {
+    "name": "Pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "evergreen_gwp_enabled",
+        "label": "Enable Evergreen GWP",
+        "info": "When checked, users will receive a free gift if they access the site from a URL containing the following parameters: ?gwp=[variant id]&gwp_threshold=[minimum spend in cents]",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Shopify GraphQL",
+    "settings": [
+      {
+        "type": "text",
+        "id": "graphql_token",
+        "label": "GraphQL Token"
+      },
+      {
+        "type": "text",
+        "id": "graphql_uri",
+        "label": "GraphQL URI"
+      }
+    ]
+  },
+  {
+    "name": "Alias Domain",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "alias_domain_name",
+        "label": "Alias Domain Name",
+        "default": "the-modernmom.com,www.the-modernmom.com",
+        "info": "Enter the mutiple Alias Domain names seprated by commas. Do not include the protocol (http:// or https://)."
+      }
+    ]
+  }
+]

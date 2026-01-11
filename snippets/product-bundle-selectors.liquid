@@ -1,0 +1,112 @@
+<form class="product-info__bundle js-productBundleModule" data-bundle="{{ product.title }}" data-image="{{ product.featured_image | img_url: '200x300' }}" data-url="{{ product.url | append: '?country=' | append: localization.country.iso_code }}">
+  <p class="product-info__bundle-title">Choose your shades:</p>
+  <div class="product-info__bundle-products">
+    {% assign compare_at_price = 0 %}
+    {% for i in (1..5) %}
+      {% assign product_src = 'product_' | append: i %}
+      {% assign img_src = 'image_' | append: i %}
+      {% assign findation_src = 'findation_' | append: i %}
+      
+      {% assign image = bundle.settings[img_src] %}
+      {% assign prod = all_products[bundle.settings[product_src]] %}
+      {% assign hasFindation = bundle.settings[findation_src] %}
+
+      {%- if bundle.settings[product_src] != blank -%}
+        {%- assign name = 'product-' | append: i %}
+
+        {% assign default_variant = prod.selected_or_first_available_variant %}
+        {% assign variant_title = default_variant.option1 %}
+        {% assign compare_at_price = compare_at_price | plus: default_variant.price %}
+
+        {% if prod.title == 'The Face Pencil' %}
+          {% assign shade_number = variant_title | split: 'Shade ' | last | split: ' ' | first %}
+          {% assign variant_title = 'Shade ' | append: shade_number %}
+        {% endif %}
+
+        <div class="bundle__product js-bundleProduct">
+          <div class="bundle__product-image">
+            {% assign product_image = prod.featured_image %}
+            {% if image != blank %}
+              {% assign product_image = image %}
+            {% endif %}
+            <img src="{{ product_image | img_url: '100x130' }}" srcset="{{ product_image | img_url: '200x260' }} 2x" width="100" height="130" alt="{{ prod.title }}"/>
+          </div>
+
+          <div class="bundle__product-info">
+            <div class="bundle__product-info--top">
+              <p class="bundle__product-title">{{ prod.title }}</p>
+              {% if prod.variants.size > 1 %}
+                <p class="bundle__product-variant js-bundleVariantTitle">{{ variant_title }}</p>
+              {% endif %}
+            </div>
+
+            {% if prod.variants.size > 1 %}
+              <div class="product-swatch--list">
+                <div class="product-swatch__items">
+                  <ol>
+                    {% for variant in prod.variants %}
+                      {%- assign isVariantSelected = false -%}
+                      {%- if variant.id == default_variant.id -%}
+                        {%- assign isVariantSelected = true -%}
+                      {%- endif -%}
+
+                      {% assign var_title = variant.option1 %}
+                      {% if prod.title == 'The Face Pencil' %}
+                        {% assign shade_number = variant.option1 | split: 'Shade ' | last | split: ' ' | first %}
+                        {% assign var_title = 'Shade ' | append: shade_number %}
+                      {% endif %}
+
+                      <li class="bundle__product-selector {% unless variant.available %} is-unavailable {% endunless %}">
+                        <input type="radio" class="js-bundleVariant" name="{{ name }}" value="{{ variant.id }}" data-product="{{ prod.id }}" data-title="{{ var_title }}" data-price="{{ variant.price }}" {% if isVariantSelected %} checked="checked" {% endif %} />
+                        {% include 'swatch-image', swatches: settings.swatches, variant: variant %}
+                        {% if isVariantSelected %}<span class="visually-hidden">Currently selected:</span>{% endif %}
+                        <span class="visually-hidden">
+                          {% if settings.generate_shade_numbers %}{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }} {% endif %}{{ variant.option1 }}
+                        </span>
+                      </li>
+                    {% endfor %}
+                  </ol>
+                </div>
+              </div>
+            {% else %}
+              {% assign variant = prod.selected_or_first_available_variant %}
+              <input type="radio" style="display: none;" name="{{ name }}" value="{{ variant.id }}" data-title="" data-product="{{ prod.id }}" checked="checked"/>
+            {% endif %}
+          </div>
+        </div>
+
+        {% if hasFindation %}
+          <div class="product-info__shade">
+            <a class="button button--mid button--hover" href="{{ settings.shade_form_link }}" data-no-history="1">Find My Shade</a>
+            {%- if settings.enable_need_help_link -%}
+              <a class="button button--mid button--outline" href="{{ settings.need_help_link }}" data-no-history="1">Need Help?</a>
+            {%- endif -%}
+          </div>
+        {% endif %}
+
+      {%- endif -%}
+    {% endfor %}
+  </div>
+   
+  {% assign discount_calc = discount_val | divided_by: 100.00 | times: compare_at_price %}
+  {% assign price = compare_at_price | minus: discount_calc | money_without_trailing_zeros %}
+  {% assign compare_at_price = compare_at_price | money_without_trailing_zeros %}
+
+  {% include "purchase-bar",
+    modifier: "static"
+    product: product,
+    swatches: settings.swatches,
+    bundle_discount: discount,
+    cap_override: compare_at_price,
+    price_override: price
+  %}
+  {% include "purchase-bar",
+    modifier: "fixed"
+    product: product,
+    swatches: settings.swatches,
+    class: 'product-info__bundle-atc--mobile',
+    bundle_discount: discount,
+    cap_override: compare_at_price,
+    price_override: price
+  %}
+</form>

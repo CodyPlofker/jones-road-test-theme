@@ -1,0 +1,5 @@
+{%- if variant.available and variant.inventory_quantity < settings.low_stock_threshold -%}
+  <div class="purchase-bar__low-stock purchase-bar__low-stock--{{ modifier }}">
+    <i class="purchase-bar__low-stock__icon" role="presentation"></i>{{ settings.low_stock_message }}
+  </div>
+{%- endif -%}

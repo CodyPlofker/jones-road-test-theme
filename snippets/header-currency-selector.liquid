@@ -1,0 +1,66 @@
+{% if shop.enabled_currencies.size > 1 and settings.currency_selector_enabled %}
+  
+  {% comment %}
+    Uses map set in Theme Settings in comma separated CSV format (country name, country alpha-2 code, currency ISO code, currency symbol):
+
+    Canada, CA, CAD, C$
+    United Kingdom, UK, GBP, £
+    United States, US, USD, $
+  {% endcomment %}
+  
+  {%- assign countriesMap = settings.currency_selector_countries_map | newline_to_br | split: '<br />' -%}
+
+  <li class="currency-selector">
+    {% form 'localization'  %}
+      <button type="button" title="Country" class="currency-selector__open js-currencySelectorToggle">
+        {%- for item in countriesMap -%}
+          {%- assign countryData = item | replace: ', ', ',' | split: ',' -%}
+          {%- for country in localization.available_countries -%}
+            {%- if countryData[1] == localization.country.iso_code -%}
+              {%- assign countryData = item | replace: ', ', ',' | split: ',' -%}
+              {%- assign flag = countryData | last -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endfor -%}
+        {%- if flag != blank -%}
+          <span class="flag">
+            <img src="{{ flag }}" width="32" height="16" alt="{{ country.name | append: ' Flag' }}" loading="lazy" >
+          </span>
+        {%- endif -%}
+        <span role="presentation">{{ localization.country.currency.symbol }}{{ localization.country.currency.iso_code }}</span>
+        <span class="visually-hidden">Toggle Country Selector </span>
+      </button>
+      <div class="currency-selector__modal js-currencySelectorModal" role="dialog">
+        <button class="currency-selector__close js-currencySelectorClose">
+          <span class="currency-selector__close__copy button">Close</span>
+          <span class="desktop-hidden">Back</span>
+        </button>
+          <ul class="currency-selector__list">
+            {%- for item in countriesMap -%}
+              {%- assign countryData = item | replace: ', ', ',' | split: ',' -%}
+              {%- assign flag = countryData | last -%}
+              {%- for country in localization.available_countries -%}
+                {%- if countryData[1] == country.iso_code -%}
+                  <li>
+                    <a href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} hreflang="{{ country.iso_code }}" lang="{{ country.iso_code }}" data-code="{{ country.iso_code }}" data-no-history="1">
+                      <span class="name mobile-hidden tablet-hidden">{{ country.name }}</span>
+                      <span class="symbol">
+                        {%- if flag != blank -%}
+                          <img class="flag" src="{{ flag }}" width="32" height="16" alt="{{ country.name | append: ' Flag' }}" loading="lazy" />
+                        {%- endif -%}
+                        <span class="desktop-hidden">{{ country.name }} ({{ country.currency.symbol }}{{ country.currency.iso_code }})</span>
+                        <span class="mobile-hidden tablet-hidden">{{ country.currency.symbol }}{{ country.currency.iso_code }}</span>
+                      </span>
+                    </a>
+                  </li>
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endfor -%}
+          </ul>
+      </div>
+      <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+    {% endform %}
+  </li>
+{%- endif -%}

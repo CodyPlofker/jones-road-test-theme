@@ -1,0 +1,367 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "90ef1c98-4fc6-4db9-89c7-774659ca12da": {
+      "type": "wonderment-custom-html",
+      "blocks": {
+        "template--16064266633366__90ef1c98-4fc6-4db9-89c7-774659ca12da-html-1": {
+          "type": "html",
+          "settings": {
+            "section_html": "<div class=\"tp-searchimage\">\n    <img src=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0424\/9527\/9254\/files\/Untitled_1000_x_800_px.png?v=1669230220\">\n    \n<\/div>\n<style>\n  .tp-searchimage {\n    height: 200px;\n    text-align: left;\n    padding-right: 150px;\n    margin-left: 225px;\n  }\n  .tp-searchimage img {\n    text-align: right;\n    height: 400px;\n    float: left;\n  }\n  \n  @media screen and (max-width:959px) {\n    .tp-searchimage {\n    text-align: center;\n    margin: 0 auto;\n    margin-bottom: 250px;\n    }\n    .tp-searchimage img {\n      text-align: center;\n      margin-left: -50px;\n    }\n\n  }\n<\/style>"
+          }
+        }
+      },
+      "block_order": [
+        "template--16064266633366__90ef1c98-4fc6-4db9-89c7-774659ca12da-html-1"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_when": "always",
+        "width": "regular"
+      }
+    },
+    "track_your_order_heading": {
+      "type": "wonderment-custom-html",
+      "blocks": {
+        "track_your_order": {
+          "type": "html",
+          "settings": {
+            "section_html": "<style>\n  .wndr-sx--heading {\n    font-size: 2.5rem;\n    text-align: center;\n  }\n  .wonderment-ab-container > div > form {\n     margin-top: 20px;\n  }\n  .tp-form-header.tp-search-header {\n    display: none !important;\n  }\n<\/style>\n<h2 class=\"wndr-sx--heading\">Your Order Status<\/h2>"
+          }
+        }
+      },
+      "block_order": [
+        "track_your_order"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "h2 {margin-top: 60px; margin-bottom: 60px;}"
+      ],
+      "settings": {
+        "show_when": "always",
+        "width": "regular"
+      }
+    },
+    "main": {
+      "type": "apps",
+      "blocks": {
+        "pdq_checkout_fulfill_ship_tracking_page_7RKFFr": {
+          "type": "shopify:\/\/apps\/prettydamnquick-pdq\/blocks\/tracking-page\/a668eab0-b569-4206-8f4c-a0f244820a6b",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "pdq_checkout_fulfill_ship_tracking_page_7RKFFr"
+      ],
+      "settings": {}
+    },
+    "hero": {
+      "type": "wonderment-hero",
+      "disabled": true,
+      "settings": {
+        "width_override": true,
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
+        "adapt_height_first_image": false,
+        "desktop_content_position": "middle-center",
+        "show_text_box": false,
+        "desktop_content_alignment": "center",
+        "color_scheme": "background-1",
+        "mobile_content_alignment": "center",
+        "stack_images_on_mobile": true,
+        "show_text_below": true
+      }
+    },
+    "faq": {
+      "type": "wonderment-faq",
+      "blocks": {
+        "faq-getting-started": {
+          "type": "section_heading",
+          "settings": {
+            "title": "Getting started"
+          }
+        },
+        "product-where-made-question": {
+          "type": "question",
+          "settings": {
+            "title": "Where are your products manufactured?",
+            "text": "<p>We are a local company and all merchandise is made with love here in Toronto, Canada.<\/p>"
+          }
+        },
+        "sizes-question": {
+          "type": "question",
+          "settings": {
+            "title": "How do your sizes work?",
+            "text": "<p>Please take a look at our size chart for more information and how to take accurate measurements.<\/p>"
+          }
+        },
+        "shipping-heading": {
+          "type": "section_heading",
+          "settings": {
+            "title": "Shipping"
+          }
+        },
+        "when-shipping-question": {
+          "type": "question",
+          "settings": {
+            "title": "When will my order ship?",
+            "text": "<p>Usually in 1-2 business days<\/p>"
+          }
+        },
+        "when-arriving-question": {
+          "type": "question",
+          "settings": {
+            "title": "When will my order arrive?",
+            "text": "<p>Usually in 3-10 business days<\/p>"
+          }
+        },
+        "ship-international-question": {
+          "type": "question",
+          "settings": {
+            "title": "Do you ship internationally?",
+            "text": "<p>Currently we are only shipping to USA and Canada.<\/p>"
+          }
+        },
+        "shipping-cost-question": {
+          "type": "question",
+          "settings": {
+            "title": "How much is shipping?",
+            "text": "<p>If you spend over $100, shipping is always free. For any other purchases, shipping will be calculated at checkout.<\/p>"
+          }
+        },
+        "return-policy-question": {
+          "type": "question",
+          "settings": {
+            "title": "What is your return policy?",
+            "text": "<p>Merchandise that is unworn and in the original packaging can be returned within 30 days with the packing slip included with the product.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq-getting-started",
+        "product-where-made-question",
+        "sizes-question",
+        "shipping-heading",
+        "when-shipping-question",
+        "when-arriving-question",
+        "ship-international-question",
+        "shipping-cost-question",
+        "return-policy-question"
+      ],
+      "disabled": true,
+      "settings": {
+        "show_answers": false,
+        "text_size": 100,
+        "alignment": "center",
+        "text_color": "#121212",
+        "background_color": "linear-gradient(184deg, rgba(255, 255, 255, 1) 7%, rgbargba(255, 255, 255, 1) 94%)",
+        "border_color": "#121212",
+        "base_width": 80,
+        "max_width": "",
+        "inner_padding": 100,
+        "outer_margin": 0,
+        "custom_css": "",
+        "mobile_custom_css": "",
+        "override_theme_font": false,
+        "heading_font": "serif",
+        "main_font": "sans-serif"
+      }
+    },
+    "rebuy": {
+      "type": "wonderment-rebuy",
+      "disabled": true,
+      "settings": {
+        "rebuy-widget-id": ""
+      }
+    },
+    "fairing": {
+      "type": "wonderment-fairing",
+      "disabled": true,
+      "settings": {
+        "fairing-key": "",
+        "fairing-padding-tb": 10,
+        "fairing-padding-lr": 10,
+        "fairing-border-color": "#000000",
+        "fairing-border-size": 0,
+        "fairing-border-radius": 0,
+        "fairing-title-text-align": "center",
+        "fairing-title-margin-top": 20,
+        "fairing-title-margin-bottom": 20,
+        "fairing-title-max-width": 100,
+        "fairing-response-border-color": "#000000",
+        "fairing-response-border-size": 0,
+        "fairing-response-border-radius": 0,
+        "fairing-response-padding": 5,
+        "fairing-responses-margin": 20
+      }
+    },
+    "0602ac32-d3ad-47a2-bef7-90856bde47c4": {
+      "type": "accordions",
+      "blocks": {
+        "7f9805b2-4e82-47b5-9e84-b7c95656c685": {
+          "type": "accordion",
+          "settings": {
+            "heading": "How long does shipping take?",
+            "content": "<p>Shipping typically takes 3-5 business days for US, UK, and EU orders, 5-10 business days for Canada orders, 8-11 Days for Australia orders, and 9-12 days for New Zealand orders. <\/p>"
+          }
+        },
+        "f7805458-bfb0-4153-b1ac-135dc65c9f4b": {
+          "type": "accordion",
+          "settings": {
+            "heading": "When will my order ship?",
+            "content": "<p>Orders are processed Monday - Friday, with the exception of US holidays. Orders are typically fulfilled and shipped within 3-4 business days.<\/p>"
+          }
+        },
+        "4eaed028-5fb6-4263-9405-eae9915743c5": {
+          "type": "accordion",
+          "settings": {
+            "heading": "My order was delivered, but I did not receive it, what do I do next?",
+            "content": "<p>If your order is marked as delivered but you have not received it, please allow 24-48 hours for the courier to deliver the items. Additionally, please check with the address provided and with your neighbors to see if they received your items. Lastly, if you have not received your delivered order within 24-48 hours, please email hi@jonesroadbeauty.com re-confirming your address and we are happy to assist you further.<\/p>"
+          }
+        },
+        "ef7f74df-9fb4-45ec-a72b-bb60b958fe0b": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Where do you ship?",
+            "content": "<p>Jones Road currently ships throughout the US, Canada, UK (including England, Wales, Scotland, and Northern Ireland, excluding Crown Dependencies), Australia, New Zealand, and EU (Austria, Belgium, Bulgaria, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Monaco, Netherlands, Poland, Portugal, Romania, Slovak Republic, Slovenia, Spain, Sweden).<\/p>"
+          }
+        },
+        "9411276c-5670-4693-90fd-40cf61f5ded3": {
+          "type": "accordion",
+          "settings": {
+            "heading": "Noticed your address is wrong?",
+            "content": "<p>Please reach out to <a href=\"mailto:hi@jonesroadbeauty.com\" title=\"mailto:hi@jonesroadbeauty.com\">hi@jonesroadbeauty.com<\/a> confirming your correct address along with your order number and we will be happy to assist you further.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "7f9805b2-4e82-47b5-9e84-b7c95656c685",
+        "f7805458-bfb0-4153-b1ac-135dc65c9f4b",
+        "4eaed028-5fb6-4263-9405-eae9915743c5",
+        "ef7f74df-9fb4-45ec-a72b-bb60b958fe0b",
+        "9411276c-5670-4693-90fd-40cf61f5ded3"
+      ],
+      "settings": {
+        "section_id": "accordions",
+        "background": "rgba(0,0,0,0)",
+        "heading": "FAQ",
+        "cta_text": "",
+        "cta_link": ""
+      }
+    },
+    "text_banner_g47niP": {
+      "type": "text-banner",
+      "settings": {
+        "text": "<p>Have questions about our products, shade matching, order status, or returns? We're here to help! Just reach out to our Customer Support team through the <a href=\"https:\/\/jonesroadbeauty.customerdesk.io\/#rp-customer-widget-home\" title=\"https:\/\/jonesroadbeauty.customerdesk.io\/#rp-customer-widget-home\"><strong>support widget<\/strong><\/a>.<\/p>",
+        "font": "mono",
+        "font_size_desktop": 16,
+        "line_height_desktop": 1.2,
+        "font_size_mobile": 11,
+        "line_height_mobile": 1.2,
+        "alignment_desktop": "center",
+        "alignment_mobile": "center",
+        "width_desktop": 65,
+        "width_mobile": 100,
+        "background": "#fbf9f7",
+        "color": "#000000"
+      }
+    },
+    "ba0ce3f2-d205-4080-b16c-71eca08a5b3f": {
+      "type": "featured-products",
+      "blocks": {
+        "3a7b1ee3-e724-45cd-b665-6d5aa21beb33": {
+          "type": "product",
+          "settings": {
+            "product": "miracle-balm"
+          }
+        },
+        "8b5c624b-7fb3-4dd9-b967-ce83ea0c15a6": {
+          "type": "product",
+          "settings": {
+            "product": "the-face-pencil"
+          }
+        },
+        "e96f88fb-4f12-423f-b22f-1ac4e527973d": {
+          "type": "product",
+          "settings": {
+            "product": "tinted-face-powder"
+          }
+        },
+        "0e6b32e9-de66-45ff-a882-158d671d7161": {
+          "type": "product",
+          "settings": {
+            "product": "the-mascara"
+          }
+        }
+      },
+      "block_order": [
+        "3a7b1ee3-e724-45cd-b665-6d5aa21beb33",
+        "8b5c624b-7fb3-4dd9-b967-ce83ea0c15a6",
+        "e96f88fb-4f12-423f-b22f-1ac4e527973d",
+        "0e6b32e9-de66-45ff-a882-158d671d7161"
+      ],
+      "settings": {
+        "background": "#ffffff",
+        "heading": "You May Also Like",
+        "cta_text": "",
+        "cta_link": "",
+        "reviews_display": "mobile"
+      }
+    },
+    "02441af3-57ac-4814-bc8e-9e27dcba6f22": {
+      "type": "image-text-blocks",
+      "blocks": {
+        "5ea63ae2-11e9-46d7-bedb-f08f45e2a321": {
+          "type": "image-text",
+          "settings": {
+            "orientation": "standard",
+            "image": "shopify:\/\/shop_images\/JonesRoad_homepage_context_14_cdfa0bf8-6a3e-4e0a-a93f-9d5adf1d41e5.jpg",
+            "heading": "What you can expect",
+            "description": "<h4>SIMPLE PRODUCTS YOU CAN'T MESS UP<\/h4><p>Forget complicated makeup routines and hard to apply products. Our products are easy to use, versatile, and impossible to mess up. We have lots of tutorials on JustBobbi.com for beauty inspiration.<\/p><h4>FAST AND FRIENDLY ONLINE SUPPORT<\/h4><p>Have a question about your products or need some guidance? We have trained makeup artists and support staff online Monday-Friday 9-5 est to answer any questions. Email hi@jonesroadbeauty.com to chat.<\/p><h4>FOCUS ON WHAT'S RIGHT, NOT WHAT'S WRONG<\/h4><p>We believe that makeup should enhance your skin, not cover it up. You are beautiful, and you don't need much. Red lip or nude, it doesn’t even matter how it looks, it's more about how you feel it looks. We look forward to you getting your JRB package.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "5ea63ae2-11e9-46d7-bedb-f08f45e2a321"
+      ],
+      "custom_css": [
+        "h4 {color: #f50a99; font-size: 20px; padding-left: 40px; text-transform: uppercase; font-family: GeogrotesqueCondBoldWeb, Arial Black, Impact, sans-serif; letter-spacing: 0.58px;}",
+        "p {padding-left: 40px; font-size: 15px; margin-bottom: 20px; line-height: 20px; letter-spacing: 0.58px; font-family: RingsideWideWeb, sans-serif;}",
+        ".number {display: none;}",
+        "h3 {background: white; display: inline-block; padding: 10px 40px; margin: 20px 0; font-size: 20px; font-style: bold; letter-spacing: 0.58px;}",
+        ".image-text-blocks__content {padding: 60px 60px 60px 0px;}"
+      ],
+      "settings": {
+        "section_id": "image-text-blocks",
+        "gap": "gap-mobile gap-desktop",
+        "heading": "",
+        "heading_color": "#000000",
+        "cta_text": "",
+        "cta_link": "",
+        "cta_color": "#ffffff",
+        "cta_background": "#000000"
+      }
+    }
+  },
+  "order": [
+    "90ef1c98-4fc6-4db9-89c7-774659ca12da",
+    "track_your_order_heading",
+    "main",
+    "hero",
+    "faq",
+    "rebuy",
+    "fairing",
+    "0602ac32-d3ad-47a2-bef7-90856bde47c4",
+    "text_banner_g47niP",
+    "ba0ce3f2-d205-4080-b16c-71eca08a5b3f",
+    "02441af3-57ac-4814-bc8e-9e27dcba6f22"
+  ]
+}

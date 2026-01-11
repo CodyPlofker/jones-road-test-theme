@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "JETM_medium_1.jpg",
+            "heading": "#1: Refresh Your Skin",
+            "description": "<p>For a natural and even complexion that takes just seconds before running out the door, Just Enough Tinted Moisturizer is a mom’s best friend. Use your fingers or The Skin Brush to apply and blend, instantly. Wherever you need extra coverage, conceal with a few dabs of The Face Pencil.<\/p>",
+            "product_1": "just-enough-tinted-moisturizer",
+            "variant_1": "",
+            "product_2": "the-face-pencil",
+            "variant_2": ""
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "TINTED_FACE_POWDER_GROUP_SWATCH_0119_1_61145854-28c9-40dc-b082-24503e7bba49.png",
+            "heading": "#2: Warm It Up",
+            "description": "<p>Then quickly add some warmth and set your look in place so you can focus on what really matters. Lightly dust The Bronzer across your forehead, cheekbones, and nose (think: anywhere the sun naturally hits), and layer Tinted Face Powder on top for longer wear.<\/p>",
+            "product_1": "the-bronzer",
+            "variant_1": "",
+            "product_2": "tinted-face-powder",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "mascara_getthelook_3.jpg",
+            "heading": "#3: Shine & Define",
+            "description": "<p>These fast finishing touches will elevate your look without feeling overdone — all it takes is a few coats of The Mascara and Cool Gloss to let your natural beauty shine through.<\/p>",
+            "product_1": "the-mascara",
+            "variant_1": "",
+            "product_2": "cool-gloss",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "Best_Pencil-2.jpg",
+            "heading": "#4: Add A Finishing Touch",
+            "description": "<p>Line your lash line with The Best Pencil in Brown and brush up your brows with The Brow Gel.<br\/><br\/>Apply Cool Gloss in Pink Gold Shimmer on your lips for a high-shine finish.<\/p>",
+            "product_1": "the-best-pencil",
+            "variant_1": "FGEL08150",
+            "product_2": "the-brow-gel",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/GTL_ModernMom.jpg",
+        "heading": "Just Enough for Busy Mornings",
+        "description": "<p>On the days you’re moving between pickups, playdates, and practices, this quick routine will have you looking and feeling your best through it all.<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "",
+        "bullets": "<p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/just-enough-tinted-moisturizer\">Just Enough Tinted Moisturizer<\/a><\/p><p><a href=\"\/products\/the-skin-brush\" target=\"_blank\" title=\"The Skin Brush\">The Skin Brush<\/a><\/p><p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil<\/a><\/p><p><a href=\"\/products\/tinted-face-powder\" target=\"_blank\" title=\"Tinted Face Powder\">Tinted Face Powder<\/a><\/p><p><a href=\"\/products\/the-bronzer\" target=\"_blank\" title=\"The Bronzer\">The Bronzer<\/a><\/p><p><a href=\"\/products\/the-mascara\" target=\"_blank\" title=\"The Mascara\">The Mascara <\/a><\/p><p><a href=\"\/products\/cool-gloss\" target=\"_blank\" title=\"Cool Gloss\">Cool Gloss<\/a><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

@@ -1,0 +1,114 @@
+{%- assign config = section.settings -%}
+{%- assign product_blocks = section.blocks | map: 'settings' -%}
+
+<div 
+  id="editorial-products"
+  class="editorial__products js-editorialProducts"
+  data-component="editorialProducts"
+>
+  {%- if config.heading != blank -%}
+    <h2 class="editorial__products-heading">
+      {{ config.heading }}
+    </h2>
+  {%- endif -%}
+  <div class="editorial__products-products swiper-container js-editorialProductsCarousel">
+    <div class="swiper-wrapper">
+      {%- for block in product_blocks -%}
+        {%- assign product = all_products[block.product] -%}
+        <div class="editorial__products-product swiper-slide">
+          <div class="editorial__products-product--content">
+            <h3 class="editorial__products-product--heading">
+              {{ block.heading | default: product.title }}
+            </h3>
+            <div class="editorial__products-product--description text-underline">
+              {{ block.description | default: product.description }}
+            </div>
+            <a class="editorial__products-product--cta" href="{{ product.url | append: '?country=' | append: localization.country.iso_code }}">
+              {{ product.title | prepend: 'Shop ' }}
+            </a>
+          </div>
+          <div class="editorial__products-product--image">
+            {%- if block.image != blank -%}
+              <div style="aspect-ratio: {{ block.image.aspect_ratio }};">
+                {{ block.image | image_url: width: 1000 | image_tag: sizes: '50vw, (min-width: 1024px) 25vw', loading: 'lazy' }}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="editorial__products-actions">
+      <div class="editorial__products-pagination js-editorialProductsPag"></div>
+      <div class="editorial__products-navigation">
+        <button 
+          type="button"
+          class="next js-editorialProductsNav"
+        >
+          Next Product
+          <svg xmlns="http://www.w3.org/2000/svg" width="5" height="8" viewBox="0 0 5 8" fill="none">
+            <path d="M1 1L4 4L1 7.5" stroke="#818181" stroke-width="0.7"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- schema -%}
+  {
+    "name": "Editorial Products",
+    "tag": "section",
+    "max_blocks": 2,
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Settings"
+          },
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading",
+            "info": "If left blank, the title of the product will be used."
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description",
+            "info": "If left blank, the product's description will be used."
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image",
+            "info": "Please upload a transparent PNG of the product, with portrait dimensions"
+          }
+        ]
+      }
+    ],
+    "presets": [{ "name": "Editorial Products" }]
+  }
+{%- endschema -%}

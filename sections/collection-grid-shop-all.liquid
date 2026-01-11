@@ -1,0 +1,809 @@
+{%- assign config = section.settings -%}
+
+{% paginate collection.products by 500 %}
+  {% liquid
+    assign items_count = 0
+    assign curr_country_product = null
+    assign currency_code = localization.country.currency.iso_code
+  
+    for product in collection.products
+      assign comp_products = product.metafields.custom.compliance_products.value
+      if comp_products
+        assign iso__code = localization.country.currency.iso_code
+        case iso__code
+          when 'USD'
+            assign curr_country_product = comp_products.usa_product.value
+          when 'CAD'
+            assign curr_country_product = comp_products.canada_product.value
+          when 'GBP'
+            assign curr_country_product = comp_products.eu_uk_product.value
+          when 'EUR', 'BGN', 'CZK', 'DKK', 'HUF', 'PLN', 'RON', 'SEK'
+            assign curr_country_product = comp_products.eu_uk_product.value
+        endcase
+      endif
+  
+      if comp_products
+        if curr_country_product.id == product.id
+          assign items_count = items_count | plus: 1
+        endif
+      else
+        assign items_count = items_count | plus: 1
+      endif
+    endfor
+  
+  %}
+{% endpaginate %}
+
+{% liquid
+  assign current_sort_by = collection.sort_by | default: collection.default_sort_by
+  assign clear_filters_url = collection.url
+
+  if current_sort_by != blank
+    assign clear_filters_url = clear_filters_url | append: '?sort_by=' | append: current_sort_by
+  endif
+
+  assign has_active_filters = false
+  for f in collection.filters
+    if f.type == 'price_range'
+      if f.min_value.value > 0 or f.max_value.value < f.range_max
+        assign has_active_filters = true
+      endif
+    elsif f.active_values.size > 0
+      assign has_active_filters = true
+    endif
+  endfor
+%}
+
+{% assign has_breakout_cards = collection.metafields.custom.breakout_card.value %}
+
+<collection-info data-section="{{ section.id }}" data-collection-title="{{ collection.title }}">
+
+  {% assign breakout_cards = collection.metafields.custom.breakout_card.value %}
+
+  <div id="js-breakoutCard-{{ section.id }}" style="display: none;">
+    {% liquid
+      assign has_active_filters = false
+      for f in collection.filters
+        if f.type == 'price_range'
+          if f.min_value.value > 0 or f.max_value.value < f.range_max
+            assign has_active_filters = true
+          endif
+        else
+          if f.active_values.size > 0
+            assign has_active_filters = true
+          endif
+        endif
+      endfor
+    %}
+
+    {% comment %} Show Breakout Cards. The cards are only shown when there are no active filters. {% endcomment %}
+    {% if has_active_filters == false %}
+      {% for card in breakout_cards %}
+        {% if card.beakout_card == 'Large' %}
+
+          {% comment %} Skip in the live theme if draft theme is enabled in a metaobject card {% endcomment %}
+          {% if theme.role == 'main' and card.draft_theme_toggle.value == true %}
+            {% continue %}
+          {% endif %}
+            
+          {% comment %} Exclude breakout card by region {% endcomment %}
+          {% assign excluded_region_names = card.exclude_breakout_card.value %}
+          {% if excluded_region_names != blank %}
+            {% assign excluded_currency_codes = '' %}
+            
+            {% for region in excluded_region_names %}
+              {% assign region_downcase = region | strip | downcase %}
+              {% case region_downcase %}
+                {% when 'usa' %}
+                  {% assign code = 'USD' %}
+                {% when 'canada' %}
+                  {% assign code = 'CAD' %}
+                {% when 'uk' %}
+                  {% assign code = 'GBP' %}
+                {% when 'europe' %}
+                  {% assign code = 'EUR' %}
+                {% when 'bulgaria' %}
+                  {% assign code = 'BGN' %}
+                {% when 'czech republic' %}
+                  {% assign code = 'CZK' %}
+                {% when 'denmark' %}
+                  {% assign code = 'DKK' %}
+                {% when 'hungary' %}
+                  {% assign code = 'HUF' %}
+                {% when 'poland' %}
+                  {% assign code = 'PLN' %}
+                {% when 'romania' %}
+                  {% assign code = 'RON' %}
+                {% when 'sweden' %}
+                  {% assign code = 'SEK' %}
+                {% when 'australia' %}
+                  {% assign code = 'AUD' %}
+                {% when 'new zealand' %}
+                  {% assign code = 'NZD' %}
+                {% else %}
+                  {% assign code = '' %}
+              {% endcase %}
+            
+              {% if code != blank %}
+                {% assign excluded_currency_codes = excluded_currency_codes | append: code | append: ',' %}
+              {% endif %}
+            {% endfor %}
+            
+            {%- assign excluded_currency_codes = excluded_currency_codes | split: ',' -%}
+
+            {% if excluded_currency_codes contains currency_code %}
+              {% continue %}
+            {% endif %}
+          {% endif %}
+
+          {% liquid
+            # Region Specific Content
+            assign region_data = card.region_specific_content.value
+
+            assign fallback_title = card.title.value
+            assign title = fallback_title
+
+            assign fallback_multi_line_title = card.newtitle.value
+            assign multi_line_title = fallback_multi_line_title
+
+            assign fallback_content = card.content | metafield_tag
+            assign content = fallback_content
+
+            if region_data != blank
+              capture region_suffix
+                case currency_code
+                  when 'USD'
+                    echo '_usa'
+                  when 'CAD'
+                    echo '_canada'
+                  when 'GBP'
+                    echo '_uk'
+                  when 'EUR'
+                    echo '_europe'
+                  when 'BGN'
+                    echo '_bulgaria'
+                  when 'CZK'
+                    echo '_czech_republic'
+                  when 'DKK'
+                    echo '_denmark'
+                  when 'HUF'
+                    echo '_hungary'
+                  when 'PLN'
+                    echo '_poland'
+                  when 'RON'
+                    echo '_romania'
+                  when 'SEK'
+                    echo '_sweden'
+                  when 'AUD'
+                    echo '_australia'
+                  when 'NZD'
+                    echo '_new_zealand'
+                  else
+                    echo ''
+                endcase
+              endcapture
+            endif
+
+            # Title
+            assign region_key_title = 'title' | append: region_suffix
+
+            if region_suffix != blank
+              assign region_title_value = region_data[region_key_title]
+              if region_title_value and region_title_value.value != blank
+                assign title = region_title_value.value
+              endif
+            endif
+
+            # Multi-line title
+            assign region_key_multi_line_title = 'multi_line_title' | append: region_suffix
+
+            if region_suffix != blank
+              assign region_multi_line_title_value = region_data[region_key_multi_line_title]
+              if region_multi_line_title_value and region_multi_line_title_value.value != blank
+                assign multi_line_title = region_multi_line_title_value.value
+              endif
+            endif
+
+            # Content
+            assign region_key_content = 'content' | append: region_suffix
+            
+            if region_suffix != blank
+              assign region_content_value = region_data[region_key_content]
+              if region_content_value and region_content_value.value != blank
+                assign content = region_content_value | metafield_tag
+              endif
+            endif
+          %}
+
+          <div
+            class="breakout-card-data"
+            data-index="{{ forloop.index0 }}"
+            data-place-index="{{ card.place_it_after_shop_all.value }}"
+            data-card-image="{{ card.image.value | img_url: 'master' }}"
+            data-card-image-mobile="{{ card.image_mobile.value | img_url: 'master' }}"
+            data-background-color="{{ card.background_color.value }}"
+            data-title="{{ title }}"
+            data-is-multi-line-title="{{ card.is_multi_line_title.value }}"
+            data-multi-line-title="{% for line in multi_line_title %}{{ line }}{% unless forloop.last %}||{% endunless %}{% endfor %}"
+            data-title-font-size-desktop="{{ card.t_font_size_desktop }}"
+            data-title-font-size-mobile="{{ card.t_font_size_mobile }}"
+            data-title-color="{{ card.text_color.value }}"
+            data-title-font-family="{{ card.title_font_family.value }}"
+            data-title-background-color="{{ card.title_background_color.value }}"
+            data-content='{{ content }}'
+            data-content-font-size-desktop="{{ card.c_font_size_desktop }}"
+            data-content-font-size-mobile="{{ card.c_font_size_mobile }}"
+            data-content-color="{{ card.content_color.value }}"
+            data-content-font-family="{{ card.content_font_family.value }}"
+            data-button-label="{{ card.button_label.value }}"
+            data-button-color="{{ card.button_font_color.value }}"
+            data-button-background="{{ card.button_background.value }}"
+            data-button-link="{{ card.button_link.value }}"
+            data-add-link-to-image="{{ card.add_this_link_to_the_image.value }}"
+            data-content-alignment="{{ card.content_alignment.value }}"
+            data-button-font-size-desktop="{{ card.large_button_font_size_desktop }}"
+            data-button-font-size-mobile="{{ card.large_button_font_size_mobile }}"
+            data-border-color="{{ card.button_border_color.value }}"
+          ></div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </div>
+<div x-data id="collection-grid" class="collection__grid js-collectionGrid collection__grid-shop-all" data-component="collectionGrid">
+  {% render 'component-filters-drawer', results: collection, collapse_filters: false %}
+  <div class="collection__grid-header">
+    <div class="collection__grid-header--top">
+      <div class="collection__grid-title">
+        <h2>{{ collection.title }}</h2>
+      </div>
+      <div class="collection__grid-header--top-right">
+        <p id="results-count-mobile-{{ section.id }}" class="results-count results-count-mobile">{{ items_count | append: ' ITEMS' }}</p>
+        <div id="loading-spinner-mobile-{{ section.id }}" class="loading-overlay__spinner"></div>
+      </div>
+    </div>
+    {%- if config.navigation != blank -%}
+      {%- assign navigation = linklists[config.navigation] -%}
+      <div class="collection__grid-header--nav js-collectionGridNav">
+        <button type="button" class="carrot prev hidden js-collectionGridNavBtn">
+          <svg width="12" height="20" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z" fill="#BFBFBF"></path>
+          </svg>
+        </button>
+        <div class="links">
+          <ul class="js-collectionGridNavLinks" data-link="0">
+            {%- for link in navigation.links -%}
+              {%- assign navigation_titles = settings.navigation_titles | split: ',' -%}
+              {%- assign navigation_color = settings.navigation_color -%}
+              {%- assign is_navigation_title = false -%}
+              {%- for navigation_title in navigation_titles -%}
+                {%- assign trimmed_navigation_title = navigation_title | strip -%}
+                {%- if link.title == trimmed_navigation_title -%}
+                  {%- assign is_navigation_title = true -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+              <li class="{% if link.active %} active {% endif %}">
+                <a href="{{ link.url }}"{% if is_navigation_title %} class="is-holiday-title" style="color: {{ navigation_color }}"{% endif %}>
+                  {{ link.title }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <button type="button" class="carrot next hidden js-collectionGridNavBtn">
+          <svg width="12" height="20" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z" fill="#BFBFBF"></path>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+    {% render 'component-filter-sort-by', collection: collection, items_count: items_count %}
+  </div>
+  <div id="product-grid-{{ section.id }}" class="js-collectionItems collection__grid-wrapper" data-url="{{ collection.url }}" data-id="{{ section.id }}" data-count="{{ collection.all_products_count }}">
+    <div id="loading-overlay-{{ section.id }}" class="loading-overlay"></div>
+    {%- if section.settings.image != blank -%}
+      <div class="collection__grid-image">
+        <img
+          src="{{ section.settings.image | img_url: '360x' }}"
+          srcset="{{ section.settings.image | img_url: '720x' }} 2x"
+          alt="{{ section.settings.image.alt }}"
+          width="360"
+          height="600"
+          loading="lazy"
+        >
+      </div>
+    {%- endif -%}
+
+    {% assign tag_groups = section.settings.tag_groups | split: "," %}
+    
+    {%- paginate collection.products by 500 -%}
+      {% if collection.products.size == 0 %}
+        <div class="collection__grid-items--empty">
+          {% if section.settings.empty_message != blank %}
+            <h2>{{ section.settings.empty_message }}</h2>
+          {% endif %}
+        </div>
+
+        {% comment %} Show Featured Products when there are no products {% endcomment %}
+        {% if section.settings.show_products_on_empty %}
+          {% assign featured_products = section.settings.featured_products %}
+          <div class="collection__grid-items">
+            {% for product in featured_products %}
+              {% liquid
+                assign compliance_product_title = null
+                assign current_country_product = null
+                assign compliance_products = product.metafields.custom.compliance_products.value
+                if compliance_products
+                  assign compliance_product_title = compliance_products.product_title
+                  assign iso_code = localization.country.currency.iso_code
+                  case iso_code
+                    when 'USD'
+                      assign current_country_product = compliance_products.usa_product.value
+                    when 'CAD'
+                      assign current_country_product = compliance_products.canada_product.value
+                    when 'GBP'
+                      assign current_country_product = compliance_products.eu_uk_product.value
+                    when 'EUR', 'BGN', 'CZK', 'DKK', 'HUF', 'PLN', 'RON', 'SEK'
+                      assign current_country_product = compliance_products.eu_uk_product.value
+                  endcase
+                endif
+              %}
+      
+              {% if compliance_products %}
+                {%-
+                  include 'product-card' with
+                  mobile_carousel: true,
+                  compliance_product_title: compliance_product_title,
+                  index: forloop.index,
+                  product: current_country_product
+                -%}
+              {% else %}
+                {%-
+                  include 'product-card' with
+                  mobile_carousel: true,
+                  index: forloop.index,
+                  product: product
+                -%}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% else %}
+        {% comment %} Show Products by Tags {% endcomment %}
+      {% for tag in tag_groups %}
+        {% assign has_products = false %}
+
+        {% comment %} Get the product group index {% endcomment %}
+        {% assign product_group_index = forloop.index %}
+
+        {% comment %} First check if this tag group has any matching products {% endcomment %}
+        {% for product in collection.products %}
+          {% if product.tags contains tag %}
+            {% assign has_products = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% if has_products %}
+          <div class="product-group collection__grid-items" data-group="{{ tag | handle }}">
+
+            {% comment %} Show the tag group title {% endcomment %}
+            {% if tag == 'Skin Care' %}
+              <h2 class="product-group__title">Skin</h2>
+            {% else %}
+              <h2 class="product-group__title">{{ tag | capitalize }}</h2>
+            {% endif %}
+            
+            {% assign index = 0 %}
+            {%- for product in collection.products -%}
+
+              {% if product.tags contains tag %}
+                {% comment %} Get the product index inside the tag group {% endcomment %}
+                {% assign index = index | plus: 1 %}
+
+                {% liquid
+                  assign compliance_product_title = null
+                  assign current_country_product = null
+                  assign compliance_products = product.metafields.custom.compliance_products.value
+                  if compliance_products
+                    assign compliance_product_title = compliance_products.product_title
+                    assign iso_code = localization.country.currency.iso_code
+                    case iso_code
+                      when 'USD'
+                        assign current_country_product = compliance_products.usa_product.value
+                      when 'CAD'
+                        assign current_country_product = compliance_products.canada_product.value
+                      when 'GBP'
+                        assign current_country_product = compliance_products.eu_uk_product.value
+                      when 'EUR', 'BGN', 'CZK', 'DKK', 'HUF', 'PLN', 'RON', 'SEK'
+                        assign current_country_product = compliance_products.eu_uk_product.value
+                    endcase
+                  endif
+                %}
+
+                {% comment %} Small Breakout Card {% endcomment %}
+                {% if has_breakout_cards %}
+                  {% assign show_breakout_card = false %}
+                  {% assign current_breakout_card = null %}
+
+                  {% for breakout_card in has_breakout_cards %}
+                    {% liquid
+                      assign breakout_card_type = breakout_card.beakout_card | strip
+                      unless breakout_card_type == 'Small'
+                        continue
+                      endunless
+                    %}
+
+                    {% comment %} 
+                     Only show the small breakout card if the product index is the same as the breakout card index and
+                     the product group index is the same as the breakout card product group index 
+                    {% endcomment %}
+                    {% if breakout_card.place_it_after_shop_all.value == index and breakout_card.product_group_index.value == product_group_index %}
+                      {% assign show_breakout_card = true %}
+                      {% assign current_breakout_card = breakout_card %}
+                      
+                      {% comment %} Skip in the live theme if draft theme is enabled in a metaobject card {% endcomment %}
+                      {% if theme.role == 'main' and breakout_card.draft_theme_toggle.value == true %}
+                        {% continue %}
+                      {% endif %}
+
+                      {% comment %} Exclude breakout card by region {% endcomment %}
+                      {% assign excluded_region_names = current_breakout_card.exclude_breakout_card.value %}
+                      {% if excluded_region_names != blank %}
+                        {% assign excluded_currency_codes = '' %}
+                        
+                        {% for region in excluded_region_names %}
+                          {% assign region_downcase = region | strip | downcase %}
+                          {% case region_downcase %}
+                            {% when 'usa' %}
+                              {% assign code = 'USD' %}
+                            {% when 'canada' %}
+                              {% assign code = 'CAD' %}
+                            {% when 'uk' %}
+                              {% assign code = 'GBP' %}
+                            {% when 'europe' %}
+                              {% assign code = 'EUR' %}
+                            {% when 'bulgaria' %}
+                              {% assign code = 'BGN' %}
+                            {% when 'czech republic' %}
+                              {% assign code = 'CZK' %}
+                            {% when 'denmark' %}
+                              {% assign code = 'DKK' %}
+                            {% when 'hungary' %}
+                              {% assign code = 'HUF' %}
+                            {% when 'poland' %}
+                              {% assign code = 'PLN' %}
+                            {% when 'romania' %}
+                              {% assign code = 'RON' %}
+                            {% when 'sweden' %}
+                              {% assign code = 'SEK' %}
+                            {% when 'australia' %}
+                              {% assign code = 'AUD' %}
+                            {% when 'new zealand' %}
+                              {% assign code = 'NZD' %}
+                            {% else %}
+                              {% assign code = '' %}
+                          {% endcase %}
+                        
+                          {% if code != blank %}
+                            {% assign excluded_currency_codes = excluded_currency_codes | append: code | append: ',' %}
+                          {% endif %}
+                        {% endfor %}
+                        
+                        {%- assign excluded_currency_codes = excluded_currency_codes | split: ',' -%}
+
+                        {% if excluded_currency_codes contains currency_code %}
+                          {% continue %}
+                        {% endif %}
+                      {% endif %}
+
+                      {% if show_breakout_card %}
+                        {% liquid
+                          assign background_color = current_breakout_card.background_color.value
+                          assign card_image_vv = current_breakout_card.image.value
+                          assign card_image_vv_mobile = current_breakout_card.image_mobile.value
+                          assign content_alignment = current_breakout_card.content_alignment.value
+                          assign is_multi_line_title = current_breakout_card.is_multi_line_title.value
+
+                          # Region Specific Content
+                          assign region_data = current_breakout_card.region_specific_content.value
+
+                          assign fallback_title = current_breakout_card.title.value
+                          assign title = fallback_title
+        
+                          assign fallback_multi_line_title = current_breakout_card.newtitle.value
+                          assign multi_line_title = fallback_multi_line_title
+        
+                          assign fallback_content = current_breakout_card.content | metafield_tag
+                          assign content = fallback_content
+        
+                          if region_data != blank
+                            capture region_suffix
+                              case currency_code
+                                when 'USD'
+                                  echo '_usa'
+                                when 'CAD'
+                                  echo '_canada'
+                                when 'GBP'
+                                  echo '_uk'
+                                when 'EUR'
+                                  echo '_europe'
+                                when 'BGN'
+                                  echo '_bulgaria'
+                                when 'CZK'
+                                  echo '_czech_republic'
+                                when 'DKK'
+                                  echo '_denmark'
+                                when 'HUF'
+                                  echo '_hungary'
+                                when 'PLN'
+                                  echo '_poland'
+                                when 'RON'
+                                  echo '_romania'
+                                when 'SEK'
+                                  echo '_sweden'
+                                when 'AUD'
+                                  echo '_australia'
+                                when 'NZD'
+                                  echo '_new_zealand'
+                                else
+                                  echo ''
+                              endcase
+                            endcapture
+                          endif
+        
+                          # Title
+                          assign region_key_title = 'title' | append: region_suffix
+        
+                          if region_suffix != blank
+                            assign region_title_value = region_data[region_key_title]
+                            if region_title_value and region_title_value.value != blank
+                              assign title = region_title_value.value
+                            endif
+                          endif
+        
+                          # Multi-line title
+                          assign region_key_multi_line_title = 'multi_line_title' | append: region_suffix
+        
+                          if region_suffix != blank
+                            assign region_multi_line_title_value = region_data[region_key_multi_line_title]
+                            if region_multi_line_title_value and region_multi_line_title_value.value != blank
+                              assign multi_line_title = region_multi_line_title_value.value
+                            endif
+                          endif
+        
+                          # Content
+                          assign region_key_content = 'content' | append: region_suffix
+                          
+                          if region_suffix != blank
+                            assign region_content_value = region_data[region_key_content]
+                            if region_content_value and region_content_value.value != blank
+                              assign content = region_content_value | metafield_tag
+                            endif
+                          endif
+        
+                          assign title_font_size_desktop = current_breakout_card.t_font_size_desktop
+                          assign title_font_size_mobile = current_breakout_card.t_font_size_mobile
+                          assign title_color = current_breakout_card.text_color.value
+                          assign title_font_family = current_breakout_card.title_font_family.value
+                          assign title_background_color = current_breakout_card.title_background_color.value
+                          assign content_font_size_desktop = current_breakout_card.c_font_size_desktop
+                          assign content_font_size_mobile = current_breakout_card.c_font_size_mobile
+                          assign content_color = current_breakout_card.content_color.value
+                          assign content_font_family = current_breakout_card.content_font_family.value
+                          assign button_label = current_breakout_card.button_label.value
+                          assign button_color = current_breakout_card.button_font_color.value
+                          assign button_background = current_breakout_card.button_background.value
+                          assign button_link = current_breakout_card.button_link.value
+                          assign border_color = current_breakout_card.button_border_color.value
+                          assign button_font_size_desktop = current_breakout_card.large_button_font_size_desktop
+                          assign button_font_size_mobile = current_breakout_card.large_button_font_size_mobile
+                          assign add_link_to_image = current_breakout_card.add_this_link_to_the_image.value
+                          assign button_font_color_hover = current_breakout_card.button_font_color_hover.value
+                          assign button_background_hover = current_breakout_card.button_background_hover.value
+                          assign button_border_color_hover = current_breakout_card.button_border_hover.value
+                          assign desktop_breakout_card_cta_vertical_padding = settings.desktop_breakout_card_cta_vertical_padding
+                          assign desktop_breakout_card_cta_horizontal_padding = settings.desktop_breakout_card_cta_horizontal_padding
+                          assign mobile_breakout_card_cta_vertical_padding = settings.mobile_breakout_card_cta_vertical_padding
+                          assign mobile_breakout_card_cta_horizontal_padding = settings.mobile_breakout_card_cta_horizontal_padding
+                          assign desktop_breakout_card_cta_top_spacing = settings.desktop_breakout_card_cta_top_spacing
+                          assign mobile_breakout_card_cta_top_spacing = settings.mobile_breakout_card_cta_top_spacing
+                          assign text_block_alignment = current_breakout_card.text_block_alignment
+                          assign text_alignment = current_breakout_card.text_alignment
+                          assign opacity = current_breakout_card.opacity
+                          assign new_design = current_breakout_card.new_design.value
+                        %}
+
+                        {%
+                          include 'breakout-card' with
+                          card_image_vv: card_image_vv,
+                          card_image_vv_mobile: card_image_vv_mobile,
+                          background_color: background_color,
+                          title: title,
+                          content_alignment: content_alignment,
+                          is_multi_line_title: is_multi_line_title,
+                          multi_line_title: multi_line_title,
+                          title_bold: title_bold,
+                          title_font_size_desktop: title_font_size_desktop,
+                          title_font_size_mobile: title_font_size_mobile,
+                          title_color: title_color,
+                          title_font_family: title_font_family,
+                          title_background_color: title_background_color,
+                          content: content,
+                          content_font_size_desktop: content_font_size_desktop,
+                          content_font_size_mobile: content_font_size_mobile,
+                          content_color: content_color,
+                          content_font_family: content_font_family,
+                          button_label: button_label,
+                          button_color: button_color,
+                          button_background: button_background,
+                          button_link: button_link,
+                          border_color: border_color,
+                          button_font_size_desktop: button_font_size_desktop,
+                          button_font_size_mobile: button_font_size_mobile,
+                          add_link_to_image: add_link_to_image,
+                          button_font_color_hover: button_font_color_hover,
+                          button_background_hover: button_background_hover,
+                          button_border_color_hover: button_border_color_hover,
+                          desktop_breakout_card_cta_vertical_padding: desktop_breakout_card_cta_vertical_padding,
+                          desktop_breakout_card_cta_horizontal_padding: desktop_breakout_card_cta_horizontal_padding,
+                          mobile_breakout_card_cta_vertical_padding: mobile_breakout_card_cta_vertical_padding,
+                          mobile_breakout_card_cta_horizontal_padding: mobile_breakout_card_cta_horizontal_padding,
+                          desktop_breakout_card_cta_top_spacing: desktop_breakout_card_cta_top_spacing,
+                          mobile_breakout_card_cta_top_spacing: mobile_breakout_card_cta_top_spacing,
+                          text_block_alignment: text_block_alignment,
+                          text_alignment: text_alignment,
+                          opacity: opacity,
+                          new_design: new_design
+                        %}
+                        {% assign show_breakout_card = false %}
+                        {% assign current_breakout_card = null %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+
+                {% if compliance_products %}
+                  {%-
+                    include 'product-card' with
+                    mobile_carousel: true,
+                    compliance_product_title: compliance_product_title,
+                    index: forloop.index,
+                    product: current_country_product
+                  -%}
+                {% else %}
+                  {%-
+                    include 'product-card' with
+                    mobile_carousel: true,
+                    index: forloop.index
+                  -%}
+                {% endif %}
+              {% endif %}
+            {%- endfor -%}
+          </div>
+        {% endif %}
+      {% endfor %}
+
+      {% comment %} Products that don't have a tag in the tag_groups array {% endcomment %}
+      {% assign others_product_count = 0 %}
+
+      {% for product in collection.products %}
+        {% assign has_excluded_tag = false %}
+      
+        {% for tag in product.tags %}
+          {% if tag_groups contains tag %}
+            {% assign has_excluded_tag = true %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% unless has_excluded_tag %}
+          {% assign others_product_count = others_product_count | plus: 1 %}
+        {% endunless %}
+      {% endfor %}
+
+      {% if others_product_count > 0 %}
+        <div class="product-group collection__grid-items" data-group="others">
+          <h2 class="product-group__title">More</h2>
+          {%- for product in collection.products -%}
+            {% assign has_excluded_tag = false %}
+
+            {% for tag in product.tags %}
+              {% if tag_groups contains tag %}
+                {% assign has_excluded_tag = true %}
+                {% break %}
+              {% endif %}
+            {% endfor %}
+
+            {% unless has_excluded_tag %}
+              {% liquid
+                assign compliance_product_title = null
+                assign current_country_product = null
+                assign compliance_products = product.metafields.custom.compliance_products.value
+                if compliance_products
+                  assign compliance_product_title = compliance_products.product_title
+                  assign iso_code = localization.country.currency.iso_code
+                  case iso_code
+                    when 'USD'
+                      assign current_country_product = compliance_products.usa_product.value
+                    when 'CAD'
+                      assign current_country_product = compliance_products.canada_product.value
+                    when 'GBP'
+                      assign current_country_product = compliance_products.eu_uk_product.value
+                    when 'EUR', 'BGN', 'CZK', 'DKK', 'HUF', 'PLN', 'RON', 'SEK'
+                      assign current_country_product = compliance_products.eu_uk_product.value
+                  endcase
+                endif
+              %}
+
+              {% if compliance_products %}
+                {%-
+                  include 'product-card' with
+                  mobile_carousel: true,
+                  compliance_product_title: compliance_product_title,
+                  index: forloop.index,
+                  product: current_country_product
+                -%}
+              {% else %}
+                {%-
+                  include 'product-card' with
+                  mobile_carousel: true,
+                  index: forloop.index
+                -%}
+              {% endif %}
+            {% endunless %}
+          {%- endfor -%}
+        </div>
+      {% endif %}
+      {% endif %}
+    {%- endpaginate -%}
+  </div>
+</div>
+</collection-info>
+
+
+{%- schema -%}
+{
+  "name": "Collection Grid",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "link_list",
+      "id": "navigation",
+      "label": "Navigation"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "textarea",
+      "id": "empty_message",
+      "label": "Empty Message",
+      "default": "No products found matching your selected filters <br/> See our recommendations below"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_products_on_empty",
+      "label": "Show Products on Empty",
+      "default": true
+    },
+    {
+      "type": "product_list",
+      "id": "featured_products",
+      "label": "Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "tag_groups",
+      "label": "Tag Groups",
+      "info": "Enter the tag groups separated by commas. Example: Face,Eyes,Lips,Skin Care,kits,tools,apparel",
+      "default": "Face,Eyes,Lips,Skin Care,kits,tools,apparel"
+    }
+  ]
+}
+{%- endschema -%}

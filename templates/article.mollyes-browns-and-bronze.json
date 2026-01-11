@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "E1A76662-5B5B-4C02-B94E-228D9406DD17.jpg",
+            "heading": "#1: Bronzed Skin",
+            "description": "<p>After applying your foundation, use Tinted Face Powder to set your complexion products, color correct where needed, and minimize shine. Next, apply The Bronzer to places where the sun naturally touches the face—like the forehead, cheeks, and bridge of the nose. Also works perfectly on the neck to seamlessly blend the face to the body.<\/p>",
+            "product_1": "tinted-face-powder",
+            "variant_1": "FGTP28307",
+            "product_2": "the-bronzer",
+            "variant_2": "FGBR29321"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "6BBC8C1D-3AED-435E-8040-E91FB95CEB06.jpg",
+            "heading": "#2: Define The Eyes",
+            "description": "<p>Use the tip of The Brow Pencil in light upward strokes for precise definition or to fill in and thicken where needed. Finishing off the look, use The Best Pencil to define the eye. Follow the base of the lashes, as close to the lashline as you can, working your way towards your nose.<\/p>",
+            "product_1": "the-brow-pencil",
+            "variant_1": "FGBP23225",
+            "product_2": "the-best-pencil",
+            "variant_2": "FGEL08150"
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "Mascara_098_1.png",
+            "heading": "#3: Define",
+            "description": "<p>Whenever you’re using a peach- or pink-toned shade, adding definition around the eyes is key. Fill in any sparse areas of the brows using The Brow Pencil (Mollye wears Light Brunette) and finish with a few coats of The Mascara in Black.<\/p>",
+            "product_1": "the-mascara",
+            "variant_1": "FGMA02051",
+            "product_2": "the-brow-pencil",
+            "variant_2": "FGBP23225"
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "JR_030922_1791_copy_1.png",
+            "heading": "#4: Subtle Shine",
+            "description": "<p>When it comes to the lips, keep it monochromatic by applying a little bit of the same Peachy Nude shadow to lips using your finger. Add Miracle Balm in Au Naturel on top for hydration.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01044",
+            "product_2": "",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/A07B03A6-3436-40C3-B499-7858ED400438.jpg",
+        "heading": "About the Look",
+        "description": "<p>This look is our take on a classic bronzed look. Focusing on flawless skin and defined eyes, it's simple, yet timeless.<\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(4 products)",
+        "bullets": "<p>Tinted Face Powder<\/p><p>The Bronzer<\/p><p>The Brow Pencil<\/p><p>The Best Pencil<\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

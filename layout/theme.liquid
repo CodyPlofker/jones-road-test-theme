@@ -1,0 +1,437 @@
+{% comment %}
+  This code is setting a variable named "speedupkernel" to the value "true".
+  It's then checking if the hostname of the request contains certain strings
+  such as 'myshopify.com', 'gempages.net' or 'shopifypreview.com', and sets
+  the variable 'is_admin_interface' to either "true" or "false".
+  It also checks for specific paths in the request like '/cart' and '/checkout'
+  which will set is_admin_interface to "true". Finally, if the request.path
+  contains the string 'page', it sets the speedupkernel variable back to false.
+{% endcomment %}
+
+{%- assign speedupkernel = true -%}
+{%- assign is_admin_interface = false -%}
+
+{%- if speedupkernel -%}
+  {%- if request.host contains 'myshopify.com' -%}
+    {%- assign is_admin_interface = true -%}
+  {%- else -%}
+    {%- assign is_admin_interface = false -%}
+  {%- endif -%}
+
+  {%- if request.host contains 'shopifypreview.com' -%}
+    {%- assign is_admin_interface = false -%}
+  {%- endif -%}
+
+  {%- if request.host contains 'gempages.net' -%}
+    {%- assign is_admin_interface = true -%}
+  {%- endif -%}
+
+  {%- if template contains 'cart' -%}
+    {%- assign is_admin_interface = true -%}
+  {%- endif -%}
+
+  {%- if request.path contains 'checkout' -%}
+    {%- assign is_admin_interface = true -%}
+  {%- endif -%}
+
+  {%- if request.path contains 'page' -%}
+    {%- assign speedupkernel = false -%}
+  {%- endif -%}
+{%- endif -%}
+{% assign alias_domain_name = settings.alias_domain_name | split: ',' | strip %}
+{% if alias_domain_name contains request.host %}
+  {% assign is_modern_mom = true %}
+{% endif %}
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!-- [if (gt IE 9)|!(IE)]><! -->
+<html class="no-js supports-no-cookies" lang="{{ shop.locale }}">
+  <!-- <![endif] -->
+  <head>
+    {% unless is_admin_interface %}
+      {% render '__opt-theme-observer' %}
+    {% endunless %}
+    {% include '__opt-theme-headers' %}
+    {% render 'tracker' %}
+    {% unless is_modern_mom %}
+      {% include 'head-favicon' %}
+    {% endunless %}
+
+    <!-- cdn.intelligems.io start -->
+    <script>
+      window.Shopify = window.Shopify || {theme: {id: {{ theme.id }}, role: '{{ theme.role }}' } };
+      window._template = {
+          directory: "{{ template.directory }}",
+          name: "{{ template.name }}",
+          suffix: "{{ template.suffix }}"
+      }
+    </script>
+    <script type="module" blocking="render" fetchpriority="high" src="https://cdn.intelligems.io/esm/d3ac9e974202/bundle.js" async></script>
+    <script>
+      let path = window.location.pathname;
+      
+      const observer = new MutationObserver(() => {
+        if (window.location.pathname !== path) {
+          path = window.location.pathname;
+          window.igData.restart();
+        }
+      })
+      observer.observe(document, {
+        childList: true,
+        subtree: true,  
+      })      
+    </script>
+    <!-- cdn.intelligems.io end -->
+    
+    <!-- heatmap.com snippet -->
+    <script
+      {% if template contains 'index' %}
+        type="noscript-s"
+      {% endif %}
+    >
+      (function() {
+        var _heatmap_paq = window._heatmap_paq || [];
+        var heatUrl = window.heatUrl = "https://dashboard.heatmap.com/";
+        function heatLoader(url, item) {
+          if(typeof handleSinglePagedWebsite !== 'undefined' && item == 'prep') return true;
+          var s = document.createElement("script"); s.type = "text/javascript";
+          s.src = url; s.async = false; s.defer = true; document.head.appendChild(s);
+        }
+        heatLoader(heatUrl+"preprocessor.min.js?sid=2821", "prep");
+        setTimeout(function() {
+          if(typeof _heatmap_paq !== "object" || _heatmap_paq.length == 0) {
+            _heatmap_paq.push(["setTrackerUrl", heatUrl+"heatmap.php"]);
+            heatLoader(heatUrl+"heatmap-light.min.js?sid=2821", "heat");
+          }
+        }, 1000);
+      })();
+    </script>
+    <script type="text/javascript" async="true" src="https://widgets.juniphq.com/v1/junip_shopify.js"></script>
+    <span class="junip-store-key" data-store-key="4NjxTTX33ohe7HAXvYJi8ccY"></span>
+    <!-- End heatmap.com snippet Code -->
+    <!-- PDQ APP -->
+    {% comment %} <script id="pdq_custom_ab_test_script" type="text/javascript" src="https://pdq-scripts.pdqprod.link/pdq-text-abtest.js"></script> {% endcomment %}
+    <!-- PDQ APP -->
+    <link rel="preconnect dns-prefetch" href="https://api.config-security.com/" crossorigin>
+    <link rel="preconnect dns-prefetch" href="https://conf.config-security.com/" crossorigin>
+    <link rel="preconnect dns-prefetch" href="https://whale.camera/" crossorigin>
+    <script>
+/* >> TriplePixel :: start*/
+window.TriplePixelData={TripleName:"jonesroad.myshopify.com",ver:"2.12",plat:"SHOPIFY",isHeadless:false},function(W,H,A,L,E,_,B,N){function O(U,T,P,H,R){void 0===R&&(R=!1),H=new XMLHttpRequest,P?(H.open("POST",U,!0),H.setRequestHeader("Content-Type","text/plain")):H.open("GET",U,!0),H.send(JSON.stringify(P||{})),H.onreadystatechange=function(){4===H.readyState&&200===H.status?(R=H.responseText,U.includes(".txt")?eval(R):P||(N[B]=R)):(299<H.status||H.status<200)&&T&&!R&&(R=!0,O(U,T-1,P))}}if(N=window,!N[H+"sn"]){N[H+"sn"]=1,L=function(){return Date.now().toString(36)+"_"+Math.random().toString(36)};try{A.setItem(H,1+(0|A.getItem(H)||0)),(E=JSON.parse(A.getItem(H+"U")||"[]")).push({u:location.href,r:document.referrer,t:Date.now(),id:L()}),A.setItem(H+"U",JSON.stringify(E))}catch(e){}var i,m,p;A.getItem('"!nC`')||(_=A,A=N,A[H]||(E=A[H]=function(t,e,a){return void 0===a&&(a=[]),"State"==t?E.s:(W=L(),(E._q=E._q||[]).push([W,t,e].concat(a)),W)},E.s="Installed",E._q=[],E.ch=W,B="configSecurityConfModel",N[B]=1,O("https://conf.config-security.com/model",5),i=L(),m=A[atob("c2NyZWVu")],_.setItem("di_pmt_wt",i),p={id:i,action:"profile",avatar:_.getItem("auth-security_rand_salt_"),time:m[atob("d2lkdGg=")]+":"+m[atob("aGVpZ2h0")],host:A.TriplePixelData.TripleName,plat:A.TriplePixelData.plat,url:window.location.href,ref:document.referrer,ver:A.TriplePixelData.ver},O("https://api.config-security.com/event",5,p),O("https://whale.camera/live/dot.txt",5)))}}("","TriplePixel",localStorage);
+/* << TriplePixel :: end*/
+    </script>
+    {%- comment -%} Redirection Rules {%- endcomment -%}
+    {% include 'redirection-rules' %}
+
+    {% render 'replo-head' %}
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    {%- if template.name == 'product' -%}
+      {%- if product.tags contains 'hide' or product.tags contains 'sesami-service' -%}
+        <meta name="robots" content="noindex">
+      {%- endif -%}
+      {%- if product.tags contains 'hide-eu' -%}
+        {%- include 'function_is-eu' -%}
+        {%- if is_eu -%}
+          <meta name="robots" content="noindex">
+        {%- endif -%}
+      {%- endif -%}
+      {%- if product.tags contains 'hide-uk' -%}
+        {%- if localization.country == 'United Kingdom' -%}
+          <meta name="robots" content="noindex">
+        {%- endif -%}
+      {%- endif -%}
+      {%- if product.tags contains 'hide-irl' -%}
+        {%- if localization.country.iso_code == 'IE' -%}
+          <meta name="robots" content="noindex">
+        {%- endif -%}
+      {%- endif -%}
+      {%- if product.tags contains 'hide-au' and localization.country.iso_code == 'AU' -%}
+          <meta name="robots" content="noindex">
+      {%- endif -%}
+      {%- if product.tags contains 'hide-nz' and localization.country.iso_code == 'NZ' -%}
+          <meta name="robots" content="noindex">
+      {%- endif -%}
+    {%- endif -%}
+    {%- if template.name == 'collection' and template.suffix == 'sesami' -%}
+      <meta name="robots" content="noindex">
+    {%- endif -%}
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% unless is_modern_mom %}
+      {% include 'head-tags' %}
+    {% endunless %}
+    {% include 'social-meta-tags' %}
+    {% render 'prefetch' %}
+
+    {{ 'fonts.static.css' | asset_url | stylesheet_tag }}
+    {{ 'site.css' | asset_url | stylesheet_tag }}
+
+    {{ 'modernizr.static.js' | asset_url | script_tag }}
+    {% capture contentForHeader %}
+    {{ content_for_header }}
+  {% endcapture %}
+    {{ contentForHeader }}
+    {% include 'head-scripts' %}
+    {{ settings.inject_code }}
+
+    <script id="docapp-cart">
+      window.docappCart = {{ cart | json }}; window.docappCart.currency = "{{ 0 | money_with_currency | slice: -3, 3 }}"; window.docappCart.shop_currency = "{{ shop.currency }}";
+    </script>
+    <script id="docapp-free-item-speedup">
+      (() => { if (!document.documentElement.innerHTML.includes('\\/shop' + '\\/js' + '\\/free-gift-cart-upsell-pro.min.js') || window.freeGiftCartUpsellProAppLoaded) return; let script = document.createElement('script'); script.src = "https://d2fk970j0emtue.cloudfront.net/shop/js/free-gift-cart-upsell-pro.min.js?shop=jonesroad.myshopify.com"; document.getElementById('docapp-free-item-speedup').after(script); })();
+    </script>
+    <script
+      type="text/javascript"
+      src="https://pdq-scripts.pdqprod.link/pdq-text-abtest.js"
+      id="pdq_custom_ab_test_script"
+      async
+    >
+      {"product_page":{"remove":{"selector":"pdqproductpromise","parent_selector": ".product-config"}}}
+    </script>
+    {% render '__prerender' %}
+    <script>
+      window.videowiseShadow = {
+          mode: 'closed',
+          assets: [{
+              type: 'style',
+              src: '{{ "custom-videowise.css" | asset_url }}',
+          }]
+      };
+    </script>
+    {{ 'custom-videowise.js' | asset_url | script_tag }}
+  </head>
+
+  {% comment %} GWP {% endcomment %}
+  {% liquid
+    assign gwp = false
+    assign gwp_product = 0
+    assign gwp_id = 0
+    assign gwp_threshold = 0
+    assign gwp_price = 0
+
+    if settings.cart_gwp_enabled and settings.cart_gwp_product != blank
+      assign gwp_product = all_products[settings.cart_gwp_product]
+      if gwp_product.available
+        assign gwp = true
+        assign gwp_id = gwp_product.selected_or_first_available_variant.id
+        assign gwp_price = gwp_product.price
+      endif
+
+      if settings.cart_gwp_threshold_enabled
+        assign country_iso_code = localization.country.currency.iso_code
+        case country_iso_code
+          when 'USD'
+            assign gwp_threshold = settings.cart_gwp_threshold | times: 100
+          when 'CAD'
+            assign gwp_threshold = settings.cart_gwp_threshold_cad | times: 100
+          when 'GBP'
+            assign gwp_threshold = settings.cart_gwp_threshold_gbp | times: 100
+          when 'EUR'
+            assign gwp_threshold = settings.cart_gwp_threshold_eur | times: 100
+          when 'BGN'
+            assign gwp_threshold = settings.cart_gwp_threshold_bgn | times: 100
+          when 'CZK'
+            assign gwp_threshold = settings.cart_gwp_threshold_czk | times: 100
+          when 'DKK'
+            assign gwp_threshold = settings.cart_gwp_threshold_dkk | times: 100
+          when 'HUF'
+            assign gwp_threshold = settings.cart_gwp_threshold_huf | times: 100
+          when 'PLN'
+            assign gwp_threshold = settings.cart_gwp_threshold_pln | times: 100
+          when 'RON'
+            assign gwp_threshold = settings.cart_gwp_threshold_ron | times: 100
+          when 'SEK'
+            assign gwp_threshold = settings.cart_gwp_threshold_sek | times: 100
+          when 'AUD'
+            assign gwp_threshold = settings.cart_gwp_threshold_aud | times: 100
+          when 'NZD'
+            assign gwp_threshold = settings.cart_gwp_threshold_nzd | times: 100
+        endcase
+      endif
+    endif
+  %}
+
+  {% comment %} Tiered GWP {% endcomment %}
+  <script>
+    {% assign tiered_gift_entries = shop.metaobjects.tiered_cart_gwp.values %}
+    {%- assign swatches = settings.swatches | newline_to_br | split: '<br />' -%}
+    {%- assign swatch_override = false -%}
+
+    var entries = [];
+
+    {% for entry in tiered_gift_entries %}
+      // Region Specific Thresholds
+      var regionSpecificThresholds = {{ entry.region_specific_thresholds.value | json }};
+
+      // Single Variant Gifts (Variant references)
+      var variant_references = [];
+      {% if entry.single_sku_gwps and entry.single_sku_gwps.value %}
+        {% for variant in entry.single_sku_gwps.value %}
+          {% assign product = variant.product %}
+          {% assign variant_description = '' %}
+          {% if variant.metafields.findation_hero.description != blank %}
+            {% assign variant_description = variant.metafields.findation_hero.description %}
+          {% endif %}
+          {% assign swatch_override = false %}
+          {% assign swatch_value = '' %}
+          {%- if variant.metafields.swatch.color != blank -%}
+            {%- assign swatch_override = variant.metafields.swatch.color -%}
+          {%- endif -%}
+          {%- if variant.metafields.swatch.image != blank -%}
+            {%- assign swatch_override = variant.metafields.swatch.image | image_url: width: 100, height: 100 -%}
+          {%- endif -%}
+          {%- if swatch_override != false -%}
+            {%- assign swatch_value = swatch_override -%}
+          {%- else -%}
+            {%- for s in swatches -%}
+              {%- assign swatch = s | split: '==' -%}
+              {%- assign swatch_name = swatch | first | strip -%}
+              {%- assign swatch_value = swatch | last | strip -%}
+  
+              {%- if swatch_name == variant.title -%}
+                {%- assign swatch_value = swatch_value -%}
+                {% break %}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+          variant_references.push({
+            type: "variant",
+            id: {{ variant.id | json }},
+            product_id: {{ product.id | json }},
+            title: {{ variant.title | json }},
+            product_title: {{ product.title | json }},
+            image: {{ variant.image | default: product.featured_image | image_url: width: 1000 | json }},
+            available: {{ variant.available | json }},
+            swatch: "{{ swatch_value }}",
+            description: "{{ variant_description }}"
+          });
+        {% endfor %}
+      {% endif %}
+
+      // Multi Variant Gifts (Product references)
+      var product_references = [];
+      {% if entry.multi_sku_gwps and entry.multi_sku_gwps.value %}
+        {% for product in entry.multi_sku_gwps.value %}
+          var variants_{{ forloop.index0 }} = [
+            {% for variant in product.variants %}
+              {% assign swatch_override = false %}
+              {% assign swatch_value = '' %}
+              {%- if variant.metafields.swatch.color != blank -%}
+                {%- assign swatch_override = variant.metafields.swatch.color -%}
+              {%- endif -%}
+              {%- if variant.metafields.swatch.image != blank -%}
+                {%- assign swatch_override = variant.metafields.swatch.image | image_url: width: 100, height: 100 -%}
+              {%- endif -%}
+              {%- if swatch_override != false -%}
+                {%- assign swatch_value = swatch_override -%}
+              {%- else -%}
+                {%- for s in swatches -%}
+                  {%- assign swatch = s | split: '==' -%}
+                  {%- assign swatch_name = swatch | first | strip -%}
+                  {%- assign swatch_value = swatch | last | strip -%}
+      
+                  {%- if swatch_name == variant.title -%}
+                    {%- assign swatch_value = swatch_value -%}
+                    {% break %}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+              {
+                id: {{ variant.id | json }},
+                title: {{ variant.title | json }},
+                available: {{ variant.available | json }},
+                image: {{ variant.image | default: product.featured_image | image_url: width: 1000 | json }},
+                swatch: "{{ swatch_value }}"
+              }{% unless forloop.last %},{% endunless %}
+            {% endfor %}
+          ];
+          product_references.push({
+            type: "product",
+            id: {{ product.id | json }},
+            handle: {{ product.handle | json }},
+            title: {{ product.title | json }},
+            image: {{ product.featured_image | image_url: width: 1000 | json }},
+            variants: variants_{{ forloop.index0 }}
+          });
+        {% endfor %}
+      {% endif %}
+
+      entries.push({
+        label: {{ entry.label | json }},
+        gift_title: {{ entry.gift_title | json }},
+        regionSpecificThresholds: regionSpecificThresholds,
+        variant_references: variant_references,
+        product_references: product_references
+      });
+    {% endfor %}
+
+    window.tiered_gift_entries = entries;
+  </script>
+
+  {%- assign is_landing = false -%}
+  {%- if template.name == 'page' and template.suffix contains 'landing' -%}
+    {%- assign is_landing = true -%}
+  {%- endif -%}
+
+  {%- include 'function_is-eu' -%}
+
+  <body
+    itemscope
+    itemtype="http://schema.org/WebPage"
+    data-template="{{ template.suffix }}"
+    data-test="test"
+    data-country="{{ localization.country.iso_code }}"
+    data-eu="{{ is_eu }}"
+    data-currency="{{ localization.country.currency.iso_code }}"
+    data-gwp='
+      {
+        "enabled": {{ gwp }},
+        "product": {{ gwp_id }},
+        "threshold": {{ gwp_threshold }},
+        "price": {{ gwp_price }}
+      }
+    '
+    {% if template.suffix == 'wtf-custom-quiz-with-progressbar-and-noheader' %} style="background-color: #F8F8F8;"{% endif %}
+  >
+    {% unless is_modern_mom %}
+      {% include 'header' %}
+    {% endunless %}
+      
+    {% comment %} Drawer Overlay {% endcomment %}
+     <div x-data>
+      <div 
+        class="drawer-overlay" 
+        :class="{ 'open': $store.drawer.open }" 
+        @click="$store.drawer.DrawerClose()"
+      ></div>
+    </div>
+
+    <main role="main" id="main" class="content">
+      {% include 'a11y-navigation' %}
+      {{ content_for_layout }}
+    </main>
+    {% unless is_modern_mom %}
+      {% section 'footer' %}
+    {% endunless %}
+    {% include 'theme-settings' %}
+    {{ 'site.js' | asset_url | script_tag }}
+    {% include 'loop-returns' %}
+    {% render 'content_for_footer' %}
+
+    <script defer src="https://static.myshlf.us/Affiliates/sms_aff_clicktrack.js"></script>
+
+    {% comment %} Postpilot {% endcomment %}
+    <script type="text/javascript">
+      var postpilotScript = document.createElement('script');
+      postpilotScript.src = 'https://xp2023-pix.s3.amazonaws.com/px_jHxia.js';
+      document.getElementsByTagName("head")[0].appendChild(postpilotScript);
+    </script>
+
+    
+    {% render 'junip-store-key' %}
+    {% render '__opt-theme-js' %}
+    {% render 'rokt-utm-banner' %}
+  </body>
+</html>

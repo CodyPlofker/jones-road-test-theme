@@ -1,0 +1,29 @@
+<div class="{{ className }}">
+  {%- unless heading == blank -%}
+  <div class="{{className}}__heading">{{ heading }}</div>
+  {%- endunless -%}
+  <div class="swiper-container {{ jsClass }}">
+    <div class="swiper-wrapper {{ className }}__wrapper">
+      {%- for handle in productHandles -%}
+      <div class="swiper-slide {{ className }}__slide">
+        {% assign prod = all_products[handle] %}
+        {% include 'product-tile', 
+          product: prod,
+          image_static: prod.images[0],
+          image_hover: prod.images[1],
+          widthModifier: 'single',
+          isQuickAddDisabled: isQuickAddDisabled,
+        %}
+      </div>
+      {%- endfor -%}
+    </div>
+    {%- if withNav -%}
+    <button class="{{ className }}__nav {{ className }}__nav--prev swiper-button-prev">
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="{{ className }}__nav {{ className }}__nav--next swiper-button-next">
+      <span class="visually-hidden">Next</span>
+    </button>
+    {%- endif -%}
+  </div>
+</div>

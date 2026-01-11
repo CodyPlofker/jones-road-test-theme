@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "kit-builder": {
+      "type": "kit-builder",
+      "settings": {
+        "product": "the-101-set",
+        "description": "<p>Our bestsellers bundled into a single, customizable set.<\/p>"
+      }
+    }
+  },
+  "order": [
+    "kit-builder"
+  ]
+}

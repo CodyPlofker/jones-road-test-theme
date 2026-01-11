@@ -1,0 +1,165 @@
+{%- assign has_shade_names = false -%}
+{%- assign variant_shade_names = product.variants | map: 'metafields' | map: 'findation_hero' | map: 'description' | remove: '{}' | remove: ',' | remove: '[' | remove: ']' -%}
+{%- if variant_shade_names != blank -%}
+  {%- assign has_shade_names = true -%}
+{%- endif -%}
+
+{%- unless is_bundle -%}
+  {%- capture reviews_content -%}
+    <div class="js-reviewHighlights" data-product="{{ product.id }}"></div>
+  {%- endcapture -%}
+{%- endunless -%}
+
+{%- if how_to_text != blank or how_to_tip != blank -%}
+  {%- capture how_to_content -%}
+    {%- include 'product-description-howto' -%}
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if shipping_note != blank or returns_note != blank -%}
+  {%- capture shipping_returns_content -%}
+    <div class="product__description-notes">
+      {%- if shipping_note != blank -%}
+        <div>
+          <h3>Shipping</h3>
+          {{ shipping_note }}
+        </div>
+      {%- endif -%}
+      {%- if returns_note != blank -%}
+        <div>
+          <h3>Returns</h3>
+          {{ returns_note }}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- if faqs.size > 0 -%}
+  {%- capture faqs_content -%}
+    <div class="product__description-faqs">
+      {%- for field in faqs -%}
+        {%- assign name = field | first -%}
+        {%- assign faq = faqs[name].value | split: ' // ' -%}
+        {%- assign question = faq | first -%}
+        {%- assign answer = faq | last -%}
+
+        <div class="product__description-faq">
+          <p class="heading">Q:</p>
+          <p class="cntnt question">{{ question }}</p>
+          <p class="heading">A:</p>
+          <p class="cntnt answer">{{ answer }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endcapture -%}
+{%- endif -%}
+
+{%- capture product_description_tabs -%}
+  {%- if product.description != blank -%}
+    Product Description --
+    <div class="product__description-description">
+      {%- if is_bundle -%}
+        {{ description_bottom | strip_html | prepend: '<p>' | append: '</p>' }}
+      {%- else -%}
+        {{ product.description  }}
+      {%- endif -%}
+    </div> ||
+  {%- endif -%}
+  {%- if has_shade_names -%}
+    Shades --
+    <ul class="product__description-shades">
+      {%- for variant in product.variants -%}
+        {%- assign shade_position = product.options_by_name['Shade'].position -%}
+        {%- assign shade_option_id = 'option' | append: shade_position -%}
+        {%- assign shade_name = variant[shade_option_id] -%}
+        {%- assign shade_description = variant.metafields.findation_hero.description -%}
+        {%- if shade_description != blank -%}
+          <li>
+            <span class="name">{{ shade_name }}:</span>
+            <span class="description">{{ shade_description }}</span>
+          </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul> ||
+  {%- endif -%}
+  {%- unless is_bundle -%}
+    Review Highlights --
+    {{ reviews_content }} ||
+  {%- endunless -%}
+  {%- if how_to_text != blank or how_to_tip != blank -%}
+    How to Use --
+    <div>{{ how_to_content }}</div> ||
+  {%- endif -%}
+  {%- if featured_ingredients.size > 0 or ingredients != blank -%}
+    Ingredients --
+    <div>
+      {%- include 'product-description-ingredients' with context: 'content' -%}
+      {%- if ingredients != blank -%}
+        {%- include 'product-description-ingredients' with context: 'modal' -%}
+      {%- endif -%}
+    </div> ||
+  {%- endif -%}
+  {%- if faqs.size > 0 -%}
+    FAQ --
+    <div>{{ faqs_content }}</div> ||
+  {%- endif -%}
+  {%- if shipping_note != blank or returns_note != blank -%}
+    Shipping and Returns --
+    {{ shipping_returns_content }} ||
+  {%- endif -%}
+{%- endcapture -%}
+
+{%- assign product_tablist = product_description_tabs | split: ' ||' -%}
+
+<div class="product__description-tabs">
+  <div 
+    role="tablist"
+    aria-label="More Information about {{ product.title }}"
+    class="product__description-tabs--tabs"
+  >
+    {%- for tab in product_tablist -%}
+      {%- assign tab_heading = tab | split: ' --' | first -%}
+      <button
+        type="button"
+        role="tab"
+        aria-selected="{%- if forloop.first -%} true {%- endif -%}"
+        aria-controls="panel-{{ tab_heading | handleize }}"
+        id="tab-{{ tab_heading | handleize }}"
+        tabindex="{%- if forloop.first -%} 0 {%- else -%} -1 {%- endif -%}"
+        class="
+          product__description-tabs--tab
+          {% if tab_heading == 'Review Highlights' %} js-highlightsWrapper {% endif %}
+          {% if tab_heading == 'FAQ' %} tablet-hidden {% endif %}
+        "
+      >
+        {{ tab_heading | strip }}
+      </button>
+    {%- endfor -%}
+  </div>
+  {%- for tab in product_tablist -%}
+    {%- assign tab_heading = tab | split: ' --' | first -%}
+    {%- assign tab_content = tab | split: ' --' | last -%}
+    <div
+      role="tabpanel"
+      id="panel-{{ tab_heading | handleize }}"
+      tabindex="{%- if forloop.first -%} 0 {%- else -%} -1 {%- endif -%}"
+      class="
+        product__description-tabs--content
+        {% if tab_heading == 'Review Highlights' %} js-highlightsWrapper {% endif %}
+        {% if tab_heading == 'FAQ' %} tablet-hidden {% endif %}
+      "
+      {% unless forloop.first %} hidden {% endunless %}
+    >
+      {{ tab_content }}
+    </div>
+  {%- endfor -%}
+  <button
+    type="button"
+    class="product__description-tabs--nav js-tabsNav"
+  >
+    <svg width="12" height="20" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M8.70711 8.70711C9.09763 8.31658 9.09763 7.68342 8.70711 7.29289L2.34315 0.928932C1.95262 0.538408 1.31946 0.538408 0.928932 0.928932C0.538408 1.31946 0.538408 1.95262 0.928932 2.34315L6.58579 8L0.928932 13.6569C0.538408 14.0474 0.538408 14.6805 0.928932 15.0711C1.31946 15.4616 1.95262 15.4616 2.34315 15.0711L8.70711 8.70711ZM7 9H8V7H7V9Z" fill="#BFBFBF"></path>
+    </svg>
+  </button>
+</div>

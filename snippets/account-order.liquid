@@ -1,0 +1,60 @@
+<div class="account__section">
+  <div class="account__section__item">
+    <a class="account__link account__link--upper" href="/account">Back to my orders</a>
+  </div>
+  <div class="account__order account__order--wide">
+    <div>
+      <span>Order No.</span>
+      <b>{{ order.name }}</b>
+      <span>Order Date</span>
+      <b>{{ order.created_at | date: "%m/%d/%y" }}</b>
+    </div>
+    <div>
+      <span>Payment Status</span>
+      <b>{{ order.financial_status_label }}</b>
+      <span>Fulfillment Status</span>
+      <b>{{ order.fulfillment_status_label }}</b>
+    </div>
+    <div class="account__orders__total">
+      <span>Order Total</span>
+      <b>{%- render 'price' price: order.total_price, format: 'full' -%}</b>
+    </div>
+  </div>
+  <ul class="account__section__item">
+    {%- for item in order.line_items -%}
+      <li class="order__item">
+        <div class="order__item__details">
+          <img src="{{ item.image | img_url: '97x141', scale: 2 }}" alt="{{ item.image.alt }}" />
+          <b>{{ item.product.title }}</b>
+          {% unless item.variant.option2 == blank %}<span>{{ item.variant.option2 }}</span>{% endunless %}
+          {% unless item.variant.option2 == blank %}<span class="order__item__details__quantity">Quantity: {{ item.quantity }}</span>{% endunless %}
+          {% unless item.variant.option1 == blank %}<span class="order__item__details__variant">{{ item.variant.option1 }}</span>{% endunless %}
+        </div>
+        <div class="order__item__quantity">
+          Quantity: {{ item.quantity }}
+        </div>
+        <div class="order__item__price">
+          {%- render 'price' price: item.original_line_price, format: 'full' -%}
+        </div>
+      </li>
+    {%- endfor -%}
+  </ul>
+  <ul class="account__section__item account__subtotal">
+    <li><span>Subtotal:</span><span>{%- render 'price' price: order.line_items_subtotal_price, format: 'full' -%}</span></li>
+    <li><span>Shipping & Handling:</span><span>{%- render 'price' price: order.shipping_price, format: 'full' -%}</span></li>
+    <li><span>Sales Tax:</span><span>{%- render 'price' price: order.tax_price, format: 'full' -%}</span></li>
+  </ul>
+  <div class="account__section__item account__total">
+    <span>Order total</span><span>{%- render 'price' price: order.total_price, format: 'full' -%}</span>
+  </div>
+  <div class="account__section__item">
+    <div class="account__address">
+    <b>Shipping address</b>
+    {{ order.shipping_address | format_address }}
+    </div>
+    <div class="account__address">
+    <b>Billing address</b>
+    {{ order.billing_address | format_address }}
+    </div>
+  </div>
+</div>

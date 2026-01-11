@@ -1,0 +1,81 @@
+{% assign has_filter_options = false %}
+
+{% for filter in collection.filters %}
+  {% if filter.values.size > 0 %}
+    {% assign has_filter_options = true %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+
+<div class="collection__grid-filters-wrapper">
+  {% comment %} Filters {% endcomment %}
+    <div class="collection__grid-filters">
+      {% if has_filter_options %}
+        <button class="collection__grid-filters-button" @click="$store.drawer.DrawerOpen()">
+          <span>Filters</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+            <path d="M8.89014 12.6666V3.33329" stroke="#414141" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4.22412 8H13.5575" stroke="#414141" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+
+  {% comment %} Sort Options {% endcomment %}
+  <div class="collection__grid-sort-options">
+    <div class="collection__grid-sort-options-left">
+      <p id="results-count-{{ section.id }}" class="results-count">{{ items_count | append: ' results' }}</p>
+      <div id="loading-spinner-{{ section.id }}" class="loading-overlay__spinner"></div>
+    </div>
+    {% comment %}
+      - This form works based on the current ui
+      - The additional select dropdown is for the filter to work with Sorting by
+      - collectionGrid.js is used to handle the sorting options UI only and in additional changes select dropdown options
+      - component-collection-info.js is used to handle the filter to work with Sorting by
+    {% endcomment %}
+    <form class="collection__grid-sort--options js-collectionSort">
+      {% assign current_sort = collection.sort_by | default: collection.default_sort_by %}
+      <div class="collection__grid-sort--current js-collectionSortToggle">
+        Sort By:
+      </div>
+      <svg class="arrow" width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L6 6L11 1" stroke="black"/>
+      </svg>
+      <ul>
+        <li></li>
+        {%- render 'collection-sort-option', value: 'manual', current_sort: current_sort -%}
+        {%- render 'collection-sort-option', value: 'best-selling', current_sort: current_sort -%}
+        {%- render 'collection-sort-option', value: 'created-descending', current_sort: current_sort -%}
+        {%- render 'collection-sort-option', value: 'price-ascending', current_sort: current_sort -%}
+        {%- render 'collection-sort-option', value: 'price-descending', current_sort: current_sort -%}
+      </ul>
+    </form>
+    {% comment %} Select dropdown for sorting options. This is essential for the filter to work with Sort by feature. {% endcomment %}
+    {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+    <div style="display: none;" id="sort-by-{{ section.id }}" class="facet-filters__field">
+      <select
+        data-render-section="filters-form"
+        name="sort_by"
+        form="filters-form"
+        id="SortBy"
+        class="facet-filters__sort"
+      >
+        {%- for option in collection.sort_options -%}
+          <option
+            value="{{ option.value | escape }}"
+            {% if option.value == sort_by %}
+              selected="selected"
+            {% endif %}
+          >
+            {{ option.name | escape }}
+          </option>
+        {%- endfor -%}
+      </select>
+    </div>
+  </div>
+
+  {% comment %} Active Filters {% endcomment %}
+  <div class="collection-filters__active">
+    {% render 'component-active-filters', collection: collection %}
+  </div>
+</div>

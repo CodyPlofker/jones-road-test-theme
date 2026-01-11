@@ -1,0 +1,56 @@
+<div class="whats-in-the-bundle">
+  <div class="whats-in-the-bundle__title">
+    <h2>What's Included</h2>
+  </div>
+  <div class="whats-in-the-bundle__content">
+    {%- for field in bundle_products -%}
+      {%- assign bundle_product = bundle_products[field.first].value -%}
+      {%- assign card_image = bundle_product.metafields.product_card.image -%}
+      {%- if card_image == blank -%}
+        {%- assign card_image = bundle_product.featured_image -%}
+      {%- endif -%}
+      {%- if bundle_product -%}
+        <div class="whats-in-the-bundle__item">
+          {% if bundle_product.tags contains 'hide' %}
+            {% assign url = 'javascript:void(0)' %}
+            {% assign class = 'pointer-events-none' %}
+          {% else %}
+            {% assign url = bundle_product.url %}
+            {% assign class = '' %}
+          {% endif %}
+          <a class="{{ class }}" href="{{ url }}">
+            <div class="whats-in-the-bundle__item-image">
+              <img src="{{ card_image | image_url: width: 1000 }}" alt="{{ bundle_product.title }}"
+                width="{{ card_image.width }}" height="{{ card_image.height }}"
+              >
+            </div>
+          </a>
+          <a class="{{ class }}" href="{{ url }}">
+            <div class="whats-in-the-bundle__item-title">
+              <h3>{{ bundle_product.title }}</h3>
+            </div>
+          </a>
+          {%- if bundle_product.metafields.custom.bundle_product_description != blank -%}
+            <p class="whats-in-the-bundle__item-description">
+              {{ bundle_product.metafields.custom.bundle_product_description }}
+            </p>
+          {%- endif -%}
+          <div class="whats-in-the-bundle__item-price">
+            <p>{{ bundle_product.price | money_without_trailing_zeros }}</p>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="whats-in-the-bundle__total-price">
+    <p>
+      <span class="whats-in-the-bundle__total-price-label">Total:</span>
+      <span class="whats-in-the-bundle__total-price-value">{{ bundle_price | money_without_trailing_zeros }}</span>
+      {% if compare_at_price > bundle_price %}
+        <s class="whats-in-the-bundle__total-price-compare-at-price">{{ compare_at_price | money_without_trailing_zeros }}</s>
+        <span class="whats-in-the-bundle__total-price-savings">Save {{ compare_at_price | minus: bundle_price | money_without_trailing_zeros }}</span>
+      {% endif %}
+    </p>
+  </div>
+  <button class="whats-in-the-bundle__button">Choose Your Shades</button>
+</div>

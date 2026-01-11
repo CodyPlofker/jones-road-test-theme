@@ -1,0 +1,232 @@
+{%- assign config = section.settings -%}
+
+<div id="{{ config.id }}" class="product-banner" data-component="productBanner">
+  <div class="product-banner__image {{ config.image_position_desktop }} {{ config.image_position_mobile }}">
+    {%- if config.image_mobile != blank -%}
+      {%- assign desktop_image_class = 'product-banner__image--desktop' -%}
+      {{ config.image_mobile | image_url: width: 2048 | image_tag: width: 1024, class: 'product-banner__image--mobile', loading: 'lazy' }}
+    {%- else -%}
+      {%- assign desktop_image_class = 'product-banner__image--desktop show-mobile' -%}
+    {%- endif -%}
+    {%- if config.show_overlay -%} 
+      <div class="product-banner__image--overlay"></div>
+    {%- endif -%}
+    {{ config.image_desktop | image_url: width: 2880 | image_tag: width: 1440, class: desktop_image_class, loading: 'lazy' }}
+  </div>
+  <div class="product-banner__content {{ config.position_mobile }} {{ config.position_desktop }}">
+    <div class="product-banner__text {{ config.alignment_mobile }} {{ config.alignment_desktop }}">
+      {%- if config.heading != blank -%}
+        {%- assign heading = config.heading | remove: '<p>' | remove: '</p>' | newline_to_br -%}
+        <h1 class="product-banner__heading {% if config.show_highlight %} highlight {% endif %}" style="--highlight: {{ config.heading_highlight }}; --color: {{ config.heading_color }};">
+          <span class="text-underline">{{ heading }}</span>
+        </h1>
+      {%- endif -%}
+      {%- if config.product != blank -%}
+        {%- assign review_product = all_products[config.product] -%}
+        {%- include 'review-stars' with class: 'product-banner__reviews', product: review_product, show_rating: true -%}
+      {%- endif -%}
+      {%- if config.description != blank -%}
+        <div class="product-banner__description text-underline" style="--mobile: {{ config.mobile_desc_color }}; --desktop: {{ config.desktop_desc_color }};">
+          {{ config.description }}
+        </div>
+      {%- endif -%}
+      {%- if config.cta_text != blank -%}
+        {%- assign is_permalink = false -%}
+        {%- if config.cta_link contains '#' -%}
+          {%- assign is_permalink = true -%}
+        {%- endif -%}
+        <a href="{{ config.cta_link }}" class="product-banner__button button {% if is_permalink %} js-smoothScroll {% endif %}" style="--bg: {{ config.cta_background }}; --color: {{ config.cta_color }};">
+          {{ config.cta_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Product Banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "text",
+        "id": "section_id",
+        "label": "Section ID",
+        "info": "Used to create a permalink to the section. Must be unique to the section, all lower-case, with hyphens instead of spaces.",
+        "default": "product-banner"
+      },
+      {
+        "type": "select",
+        "id": "image_position_desktop",
+        "label": "Image Position (desktop)",
+        "options": [
+          { "label": "Top", "value": "desktop-top" },
+          { "label": "Center", "value": "desktop-center" },
+          { "label": "Bottom", "value": "desktop-bottom" }
+        ],
+        "default": "desktop-center"
+      },
+      {
+        "type": "select",
+        "id": "image_position_mobile",
+        "label": "Image Position (mobile)",
+        "options": [
+          { "label": "Top", "value": "mobile-top" },
+          { "label": "Center", "value": "mobile-center" },
+          { "label": "Bottom", "value": "mobile-bottom" }
+        ],
+        "default": "mobile-center"
+      },
+      {
+        "type": "select",
+        "id": "position_desktop",
+        "label": "Copy Position (desktop)",
+        "options": [
+          { "label": "Top Left", "value": "desktop-position-top desktop-position-left" },
+          { "label": "Center Left", "value": "desktop-position-center desktop-position-left" },
+          { "label": "Bottom Left", "value": "desktop-position-bottom desktop-position-left" },
+          { "label": "Top Middle", "value": "desktop-position-top desktop-position-middle" },
+          { "label": "Center Middle", "value": "desktop-position-center desktop-position-middle" },
+          { "label": "Bottom Middle", "value": "desktop-position-bottom desktop-position-middle" },
+          { "label": "Top Right", "value": "desktop-position-top desktop-position-right" },
+          { "label": "Center Right", "value": "desktop-position-center desktop-position-right" },
+          { "label": "Bottom Right", "value": "desktop-position-bottom desktop-position-right" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "position_mobile",
+        "label": "Copy Position (mobile)",
+        "options": [
+          { "label": "Copy at the Top", "value": "position-top" },
+          { "label": "Copy in the Middle", "value": "position-middle" },
+          { "label": "Copy at the Bottom", "value": "position-bottom" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "alignment_desktop",
+        "label": "Copy Alignment (desktop)",
+        "options": [
+          { "label": "Left", "value": "desktop-align-left" },
+          { "label": "Center", "value": "desktop-align-center" },
+          { "label": "Right", "value": "desktop-align-right" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "alignment_mobile",
+        "label": "Copy Alignment (mobile)",
+        "options": [
+          { "label": "Left", "value": "align-left" },
+          { "label": "Center", "value": "align-center" },
+          { "label": "Right", "value": "align-right" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_desktop",
+        "label": "Desktop Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Mobile Image"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_overlay",
+        "label": "Show Image Overlay",
+        "info": "Mobile only."
+      },
+      {
+        "type": "header",
+        "content": "Heading"
+      },
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading Color",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "heading_highlight",
+        "label": "Heading Highlight",
+        "default": "#fff"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_highlight",
+        "label": "Show Highlight"
+      },
+      {
+        "type": "header",
+        "content": "Description"
+      },
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Reviews Product",
+        "info": "If no product is selected, the reviews won't show."
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type": "color",
+        "id": "desktop_desc_color",
+        "label": "Description Color (desktop)",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "mobile_desc_color",
+        "label": "Description Color (mobile)",
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": "CTA"
+      },
+      {
+        "type": "text",
+        "id": "cta_text",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_link",
+        "label": "CTA Link",
+        "info": "To create a permalink to another section, enter # followed by the ID of the section you want to link to, eg: #product-grid"
+      },
+      {
+        "type": "color",
+        "id": "cta_color",
+        "label": "CTA Color",
+        "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "cta_background",
+        "label": "CTA Background",
+        "default": "#000"
+      }
+    ],
+    "presets": [{ "name": "Product Banner" }]
+  }
+{% endschema %}

@@ -1,0 +1,40 @@
+<div class="looks-posts__post">
+  <div class="looks-posts__image">
+    <picture>
+      <source media="(min-width: 1601px)"
+              srcset="{{ post.image | img_url: '960x1152', scale: 1, crop: 'center' }} 1x,
+                      {{ post.image | img_url: '960x1152', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1281px) and (max-width: 1600px)"
+              srcset="{{ post.image | img_url: '800x960', scale: 1, crop: 'center' }} 1x,
+                      {{ post.image | img_url: '800x960', scale: 2, crop: 'center' }} 2x" />
+      <source media="(min-width: 1024px) and (max-width: 1280px)"
+              srcset="{{ post.image | img_url: '640x768', scale: 1, crop: 'center' }} 1x,
+                      {{ post.image | img_url: '640x768', scale: 2, crop: 'center' }} 2x" />
+      <source media="(max-width: 1023px) and (min-width: 769px)"
+              srcset="{{ post.image | img_url: '1023x1128', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 768px) and (min-width: 415px)"
+              srcset="{{ post.image | img_url: '768x922', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 414px) and (min-width: 376px)"
+              srcset="{{ post.image | img_url: '414x497', scale: 2, crop: 'center' }}" />
+      <source media="(max-width: 375px)"
+              srcset="{{ post.image | img_url: '375x450', scale: 2, crop: 'center' }}" />
+      <img src="{{ post.image | img_url: '375x450', scale: 2, crop: 'center' }}" alt="{{ post.title }}" />
+    </picture>
+  </div>
+  {% assign postUrl = shop.secure_url | append: post.url %}
+  <div class="looks-posts__copy js-looksPostCopy">
+    <h2 class="looks-posts__heading">
+      {{ post.title }}
+    </h2>
+    {{ post.content | replace: '<a ', '<a data-no-history="1" '}}
+
+    <div class="looks-posts__ui">
+      <button data-url="{{ postUrl }}" data-tile={{ post.title | json }} class="looks-posts__share js-lookShare">
+        {{ shareLabel }}
+      </button>
+      <button data-url="{{ postUrl }}" data-success={{ copiedLabel | json }} class="looks-posts__copy-link js-lookCopy">
+        {{ copyLinkLabel }}
+      </button>
+    </div>
+  </div>
+</div>

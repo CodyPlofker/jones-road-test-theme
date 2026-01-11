@@ -1,0 +1,107 @@
+{% schema %}
+  {
+   "name":"Split",
+   "settings":[
+      {
+        "id":"leftCtaLink",
+        "label":"Left CTA link",
+        "type":"text"
+      },
+      {
+        "id":"leftCtaText",
+        "label":"Left CTA Text",
+        "type":"text"
+      },
+      {
+        "id":"leftImage",
+        "label":"Left image",
+        "type":"image_picker"
+      },
+      {
+        "id":"leftImageAlt",
+        "label":"Left image alt",
+        "type":"text"
+      },
+      {
+        "id":"leftText",
+        "label":"Left text",
+        "type":"textarea"
+      },
+      {
+        "id":"leftTextColor",
+        "label":"Left text color",
+        "type":"select",
+        "options":[
+          {
+            "value":"black",
+            "label":"black"
+          },
+          {
+            "value":"white",
+            "label":"white"
+          }
+        ]
+      },
+      {
+        "id":"rightCtaLink",
+        "label":"Right CTA link",
+        "type":"text"
+      },
+      {
+        "id":"rightCtaText",
+        "label":"Right CTA Text",
+        "type":"text"
+      },
+      {
+        "id":"rightImage",
+        "label":"Right image",
+        "type":"image_picker"
+      },
+      {
+        "id":"rightImageAlt",
+        "label":"Right image alt",
+        "type":"text"
+      },
+      {
+        "id":"rightText",
+        "label":"Right text",
+        "type":"textarea"
+      },
+      {
+        "id":"rightTextColor",
+        "label":"Right text color",
+        "type":"select",
+        "options":[
+          {
+            "value":"black",
+            "label":"black"
+          },
+          {
+            "value":"white",
+            "label":"white"
+          }
+        ]
+      }
+    ],
+    "presets":[
+      {
+        "category": "Content",
+        "name": "Split"
+      }
+   ]
+  }
+{% endschema %}
+{% include "split",
+  leftCtaLink: section.settings.leftCtaLink,
+  leftCtaText: section.settings.leftCtaText,
+  leftImage: section.settings.leftImage,
+  leftImageAlt: section.settings.leftImageAlt,
+  leftText: section.settings.leftText,
+  leftTextColor: section.settings.leftTextColor,
+  rightCtaLink: section.settings.rightCtaLink,
+  rightCtaText: section.settings.rightCtaText,
+  rightImage: section.settings.rightImage,
+  rightImageAlt: section.settings.rightImageAlt,
+  rightText: section.settings.rightText,
+  rightTextColor: section.settings.rightTextColor,
+%}

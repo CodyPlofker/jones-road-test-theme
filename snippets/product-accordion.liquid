@@ -1,0 +1,18 @@
+{%- assign should_expand = false -%}
+{%- assign should_hide = true -%}
+
+{%- unless expanded == false -%}
+  {%- assign should_expand = true -%}
+  {%- assign should_hide = false -%}
+{%- endunless -%}
+
+{% unless heading == 'Review Highlights' %}
+  <button data-heading="{{ heading | handleize }}" aria-expanded="{{ should_expand }}" aria-controls="tabpanel-{{ index }}" data-controls="tabpanel-{{ index }}" class="utility__tab utility__tab--product {{ class }}">
+    {{ heading }}
+  </button>
+  <div data-heading="{{ heading | handleize }}" aria-hidden="{{ should_hide }}" id="tabpanel-{{ index }}" class="utility__tabpanel utility__tabpanel--product {{ class }}">
+    <div class="text-underline">
+      {{ content }}
+    </div>
+  </div>
+{% endunless %}

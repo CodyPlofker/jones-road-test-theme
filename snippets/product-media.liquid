@@ -1,0 +1,95 @@
+{%- assign default_media = current_variant.metafields.carousel -%}
+
+{%- assign should_show_featured = false -%}
+{%- if template.name == 'product' and template.suffix == 'bundle' -%}
+  {%- assign should_show_featured = true -%}
+{%- endif -%}
+
+<div id="product-media" class="product__media {{ class }} {% if carousel_desktop == true %} no-grid {% endif %}">
+  <div class="swiper-container js-productMedia" data-desktop="{{ carousel_desktop }}">
+    <div class="product-secondary-images"></div>
+
+    <div class="swiper-wrapper">
+      {%- unless product.has_only_default_variant -%}
+        <div class="product__media-slide swiper-slide js-productMediaSlide">
+          <div class="aspect-1-1">
+            {{ current_variant.image | image_url: width: 1000 | image_tag: width: 500, class: 'aspect-child', loading: 'eager', fetchpriority: 'high' }}
+          </div>
+        </div>
+        {%- if default_media.size > 0 -%}
+          {%- for field in default_media -%}
+            {%- assign name = field | first -%}
+            {%- assign media = default_media[name].value -%}
+            <div class="product__media-slide swiper-slide js-productMediaSlide">
+              <div class="aspect-1-1">
+                {%- include 'component_media' with media, width: 1000, render_width: 500, class: 'aspect-child' -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endunless -%}
+      {%- for media in product.media -%}
+        {%- assign is_variant_image = false -%}
+        {%- for variant in product.variants -%}
+          {%- if media == variant.image -%}
+            {%- assign is_variant_image = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if media.media_type == 'image' -%}
+          {%- unless is_variant_image -%}
+            {%- if should_show_featured -%}
+              <div class="product__media-slide swiper-slide js-productMediaSlide">
+                <div class="aspect-1-1">
+                  {{ media | image_url: width: 1000, height: 1000 | image_tag: width: 500, class: 'aspect-child' }}
+                </div>
+              </div>
+            {%- else -%}
+              {%- unless media == product.featured_image -%}
+                <div class="product__media-slide swiper-slide js-productMediaSlide">
+                  <div class="aspect-1-1">
+                    {{ media | image_url: width: 1000, height: 1000 | image_tag: width: 500, class: 'aspect-child' }}
+                  </div>
+                </div>
+              {%- endunless -%}
+            {%- endif -%}
+          {%- endunless -%}
+        {%- elsif media.media_type == 'video' -%}
+          <div class="product__media-slide swiper-slide js-productMediaSlide">
+            <div class="aspect-1-1">
+              <video class="aspect-child" autoplay muted loop playsinline disablepictureinpicture disableremoteplayback>
+                {%- for source in media.sources -%}
+                  <source src="{{ source.url }}" type="{{ source.mime_type }}" width="{{ source.width }}">
+                {%- endfor -%}
+              </video>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="product__media-slide swiper-slide js-productMediaSlide js-productVideo">
+            <div class="aspect-1-1">
+              {{
+                media
+                | external_video_url: controls: '0', loop: '1', muted: '1', modestbranding: '1'
+                | external_video_tag: class: 'aspect-child yt-embed', data-id: media.external_id
+              }}
+              {% comment %} {{ media | media_tag }} {% endcomment %}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="new-pagination-images"></div>
+    <div class="product__media-pagination js-productMediaPag"></div>
+    {% comment %} {%- if carousel_desktop -%}
+      <div class="product__media-next js-productMediaNext">
+        <svg width="18" height="35" viewBox="0 0 18 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L17 17.5L1 34" stroke="#7B7B7B"/>
+        </svg>
+      </div>
+    {%- endif -%} {% endcomment %}
+  </div>
+  {% if show_how_to != false %}
+    {%- if how_to_video != blank or how_to_video_external != blank -%}
+      {%- include 'product-how-to-video' with class: 'desktop' -%}
+    {%- endif -%}
+  {% endif %}
+</div>

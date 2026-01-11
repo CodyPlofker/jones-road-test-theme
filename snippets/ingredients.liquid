@@ -1,0 +1,56 @@
+{%- assign ingredientsPseudoRandom = "now" | date: "%N" -%}
+
+{%- capture includedItems -%}
+  {%- for item in included -%}
+    {%- if forloop.index <= 3 -%}
+      {%- assign nameDescription = item | split: '==' -%}
+      {%- assign itemName = nameDescription | first | strip -%}
+      {%- assign itemDescription = nameDescription | last | strip -%}
+      {%- include 'ingredients-item',
+        iconType: 'check',
+        itemDescription: itemDescription,
+        itemName: itemName,
+      -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- capture excludedItems -%}
+  {%- for item in excluded -%}
+    {%- if forloop.index <= 3 -%}
+      {%- assign nameDescription = item | split: '==' -%}
+      {%- assign itemName = nameDescription | first | strip -%}
+      {%- assign itemDescription = nameDescription | last | strip -%}
+      {%- include 'ingredients-item',
+        iconType: 'x',
+        itemDescription: itemDescription,
+        itemName: itemName,
+      -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+<div class="ingredients">
+  <section class="ingredients__half">
+    <div class="ingredients__heading">{{ productName }} is made from:</div>
+    <div class="ingredients__list js-accordion" role="list">
+      {{ includedItems }}
+    </div>
+    {%- if ingredientsList != blank -%}
+    <script class="js-toggleIngredientsContent" type="text/template">
+    {{ ingredientsList }}
+    </script>
+    <button
+      class="ingredients__read-more js-toggleIngredientsList"
+      data-controls="included-toggle-{{ ingredientsPseudoRandom }}"
+    >
+      See Full Ingredient List
+    </button>
+    {%- endif -%}
+  </section><section class="ingredients__half">
+    <div class="ingredients__heading">We never use:</div>
+    <div class="ingredients__list js-accordion" role="list">
+      {{ excludedItems }}
+    </div>
+  </section>
+</div>

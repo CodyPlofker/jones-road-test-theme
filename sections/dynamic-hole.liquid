@@ -1,0 +1,81 @@
+{% schema %}
+  {
+   "name":"Hole module",
+   "settings":[
+      {
+         "default":"#f50a99",
+         "id":"backgroundColor",
+         "label":"Background color",
+         "type":"color"
+      },
+      {
+         "id":"caption",
+         "label":"Caption",
+         "type":"text"
+      },
+      {
+         "id":"ctaLink",
+         "label":"CTA link",
+         "type":"text"
+      },
+      {
+         "id":"ctaText",
+         "label":"CTA text",
+         "type":"text"
+      },
+      {
+         "id":"heading",
+         "label":"Heading",
+         "type":"text"
+      },
+      {
+         "id":"image",
+         "label":"Image",
+         "type":"image_picker"
+      },
+      {
+         "id":"imageAlt",
+         "label":"Image alt",
+         "type":"text"
+      },
+      {
+         "id":"textColor",
+         "label":"Text color",
+         "type":"select",
+         "options":[
+            {
+               "value":"black",
+               "label":"black"
+            },
+            {
+               "value":"white",
+               "label":"white"
+            }
+         ]
+      },
+      {
+         "type":"text",
+         "id":"video",
+         "label":"Video file name (optional)",
+         "info":"Upload the MP4 file [here](/admin/settings/files) and paste the file name. Leave blank to skip."
+      }
+   ],
+   "presets":[
+      {
+         "category":"Content",
+         "name":"Hole Module"
+      }
+   ]
+  }
+{% endschema %}
+{% include "hole",
+  backgroundColor: section.settings.backgroundColor,
+  caption: section.settings.caption,
+  ctaLink: section.settings.ctaLink,
+  ctaText: section.settings.ctaText,
+  heading: section.settings.heading,
+  image: section.settings.image,
+  imageAlt: section.settings.imageAlt,
+  textColor: section.settings.textColor,
+  video: section.settings.video,
+%}

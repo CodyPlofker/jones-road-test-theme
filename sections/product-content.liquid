@@ -1,0 +1,279 @@
+{% assign blocks = section.blocks | map: 'settings' %}
+{% assign product_block = blocks | where: 'product', product.handle | first %}
+
+<div>
+  {% comment %} Tip Module {% endcomment %}
+  {% if product_block.tipShowing %}
+    {%- assign tipHowToUse = product_block.tipHowToUse | newline_to_br | strip_newlines | split: '<br />' -%}
+    {%- assign tipPairWith = product_block.tipPairWith | newline_to_br | strip_newlines | split: '<br />' -%}
+    {%- include 'tip' with
+      howToUse: tipHowToUse,
+      image: product_block.tipImage,
+      imageAlt: product_block.tipImage.alt,
+      pairWith: tipPairWith,
+      tipHeading: product_block.tipHeading,
+      tipText: product_block.tipText,
+      video: product_block.video,
+      videoRatio: product_block.videoRatio
+    -%}
+  {% endif %}
+
+  {% comment %} Ingredients Module {% endcomment %}
+  {% if product_block.ingredientsShowing %}
+    {%- assign ingredientsExcluded = product_block.ingredientsExcluded | newline_to_br | strip_newlines | split: '<br />' -%}
+    {%- assign ingredientsIncluded = product_block.ingredientsIncluded | newline_to_br | strip_newlines | split: '<br />' -%}
+    {%- include 'ingredients' with
+      excluded: ingredientsExcluded,
+      included: ingredientsIncluded,
+      ingredientsList: product_block.ingredientsList,
+      productName: product.title
+    -%}
+  {% endif %}
+
+  {%- comment -%} Related products module {%- endcomment -%}
+  {%- if product_block.relatedShowing -%}
+    {%- assign relatedProductHandles = product_block.relatedProductHandles | newline_to_br | strip_newlines | split: '<br />' -%}
+    {%- include 'product-carousel' with
+      className: 'related-products',
+      heading: product_block.relatedHeading,
+      isQuickAddDisabled: true,
+      jsClass: 'js-relatedProducts',
+      productHandles: relatedProductHandles,
+      withNav: false
+    -%}
+  {%- endif -%}
+
+  {%- comment -%} UGC module {%- endcomment -%}
+  {%- if product_block.ugcShowing -%}
+    {%- capture ugcTilesHtml -%}
+      {%- for i in (1..4) -%}
+        {%- assign imageKey = 'ugcTile' | append: i | append: 'Image' -%}
+        {%- assign urlKey = 'ugcTile' | append: i | append: 'Url' -%}
+        {%- include 'ugc-tile', ugcTileLink: product_block[urlKey], ugcTileImage: product_block[imageKey] -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- include "ugc" with
+      heading: product_block.ugcHeading,
+      modifier: 'grotesque',
+      tilesHtml: ugcTilesHtml
+    -%}
+  {%- endif -%}
+
+  {%- comment -%} Reviews module {%- endcomment -%}
+  {%- if product_block.reviewsShowing -%}
+    {% comment %} {%- include 'yotpo-reviews', product: product -%} {% endcomment %}
+    {%- include 'product-reviews' -%}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Product Content",
+  "blocks": [
+    {
+      "type": "productContent",
+      "name": "PDP Content",
+      "settings": [
+        {
+          "id": "product",
+          "info": "Choose a product that this content relates to",
+          "label": "Product",
+          "type": "product"
+        },
+        {
+          "content": "Bobbi's tip",
+          "type": "header"
+        },
+        {
+          "default": true,
+          "id": "tipShowing",
+          "label": "Show Bobbi's tip module",
+          "type": "checkbox"
+        },
+        {
+          "id": "tipHeading",
+          "label": "Tip heading",
+          "type": "text",
+          "default": "Bobbi's Tip"
+        },
+        {
+          "id": "tipText",
+          "label": "Tip text",
+          "type": "richtext"
+        },
+        {
+          "id": "video",
+          "type": "video_url",
+          "label": "Video",
+          "accept": ["youtube", "vimeo"]
+        },
+        {
+           "type": "select",
+           "id": "videoRatio",
+           "label": "Video Ratio",
+           "options": [
+             {
+               "value": "landscape",
+               "label": "landscape"
+             },
+             {
+               "value": "portrait",
+               "label": "portrait"
+             }
+           ],
+           "default": "landscape"
+        },
+        {
+          "id": "tipPairWith",
+          "info": "Type product handles, each handle in new line",
+          "label": "Pair with products",
+          "type": "textarea"
+        },
+        {
+          "id": "tipHowToUse",
+          "info": "Type each step in new line",
+          "label": "How to use steps",
+          "type": "textarea"
+        },
+        {
+          "id": "tipImage",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "content": "Ingredients",
+          "type": "header"
+        },
+        {
+          "default": true,
+          "id": "ingredientsShowing",
+          "label": "Show Ingredients module",
+          "type": "checkbox"
+        },
+        {
+          "id": "ingredientsIncluded",
+          "info": "Type one item line each, in format [name==description]. Will display max 3 items.",
+          "label": "Ingredients",
+          "type": "textarea"
+        },
+        {
+          "id": "ingredientsList",
+          "info": "Use bold for product name, italic for product color",
+          "label": "Ingredients list",
+          "type": "richtext"
+        },
+        {
+          "id": "ingredientsExcluded",
+          "info": "Type one item line each, in format [name==description]. Will display max 3 items.",
+          "label": "Excluded substances",
+          "type": "textarea"
+        },
+        {
+          "content": "UGC",
+          "type": "header"
+        },
+        {
+          "default": true,
+          "id": "ugcShowing",
+          "label": "Show UGC module",
+          "type": "checkbox"
+        },
+        {
+          "default": "In action",
+          "id": "ugcHeading",
+          "label": "Heading",
+          "type": "text"
+        },
+        {
+          "content": "Tile 1",
+          "type": "paragraph"
+        },
+        {
+          "id": "ugcTile1Url",
+          "label": "URL",
+          "type": "url"
+        },
+        {
+          "id": "ugcTile1Image",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "content": "Tile 2",
+          "type": "paragraph"
+        },
+        {
+          "id": "ugcTile2Url",
+          "label": "URL",
+          "type": "url"
+        },
+        {
+          "id": "ugcTile2Image",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "content": "Tile 3",
+          "type": "paragraph"
+        },
+        {
+          "id": "ugcTile3Url",
+          "label": "URL",
+          "type": "url"
+        },
+        {
+          "id": "ugcTile3Image",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "content": "Tile 4",
+          "type": "paragraph"
+        },
+        {
+          "id": "ugcTile4Url",
+          "label": "URL",
+          "type": "url"
+        },
+        {
+          "id": "ugcTile4Image",
+          "label": "Image",
+          "type": "image_picker"
+        },
+        {
+          "content": "Reviews",
+          "type": "header"
+        },
+        {
+          "default": true,
+          "id": "reviewsShowing",
+          "label": "Show Reviews module",
+          "type": "checkbox"
+        },
+        {
+          "content": "Related Products",
+          "type": "header"
+        },
+        {
+          "default": true,
+          "id": "relatedShowing",
+          "label": "Show Related Products module",
+          "type": "checkbox"
+        },
+        {
+          "default": "Finish the look",
+          "id": "relatedHeading",
+          "label": "Heading",
+          "type": "text"
+        },
+        {
+          "id": "relatedProductHandles",
+          "info": "Type related product handles, each handle in new line",
+          "label": "Related products",
+          "type": "textarea"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

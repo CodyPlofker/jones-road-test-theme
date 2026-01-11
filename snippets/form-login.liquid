@@ -1,0 +1,40 @@
+
+<div class="form__login js-formValidation">
+{% form 'customer_login' %}
+  {% capture loginErrors %}
+  {{ form.errors | default_errors }}
+  {% endcapture %}
+  <input type="hidden" name="checkout_url" value="/account">
+  <div class="form">
+    <div class="form__cell">
+      <div class="form__errors login__form__errors">
+        {{ loginErrors | replace: 'Incorrect email or password.', settings.login_error_message }}
+      </div>
+    </div>
+    <div class="form__cell">
+      <label for="customer-email">Email Address</label>
+      <input
+        id="customer-email"
+        name="customer[email]"
+        placeholder="Email Address"
+        required
+        type="email"
+      />
+    </div>
+    <div class="form__cell">
+      <label for="customer-password">Password</label>
+      <input
+        id="customer-password"
+        minlength="8"
+        name="customer[password]"
+        placeholder="Password"
+        required
+        type="password"
+      />
+    </div>
+    <div class="form__cell form__cell--spaced">
+      <button class="button" type="submit">Next</button>
+    </div>
+  </div>
+{% endform %}
+</div>

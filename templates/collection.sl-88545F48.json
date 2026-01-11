@@ -1,0 +1,38 @@
+{
+  "sections": {
+    "1655382932ccbed633": {
+      "type": "collection-hero",
+      "settings": {
+        "show_mobile": true,
+        "contentPosition": "center-left",
+        "headingColor": "black",
+        "subheadingColor": "black",
+        "subheadingColorMobile": "black",
+        "highlightColor": "#f6f2eb",
+        "heading": "{{ collection.metafields.hero.heading.value }}",
+        "headingHighlight": true,
+        "subheading": "{{ collection.metafields.hero.subheading_desktop.value }}",
+        "subheading_mobile": "{{ collection.metafields.hero.subheading_mobile.value }}",
+        "image": "{{ collection.metafields.hero.image_desktop.value }}",
+        "imageAlt": "",
+        "imageMobile": "{{ collection.metafields.hero.image_mobile.value }}"
+      }
+    },
+    "grid": {
+      "type": "collection-grid",
+      "custom_css": [
+        ".review__stars {column-gap: 5px;}",
+        ".product__card-stars .review__stars-text {display: block; margin-left: 0;}",
+        "@media screen and (max-width: 1023px) {.product__card-info {padding: 16px 10px 24px; } .product__card-stars {display: block; } .review__stars-stars svg {width: 75px; } .review__stars-text {font-size: 10px; white-space: nowrap; } .review__stars {flex-wrap: wrap; justify-content: center; }}"
+      ],
+      "settings": {
+        "navigation": "collections",
+        "image": "{{ collection.metafields.grid.image.value }}"
+      }
+    }
+  },
+  "order": [
+    "1655382932ccbed633",
+    "grid"
+  ]
+}

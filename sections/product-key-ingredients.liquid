@@ -1,0 +1,272 @@
+{% assign key_ingredients_section = product.metafields.custom.key_ingredients_section.value %}
+{% assign ingredient_titles = key_ingredients_section.ingredient_titles %}
+{% assign ingredient_descriptions = key_ingredients_section.ingredient_descriptions %}
+{% assign section_image = key_ingredients_section.image %}
+{% assign image_url = section_image.value | remove_first: 'files/' | file_url %}
+{%- assign ingredients = product.metafields.ingredients.ingredients -%}
+
+{% if key_ingredients_section %}
+  <div class="key-ingredients-section-container">
+    <div class="key-ingredients-section-content-container">
+      <div class="key-ingredients-section-content js-productSection">
+        <h1>Key Ingredients</h1>
+  
+        {% for ingredient_title in ingredient_titles.value %}
+          <div class="key-ingredients-section-ingredient">
+            <h2>{{ ingredient_title }}</h2>
+            <p>{{ ingredient_descriptions.value[forloop.index0] }}</p>
+          </div>
+        {% endfor %}
+
+        {%- include 'product-description-ingredients' with context: 'content' -%}
+        {%- if ingredients != blank -%}
+          {%- include 'product-description-ingredients' with context: 'modal' -%}
+        {%- endif -%}
+      </div>
+    </div>
+  
+    <div class="key-ingredients-section-media">
+      <img src="{{ image_url }}" width="" height="">
+    </div>
+  </div>
+  
+  <div class="key-ingredients-section-container-mobile">
+    <div class="key-ingredients-section-media">
+      <img src="{{ image_url }}" width="" height="">
+    </div>
+    <div class="key-ingredients-section-content-container">
+      <div class="key-ingredients-section-content js-productSection">
+        <h1>Key Ingredients</h1>
+  
+        {% for ingredient_title in ingredient_titles.value %}
+          <div class="key-ingredients-section-ingredient">
+            <h2>{{ ingredient_title }}</h2>
+            <p>{{ ingredient_descriptions.value[forloop.index0] }}</p>
+          </div>
+        {% endfor %}
+
+        {%- include 'product-description-ingredients' with context: 'content' -%}
+        {%- if ingredients != blank -%}
+          {%- include 'product-description-ingredients' with context: 'modal' -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  
+{% endif %}
+
+
+<style>
+  .key-ingredients-section-container-mobile {
+    display: none;
+  }
+
+  .key-ingredients-section-container,
+  .key-ingredients-section-content,
+  .key-ingredients-section-ingredient {
+    display: flex;
+  }
+
+  .key-ingredients-section-content,
+  .key-ingredients-section-ingredient {
+    flex-direction: column;
+  }
+
+  .key-ingredients-section-content-container,
+  .key-ingredients-section-media {
+    width: 50%;
+  }
+
+  .key-ingredients-section-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+
+  .key-ingredients-section-container {
+    background-color: #f6f2eb;
+  }
+
+  .key-ingredients-section-content-container {
+    margin: auto;
+  }
+
+  .key-ingredients-section-content {
+    height: 100%;
+    gap: 1.389vw;
+    margin: auto;
+  }
+
+  .key-ingredients-section-content {
+    width: 30.723vw;
+  }
+
+  .key-ingredients-section-ingredient {
+    gap: 5px;
+  }
+
+  .key-ingredients-section-content h1 {
+    font-family: 'Canela', serif;
+    font-size: 30px;
+    line-height: 130%;
+    letter-spacing: 0.5px;
+    font-weight: 300;
+    margin-bottom: 1.042vw;
+  }
+
+  .key-ingredients-section-ingredient h2 {
+    font-family: 'ArticulatCF','GeogrotesqueCondBoldWeb', 'Arial Black', 'Impact', sans-serif;
+    font-size: 14px;
+    line-height: 26px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #000;
+    letter-spacing: 0.5px;
+  }
+
+  .key-ingredients-section-ingredient p {
+    font-family: RingsideWideWeb, Helvetica, Arial, sans-serif;
+    font-weight: 325;
+    color: #000;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: .28px;
+  }
+
+  @media (min-width: 700px) and (max-width: 950px) {
+    .key-ingredients-section-ingredient {
+      gap: 0.694vw;
+    }
+
+
+
+    .key-ingredients-section-content {
+      gap: 5px;
+    }
+
+    .key-ingredients-section-content h1 {
+      margin-bottom: 0px;
+    }
+}
+
+
+
+  .key-instagram_section-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (min-width: 701px) and (max-width: 750px) {
+    .key-ingredients-section-ingredient p {
+      line-height: 18px;
+    }
+}
+
+  @media (min-width: 0px) and (max-width: 700px) {
+
+
+    .key-ingredients-section-container {
+      display: none;
+    }
+
+    .key-ingredients-section-content{
+      gap: 18px;
+    }
+
+    .key-ingredients-section-container-mobile {
+      display: flex;
+      flex-direction: column;
+      background-color: #F6F5F1;
+      gap: 50px;
+    }
+
+    .key-ingredients-section-ingredient{
+      gap: 8px;
+    }
+
+    .key-ingredients-section-media {
+      height: 100vw;
+      width: 100%;
+    }
+
+    .key-ingredients-section-content-container {
+      height: auto;
+      width: calc(90% + 12px);
+      padding-bottom: 32px;
+    }
+
+    .key-ingredients-section-content {
+      width: 100%;
+      height: 100%;
+    }
+
+    .key-ingredients-section-content h1 {
+      margin-bottom: 2px;
+    }
+  }
+
+
+  @media screen and (max-width: 393px) {
+    .key-ingredients-section-container-mobile {
+      gap: 30px;
+    }
+
+    .key-ingredients-section-content-container {
+      width: calc(100% - 40px);
+      padding-bottom: 35px;
+    }
+
+    .key-ingredients-section-content {
+      gap: 16px;
+    }
+
+    .key-ingredients-section-ingredient h2 {
+      font-size: 14px;
+      line-height: 100%;
+      letter-spacing: 0.5px;
+    }
+
+    .key-ingredients-section-ingredient p {
+      line-height: 20px;
+      letter-spacing: 0.4px;
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    .key-ingredients-section-container {
+      margin: 0 34px;
+    }
+    .key-ingredients-section-content-container{
+      width: 48.28%;
+      padding: 94px 72px;
+      box-sizing: border-box;
+    }
+    .key-ingredients-section-media{
+      width: 51.72%;
+    }
+    .key-ingredients-section-content{
+      width: 100%;
+    }
+    .key-ingredients-section-content-container{
+      margin: 0;
+    }
+    .key-ingredients-section-content h1{
+      margin-bottom: 11px;
+      font-size: 36px;
+    }
+    .key-ingredients-section-ingredient h2{
+      font-size:18px;
+      line-height: 24px;
+      letter-spacing: 0.03em;
+      margin-bottom: 1px;
+      }
+    .key-ingredients-section-ingredient p{
+      font-size: 16px;
+      line-height: 26px;
+      letter-spacing: 0.03em;
+      margin-bottom: 13px;
+    }
+  }
+</style>

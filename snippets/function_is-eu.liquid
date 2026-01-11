@@ -1,0 +1,5 @@
+{%- assign is_eu = false -%}
+{%- assign iso = localization.country.iso_code -%}
+{%- if iso == 'AT' or iso == 'BE' or iso == 'BG' or iso == 'HR' or iso == 'CY' or iso == 'CZ' or iso == 'DK' or iso == 'EE' or iso == 'FI' or iso == 'FR' or iso == 'DE' or iso == 'GR' or iso == 'HU' or iso == 'IT' or iso == 'LV' or iso == 'LT' or iso == 'LU' or iso == 'MT' or iso == 'NL' or iso == 'PL' or iso == 'PT' or iso == 'RO' or iso == 'SE' or iso == 'SK' or iso == 'SI' or iso == 'ES' or iso == 'AL' or iso == 'AD' or iso == 'AM' or iso == 'BY' or iso == 'BA' or iso == 'GE' or iso == 'GI' or iso == 'IS' or iso == 'NO' or iso == 'XK' or iso == 'LI' or iso == 'MK' or iso == 'MD' or iso == 'MC' or iso == 'ME' or iso == 'RU' or iso == 'SM' or iso == 'RS' or iso == 'CH' or iso == 'TR' or iso == 'UA' or iso == 'VA' -%}
+  {%- assign is_eu = true -%}
+{%- endif -%}

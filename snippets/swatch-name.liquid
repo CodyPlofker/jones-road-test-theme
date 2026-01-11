@@ -1,0 +1,11 @@
+{%- assign selectedSwatchNo = 1 -%}
+{%- for variant in product.variants -%}
+{%- if variant.id == product.selected_or_first_available_variant.id -%}
+{%- assign selectedSwatchNo = forloop.index -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if product.variants.size > 1 -%}
+<div class="purchase-bar__variant">
+  {% if settings.generate_shade_numbers %}{% if selectedSwatchNo < 10 %}0{% endif %}{{ selectedSwatchNo }} {% endif %}{{ product.selected_or_first_available_variant.option1 }}
+</div>
+{%- endif -%}

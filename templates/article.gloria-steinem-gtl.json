@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "Bronzer_DustyRose_4.jpg",
+            "heading": "#1: A Confident Glow",
+            "description": "<p>Start with a warm, natural base to build up your look. Apply The Bronzer in Dusty Rose to the apples of your cheeks, forehead, and the bridge of your nose.<\/p>",
+            "product_1": "the-bronzer",
+            "variant_1": "FGBR29796",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "eyeshadow_0000s_0001s_0008_JonesRoad_Eyeshadow_Cream_02_jpg.jpg",
+            "heading": "#2: Lead With Strong Eyes",
+            "description": "<p>Make your statement with defined eyes. Sweep The Best Eyeshadow in Cream across your lids, then line your eyes using The Best Pencil in Brown. Finish with a few coats of The Mascara for striking, fuller lashes.<\/p>",
+            "product_1": "the-best-eyeshadow",
+            "variant_1": "FGES06126-1",
+            "product_2": "the-best-pencil",
+            "variant_2": "FGEL08497"
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "cool_gloss_psd_0000s_0002s_0002_JonesRoad_CoolGloss_GoldenShimmer_01_jpg.jpg",
+            "heading": "#3: An Authentic Finish",
+            "description": "<p>Opt for a subtle, nourished lip with Cool Gloss in Pink Gold Shimmer. Sweep it on for a hint of color that lets your natural beauty shine through.<\/p>",
+            "product_1": "cool-gloss",
+            "variant_1": "FGCG03099",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "PastelPink_03.jpg",
+            "heading": "#4: Add Volume",
+            "description": "<p>Apply two coats of <a href=\"https:\/\/jonesroadbeauty.com\/products\/the-mascara?variant=36186527137942\" title=\"The Mascara | Clean, Cruelty-Free, Vegan\">The Mascara <\/a>for definition and volume. Smooth <a href=\"https:\/\/jonesroadbeauty.com\/products\/cool-gloss?variant=39876394352790\" title=\"Cool Gloss | Pastel Pink\">Cool Gloss in Pastel Pink <\/a>on lips.<\/p>",
+            "product_1": "the-mascara",
+            "variant_1": "",
+            "product_2": "cool-gloss",
+            "variant_2": "FGCG03034"
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Gloria_GTL_c1bb3ff4-8592-4ac1-9d78-2254c3295a06.png",
+        "heading": "",
+        "description": "",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(5 products)",
+        "bullets": "<p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/the-bronzer?variant=42347618042006\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/the-bronzer?variant=42347618042006\">The Bronzer in Dusty Rose<\/a><\/p><p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/the-best-pencil?variant=37449658237078\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/the-best-pencil?variant=37449658237078\">The Best Pencil in Brown<\/a><\/p><p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/the-best-eyeshadow?variant=39714200453270\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/the-best-eyeshadow?variant=39714200453270\">The Best Eyeshadow in Cream<\/a><\/p><p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/the-mascara\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/the-mascara\">The Mascara<\/a><\/p><p><a href=\"https:\/\/www.jonesroadbeauty.com\/products\/cool-gloss?variant=36972416434326\" target=\"_blank\" title=\"https:\/\/www.jonesroadbeauty.com\/products\/cool-gloss?variant=36972416434326\">The Cool Gloss in Pink Gold Shimmer<\/a><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

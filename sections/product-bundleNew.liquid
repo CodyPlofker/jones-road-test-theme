@@ -1,0 +1,220 @@
+{%- assign is_bundle = true -%}
+
+{%- assign product_images = product.images | where: 'attached_to_variant?', false -%}
+
+{%- assign description = product.description | split: '//' -%}
+{%- assign description_bottom = description | last -%}
+
+{%- assign bundle_products = product.metafields.bundle -%}
+
+{%- assign bundle_discount = product.metafields.bundle_config.discount -%}
+{%- assign bundle_price = 0 -%}
+{%- assign discount_code = bundle_discount | split: '[' | last | split: ']' | first -%}
+{%- assign discount_value = bundle_discount | split: '% ' | first -%}
+{%- assign compare_at_price = 0 -%}
+
+{%- for field in bundle_products -%}
+  {%- assign bundle_product = bundle_products[field.first].value -%}
+  {%- if bundle_product -%}
+    {%- assign bundle_size = bundle_size | plus: 1 -%}
+    {%- assign bundle_price = bundle_price | plus: bundle_product.price -%}
+    {%- assign compare_at_price = compare_at_price | plus: bundle_product.price -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- assign discount = discount_value | divided_by: 100.00 | times: bundle_price -%}
+{%- assign compare_at_price = compare_at_price -%}
+{%- assign bundle_price = bundle_price | minus: discount -%}
+
+<div class="product__hero js-bundleHero product__bundle-new" data-view="productBundleNew">
+  {% assign first_product = bundle_products.product_1.value %}
+  {%- include 'product-media-new' with current_variant: product.selected_or_first_available_variant, carousel_desktop: true -%}
+
+  <div id="product-description" class="product__description">
+    <div class="product__info">
+      <h1 class="product__description-title">
+        <b>{{ product.title }}</b>
+      </h1>
+      <div class="product__stars-container">
+        {%- include 'review-stars' with class: 'product__description-stars' -%}
+      </div>
+      <div class="product__price-container">
+        <span class="product__price">{{ bundle_price | money }}</span>
+        {% if compare_at_price > bundle_price %} 
+          <span class="product__price-compare">{{ compare_at_price | money }}</span> 
+          <span class="product__price-discount">({{ compare_at_price | minus: bundle_price | times: 100.0 | divided_by: compare_at_price | round }}% off)</span>
+        {% endif %}
+      </div>
+      {% if product.description != blank %}
+        <div class="product__description-text">
+          {{ product.description }}
+        </div>
+      {% endif %}
+    </div>
+    {%- include 'product-form-bundle-stepped' -%}
+
+    {%- assign quiz_link = pages[product.metafields.details.quiz_link].url -%}
+    {%- if quiz_link == blank -%}
+      {%- assign quiz_link = settings.shade_form_link -%}
+    {%- endif -%}
+    <div class="quiz-link-container desktop-only">
+      <a class="product__form-cta" target="_blank" href="{{ quiz_link }}" data-no-history="1">Find my Shade</a>
+    </div>
+
+    <div class="product__description-below-atc">
+      {%- include 'product-form' with show_shop_pay: true -%}
+      {%- if us_copy != blank or uk_copy != blank or eu_copy != blank -%}
+        <p class="product__description-message">
+          {% render 'icon-shipping' %}  {%- include 'component_localized-copy' with us_copy, uk_copy, eu_copy, cad_copy, irl_copy, bgn_copy, czk_copy, dkk_copy, huf_copy, pln_copy, ron_copy, sek_copy, aud_copy, nzd_copy -%}
+        </p>
+        {% if localization.country.iso_code == 'US' %}
+          <p class="product__description-message">
+            {% render 'icon-free-returns' %} Free & Easy Returns
+          </p>
+        {% endif %}
+      {%- endif -%}
+    </div>
+
+    {%- assign how_to_text = product.metafields.how_to.how_to_text -%}
+    {%- assign how_to_tip = product.metafields.how_to.bobbis_tip -%}
+    {%- assign how_to_video = product.metafields.how_to.video -%}
+    {%- assign how_to_poster = product.metafields.how_to.poster -%}
+    {%- assign featured_ingredients = product.metafields.featured_ingredients -%}
+    {%- assign ingredients = product.metafields.ingredients.ingredients -%}
+    {%- assign upsells = product.metafields.upsell -%}
+
+    {%- include 'product-description-accordions' -%}
+  </div>
+  <script type="application/json" class="js-productData">
+    {
+      "id": {{ product.id }},
+      "title": {{ product.title | json }},
+      "categories": {{ product.collections | map: 'title' | json }},
+      "image": "https:{{ product.featured_image.src | img_url: 'grande' }}",
+      "url": "{{ shop.secure_url }}{{ product.url | append: '?country=' | append: localization.country.iso_code }}",
+      "brand": {{ product.vendor | json }},
+      "price": {{ product.price | money | json }},
+      "cap": {{ product.compare_at_price_max | money | json }}
+    }
+  </script>
+</div>
+
+<div class="whats-in-the-bundle-wrapper">
+  {% include 'whats-included' with product: product, bundle_products: bundle_products, bundle_price: bundle_price, compare_at_price: compare_at_price %}
+</div>
+
+{%- for field in bundle_products -%}
+  {%- assign name = field | first -%}
+  {%- assign bundle_product = bundle_products[name].value -%}
+  {%- assign bundle_product_index = forloop.index -%}
+  {%- include 'config_product' with product: bundle_product -%}
+  {%- if show_findation -%}
+    {%-
+      include 'product-findation' with
+      product: bundle_product,
+      modal_id: bundle_product_index,
+      is_bundle: true
+    -%}
+  {%- endif -%}
+{%- endfor -%}
+
+
+
+{% schema %}
+{
+  "name": "Bundle New",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Description"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Bundle is final sale"
+    },
+    {
+      "type": "text",
+      "id": "messaging",
+      "label": "Messaging",
+      "default": "30-Day Guarantee",
+      "info": "Hidden on products tagged with 'final sale'"
+    },
+    {
+      "type": "header",
+      "content": "Free Shipping"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_us",
+      "label": "US Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_cad",
+      "label": "CAD Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_uk",
+      "label": "UK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_eu",
+      "label": "EU Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_ie",
+      "label": "IE Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_bgn",
+      "label": "BGN Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_czk",
+      "label": "CZK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_dkk",
+      "label": "DKK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_huf",
+      "label": "HUF Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_pln",
+      "label": "PLN Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_ron",
+      "label": "RON Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_sek",
+      "label": "SEK Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_aud",
+      "label": "AUD Message"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_nzd",
+      "label": "NZD Message"
+    }
+  ]
+}
+{% endschema %}

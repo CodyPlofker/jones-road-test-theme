@@ -1,0 +1,36 @@
+<div class="account__login">
+  <section class="account__form">
+    <h1 class="account__login__heading" id="login-form-forgot-password" tabindex="-1">
+    Reset your password
+    </h1>
+    <div class="form__reset js-formValidation">
+      {% form 'reset_customer_password' %}
+        <div class="form">
+          <div class="login__errors">
+              {{ form.errors | default_errors }}
+          </div>
+          <div class="form__cell">
+            <label for="reset-password">Password</label>
+            <input type="password"
+              name="customer[password]"
+              id="reset-password"
+              placeholder="Password"
+              required>
+          </div>
+          <div class="form__cell">
+            <label for="reset-password-confirm">Password Confirmation</label>
+            <input type="password"
+              name="customer[password_confirmation]"
+              id="reset-password-confirm"
+              placeholder="Password Confirmation"
+              data-validate-match="reset-password"
+              required>
+          </div>
+          <div class="form__cell form__cell--spaced">
+            <button type="submit" class="button">Submit</button>
+          </div>
+        </div>
+      {% endform %}
+    </div>
+  </section>
+</div>

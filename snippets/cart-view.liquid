@@ -1,0 +1,38 @@
+<div class="js-cartView">
+  <div class="cart" data-view="cart">
+    <form action="/cart" method="post" class="cart__mobile-checkout mobile-hidden">
+      <input type="hidden" name="checkout" value="Checkout" />
+      <button class="button button--wide js-cartCheckout">
+        Checkout
+      </button>
+    </form>
+    <div class="cart__content">
+      {% include 'cart-list' %}
+    </div>
+    <div class="cart__sidebar">
+      <h2 class="cart__heading">Order summary</h2>
+      {% include 'cart-totals' %}
+    </div>
+    <form action="/cart" method="post" class="cart__checkout mobile-visible">
+      <input type="hidden" name="checkout" value="Checkout" />
+      <button class="button cart-totals__checkout js-cartCheckout">
+        Checkout
+      </button>
+    </form>
+    <div class="cart-totals__info mobile-visible">{{ settings.cart_totals_copy }}</div>
+  </div>
+
+  {% if settings.cart_contact_heading != blank or settings.cart_contact != blank %}
+  <div class="cart__contact">
+    {% if settings.cart_contact_heading != blank %}
+    <h2 class="cart__heading cart__heading--contact">{{ settings.cart_contact_heading }}</h3>
+    {% endif %}
+    {{ settings.cart_contact }}
+  </div>
+  {% endif %}
+
+  <div class="cart__empty">
+    <p>{{ settings.cart_empty_copy }}</p>
+    <a href="{{ settings.cart_empty_link }}" class="button button--empty-cart">Start shopping</a>
+  </div>
+</div>

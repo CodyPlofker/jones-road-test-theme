@@ -1,0 +1,15 @@
+{%- assign ingredientsItemPseudoRandom = "now" | date: "%N" -%}
+<div class="ingredients__list__item" role="listitem">
+<div class="ingredients__list__item__name">
+  <svg viewBox="0 0 20 20" role="presentation">
+    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{{ iconType }}"></use>
+  </svg>
+  <span>{{ itemName }}</span>
+  <button
+    data-controls="{{ itemName | handle }}-desc-{{ ingredientsItemPseudoRandom }}"
+  >
+    {{ itemName }}
+  </button>
+</div>
+<div class="ingredients__list__item__description" id="{{ itemName | handle }}-desc-{{ ingredientsItemPseudoRandom }}"><div>{{ itemDescription }}</div></div>
+</div>

@@ -1,0 +1,66 @@
+{%- include 'blog-data' -%}
+
+{%- assign prev_index = -1 -%}
+{%- assign next_index = -1 -%}
+{%- assign current_found = false -%}
+
+{%- comment -%} Try to find current article in all_articles first {%- endcomment -%}
+{%- for a in all_articles -%}
+  {%- if a == article -%}
+    {%- assign prev_index = forloop.index0 | minus: 1 -%}
+    {%- assign next_index = forloop.index0 | plus: 1 -%}
+    {%- assign current_found = true -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- comment -%} Fallback: If current article not found in all_articles, use current blog's articles {%- endcomment -%}
+{%- if current_found == false -%}
+  {%- assign article_blog_handle = article.url | split: '/blogs/' | last | split: '/' | first -%}
+  {%- assign current_blog = blogs[article_blog_handle] -%}
+  
+  {%- if current_blog -%}
+    {%- paginate current_blog.articles by 250 -%}
+      {%- for a in current_blog.articles -%}
+        {%- if a == article -%}
+          {%- assign prev_index = forloop.index0 | minus: 1 -%}
+          {%- assign next_index = forloop.index0 | plus: 1 -%}
+          {%- assign current_found = true -%}
+          {%- break -%}
+        {%- endif -%}
+      {%- endfor -%}
+      
+      {%- comment -%} Use current blog articles for pagination {%- endcomment -%}
+      {%- assign previous_article = current_blog.articles[prev_index] -%}
+      {%- assign next_article = current_blog.articles[next_index] -%}
+      {%- assign total_articles = current_blog.articles.size -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+{%- else -%}
+  {%- comment -%} Use all_articles for pagination {%- endcomment -%}
+  {%- assign previous_article = all_articles[prev_index] -%}
+  {%- assign next_article = all_articles[next_index] -%}
+  {%- assign total_articles = all_articles.size -%}
+{%- endif -%}
+
+<div class="article__body-footer">
+  <div class="article__body-footer--inner">
+    {% if previous_article %}
+    <a href="{{ previous_article.url }}" class="article__body-footer--link prev {% if prev_index < 0 %} disabled {% endif %}">
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.85714 1L1 4.85714L4.85714 8.71429" stroke="black" stroke-width="1.02857"/>
+      </svg>
+        Previous <span>Article</span>
+      </a>
+    {% endif %}
+    <p class="article__body-details">Diary / <a href="{{ blogs[article_blog_name].url }}">{{ article_blog_name | capitalize }}</a> / {{ article.published_at | date: '%b %e, %Y' }}</p>
+    {% if next_article %}
+    <a href="{{ next_article.url  }}" class="article__body-footer--link next {% if next_index >= total_articles %} disabled {% endif %}">
+      Next <span>Article</span>
+      <svg width="6" height="10" viewBox="0 0 6 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 1L5 5L1 9" stroke="black" stroke-width="1.02857"/>
+      </svg>
+    </a>
+    {% endif %}
+  </div>
+</div>

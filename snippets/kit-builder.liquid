@@ -1,0 +1,84 @@
+{%- assign product = all_products[handle] -%}
+
+{%- include 'config_kit-builder' -%}
+
+{%- if product != blank -%}
+  <div class="kit__builder js-bundleHero" data-component="kitBuilder">
+    {%- include '-product-media-new' with current_variant: product.selected_or_first_available_variant, carousel_desktop: true -%}
+    <div class="kit__builder-info">
+      <h2 class="kit__builder-heading">
+        {{ product.title }}
+      </h2>
+      {%- include 'review-stars' with class: 'kit__builder-stars' -%}
+      <p class="kit__builder-price">
+        {%- render 'price' with price: product.price -%}
+      </p>
+      {%- if config.description != blank -%}
+        <div class="kit__builder-description">
+          {{ config.description }}
+        </div>
+      {%- endif -%}
+      {%- assign product_url = product.url | append: '?country=' | append: localization.country.iso_code -%}
+      {%- form 'product', 
+        product,
+        class: 'kit__builder-form js-productForm js-bundleForm',
+        data-bundle: product.title,
+        data-image: bundle_image,
+        data-url: product_url,
+        data-discount: discount_code,
+        data-checkout: false
+      -%}
+        <ul class="kit__builder-products">
+          {{ bundle_product_selectors }}
+        </ul>
+        <button
+          type="submit"
+          class="product__form-button kit__builder-button button js-bundleFormSubmit {% if should_select_shades %} button--gray {% endif %}"
+          data-available="{{ bundle_available }}"
+          {% if should_select_shades %} disabled {% endif %}
+        >
+          <div class="product__form-button__text kit__builder-button--text js-bundleFormCopy">
+            <span class="text">
+              {%- if bundle_available -%}
+                {%- if should_select_shades -%}Select Shades{%- else -%}Add to Cart{%- endif -%}
+              {%- else -%}
+                Sold Out
+              {%- endif -%}
+            </span>
+            <span class="loader">Adding...</span>
+          </div>
+          <div class="product__form-price product__form-price--bundle kit__builder-button--price">
+            {% if compare_at_price > product.price %}
+              <s>{{ compare_at_price | money_without_trailing_zeros }}</s>
+            {% endif %}
+            <span>
+              {%- render 'price' with price: product.price -%}
+            </span>
+          </div>
+        </button>
+      {%- endform -%}
+      {%- include 'product-description-accordions' with 
+        featured_ingredients: product.metafields.featured_ingredients,
+        ingredients: product.metafields.ingredients,
+        how_to_text: product.metafields.how_to.how_to_text,
+        how_to_tip: product.metafields.how_to.bobbis_tip,
+        how_to_video: product.metafields.how_to.video,
+        how_to_poster: product.metafields.how_to.poster,
+        upsells: product.metafields.upsell,
+        faqs,
+      -%}
+    </div>
+    <script type="application/json" class="js-productData">
+      {
+        "id": {{ product.id }},
+        "title": {{ product.title | json }},
+        "categories": {{ product.collections | map: 'title' | json }},
+        "image": "https:{{ product.featured_image.src | img_url: 'grande' }}",
+        "url": "{{ shop.secure_url }}{{ product.url }}",
+        "brand": {{ product.vendor | json }},
+        "price": {{ product.price | money | json }},
+        "cap": {{ product.compare_at_price_max | money | json }}
+      }
+    </script>
+  </div>
+{%- endif -%}

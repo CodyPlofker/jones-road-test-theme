@@ -1,0 +1,32 @@
+{% schema %}
+  {
+   "name":"Press module",
+   "blocks":[
+      {
+        "type":"post",
+        "name":"Post",
+        "settings":[
+          {
+            "id":"quote",
+            "label":"Quote",
+            "type":"text"
+          },
+          {
+            "id":"source",
+            "label":"Source",
+            "type":"text"
+          }
+        ]
+      }
+   ],
+   "presets":[
+      {
+        "category": "Content",
+        "name": "Press module"
+      }
+   ]
+  }
+{% endschema %}
+{% include "press",
+  posts: section.blocks,
+%}

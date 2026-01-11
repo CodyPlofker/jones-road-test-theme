@@ -1,0 +1,72 @@
+{%- assign shade_breakdown_columns = product.metafields.shade_breakdown.columns.value -%}
+
+<div class="product__description-breakdown {{ class }}">
+  <table>
+    <thead>
+      <tr>
+        <th>
+          <h3>{{ product.title | append: ' Shade' }}</h3>
+        </th>
+        {%- for heading in shade_breakdown_columns -%}
+          <th>
+            <h3>{{ heading }}</h3>
+          </th>
+        {%- endfor -%}
+      </tr>
+    </thead>
+    <tbody>
+      {%- for variant in product.variants -%}
+        {%- unless variant.metafields.config.hide_from_pdp -%}
+          {%- assign variant_swatch = '' -%}
+          {%- if variant.metafields.swatch.color != blank -%}
+            {%- assign variant_swatch = variant.metafields.swatch.color -%}
+          {%- endif -%}
+          {%- if variant.metafields.swatch.image != blank -%}
+            {%- assign variant_swatch = variant.metafields.swatch.image | image_url: width: 100, height: 100 -%}
+          {%- endif -%}
+          {%- if variant_swatch == blank -%}
+            {%- assign swatches = settings.swatches | newline_to_br | split: '<br />' -%}
+            {%- for s in swatches -%}
+              {%- assign swatch = s | split: '==' -%}
+              {%- assign swatch_name = swatch | first | strip -%}
+              {%- assign swatch_value = swatch | last | strip -%}
+              {%- if swatch_name == variant.title -%}
+                {%- assign variant_swatch = swatch_value -%}
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+
+          {%- assign column_content = variant.metafields.shade_breakdown.columns.value -%}
+
+          <tr>
+            <th>
+              <span class="swatch">
+                {%- if variant_swatch contains '.' -%}
+                  <img src="{{ variant_swatch }}" alt="" />
+                {%- else -%}
+                  <i style="background: {{ variant_swatch }}"></i>
+                {%- endif -%}
+              </span>
+              <h4>{{ variant.title }}</h4>
+            </th>
+            {%- for column in shade_breakdown_columns -%}
+              {%- assign content = column_content[forloop.index0] -%}
+              <td>
+                {%- if content == '**' -%}
+                  <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9995 25.9991C20.179 25.9991 25.9991 20.179 25.9991 12.9995C25.9991 5.82009 20.179 0 12.9995 0C5.82009 0 0 5.82009 0 12.9995C0 20.179 5.82009 25.9991 12.9995 25.9991ZM11.8294 17.3033L11.8352 17.2975L11.9973 17.4565L19.4741 9.83425L18.7028 9.07764L11.9326 15.9796L8.36432 12.4428L7.65137 13.1621L11.8294 17.3033Z" fill="black"/>
+                  </svg>
+                {%- elsif content == '_' -%}
+
+                {%- else -%}
+                  {{ content }}
+                {%- endif -%}
+              </td>
+            {%- endfor -%}
+          </tr>
+        {%- endunless -%}
+      {%- endfor -%}
+    </tbody>
+  </table>
+</div>

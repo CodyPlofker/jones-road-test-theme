@@ -1,0 +1,23 @@
+<div class="ugc{% if modifier != blank %} ugc--{{ modifier }}{% endif %}">
+  {% unless heading == blank %}
+  <div class="ugc__heading text-underline">
+    {{ heading }}
+  </div>
+  {% endunless %}
+  <div class="ugc__media">
+    <ul class="ugc__items">
+        {%- if tilesHtml != blank -%}
+          {{ tilesHtml }}
+        {%- else -%}
+          {%- for post in posts -%}
+          {%- if post.type == 'post' -%}
+          {%- include 'ugc-tile',
+            ugcTileLink: post.settings.url,
+            ugcTileImage: post.settings.image,
+          -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+    </ul>
+  </div>
+</div>

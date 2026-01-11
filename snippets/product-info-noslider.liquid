@@ -1,0 +1,74 @@
+<div class="product-info product-info--no-slider">
+  <div class="swiper-container js-productInfo">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        {%- if product.has_only_default_variant -%}
+          <div
+            class="product-info__image product-info__image--featured is-showing"
+          >
+            {%- include 'product-info-picture', image: product.images[0] -%}
+          </div>
+        {%- else -%}
+          {%- assign variantId = nil -%}
+          {%- for image in product.images -%}
+          {%- if image.variants.size > 0 -%}
+          {%- assign variantId = image.variants[0].id -%}
+          {%- assign isShowing = false -%}
+          {%- if variantId == product.selected_or_first_available_variant.id -%}
+          {%- assign isShowing = true -%}
+          {%- endif -%}
+          {%- if isShowing -%}
+          <div
+            class="product-info__image product-info__image--featured is-showing"
+          >
+            {%- include 'product-info-picture', image: image -%}
+          </div>
+          {%- endif -%}
+          {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      {%- if product.has_only_default_variant -%}
+        {%- for image in product.images -%}
+        {%- if forloop.index > 0 -%}
+          <div class="swiper-slide product-info__image product-info__image--gallery is-showing">
+            {%- include 'product-info-picture', image: image, lazy: true -%}
+          </div>
+        {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign variantId = nil -%}
+        {%- for image in product.images -%}
+        {%- if image.variants.size > 0 -%}
+        {%- assign variantId = image.variants[0].id -%}
+        {%- assign isShowing = false -%}
+        {%- if variantId == product.selected_or_first_available_variant.id -%}
+        {%- assign isShowing = true -%}
+        {%- endif -%}
+        {%- else -%}
+        {%- if isShowing -%}
+          <div
+          class="swiper-slide product-info__image product-info__image--gallery is-showing"
+          {% unless variantId == blank %}data-variant="{{ variantId }}"{% endunless %}
+          >
+          {%- include 'product-info-picture', image: image, lazy: true -%}
+          </div>
+        {%- endif -%}
+        {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      <div class="swiper-slide"></div>
+    </div>
+    <button class="product-info__nav product-info__nav--prev swiper-button-prev">
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="product-info__nav product-info__nav--next swiper-button-next">
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {%- include 'product-description',
+    product: product,
+    settings: settings,
+    swatches: swatches,
+  -%}
+</div>

@@ -1,0 +1,47 @@
+<div class="hole hole--{{ textColor }}" style="background: {{ backgroundColor }}">
+  {%- if ctaLink != blank -%}
+  <a href="{{ ctaLink }}">
+  {%- endif -%}
+  <div class="hole__content">
+    {% if heading != blank %}
+      <div class="hole__heading">{{ heading }}</div>
+    {% endif %}
+    {% if caption != blank %}
+      <div class="hole__caption">{{ caption }}</div>
+    {% endif %}
+    <div class="hole__circle">
+      <picture>
+        <source media="(min-width: 1601px)"
+                srcset="{{ image | img_url: '768x768', scale: 1, crop: 'center' }} 1x,
+                        {{ image | img_url: '768x768', scale: 2, crop: 'center' }} 2x" />
+        <source media="(min-width: 1281px) and (max-width: 1600px)"
+                srcset="{{ image | img_url: '640x640', scale: 1, crop: 'center' }} 1x,
+                        {{ image | img_url: '640x640', scale: 2, crop: 'center' }} 2x" />
+        <source media="(min-width: 1024px) and (max-width: 1280px)"
+                srcset="{{ image | img_url: '512x512', scale: 1, crop: 'center' }} 1x,
+                      {{ image | img_url: '512x512', scale: 2, crop: 'center' }} 2x" />
+        <source media="(min-width: 701px) and (max-width: 1023px)"
+                srcset="{{ image | img_url: '410x410', scale: 2, crop: 'center' }}" />
+        <source media="(min-width: 376px) and (max-width: 700px)"
+                srcset="{{ image | img_url: '560x560', scale: 2, crop: 'center' }}" />
+        <source media="(max-width: 375px)"
+                srcset="{{ image | img_url: '300x300', scale: 2, crop: 'center' }}" />
+        <img class="is-loading" src="{{ image | img_url: '300x300', scale: 2, crop: 'center' }}" alt="{{ imageAlt }}" />
+      </picture>
+      {% if video != blank %}<video
+        autoplay
+        loop
+        muted
+        playsinline
+        src="{{ video | file_url}}"
+        webkit-playsinline
+      ></video>{% endif %}
+    </div>
+    {% if ctaText != blank %}
+      <span class="hole__button button">{{ ctaText }}</span>
+    {% endif %}
+  </div>
+  {%- if ctaLink != blank -%}
+  </a>
+  {%- endif -%}
+</div>

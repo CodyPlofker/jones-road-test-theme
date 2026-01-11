@@ -1,0 +1,136 @@
+{% assign isBundle = false %}
+{% if product.template_suffix == 'bundle' %}
+  {% assign isBundle = true %}
+{% endif %}
+
+{% assign hasFlag = false %}
+{% assign hasSaleFlag = false %}
+{% for flag in product.tags %}
+  {% if flag == 'flag_Sale' %}
+    {% assign hasFlag =  true %}
+    {% assign hasSaleFlag =  true %}
+    {% assign discount = product.compare_at_price_max | minus: product.price | times: 100.0 | divided_by: product.compare_at_price_max | money_without_currency | times: 100 | remove: '.0'%}
+  {% elsif flag contains 'flag_' %}
+    {% assign hasFlag =  true %}
+    {% assign flag = flag | split: "flag_" | last %}
+  {% endif %}
+{% endfor %}
+
+<div class="product-info{% if variant %} product-info--{{ variant }}{% endif %} {% if isBundle %} template-bundle product-info--no-slider {% endif %}">
+  {% if hasFlag and hasSaleFlag %}
+  <div class="product-info__flag mobile">
+    {{ discount }}% Off
+  </div>
+  {% elsif hasFlag %}
+  <div class="product-info__flag mobile">
+    {{ flag }}
+  </div>
+  {% endif %}
+  <div class="swiper-container js-productInfo {% if isBundle %} bundle-carousel js-productBundleCarousel {% endif %}">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        {% if hasFlag and hasSaleFlag %}
+        <div class="product-info__flag desktop">
+          {{ discount }}% Off
+        </div>
+        {% elsif hasFlag %}
+        <div class="product-info__flag desktop">
+          {{ flag }}
+        </div>
+        {% endif %}
+
+        {%- if product.has_only_default_variant -%}
+          <div class="product-info__image product-info__image--featured is-showing">
+            {%- include 'product-info-picture', image: product.images[0] -%}
+            {%- include 'product-awards' with context: 'info' -%}
+          </div>
+        {%- else -%}
+          {%- assign variantId = nil -%}
+          {%- for image in product.images -%}
+            {%- if image.variants.size > 0 -%}
+              {%- assign variantId = image.variants[0].id -%}
+              {%- assign isShowing = false -%}
+              {%- if variantId == product.selected_or_first_available_variant.id -%}
+                {%- assign isShowing = true -%}
+              {%- endif -%}
+              {%- if isShowing -%}
+                <div class="product-info__image product-info__image--featured is-showing">
+                  {%- include 'product-info-picture', image: image -%}
+                  {%- include 'product-awards' with context: 'info' -%}
+                </div>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        {% unless isBundle %}
+          {%- if variant != 'no-slider' -%}
+            {%- include 'product-description',
+              modifier: 'desktop',
+              product: product,
+              settings: settings,
+              swatches: swatches,
+            -%}
+          {%- endif -%}
+        {% endunless %}
+      </div>
+      {%- if product.has_only_default_variant -%}
+        {%- for image in product.images -%}
+        {%- if forloop.index > 0 -%}
+          <div class="swiper-slide product-info__image product-info__image--gallery is-showing">
+            {%- include 'product-info-picture', image: image, lazy: true -%}
+          </div>
+        {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign variantId = nil -%}
+        {%- for image in product.images -%}
+          {%- if image.variants.size > 0 -%}
+            {%- assign variantId = image.variants[0].id -%}
+            {%- assign isShowing = false -%}
+            {%- if variantId == product.selected_or_first_available_variant.id -%}
+              {%- assign isShowing = true -%}
+            {%- endif -%}
+          {%- else -%}
+            {%- if isShowing -%}
+              <div
+              class="swiper-slide product-info__image product-info__image--gallery is-showing"
+              {% unless variantId == blank %}data-variant="{{ variantId }}"{% endunless %}
+              >
+                {%- include 'product-info-picture', image: image, lazy: true -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      <div class="swiper-slide"></div>
+    </div>
+    <button class="product-info__nav product-info__nav--prev swiper-button-prev">
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="product-info__nav product-info__nav--next swiper-button-next">
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {%- if variant == 'no-slider' or isBundle -%}
+    {%- include 'product-description',
+      modifier: 'desktop',
+      product: product,
+      settings: settings,
+      swatches: swatches,
+      bundle_products,
+      isBundle,
+    -%}
+  {%- endif -%}
+
+  {%- include 'product-description',
+    modifier: 'mobile',
+    product: product,
+    settings: settings,
+    swatches: swatches,
+    bundle_products,
+    isBundle
+  -%}
+  {% if isBundle %}
+    <div class="js-productBundleUnstick"></div>
+  {% endif %}
+</div>

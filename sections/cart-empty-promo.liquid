@@ -1,0 +1,29 @@
+{% schema %}
+  {
+    "name": "Recommended products",
+    "blocks": [
+      {
+        "type": "tiles",
+        "name": "Tiles",
+        "settings": [
+          {
+            "id": "product",
+            "label": "Product",
+            "type": "product"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
+{%- if section.blocks.size > 0  and cart.item_count == 0-%}
+{%- capture productHandles -%}{%- for block in section.blocks -%}{{ block.settings.product }}{% unless forloop.last %},{% endunless %}{%- endfor -%}{%- endcapture -%}
+{% assign productHandles = productHandles | split: ',' %}
+{%- include 'product-carousel', 
+  className: 'related-products',
+  isQuickAddDisabled: true,
+  jsClass: 'js-relatedProducts',
+  productHandles: productHandles,
+  withNav: false,
+-%}
+{%- endif -%}

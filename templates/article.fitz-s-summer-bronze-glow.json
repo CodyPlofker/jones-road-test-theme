@@ -1,0 +1,85 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "justbobbi_MiracleBalmBronze.jpg",
+            "heading": "#1: Brighten And Bronze",
+            "description": "<p>Use The Face Pencils to hide redness and brighten the undereye area. Apply Miracle Balm in Bronze all over face for a warm, sunkissed glow.<\/p>",
+            "product_1": "the-face-pencil",
+            "variant_1": "FGFP12358",
+            "product_2": "miracle-balm",
+            "variant_2": "FGMB01020"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "MB_Bronze.jpg",
+            "heading": "#2: Define",
+            "description": "<p>Swipe Sparkle Wash in Bronze all over the lid, building intensity as you go. Swipe two coats of The Mascara for voluminous, defined lashes. <\/p>",
+            "product_1": "sparkle-wash",
+            "variant_1": "FGSW09280",
+            "product_2": "the-mascara",
+            "variant_2": ""
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "settings": {
+            "media": "cool_gloss_psd_0000s_0002s_0003_JonesRoad_CoolGloss_MochaShimmer_01_jpg.jpg",
+            "heading": "#3: Subtle Shine",
+            "description": "<p>Smooth Cool Gloss in Mocha Shimmer over lips.<\/p>",
+            "product_1": "cool-gloss",
+            "variant_1": "FGCG03112",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "Mascara_098_1.png",
+            "heading": "#3: Define",
+            "description": "<p>Whenever you’re using a peach- or pink-toned shade, adding definition around the eyes is key. Fill in any sparse areas of the brows using The Brow Pencil (Mollye wears Light Brunette) and finish with a few coats of The Mascara in Black.<\/p>",
+            "product_1": "the-mascara",
+            "variant_1": "FGMA02051",
+            "product_2": "the-brow-pencil",
+            "variant_2": "FGBP23225"
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Fitz_0c0b60d7-7319-4ba8-8cf3-a724d0259b41.jpg",
+        "heading": "",
+        "description": "",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(5 products)",
+        "bullets": "<p><a href=\"\/products\/the-face-pencil\" target=\"_blank\" title=\"The Face Pencil\">The Face Pencil<\/a><\/p><p><a href=\"\/products\/miracle-balm\" target=\"_blank\" title=\"Miracle Balm\">Miracle Balm<\/a><\/p><p><a href=\"\/products\/sparkle-wash\" target=\"_blank\" title=\"Sparkle Wash\">Sparkle Wash<\/a><\/p><p><a href=\"\/products\/the-mascara\" target=\"_blank\" title=\"The Mascara\">The Mascara<\/a><\/p><p><a href=\"\/products\/cool-gloss\" target=\"_blank\" title=\"Cool Gloss\">Cool Gloss<\/a><\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

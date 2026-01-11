@@ -1,0 +1,4 @@
+<div class="plp__search-results">
+  {{ results_count }} Search result{% if results_count != 1 %}s{% endif %} for <em>{{ search.terms | escape }}</em>
+  {%- if results_count == 0 -%}<p>See our recommendations below</p>{%- endif -%}
+</div>

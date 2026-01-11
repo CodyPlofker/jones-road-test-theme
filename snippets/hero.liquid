@@ -1,0 +1,152 @@
+{%- assign imageMobileFallback = imageMobile -%}
+{%- if imageMobile == blank -%}
+  {%- assign imageMobileFallback = image -%}
+{%- endif -%}
+
+{%- assign videoMobileFallback = videoMobile -%}
+{%- if imageMobile == blank -%}
+  {%- assign videoMobileFallback = video -%}
+{%- endif -%}
+
+{%- if image != blank -%}
+  <div class="hero hero-desktop-image-size-{{ desktop_image_size }} hero-mobile-image-size-{{ mobile_image_size }} js-hero {{ class }}" data-component="hero"
+    style="
+      --desktop-image-height: {{ desktop_image_height }}vh;
+      --desktop-image-min-height: {{ desktop_image_min_height }}px;
+      --mobile-image-height: {{ mobile_image_height }}vh;
+      --mobile-image-min-height: {{ mobile_image_min_height }}px;
+      --text-color-desktop: {{ ctaLinks[0].settings.text_color_desktop }};
+      --background-color-desktop: {{ ctaLinks[0].settings.background_color_desktop }};
+      --border-color-desktop: {{ ctaLinks[0].settings.border_color_desktop }};
+      --hover-text-color-desktop: {{ ctaLinks[0].settings.hover_text_color_desktop }};
+      --hover-background-color-desktop: {{ ctaLinks[0].settings.hover_background_color_desktop }};
+      --hover-border-color-desktop: {{ ctaLinks[0].settings.hover_border_color_desktop }};
+      --text-color-mobile: {{ ctaLinks[0].settings.text_color_mobile }};
+      --background-color-mobile: {{ ctaLinks[0].settings.background_color_mobile }};
+      --border-color-mobile: {{ ctaLinks[0].settings.border_color_mobile }};
+      --hover-text-color-mobile: {{ ctaLinks[0].settings.hover_text_color_mobile }};
+      --hover-background-color-mobile: {{ ctaLinks[0].settings.hover_background_color_mobile }};
+      --hover-border-color-mobile: {{ ctaLinks[0].settings.hover_border_color_mobile }};
+    "
+  >
+    {%- if ctaLinks.size == 1 -%}
+      <a href="{{ ctaLinks[0].settings.link }}">
+    {%- endif -%}
+    <div class="hero__media">
+      <picture>
+        <source
+          media="(min-width: 1601px)"
+          srcset="
+            {{ image | img_url: '1920x1152', scale: 1, crop: 'center' }} 1x,
+            {{ image | img_url: '1920x1152', scale: 2, crop: 'center' }} 2x
+          "
+        >
+        <source
+          media="(min-width: 1281px) and (max-width: 1600px)"
+          srcset="
+            {{ image | img_url: '1600x960', scale: 1, crop: 'center' }} 1x,
+            {{ image | img_url: '1600x960', scale: 2, crop: 'center' }} 2x
+          "
+        >
+        <source
+          media="(min-width: 1024px) and (max-width: 1280px)"
+          srcset="
+            {{ image | img_url: '1280x768', scale: 1, crop: 'center' }} 1x,
+            {{ image | img_url: '1280x768', scale: 2, crop: 'center' }} 2x
+          "
+        >
+        <source
+          media="(min-width: 701px) and (max-width: 1023px)"
+          srcset="{{ image | img_url: '1023x877', scale: 2, crop: 'center' }}"
+        >
+        <source
+          media="(min-width: 451px) and (max-width: 700px)"
+          srcset="{{ imageMobileFallback | img_url: '700x1050', scale: 2, crop: 'center' }}"
+        >
+        <source
+          media="(min-width: 376px) and (max-width: 450px)"
+          srcset="{{ imageMobileFallback | img_url: '450x', scale: 2, crop: 'center' }}"
+        >
+        <source
+          media="(max-width: 375px)"
+          srcset="{{ imageMobileFallback | img_url: '375x562', scale: 2, crop: 'center' }}"
+        >
+        <img
+          class="{% unless template contains 'index' %}is-loading{% endunless %}"
+          src="{{ imageMobile | img_url: '375x562', scale: 2, crop: 'center' }}"
+          alt="{{ imageAlt }}"
+          {% if template contains 'index' %}
+            fetchpriority="high"
+            loading="eager"
+          {% endif %}
+        >
+      </picture>
+      {% if video != blank -%}
+        <video
+          autoplay
+          data-desktop="{{ video }}"
+          data-mobile="{{ videoMobileFallback }}"
+          loop
+          muted
+          playsinline
+          src="{{ video }}"
+          webkit-playsinline
+        ></video>
+      {%- endif %}
+    </div>
+    <div class="hero__content{% if contentPosition != blank %} hero__content--{{ contentPosition }}{% endif %}">
+      {% if heading != blank %}
+        <div class="hero__heading hero__heading--{{ headingColor }}{% if headingHighlight %} hero__heading--highlight{% endif %}" style="--heading-color-mobile: {{ headingColorMobile }}; --heading-color: {{ headingColor }};">
+          {% comment %} <span style="--highlight: {{ highlightColor | default: '#fff' }};">{{ heading | newline_to_br }}</span> {% endcomment %}
+          <span style="--highlight: {{ highlightColor | default: '#fff' }};  --highlight-mobile: {{ highlightColorMobile }}; --line-height-mobile: {{ line_height_mobile | append: 'px' }}; --line-height-desktop: {{ line_height_desktop | append: 'px' }}; " class="hero__heading--element">
+            {% if headingHighlight %}
+              {%- assign lines = heading | newline_to_br | split: '<br />' -%}
+              {%- for line in lines -%}
+                <span>{{ line }}</span>
+              {%- endfor -%}
+            {% else %}
+              {{ heading | newline_to_br }}
+            {% endif %}
+          </span>
+          {% if subheading != blank %}
+            <p class="hero__subheading {{ subheadingFont }} hero__subheading--{{ subheadingColor }} desktop" style="--line-height: {{ subheading_lineheight_desktop }};">
+              {{ subheading }}
+            </p>
+          {% endif %}
+          {% if subheadingMobile != blank %}
+            <p class="hero__subheading {{ subheadingFontMobile }} hero__subheading--{{ subheadingMobileColor }} mobile" style="--line-height: {{ subheading_lineheight_mobile }};">
+              {{ subheadingMobile }}
+            </p>
+          {% endif %}
+        </div>
+      {% endif %}
+      {% if ctaLinks.size > 0 %}
+        <div class="hero__cta">
+          {% for cta in ctaLinks %}
+            {%- if ctaLinks.size == 1 -%}
+              <span class="button button--{{ cta.settings.color }}" {{ cta.shopify_attributes }}>
+                {{- cta.settings.text -}}
+              </span>
+            {%- else -%}
+              <a
+                href="{{ cta.settings.link }}"
+                class="button button--{{ cta.settings.color }}"
+                {{ cta.shopify_attributes }}
+              >
+                {{- cta.settings.text -}}
+              </a>
+            {%- endif -%}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    {% if caption != blank and contentPosition == 'center' %}
+      <div class="hero__caption hero__caption--{{ headingColor }}">
+        {{ caption }}
+      </div>
+    {% endif %}
+    {%- if ctaLinks.size == 1 -%}
+      </a>
+    {%- endif -%}
+  </div>
+{%- endif -%}

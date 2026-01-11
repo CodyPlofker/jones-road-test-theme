@@ -1,0 +1,80 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+{%- assign selected_variant = product.selected_variant -%}
+
+{%- assign image = current_variant.metafields.findation.image_1 -%}
+{%- assign description = current_variant.metafields.findation_hero.description -%}
+{%- assign findation_swatches = current_variant.metafields.findation -%}
+
+{%- assign help_text = section.settings.findation_text -%}
+
+{%- assign show_button = true -%}
+{%- if is_bundle -%}
+  {%- assign show_button = false -%}
+{%- endif -%}
+
+<style>
+.product__findation-content .product__form-swatch .arrow {
+    display: none;
+}
+</style>
+ 
+<div class="product__findation js-findation">
+  <div class="product__findation-inner js-findationModal" data-modal="{{ modal_id }}" data-bundle="{{ is_bundle }}">
+    <div class="product__findation-image js-findationImage">
+      <img src="{{ image | img_url: 'x650' }}" srcset="{{ image | img_url: 'x1300' }} 2x" alt="{{ image.alt }}">
+    </div>
+    <div class="product__findation-content">
+      <div class="product__findation-header">
+        <h2>Get the Look</h2>
+        <p>{{ product.title | remove: '[bggy pdp dev copy]' }}</p>
+      </div>
+      <div class="product__findation-form">
+        {%- capture findation_description -%}
+          <p class="product__findation-description {% unless selected_variant %} no-variant {% endunless %} js-findationDescription">
+            {{ description }}
+          </p>
+        {%- endcapture -%}
+        {%- include 'product-form' with 
+          style: 'radio',
+          is_findation: true,
+          is_linked: false,
+          show_button,
+          should_show_findation: false,
+          class: 'product__findation-atc',
+          is_bundle
+        -%}
+        {%- if is_bundle -%}
+          <button class="button product__findation-button button--quick-add js-findationBundleSelect" data-id="{{ modal_id }}">
+            Select Shade
+          </button>
+        {%- endif -%}
+        {%- if help_text != blank -%}
+          <div class="product__findation-link">
+            {{ help_text }}
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="product__findation-swatches js-findationSwatches">
+        {%- for i in (1..4) -%}
+          {%- assign metafield_key = 'image_' | append: forloop.index -%}
+          {%- assign swatch = findation_swatches[metafield_key] -%}
+          
+          <div class="aspect-1-1 js-findationSwatch" data-index="{{ forloop.index0 }}">
+            <img 
+              class="aspect-child"
+              src="{{ swatch | img_url: '200x' }}"
+              srcset="{{ swatch | img_url: '400x' }} 2x"
+              alt="{{ swatch.alt }}"
+            >
+          </div>
+        {%- endfor -%}
+      </div>
+      <button type="button" class="product__findation-close js-findationClose" data-id="{{ modal_id }}">
+        <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M20.7418 21.6846L6.5997 7.54248L8.01392 6.12827L22.1561 20.2704L20.7418 21.6846Z" fill="black"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M6.59966 20.7417L20.7418 6.59961L22.156 8.01382L8.01387 22.156L6.59966 20.7417Z" fill="black"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

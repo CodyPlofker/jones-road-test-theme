@@ -1,0 +1,107 @@
+{%- assign categories = linklists[settings.blog_categories].links -%}
+
+{%- assign all_blogs = categories | map: 'object' -%}
+
+{%- capture blog_data -%}
+  {
+    "sort": "published_at-descending",
+    "search": false,
+    "paginate": 6,
+    "current_blog": {{ blog.handle | json }},
+    "blogs": [
+      {%- for b in all_blogs -%}
+        {%- assign is_selected = false -%}
+        {%- if b.handle == blog.handle -%}
+          {%- assign is_selected = true -%}
+        {%- endif -%}
+        {
+          "id": {{ b.id }},
+          "title": {{ b.title | json }},
+          "handle": {{ b.handle | json }},
+          "url": "{{ b.url }}",
+          "selected": {{ is_selected }}
+        }{%- unless forloop.last -%},{%- endunless -%}
+      {%- endfor -%}
+    ]
+    {% comment %} "defaultArticles": {{ current_articles | sort_natural: 'published_at' | reverse | json }} {% endcomment %}
+  }
+{%- endcapture -%}
+
+{%- capture categories_html -%}
+  {%- for category in categories -%}
+    {%- assign category_blog = category.object -%}
+    {%- assign is_selected = false -%}
+    {%- if category_blog.handle == blog.handle -%}
+      {%- assign is_selected = true -%}
+    {%- endif -%}
+    <li class="{% if is_selected %} active {% endif %}">
+      <a href="{{ category.url }}" class="{% if is_selected %} active {% endif %}" data-id="{{ category_blog.id }}">
+        {{ category.title }}
+      </a>
+    </li>
+  {%- endfor -%}
+{%- endcapture -%}
+
+<div id="blog-grid" class="blog__grid js-blogGrid" data-component="blogGrid">
+  <button class="blog__grid-overlay hidden js-blogOverlay" aria-label="Close Sort & Filter"></button>
+  <ul class="blog__grid-categories">
+    {{ categories_html }}
+  </ul>
+  <div class="blog__grid-utils">
+    <form class="blog__grid-selectors">
+      <div class="blog__grid-filter js-blogSort" style="--height: {{ categories.size | plus: 1 | times: 38 | append: 'px' }}">
+        <button>Filter</button>
+        <ul class="blog__grid-filter--options">
+          {{ categories_html }}
+        </ul>
+      </div>
+      <div class="blog__grid-sort js-blogSort" style="--height: {{ 38 | times: 5 | append: 'px' }}">
+        <button>
+          Sort By<span class="blog__grid-sort--divider">:&nbsp;&nbsp;</span> <span class="blog__grid-sort--current js-blogSortCurrent">Most Recent</span>
+          <svg class="icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M0.823242 1.1768L1.1768 0.823242L5.00002 4.64647L8.82324 0.823242L9.1768 1.1768L5.00002 5.35357L0.823242 1.1768Z" fill="black"/>
+          </svg>
+        </button>
+        <ul class="blog__grid-sort--options">
+          <li class="active">
+            <label for="published_at-descending">Most Recent</label>
+            <input class="visually-hidden js-blogSortOption" name="sort" id="published_at-descending" type="radio" value="published_at-descending" />
+          </li>
+          <li>
+            <label for="published_at-ascending">Oldest</label>
+            <input class="visually-hidden js-blogSortOption" name="sort" id="published_at-ascending" type="radio" value="published_at-ascending" />
+          </li>
+          <li>
+            <label for="title-ascending">Title A-Z</label>
+            <input class="visually-hidden js-blogSortOption" name="sort" id="title-ascending" type="radio" value="title-ascending" />
+          </li>
+          <li>
+            <label for="title-descending">Title Z-A</label>
+            <input class="visually-hidden js-blogSortOption" name="sort" id="title-descending" type="radio" value="title-descending" />
+          </li>
+        </ul>
+      </div>
+    </form>
+    <div class="blog__grid-search">
+      <input class="js-blogSearch" name="search" placeholder="Search" id="blog_search" aria-label="Search Articles" autocomplete="off" />
+    </div>
+  </div>
+  <div class="blog__grid-articles js-blogArticles">
+    {% comment %} Append articles HTML here {% endcomment %}
+    {% comment %}Show 6 Skeleton Articles while the JS lib is fetching the articles {% endcomment %}
+    {% for i in (1..6) %}
+      <a class="article__card loading">
+        <div class="article__card-image">
+        </div>
+        <div class="article__card-content">
+          <p class="article__card-blog"></p>
+          <h2 class="article__card-title"></h2>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+  <button type="button" class="blog__grid-load js-blogLoad">Load More</button>
+  <script id="blog-data" class="js-blogData" type="application/json">
+    {{ blog_data }}
+  </script>
+</div>

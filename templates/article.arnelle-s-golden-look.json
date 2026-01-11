@@ -1,0 +1,76 @@
+{
+  "sections": {
+    "body": {
+      "type": "article-look",
+      "blocks": {
+        "ff21b659-b2aa-4815-808d-2113126e9987": {
+          "type": "step",
+          "settings": {
+            "media": "5C9D9DA0-5019-4DDA-9655-17908DDC4ECC.jpg",
+            "heading": "#1: Start With The Skin",
+            "description": "<p>Start by applying WTF directly to the face using the Skin Brush, sponge, or your fingers. Next, use The Face Powder Brush and apply Tinted Face Powder to set your complexion products, color correct, or to take down oil and shine on the forehead, nose, and chin. <\/p>",
+            "product_1": "what-the-foundation",
+            "variant_1": "FGWT26867",
+            "product_2": "tinted-face-powder",
+            "variant_2": "FGTP28833"
+          }
+        },
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae": {
+          "type": "step",
+          "settings": {
+            "media": "DAEBE9DA-ABE6-493B-BA34-E857628A15F0.jpg",
+            "heading": "#2: Get Golden",
+            "description": "<p>Break the top surface of Miracle Balm with your index finger, then warm it up to soften the formula. Apply balm using your fingertips, palms, a brush, or a sponge onto cheeks, lips, or anywhere you want to tint or add a glow back to your skin.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01386",
+            "product_2": "",
+            "variant_2": ""
+          }
+        },
+        "0f04b4ef-9d1c-4949-b884-1e3643294537": {
+          "type": "step",
+          "settings": {
+            "media": "D88689B4-184B-4381-AB39-9EE24ACC5AAD.jpg",
+            "heading": "#3: Finishing Touches",
+            "description": "<p>Using the wand, swipe Sparkle Wash on lids and soften with a finger. For more illumination, continue to build. Finish off the look with Cool Gloss. Working from the center of the lips, smooth on a thin layer and gently press lips together.<\/p>",
+            "product_1": "sparkle-wash",
+            "variant_1": "FGSW09676",
+            "product_2": "cool-gloss",
+            "variant_2": "FGCG03082"
+          }
+        },
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8": {
+          "type": "step",
+          "disabled": true,
+          "settings": {
+            "media": "JR_030922_1791_copy_1.png",
+            "heading": "#4: Subtle Shine",
+            "description": "<p>When it comes to the lips, keep it monochromatic by applying a little bit of the same Peachy Nude shadow to lips using your finger. Add Miracle Balm in Au Naturel on top for hydration.<\/p>",
+            "product_1": "miracle-balm",
+            "variant_1": "FGMB01044",
+            "product_2": "",
+            "variant_2": ""
+          }
+        }
+      },
+      "block_order": [
+        "ff21b659-b2aa-4815-808d-2113126e9987",
+        "4804eebe-78b8-4e74-90ea-951e9b1299ae",
+        "0f04b4ef-9d1c-4949-b884-1e3643294537",
+        "5435780c-e9fe-408d-ac84-9a1b143e7de8"
+      ],
+      "settings": {
+        "image": "shopify:\/\/shop_images\/A61B4CED-760C-41C3-A163-E76A5AE387C0.jpg",
+        "heading": "About the Look",
+        "description": "<p>Get Arnelle's golden look. Focus on evening out the complexion, adding a natural bronze, and finish it off with a touch of sparkle on the eyes and lips. <\/p>",
+        "bullets_heading": "What you'll need",
+        "bullets_subheading": "(5 products)",
+        "bullets": "<p>What The Foundation<\/p><p>Tinted Face Powder<\/p><p>Miracle Balm<\/p><p>Cool Gloss<\/p><p>Sparkle Wash<\/p>",
+        "more_heading": "See more looks:"
+      }
+    }
+  },
+  "order": [
+    "body"
+  ]
+}

@@ -1,0 +1,16 @@
+{%- capture seo_title -%}
+{{ page_title }}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+{%- endcapture -%}
+{%- assign seo_description = page_description | default: shop.description | default: shop.name -%}
+{%- if template.name == 'article' -%}
+  {%- assign seo_description = page_description | escape -%}
+{%- elsif template.name == 'password' -%}
+  {%- assign seo_description = shop.description | default: shop.name -%}
+{%- endif -%}
+<title>{{ seo_title | strip_html | strip }}</title>
+{%- if page_description -%}
+  <meta name="description" content="{{ seo_description | escape }}">
+{%- endif -%}
+{%- if settings.favicon != blank -%}
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+{%- endif -%}

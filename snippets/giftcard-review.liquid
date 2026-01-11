@@ -1,0 +1,27 @@
+<div class="giftcard__content">
+  <div class="giftcard__copy">A special gift for you</div>
+  <div class="giftcard__image">
+    {%- assign image = gift_card.product.images[0] -%}
+    {%- if giftCardImage != blank -%}
+    {%- assign image = giftCardImage -%}
+    {%- endif -%}
+    {%- include 'product-info-picture', image: giftCardImage -%}
+  </div>
+  <div class="giftcard__value">
+    {%- render 'price' price: gift_card.initial_value, format: 'full' -%}
+  </div>
+  <div class="giftcard__copy">Redeem your gift card by using the code below:</div>
+  <div class="giftcard__code">
+    <label for="gift-card-code">Gift card code</label>
+    <input type="text"
+      id="gift-card-code"/Users/pietruch/Sites/jones-road/src/snippets/giftcard-review.liquid
+      value="{{ gift_card.code | format_code }}"
+      readonly />
+    </div>
+  <div class="giftcard__buttons">
+    <button type="button" class="button" onclick="window.print();">
+      Print
+    </button>
+    <a href="{{ shop.url }}" class="button">Shop now</a>
+  </div>
+</div>

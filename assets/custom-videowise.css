@@ -1,0 +1,54 @@
+
+.vw-cmp__top-heading.vw-cmp__align--left{
+  padding:0 20px!important;
+  margin-top:20px!important
+}
+.vw-widget-6913258d9eec270048b133f7 .vw-cmp__top-heading.vw-cmp__align--left{
+  padding:0!important;
+  margin-top:0!important
+}
+#vw-root .vw-cmp__top-heading .vw-cmp__top-heading--title
+{
+  font-family: 'FontSpringArticulateDemibold', sans-serif!important;
+  letter-spacing: 0.3px!important;
+  font-size: 13px!important;
+  color: #000000!important;
+  line-height: 1!important;
+  text-transform:uppercase;
+}
+#vw-root.vw-widget-6913258d9eec270048b133f7 .vw-cmp__top-heading .vw-cmp__top-heading--title
+{
+  font-family: 'GeogrotesqueCondBoldWeb', Arial Black, Impact, sans-serif!important;
+  font-size: 18px!important;
+  letter-spacing: 0px!important;
+  color: #000000!important;
+  line-height: 1!important;
+  text-transform:uppercase;
+}
+.product__description .reeview-app-widget{
+  width:100vh!important;
+  padding: 0 20px;
+}
+@media (min-width: 1024px) {
+
+  .vw-cmp__top-heading.vw-cmp__align--left{
+    padding:0 36px!important;
+    margin-top:44px!important
+  }
+  .vw-widget-6913258d9eec270048b133f7 .vw-cmp__top-heading.vw-cmp__align--left{
+  padding:0!important;
+  margin-top:0!important
+}
+  #vw-root .vw-cmp__top-heading .vw-cmp__top-heading--title
+  {
+    font-size: 16px!important;
+  }
+   #vw-root.vw-widget-6913258d9eec270048b133f7 .vw-cmp__top-heading .vw-cmp__top-heading--title
+  {
+    font-size: 20px!important;
+  }
+  .product__description .reeview-app-widget{
+  width:33.333vh!important;
+  padding: 0 30px;
+}
+}

@@ -1,0 +1,90 @@
+<!-- Sesami -->
+<div 
+  id="sesami__buttonWrapper"
+  data-sesami-shop-id="{{ shop.id }}"
+  data-sesami-product-id="{{product.id}}" 
+  data-sesami-variant-id="{{product.selected_or_first_available_variant.id}}"
+>
+</div>
+<script>
+  window.addEventListener('sesami:loaded',function(){
+    var sesamiDateInput = document.querySelector("[id^='sesami-date-']");
+    sesamiDateInput.addEventListener("change", function(){
+      var addToCartButton = document.getElementById('add_to_cart');
+      if(addToCartButton){
+        addToCartButton.removeAttribute('disabled');
+      }
+      add_service_to_cart()
+    });
+  })
+</script>
+<!-- Sesami -->
+
+<script>
+  function add_service_to_cart(){
+    var url = new URL(window.location.href);
+    var variantId = url.searchParams.get("variant");
+    if(!variantId){
+      variantId = '{{product.selected_or_first_available_variant.id}}'
+    }
+    
+    var date = document.querySelector("[id^='sesami-date-']").value;
+    var time = document.querySelector("[id^='sesami-time-']").value;
+    var timezone = document.querySelector("[id^='sesami-timezone-']").value;
+    var teamMember = document.querySelectorAll("[id^='sesami-teammember-']").value;
+    var requestQueue = [];
+    
+    requestQueue.push({
+      quantity: 1,
+      id: variantId,
+      properties: {
+        'Date': date,
+        'Time': time,
+        'Timezone': timezone,
+        'Team Member': teamMember
+      } 
+    });
+    processQueue(requestQueue)
+  }
+  
+  function processQueue(queue) {
+    var totalQueueLength = queue.length;
+    var completedRequests = 0;
+
+    if(totalQueueLength == 0) return;
+
+    function makeRequest(queue) {
+      var data = queue.shift();
+      
+      fetch('/cart/add.js', {
+          body: JSON.stringify(data),
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With':'xmlhttprequest' /* XMLHttpRequest is ok too, it's case insensitive */
+          },
+          method: 'POST'
+        }).then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          completedRequests++;
+          if(completedRequests != totalQueueLength) {
+            makeRequest(queue);
+          }
+          else {
+            allDone();
+          }
+        }).catch(function(err) {
+          /* uh oh, we have error. */
+          // console.log('uh oh...clear the cart?');
+        });
+  
+    }        
+    makeRequest(queue);
+  }
+
+  function allDone() {
+    location.href='/cart';
+  }
+  
+</script>

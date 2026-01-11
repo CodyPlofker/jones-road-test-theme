@@ -1,0 +1,56 @@
+{%- liquid
+  assign hotspot_sectio = product.metafields.custom.pdp_hotspot_section.value
+  assign option_titles = hotspot_sectio.option_titles
+  assign option_descriptions = hotspot_sectio.option_descriptions
+  assign hotspot_images = hotspot_sectio.option_images
+  for hospot_image in hotspot_images.value
+    assign count = count | plus: 1
+  endfor
+-%}
+
+{% if hotspot_sectio %}
+  <div class="pdp-hotspot-section">
+    <div class="hotspot-content">
+      <h2>{{ hotspot_sectio.heading }}</h2>
+      <div class="hotspot-container">
+        <div class="hotspot-wrapper">
+        <div class="hotspot-media">
+          <div class="hotspot__carousel {% if count > 1 %} swiper-container js-hotspotWrapper {% endif %}">
+            <div class="swiper-wrapper">
+              {% for hospot_image in hotspot_images.value %}
+                <div class="swiper-slide js-hotspotSlide">
+                  <div class="image-wrapper">
+                    {{ hospot_image | image_url: width: 900 | image_tag }}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+            <div class="hotspot-pagination js-hotspotPag"></div>
+          </div>
+        </div>
+
+        <div class="hotspot-tabs">
+          {% for option_title in option_titles.value %}
+            <details class="js-hotspotTabs" {% if forloop.first %}open{% endif %} data-hotspot-target="{{ forloop.index }}">
+              <summary>{{ option_title }}</summary>
+              <small>{{ option_descriptions.value[forloop.index0] }}</small>
+            </details>
+          {% endfor %}
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "PDP Hotspot Section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "PDP Hotspot Section"
+    }
+  ]
+}
+{% endschema %}

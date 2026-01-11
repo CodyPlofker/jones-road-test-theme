@@ -1,0 +1,244 @@
+{%- assign config = section.settings -%}
+{%- assign steps = section.blocks | map: 'settings' -%}
+
+<div
+  id="stepped-products"
+  class="stepped__products js-steppedProducts"
+  style="background: {{ config.section_bg }}"
+  data-component="steppedProducts"
+>
+  <div class="stepped__products-inner">
+    {%- if config.heading != blank -%}
+      <h2 class="stepped__products-heading">{{ config.heading }}</h2>
+    {%- endif -%}
+    <ul class="stepped__products-steps">
+      {%- for step in steps -%}
+        {%- assign product_index = forloop.index -%}
+        <li
+          class="stepped__products-step js-steppedProductsStep"
+          id="stepped-products-step-{{ product_index }}"
+          data-product="{{ step.product.handle }}"
+          data-recommended="{{ step.recommended_product }}"
+        >
+          <div class="stepped__products-step--image">
+            <figure>
+              {%- if step.image != blank -%}
+                {%-
+                  include 'component_image' with
+                  image: step.image,
+                  width: 926,
+                  widths: '354, 463, 708, 926',
+                  sizes: '(min-width: 768px) 463px, 100vw'
+                -%}
+              {%- endif -%}
+              {{ image_tag }}
+            </figure>
+          </div>
+          <div class="stepped__products-step--info">
+            {%- if step.heading != blank -%}
+              <h3
+                class="stepped__products-step--heading"
+                style="background-image: url({{ 'beigetape.static.png' | asset_img_url: 'master' }});"
+              >
+                {{ step.heading }}
+              </h3>
+            {%- endif -%}
+            {%- if step.description != blank -%}
+              <div class="stepped__products-step--description text-underline">
+                {{ step.description }}
+              </div>
+            {%- endif -%}
+            {%- if step.product != blank -%}
+              {%- assign step_product = all_products[step.product] -%}
+              {%- form 'product',
+                step_product,
+                class: 'stepped__products-step--product js-productForm',
+                data-stepped: 'true'
+              -%}
+                {%- include 'config_product' with product: all_products[step.product] -%}
+                <div class="product-image">
+                  <figure class="js-steppedProductsImage">
+                    {%-
+                      include 'component_image' with
+                      image: current_variant.image,
+                      width: 328,
+                      widths: '100, 164, 200, 328',
+                      sizes: '(min-width: 768px) 164px, 100px'
+                    -%}
+                    {{ image_tag }}
+                  </figure>
+                </div>
+                <div class="info">
+                  <h4>{{ step.product.title }}</h4>
+                  {%-
+                    include 'review-stars' with
+                    product: all_products[step.product],
+                    show_rating: false,
+                    show_count: false
+                  -%}
+                  {%- unless step.product.variants.size == 1 -%}
+                    {%- for option in step.product.options_with_values -%}
+                      {%- assign option_id = 'option' | append: option.position -%}
+                      {%- assign selected_value = current_variant[option_id] -%}
+                      <div class="option js-productFormOption" role="group" data-type="radio">
+                        <legend class="shade js-productFormSelected" data-option="{{ option_id }}">
+                          <span class="name">{{ selected_value }}</span>
+                        </legend>
+                        <ul class="product__form-swatches product__form-swatches--radio js-steppedProductsSwatches">
+                          {%- for value in option.values -%}
+                            {%- include 'function_swatch-available' with product: all_products[step.product] -%}
+                            {%- assign id = value | append: '-' | append: product_index -%}
+
+                            {%-
+                              include 'product-swatch' with
+                              is_findation: false,
+                              option_id,
+                              id,
+                              is_hidden: false,
+                              is_available: is_swatch_available,
+                              is_stepped: true
+                            -%}
+                          {%- endfor -%}
+                        </ul>
+                      </div>
+                    {%- endfor -%}
+                  {%- endunless -%}
+                  <button
+                    type="submit"
+                    class="product__form-button button js-productFormSubmit"
+                    data-id="{{ current_variant.id }}"
+                    data-product-id="{{ step.product.id }}"
+                    {% unless current_variant.available == true %}
+                      disabled
+                    {% endunless %}
+                  >
+                    <div class="product__form-button__text js-productFormCopy">
+                      <span class="text">
+                        {%- if current_variant.available -%}
+                          Add to Cart
+                        {%- else -%}
+                          Sold Out
+                        {%- endif -%}
+                      </span>
+                      <span class="loader">Adding...</span>
+                    </div>
+
+                    <div class="product__form-price">
+                      {% if step.product.compare_at_price != blank
+                        and step.product.compare_at_price != step.product.price
+                      %}
+                        <span class="product__form-price--sale">
+                          {{- step.product.compare_at_price | money_without_trailing_zeros -}}
+                        </span>
+                      {% endif %}
+
+                      <span class="product__form-price--regular">
+                        {% if step.product.price_varies == true and step.product.selected_variant != blank %}
+                          {%- render 'price' with price: step.product.selected_variant.price -%}
+                        {% else %}
+                          {%- render 'price' with price: step.product.price -%}
+                        {% endif %}
+                      </span>
+                    </div>
+                  </button>
+                </div>
+                <input type="hidden" class="js-productFormId" value="{{ current_variant.id }}">
+                <script type="application/json" class="js-productData">
+                  {{ product_data }}
+                </script>
+              {%- endform -%}
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <button
+      type="button"
+      class="stepped__products-add js-steppedProductsAdd"
+    >
+      {{ config.cta_text }}
+    </button>
+  </div>
+</div>
+
+<script>
+  {%- include 'component_image' with
+    image: current_variant.image,
+    width: 328,
+    widths: '100, 164, 200, 328',
+    sizes: '(min-width: 768px) 164px, 100px'
+  -%}
+</script>
+
+{%- schema -%}
+{
+  "name": "Stepped Products",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#F8F8F8"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Add All to Cart"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext", // EE
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "checkbox",
+          "id": "recommended_product",
+          "label": "Recommended Product",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Stepped Products" }]
+}
+{%- endschema -%}

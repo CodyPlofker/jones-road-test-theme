@@ -1,0 +1,34 @@
+<li class="header__subnav js-headerSubnav header__nav__megamenu_list">
+  <a 
+    href="{{ link.url }}"
+    aria-controls="subnav-{{ link.title | handle }}"
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="js-headerSubnavToggle nav-item--{{ link.title | handle }}"
+  >
+    <span>{{ link.title }}</span>
+    <span class="visually-hidden">Toggle submenu</span>
+  </a>
+  <div aria-hidden="true"
+    aria-label="{{ link.title }} submenu"
+    class="header__subnav__menu"
+    id="subnav-{{ link.title | handle }}"
+  >
+    <ul>
+      {% for subLink in links %}
+        {%- assign sublink_badge = subLink.object.metafields.navigation.badge -%}
+        <li>
+          <a href="{{ subLink.url }}"{% if subLink.url contains 'http' %} target="_blank" rel="noreferrer noopener"{% endif %}>
+            {{ subLink.title }}
+            {%- if sublink_badge != blank -%}
+              <strong class="header__nav__badge">{{ sublink_badge }}</strong>
+            {%- endif -%}
+          </a>
+        </li>
+      {% endfor %}
+        <li class="show-on-tabbing">
+          <button class="js-headerSubnavClose">Close submenu</button>
+        </li>
+    </ul>
+  </div>
+</li>

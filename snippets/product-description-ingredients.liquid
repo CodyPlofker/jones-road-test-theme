@@ -1,0 +1,39 @@
+{%- case context -%}
+  {%- when 'content' -%}
+    <div class="product__description-ingredients">
+      {%- if featured_ingredients.size > 0 -%}
+        <h3>{{ product.title | remove: '[bggy pdp dev copy]' }} is made from:</h3>
+        {%- for field in featured_ingredients -%}
+          {%- assign name = field | first -%}
+          {%- assign ingredient = featured_ingredients[name].value | split: ' // ' -%}
+          {%- assign heading = ingredient | first -%}
+          {%- assign description = ingredient | last -%}
+          <div class="product__description-ingredient">
+            <h4>{{ heading | prepend: '&check; ' }}</h4>
+            <div class="description">{{ description }}</div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if ingredients != blank -%}
+        <button type="button" class="product__description-ingredients--toggle js-ingredientsToggle">
+          See Full Ingredient List
+        </button>
+      {%- endif -%}
+    </div>
+  {%- when 'modal' -%}
+    <div class="modal modal--ingredients js-ingredientsModal">
+      <div class="modal__content">
+        <div class="modal__el">
+          <h3 class="modal__title">Ingredients</h3>
+          <div class="modal__copy js-productVariantOverride" data-override="ingredients">
+            {{ ingredients }}
+          </div>
+          <button class="modal__close js-ingredientsToggle">
+            <span class="visually-hidden">Close</span>
+          </button>
+        </div>
+      </div>
+      <div class="modal__bg js-ingredientsToggle"></div>
+    </div>
+{%- endcase -%}
+

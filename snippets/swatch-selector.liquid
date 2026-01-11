@@ -1,0 +1,52 @@
+{%- assign swatchNo = 1 -%}
+{%- assign selectedSwatchNo = 1 -%}
+{%- assign pseudoRandom = "now" | date: "%N" -%}
+{%- for variant in product.variants -%}
+{%- if variant.id == product.selected_or_first_available_variant.id -%}
+{%- assign selectedSwatchNo = forloop.index -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if product.variants.size > 1 -%}
+<div class="product-swatch product-swatch--{{ modifier }}">
+  {%- if true -%}
+  <div class="product-swatch__items">
+    {%- if modifier == "select" -%}
+    <button class="product-swatch__selected js-swatchSelector" data-controls="swatch-list-{{ pseudoRandom }}">
+      {% include 'swatch-image', swatches: swatches, variant: product.selected_or_first_available_variant, isSelected: true %}
+      <span role="presentation">
+        {% if settings.generate_shade_numbers %}{% if selectedSwatchNo < 10 %}0{% endif %}{{ selectedSwatchNo }} {% endif %}{{ product.selected_or_first_available_variant.option1 }}
+      </span>
+      <span class="visually-hidden">Show {{ product.options[0].name }} selector</span>
+    </button>
+    <div class="product-swatch__items__scroll">
+    {%- endif -%}
+    <ol {% if modifier == "select" %} id="swatch-list-{{ pseudoRandom }}"{% endif %}>
+      {%- for variant in product.variants -%}
+        {%- assign isVariantSelected = false -%}
+        {%- if variant.id == product.selected_or_first_available_variant.id -%}
+          {%- assign isVariantSelected = true -%}
+          {%- assign swatchNo = forloop.index -%}
+        {%- endif -%}
+        <li>
+          <a data-transition="instant" href="{{ product.url | append: '?country=' | append: localization.country.iso_code }}&variant={{ variant.id }}"{% if modifier == "list" %} title="{{ variant.option1 }}"{% endif %}>
+            {% include 'swatch-image', swatches: swatches, variant: variant, isSelected: isVariantSelected %}
+            {% if isVariantSelected %}<span class="visually-hidden">Currently selected:</span>{% endif %}
+            <span{% if modifier == "list" %} class="visually-hidden"{% endif %}>
+              {% if settings.generate_shade_numbers %}{% if forloop.index < 10 %}0{% endif %}{{ forloop.index }} {% endif %}{{ variant.option1 }}
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ol>
+    {%- if modifier == "select" -%}
+    </div>
+    {%- endif -%}
+  {%- endif -%}
+  </div>
+  {%- if modifier == "list" -%}
+    <span class="product-swatch__selected" role="presentation">
+      {% if settings.generate_shade_numbers %}{% if swatchNo < 10 %}0{% endif %}{{ swatchNo }} {% endif %}{{ product.selected_or_first_available_variant.option1 }}
+    </span>
+  {%- endif -%}
+</div>
+{%- endif -%}

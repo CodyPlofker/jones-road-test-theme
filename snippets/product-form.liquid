@@ -1,0 +1,338 @@
+{% assign addToBagCopy = 'Add to cart' %}
+{%- if current_variant.available -%}
+  {% assign addToBagCopy = 'Add to cart' %}
+{%- else -%}
+  {%- if hasWaitlist -%}
+    {% assign addToBagCopy = settings.waitlist_cta %}
+  {%- else -%}
+    {% assign addToBagCopy = 'Sold out' %}
+  {%- endif -%}
+{%- endif -%}
+
+{% liquid
+  assign is_tabs_layout = product.metafields.custom.swatches_tabs_layout
+  assign swatches_categories = product.metafields.custom.swatches__categorisation.value
+%}
+
+{% comment %} Free gift variant based on the product metafield {% endcomment %}
+{% assign free_gift_variant = product.metafields.custom.free_gift_with_product %}
+
+{% if free_gift_variant %}
+  {% assign free_gift_variant_id = free_gift_variant | split: '/' | last %}
+{% endif %}
+
+{%- assign form_class = 'product__form js-productForm ' | append: class -%}
+
+{%- assign has_multiple_options = false -%}
+{%- if product.options.size > 1 -%}
+  {%- assign has_multiple_options = true -%}
+{%- endif -%}
+
+{%- unless product.tags contains 'gwp' -%}
+  {%- form 'product', product, class: form_class, data-findation: is_findation, data-linked: is_linked, data-final: final_sale, data-free-gift-variant: free_gift_variant_id -%}
+    {%- for option in product.options_with_values -%}
+      {%- assign option_id = 'option' | append: option.position -%}
+      {%- assign selected_value = current_variant[option_id] -%}
+      {%- assign selected_description = current_variant.metafields.findation_hero.description -%}
+      {%- assign is_unavailable = false -%}
+
+      {%- case style -%}
+        {%- when 'radio' -%}
+          <div role="group" id="{{ option_id }}" class="product__form-option js-productFormOption" data-type="radio">
+            {%- if has_multiple_options -%}
+              <legend class="product__form-option--name">{{ option.name }}:</legend>
+            {%- endif -%}
+
+            {% if is_tabs_layout == true %}
+              {% comment %} Tab Layout - Tabs  {% endcomment %}
+              {% render 'product-swatches-tabs', swatches_categories: swatches_categories %}
+
+              {% comment %} Tab Layout - Content {% endcomment %}
+              <ul class="product__form-swatches product__form-swatches--radio">
+                {%- for value in option.values -%}
+                  {%- include 'function_swatch-available' -%}
+                  {%- unless is_hidden -%}
+                    {%- if is_bundle == true -%}
+                      {%- assign id = value | append: '-' | append: bundle_product_index -%}
+                    {%- else -%}
+                      {%- assign id = class | append: '-' | append: value -%}
+                    {%- endif -%}
+                    {%- if option.name contains 'Color' or option.name contains 'Shade' -%}
+                      {%-
+                        include 'tabs-product-swatch' with
+                        is_findation,
+                        option_id,
+                        id,
+                        is_hidden: false,
+                        is_available: is_swatch_available
+                      -%}
+                    {%- else -%}
+                      {%-
+                        include 'product-option-value' with
+                        option_id,
+                        id,
+                        is_available: is_swatch_available
+                      -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              </ul>
+            {% endif %}
+
+            {% comment %} Stack layout {% endcomment %}
+            {% if is_tabs_layout == false -%}
+              <div class="stack__layout-wrapper" data-stack-layout>
+                {%- for swatch_category in swatches_categories -%}
+                  {%- assign category_values = swatch_category.category_value.value -%}
+                  <div class="stack__layout-container">
+                    <strong class="stack__option-name">{{ swatch_category.category_name | upcase }}</strong>
+                    <ul class="product__form-swatches product__form-swatches--radio">
+                      {%- for category_value in category_values -%}
+                        {%- include 'function_swatch-available', value: category_value -%}
+                        {%- unless is_hidden -%}
+                          {%- assign id = class | append: '-' | append: category_value | remove: ' ' -%}
+                          {%-
+                            include 'product-swatch' with
+                            is_findation,
+                            option_id,
+                            id,
+                            is_hidden: false,
+                            is_available: is_swatch_available,
+                            value: category_value
+                          -%}
+                        {%- endunless -%}
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+
+            {% comment %} Normal/Default Layout {% endcomment %}
+            {% if is_tabs_layout == null %}
+              {% unless product.variants.size == 1 %}
+              <ul class="product__form-swatches product__form-swatches--radio">
+                {%- for value in option.values -%}
+                  {%- include 'function_swatch-available' -%}
+                  {%- unless is_hidden -%}
+                    {%- if is_bundle == true -%}
+                      {%- assign id = value | append: '-' | append: bundle_product_index -%}
+                    {%- else -%}
+                      {%- assign id = class | append: '-' | append: value -%}
+                    {%- endif -%}
+                    {%- if option.name contains 'Color' or option.name contains 'Shade' -%}
+                      {%-
+                        include 'product-swatch' with
+                        is_findation,
+                        option_id,
+                        id,
+                        is_hidden: false,
+                        is_available: is_swatch_available,
+                        compliance_product_title_sticky: compliance_product_title_sticky
+                      -%}
+                    {%- else -%}
+                      {%-
+                        include 'product-option-value' with
+                        option_id,
+                        id,
+                        is_available: is_swatch_available
+                      -%}
+                    {%- endif -%}
+                  {%- endunless -%}
+                {%- endfor -%}
+              </ul>
+              {% endunless %}
+            {% endif %}
+            {%- unless has_multiple_options -%}
+              {%- if option.name contains 'Color' or option.name contains 'Shade' -%}
+                {% unless product.variants.size == 1 %}
+                <div class="product__form-option--top">
+                  <legend class="product__form-value js-productFormSelected" data-option="{{ option_id }}">
+                    <span class="new js-productFormSwatchNew {% unless current_variant.metafields.swatch.new == true %} hidden {% endunless %}"
+                      >New</span
+                    >
+                    <span class="name">
+                      {%- if current_variant == blank %}Select {{ option.name }}{% else %}{{ selected_value }}&nbsp;{% endif -%}
+                    </span>
+                    {%- unless hide_swatch_description -%}
+                      <span class="description">
+                        {%- if selected_description != blank -%}{{ selected_description }}{%- endif -%}
+                      </span>
+                    {%- endunless -%}
+                  </legend>
+                </div>
+                {% endunless %}
+              {%- endif -%}
+            {%- endunless -%}
+          </div>
+          {%- if forloop.last -%}
+            {%- if size_guide != blank or show_quiz == true or should_show_findation == true -%}
+              <div class="product__form-cta--wrapper">
+                {%- unless is_findation or should_show_findation == false -%}
+                  <button type="button" class="product__form-cta js-findationToggle" data-id="{{ product.id }}">
+                    {{ section.settings.findation_toggle }}
+                  </button>
+                {%- endunless -%}
+                {%- if show_quiz == true -%}
+                  {%- assign quiz_link = pages[product.metafields.details.quiz_link].url -%}
+                  {%- if quiz_link == blank -%}
+                    {%- assign quiz_link = settings.shade_form_link -%}
+                  {%- endif -%}
+                  <a class="product__form-cta" href="{{ quiz_link }}" data-no-history="1">Find my Shade</a>
+                {%- endif -%}
+                {%- if size_guide != blank -%}
+                  <button
+                    type="button"
+                    class="product__form-cta js-sizeguideToggle"
+                    aria-haspopup="true"
+                    aria-controls="size-guide"
+                  >
+                    Size Chart
+                  </button>
+                  {%- include 'product-sizeguide' with size_guide -%}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- when 'select' -%}
+          <div class="product__form-option--select-container">
+            {% comment %}From Fieldset style="--height: {{ option.values.size | times: 44 }}px"{% endcomment %}
+            <fieldset
+              id="{{ option_id }}"
+              class="product__form-option product__form-option--select js-productFormOption{% if product.variants.size == 1 %} sticky-bar-single-variant-disabled{% endif %}"
+              data-type="select"
+              data-single-variant-disabled="{% if product.variants.size == 1 %}true{% else %}false{% endif %}"
+              style="max-height:  {{ option.values.size | plus: 1 | times: 52 }}px;"
+            >
+              {% assign forloop_index_variant = 0 %}
+              {% for value in option.values %}
+                {% assign forloop_index_variant = forloop.index %}
+              {% endfor %}
+              {% assign show_arrow = true %}
+              {% if product.variants.size == 1 %}
+                {% assign show_arrow = false %}
+              {% endif %}
+              <ul class="product__form-swatches product__form-swatches--select product__form-swatches--{{ forloop_index_variant }}">
+                <div class="product__form-swatch selected js-productFormSelect{% if product.variants.size == 1 %} sticky-bar-single-variant-disabled{% endif %}" data-single-variant-disabled="{% if product.variants.size == 1 %}true{% else %}false{% endif %}">
+                  {%- if is_bundle == true -%}
+                    {%- assign id = selected_value | append: '-' | append: bundle_product_index -%}
+                  {%- endif -%}
+                  {%- include 'function_swatch-available' with value: selected_value -%}
+                  {%-
+                    include 'product-swatch' with
+                    option_id,
+                    id,
+                    value: selected_value,
+                    display_only: true,
+                    show_label: true,
+                    show_arrow: show_arrow,
+                    is_available: is_swatch_available,
+                    is_findation,
+                    is_linked,
+                    is_bundle,
+                    compliance_product_title_sticky: compliance_product_title_sticky
+                  -%}
+                </div>
+
+                {% unless product.variants.size == 1 %}
+                {%- for value in option.values -%}
+                  {%- assign is_hidden = false -%}
+                  {%- if value == selected_value -%}
+                    {%- assign is_hidden = true -%}
+                  {%- endif -%}
+                  {%- include 'function_swatch-available' with value -%}
+
+                  {%- if is_bundle == true -%}
+                    {%- assign id = value | append: '-' | append: bundle_product_index -%}
+                  {%- endif -%}
+                  {%-
+                    include 'product-swatch' with
+                    option_id,
+                    show_label: true,
+                    id,
+                    is_hidden,
+                    is_findation,
+                    is_available: is_swatch_available,
+                    is_linked,
+                    is_bundle,
+                    compliance_product_title_sticky: compliance_product_title_sticky
+                  -%}
+                {%- endfor -%}
+                {% endunless %}
+              </ul>
+            </fieldset>
+            {% comment %}style="--height: {{ option.values.size | times: 44 | minus: 60 }}px" {% endcomment %}
+            <div class="background" style="max-height: {{ option.values.size | plus: 1 | times: 52 | minus: 60 }}px;"></div>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+
+    <input type="hidden" class="js-productFormId" value="{{ current_variant.id }}">
+
+    {%- if show_button == true -%}
+      <button
+        class="
+          product__form-button button js-productFormSubmit
+          {% unless current_variant.available %}{% if hasWaitlist %} button--gray {% endif %}{% endunless %}
+          {% if current_variant.available == false and hasWaitlist %} js-waitlist {% endif %}
+        "
+        data-id="{{ current_variant.id }}"
+        data-product-id="{{ product.id }}"
+        {% if bundle_discount %}
+          data-discount="{{ bundle_discount }}"
+        {% endif %}
+        {% unless current_variant.available == true or hasWaitlist %}
+          disabled
+        {% endunless %}
+      >
+        <div class="product__form-button__text js-productFormCopy">
+          <span class="text">{{ addToBagCopy }}</span>
+          <span class="loader">Adding...</span>
+        </div>
+        {% assign discount_metafield_exists = product.metafields.custom.discount_percentage %}
+
+        <div class="product__form-price {% if discount_metafield_exists %}product__form-price--discount_metafield{% endif %}">
+          {% unless discount_metafield_exists %}
+            {% if product.compare_at_price != blank and product.compare_at_price != product.price %}
+              <span class="product__form-price--sale">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+            {% endif %}
+
+            <span class="product__form-price--regular" data-currency="{{ localization.country.currency.iso_code }}">
+              {% if product.price_varies == true and product.selected_variant != blank %}
+                {%- render 'price' with price: product.selected_variant.price -%}
+              {% else %}
+                {%- render 'price' with price: product.price -%}
+              {% endif %}
+            </span>
+          {% else %}
+            <span class="product__form-price--sale" data-currency="{{ localization.country.currency.iso_code }}">
+              {% if product.price_varies == true and product.selected_variant != blank %}
+                {%- render 'price' with price: product.selected_variant.price -%}
+              {% else %}
+                {%- render 'price' with price: product.price -%}
+              {% endif %}
+            </span>
+            {% assign discount_percentage_value = product.metafields.custom.discount_percentage | times: product.price | divided_by: 100 %}
+            {% assign discount_percentage_value = product.price | minus: discount_percentage_value %}
+            <span
+              class="product__form-price--regular"
+              data-currency="{{ localization.country.currency.iso_code }}"
+              {% if discount_metafield_exists %}
+                data-metafield-price="{{ discount_percentage_value |  money_without_trailing_zeros }}"
+              {% endif %}
+            >
+              {% render 'price' with price: discount_percentage_value %}
+            </span>
+          {% endunless %}
+        </div>
+      </button>
+    {%- endif -%}
+    {% assign payment_terms = form | payment_terms %}
+    {%- if show_shop_pay == true and payment_terms != blank -%}
+      <div class="shop-pay-terms">{% render 'icon-shop-pay' %} {{ payment_terms }}</div>
+    {%- endif -%}
+    <script type="application/json" class="js-productData">
+      {{ product_data }}
+    </script>
+  {%- endform -%}
+{%- endunless -%}

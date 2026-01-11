@@ -1,0 +1,163 @@
+{%- assign section_class = 'hero--collection ' -%}
+{%- unless section.settings.show_mobile == true -%}
+  {%- assign section_class = section_class | append: 'hide-mobile' -%}
+{%- endunless -%}
+
+{% include "hero",
+  contentPosition: section.settings.contentPosition,
+  ctaLinks: section.blocks,
+  heading: section.settings.heading,
+  headingColor: section.settings.headingColor,
+  subheading: section.settings.subheading,
+  subheadingMobile: section.settings.subheading_mobile,
+  subheadingColor: section.settings.subheadingColor,
+  subheadingMobileColor: section.settings.subheadingColorMobile,
+  headingHighlight: section.settings.headingHighlight,
+  highlightColor: section.settings.highlightColor, 
+  image: section.settings.image,
+  imageAlt: section.settings.imageAlt,
+  imageMobile: section.settings.imageMobile,
+  class: section_class
+%}
+
+{%- schema -%}
+  {
+    "name": "Collection Hero",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Settings"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mobile",
+        "label": "Show on mobile?",
+        "default": false
+      },
+      {
+        "id": "contentPosition",
+        "label": "Content position",
+        "type": "select",
+        "options": [
+          {
+            "value": "bottom-left",
+            "label": "bottom-left"
+          },
+          {
+            "value": "bottom-right",
+            "label": "bottom-right"
+          },
+          {
+            "value": "center",
+            "label": "center"
+          },
+          {
+            "value": "center-left",
+            "label": "center-left"
+          },
+          {
+            "value": "center-right",
+            "label": "center-right"
+          }
+        ]
+      },
+      {
+        "id": "headingColor",
+        "label": "Heading color",
+        "type": "select",
+        "options": [
+          {
+            "value": "black",
+            "label": "Black"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          }
+        ]
+      },
+      {
+        "id": "subheadingColor",
+        "label": "Subheading Color",
+        "type": "select",
+        "options": [
+          {
+            "value": "black",
+            "label": "Black"
+          },
+          {
+            "value": "white",
+            "label": "White"
+          }
+        ],
+        "default": "black"
+      },
+      {
+        "id": "subheadingColorMobile",
+        "label": "Subheading Color Mobile",
+        "type": "select",
+        "options": [
+          {
+            "value": "black",
+            "label": "Black"
+          },
+          {
+            "value": "white", 
+            "label": "White"
+          }
+        ],
+        "default": "black"
+      },
+      {
+        "type": "color",
+        "id": "highlightColor",
+        "label": "Highlight Color",
+        "default": "#fff"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "id": "heading",
+        "label": "Heading",
+        "type": "text"
+      },
+      {
+        "type": "checkbox",
+        "id": "headingHighlight",
+        "default":false,
+        "label": "Heading Highlight"
+      },
+      {
+        "id": "subheading",
+        "label": "Subheading Desktop",
+        "type": "text"
+      },
+      {
+        "type": "text",
+        "id": "subheading_mobile",
+        "label": "Subheading Mobile"
+      },
+      {
+        "type": "header",
+        "content": "Image"
+      },
+      {
+        "id": "image",
+        "label": "Image",
+        "type": "image_picker"
+      },
+      {
+        "id": "imageAlt",
+        "label": "Image alt",
+        "type": "text"
+      },
+      {
+        "id": "imageMobile",
+        "label": "Image mobile",
+        "type": "image_picker"
+      }
+    ]
+  }
+{%- endschema -%}

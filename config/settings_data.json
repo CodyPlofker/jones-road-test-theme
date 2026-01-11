@@ -2394,9 +2394,7 @@
           "heading": "Oops! This page cannot be found.",
           "headingColor": "black",
           "headingHighlight": true,
-          "image": "shopify://shop_images/JonesRoad_ErrorPage_01.jpg",
-          "imageAlt": "",
-          "imageMobile": "shopify://shop_images/JonesRoad_ErrorPage_01.jpg"
+          "imageAlt": ""
         }
       },
       "404-product-carousel": {
@@ -2523,6 +2521,24 @@
       "16358039914ca014d7": {
         "type": "featured-products",
         "blocks": {
+          "product_yiCkrr": {
+            "type": "product",
+            "settings": {
+              "product": "miracle-balm",
+              "region_specific": false,
+              "allowed_regions": "ALL",
+              "image": "shopify://shop_images/MiracleBalm_AuNaturel_1.webp"
+            }
+          },
+          "product_irqANH": {
+            "type": "product",
+            "settings": {
+              "product": "miracle-balm",
+              "region_specific": false,
+              "allowed_regions": "ALL",
+              "image": "shopify://shop_images/MiracleBalm_AuNaturel_1.webp"
+            }
+          },
           "product_iJLN4X": {
             "type": "product",
             "settings": {
@@ -2540,38 +2556,13 @@
               "allowed_regions": "ALL",
               "image": "shopify://shop_images/MiracleBalm_AuNaturel_1.webp"
             }
-          },
-          "86fed0b8-5271-437e-9b7d-13763b9e4249": {
-            "type": "product",
-            "settings": {
-              "product": "body-cream",
-              "region_specific": false,
-              "allowed_regions": "ALL"
-            }
-          },
-          "983118d7-53b9-4f68-979e-631269c95825": {
-            "type": "product",
-            "settings": {
-              "product": "body-oil",
-              "region_specific": false,
-              "allowed_regions": "ALL"
-            }
-          },
-          "ee57a659-b09d-4615-8566-64203e46f64d": {
-            "type": "product",
-            "settings": {
-              "product": "body-scrub",
-              "region_specific": false,
-              "allowed_regions": "ALL"
-            }
           }
         },
         "block_order": [
+          "product_yiCkrr",
+          "product_irqANH",
           "product_iJLN4X",
-          "product_hqm4J9",
-          "86fed0b8-5271-437e-9b7d-13763b9e4249",
-          "983118d7-53b9-4f68-979e-631269c95825",
-          "ee57a659-b09d-4615-8566-64203e46f64d"
+          "product_hqm4J9"
         ],
         "settings": {
           "background": "#ffffff",
@@ -3229,7 +3220,8 @@
           "alignment_desktop": "left",
           "alignment_mobile": "left",
           "gap_desktop": 24,
-          "gap_mobile": 12
+          "gap_mobile": 12,
+          "image_desktop": "shopify://shop_images/a.webp"
         }
       },
       "image_text_banner_RdXmYd": {

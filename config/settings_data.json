@@ -2690,6 +2690,7 @@
           "1710a8c3-ca7b-4e38-b242-86ceae47df48",
           "0e33a93a-24ee-40f6-b82c-4ad3b9e135dd"
         ],
+        "disabled": true,
         "settings": {
           "bg_color": "#f8f8f8",
           "text_color": "#000000"
@@ -2804,68 +2805,6 @@
           "alignment_mobile": "left",
           "gap_desktop": 24,
           "gap_mobile": 20
-        }
-      },
-      "cards_carousel_6xzFhC": {
-        "type": "cards-carousel",
-        "blocks": {
-          "card_ywTMjJ": {
-            "type": "card",
-            "settings": {
-              "heading": "Olesia’s Chic, Effortless Look",
-              "cta_text": "Get The Look",
-              "cta_link": "shopify://blogs/get-the-look/olesia-s-chic-effortless-look"
-            }
-          },
-          "card_q8mEqB": {
-            "type": "card",
-            "settings": {
-              "heading": "Deja's Simple Smokey Eye",
-              "cta_text": "Get The Look",
-              "cta_link": "shopify://blogs/get-the-look/dejas-simple-smokey-eye"
-            }
-          },
-          "card_ejYXnT": {
-            "type": "card",
-            "settings": {
-              "heading": "Mollye's Monochromatic Look",
-              "cta_text": "Get The Look",
-              "cta_link": "https://www.jonesroadbeauty.com/blogs/get-the-look/mollyes-monochromatic-tawny-look"
-            }
-          },
-          "card_4jJnCh": {
-            "type": "card",
-            "settings": {
-              "heading": "Adelina’s Soft Sophistication",
-              "cta_text": "Get the Look",
-              "cta_link": "shopify://blogs/get-the-look/adelina-s-soft-focus-sparkle"
-            }
-          }
-        },
-        "block_order": [
-          "card_ywTMjJ",
-          "card_q8mEqB",
-          "card_ejYXnT",
-          "card_4jJnCh"
-        ],
-        "settings": {
-          "text_color": "#ffffff",
-          "button_color": "#000000",
-          "button_bg": "#ffffff",
-          "entire_card_clickable": false,
-          "heading": "Get The Look",
-          "color": "#000000",
-          "color_mobile": "#000000",
-          "fontfamily": "FontSpringArticulateDemibold",
-          "fontfamily_mobile": "FontSpringArticulateDemibold",
-          "font_weight": 700,
-          "font_weight_mobile": 700,
-          "letter_spacing": "0.3px",
-          "letter_spacing_mobile": "0.3px",
-          "desktop_fontsize": 16,
-          "mobile_fontsize": 13,
-          "cta_text": "",
-          "cta_link": ""
         }
       },
       "image_text_banner_zrLTgj": {
@@ -3560,6 +3499,7 @@
         "name": "Evergreen Quiz",
         "settings": {
           "section_id": "image-banner",
+          "image_desktop": "shopify://shop_images/aaa.webp",
           "desktop_image_size": "auto",
           "desktop_image_height": 25,
           "desktop_image_min_height": 400,
@@ -3690,8 +3630,7 @@
       "image_text_banner_9Qgebm",
       "image_text_banner_7QtHya",
       "1635804764add18fbf",
-      "image_text_banner_KQycY6",
-      "cards_carousel_6xzFhC"
+      "image_text_banner_KQycY6"
     ]
   }
 }

@@ -2528,15 +2528,17 @@
             "settings": {
               "product": "miracle-balm",
               "region_specific": false,
-              "allowed_regions": "ALL"
+              "allowed_regions": "ALL",
+              "image": "shopify://shop_images/MiracleBalm_AuNaturel_1.webp"
             }
           },
           "product_hqm4J9": {
             "type": "product",
             "settings": {
-              "product": "body-lotion",
+              "product": "miracle-balm",
               "region_specific": false,
-              "allowed_regions": "ALL"
+              "allowed_regions": "ALL",
+              "image": "shopify://shop_images/MiracleBalm_AuNaturel_1.webp"
             }
           },
           "86fed0b8-5271-437e-9b7d-13763b9e4249": {

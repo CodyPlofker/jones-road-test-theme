@@ -1,0 +1,415 @@
+{
+  "sections": {
+    "hero": {
+      "type": "redesign-hero",
+      "settings": {
+        "eyebrow": "Clean Beauty",
+        "heading": "Makeup, Simplified",
+        "subheading": "High-performance, clean beauty that lets your skin show through. For real women, at every age.",
+        "primary_cta_text": "Shop Bestsellers",
+        "primary_cta_url": "/collections/all",
+        "secondary_cta_text": "Find Your Shade",
+        "secondary_cta_url": "/pages/quiz",
+        "height_desktop": 85,
+        "height_mobile": 70,
+        "content_position": "center",
+        "text_alignment": "left",
+        "text_color": "#ffffff",
+        "overlay_opacity": 25
+      }
+    },
+    "trust-bar": {
+      "type": "redesign-trust-bar",
+      "settings": {
+        "background_color": "#f8f7f5",
+        "text_color": "#000000",
+        "icon_color": "#000000"
+      },
+      "blocks": {
+        "trust-1": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "leaf",
+            "text": "Clean Ingredients"
+          }
+        },
+        "trust-2": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "rabbit",
+            "text": "Cruelty-Free"
+          }
+        },
+        "trust-3": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "sparkle",
+            "text": "Fragrance-Free Options"
+          }
+        },
+        "trust-4": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "shield",
+            "text": "Dermatologist Tested"
+          }
+        }
+      },
+      "block_order": ["trust-1", "trust-2", "trust-3", "trust-4"]
+    },
+    "shop-by-category": {
+      "type": "redesign-shop-by-category",
+      "settings": {
+        "heading": "Shop by Category",
+        "subheading": "Find your perfect products",
+        "background_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#000000"
+      },
+      "blocks": {
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "title": "Face",
+            "subtitle": "Effortless, glowing skin",
+            "price_range": "From $24",
+            "link": "/collections/face"
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "title": "Eyes",
+            "subtitle": "Define & enhance naturally",
+            "price_range": "From $25",
+            "link": "/collections/eyes"
+          }
+        },
+        "cat-3": {
+          "type": "category",
+          "settings": {
+            "title": "Lips",
+            "subtitle": "Hydrating color that lasts",
+            "price_range": "From $22",
+            "link": "/collections/lips"
+          }
+        },
+        "cat-4": {
+          "type": "category",
+          "settings": {
+            "title": "Skin",
+            "subtitle": "Clean, nourishing care",
+            "price_range": "From $34",
+            "link": "/collections/skin"
+          }
+        }
+      },
+      "block_order": ["cat-1", "cat-2", "cat-3", "cat-4"]
+    },
+    "social-proof": {
+      "type": "redesign-social-proof",
+      "settings": {
+        "background_color": "#f8f7f5",
+        "text_color": "#000000",
+        "accent_color": "#c9a050",
+        "show_rating": true,
+        "rating_value": "4.8",
+        "show_reviews": true,
+        "review_count": "50,000+",
+        "show_customers": true,
+        "customer_count": "1M+"
+      },
+      "blocks": {
+        "press-1": {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Vogue"
+          }
+        },
+        "press-2": {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Allure"
+          }
+        },
+        "press-3": {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Harper's Bazaar"
+          }
+        },
+        "press-4": {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Elle"
+          }
+        },
+        "quote-1": {
+          "type": "customer_quote",
+          "settings": {
+            "quote": "This is the first makeup that actually looks like my skin, just better. I'm 52 and finally found my perfect shade.",
+            "author": "Sarah M.",
+            "age": "52",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["press-1", "press-2", "press-3", "press-4", "quote-1"]
+    },
+    "hero-product": {
+      "type": "redesign-hero-product",
+      "settings": {
+        "eyebrow": "Bestseller",
+        "heading": "Miracle Balm",
+        "description": "A multi-use, light-reflecting cream that gives skin a dewy, healthy-looking glow. Apply to cheeks, lips, or anywhere you want to glow.",
+        "texture_info": "Dewy, buildable cream",
+        "shade_count": "13",
+        "primary_cta_text": "Shop Now",
+        "primary_cta_url": "/products/miracle-balm",
+        "secondary_cta_text": "Find Your Shade",
+        "secondary_cta_url": "/pages/shade-finder",
+        "show_price": true,
+        "image_position": "row",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#c9a050"
+      },
+      "blocks": {
+        "benefit-1": {
+          "type": "benefit",
+          "settings": {
+            "text": "Clean, skin-loving ingredients"
+          }
+        },
+        "benefit-2": {
+          "type": "benefit",
+          "settings": {
+            "text": "Buildable coverage for all skin types"
+          }
+        },
+        "benefit-3": {
+          "type": "benefit",
+          "settings": {
+            "text": "Works on all ages and skin tones"
+          }
+        },
+        "benefit-4": {
+          "type": "benefit",
+          "settings": {
+            "text": "No fragrance added"
+          }
+        }
+      },
+      "block_order": ["benefit-1", "benefit-2", "benefit-3", "benefit-4"]
+    },
+    "featured-products": {
+      "type": "redesign-featured-products",
+      "settings": {
+        "heading": "Bestsellers",
+        "cta_text": "Shop All",
+        "cta_url": "/collections/all",
+        "show_ratings": true,
+        "show_quick_add": true,
+        "background_color": "#f8f7f5",
+        "heading_color": "#000000",
+        "text_color": "#000000"
+      },
+      "blocks": {},
+      "block_order": []
+    },
+    "founder": {
+      "type": "redesign-founder",
+      "settings": {
+        "eyebrow": "Meet the Founder",
+        "heading": "Beauty at Every Age",
+        "name": "Bobbi Brown",
+        "quote": "I believe makeup should enhance your natural beauty, not cover it up. At any age.",
+        "description": "<p>After revolutionizing the beauty industry for decades, Bobbi Brown created Jones Road to prove that clean beauty can be high-performing and work for women of all ages.</p>",
+        "cta_text": "Our Story",
+        "cta_url": "/pages/about",
+        "image_position": "row",
+        "background_color": "#ffffff",
+        "text_color": "#000000",
+        "accent_color": "#c9a050"
+      },
+      "blocks": {
+        "philosophy-1": {
+          "type": "philosophy",
+          "settings": {
+            "text": "Beauty should be simple and effortless"
+          }
+        },
+        "philosophy-2": {
+          "type": "philosophy",
+          "settings": {
+            "text": "Clean ingredients that actually work"
+          }
+        },
+        "philosophy-3": {
+          "type": "philosophy",
+          "settings": {
+            "text": "Products designed for real women, at every age"
+          }
+        }
+      },
+      "block_order": ["philosophy-1", "philosophy-2", "philosophy-3"]
+    },
+    "education": {
+      "type": "redesign-education",
+      "settings": {
+        "heading": "Learn & Discover",
+        "subheading": "Guides, tutorials, and tools to help you find your perfect look",
+        "background_color": "#f8f7f5",
+        "heading_color": "#000000",
+        "text_color": "#000000"
+      },
+      "blocks": {
+        "edu-1": {
+          "type": "card",
+          "settings": {
+            "icon_type": "quiz",
+            "category": "Quiz",
+            "title": "Find Your Perfect Shade",
+            "description": "Answer a few questions to discover your ideal match. No email required.",
+            "link_text": "Take the Quiz",
+            "link": "/pages/quiz"
+          }
+        },
+        "edu-2": {
+          "type": "card",
+          "settings": {
+            "icon_type": "play",
+            "category": "Tutorial",
+            "title": "5-Minute Everyday Look",
+            "description": "Bobbi shows you how to create an effortless everyday look in just 5 minutes.",
+            "link_text": "Watch Now",
+            "link": "/pages/tutorials"
+          }
+        },
+        "edu-3": {
+          "type": "card",
+          "settings": {
+            "icon_type": "book",
+            "category": "Guide",
+            "title": "Clean Beauty 101",
+            "description": "Learn what makes our ingredients different and why it matters for your skin.",
+            "link_text": "Read More",
+            "link": "/pages/clean-beauty"
+          }
+        }
+      },
+      "block_order": ["edu-1", "edu-2", "edu-3"]
+    },
+    "ugc-reviews": {
+      "type": "redesign-ugc-reviews",
+      "settings": {
+        "heading": "Real People, Real Results",
+        "subheading": "See how customers of all ages wear Jones Road",
+        "hashtag": "#JonesRoadBeauty",
+        "show_age_callout": true,
+        "age_callout_text": "Our customers range from 18 to 80+. Beauty has no age limit.",
+        "cta_text": "Read All Reviews",
+        "cta_url": "/pages/reviews",
+        "background_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#000000"
+      },
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "title": "Finally, makeup for me!",
+            "text": "At 54, I thought glowing skin wasn't possible anymore. This Miracle Balm proved me wrong. It's now my everyday go-to.",
+            "author": "Jennifer K.",
+            "age": "54",
+            "verified": true,
+            "product": "Miracle Balm"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "title": "Simple and beautiful",
+            "text": "I love that this brand is clean and the products are so easy to use. Perfect for my busy mornings!",
+            "author": "Maria L.",
+            "age": "38",
+            "verified": true,
+            "product": "What The Foundation"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "title": "My mom and I both love it",
+            "text": "Bought it for myself and my 72-year-old mom. We both look amazing in the same shade. That's rare!",
+            "author": "Ashley T.",
+            "age": "29",
+            "verified": true,
+            "product": "Miracle Balm"
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"]
+    },
+    "trust-email": {
+      "type": "redesign-trust-email",
+      "settings": {
+        "email_heading": "Join the Jones Road Family",
+        "email_subheading": "Get exclusive access to new launches, tips, and special offers.",
+        "placeholder_text": "Enter your email",
+        "button_text": "Subscribe",
+        "disclaimer": "By subscribing, you agree to receive marketing emails. Unsubscribe anytime.",
+        "background_color": "#f8f7f5",
+        "text_color": "#000000",
+        "accent_color": "#c9a050"
+      },
+      "blocks": {
+        "badge-1": {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "shipping",
+            "title": "Free Shipping",
+            "text": "On orders over $50"
+          }
+        },
+        "badge-2": {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "returns",
+            "title": "Easy Returns",
+            "text": "30-day hassle-free returns"
+          }
+        },
+        "badge-3": {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "guarantee",
+            "title": "Satisfaction Guarantee",
+            "text": "Love it or your money back"
+          }
+        },
+        "badge-4": {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "clean",
+            "title": "Clean Ingredients",
+            "text": "No parabens, sulfates, or phthalates"
+          }
+        }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3", "badge-4"]
+    }
+  },
+  "order": [
+    "hero",
+    "trust-bar",
+    "shop-by-category",
+    "social-proof",
+    "hero-product",
+    "featured-products",
+    "founder",
+    "education",
+    "ugc-reviews",
+    "trust-email"
+  ]
+}

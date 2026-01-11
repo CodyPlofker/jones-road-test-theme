@@ -1,0 +1,388 @@
+{%- assign config = section.settings -%}
+
+<section class="redesign-hero" style="
+  --hero-height-mobile: {{ config.height_mobile }}vh;
+  --hero-height-desktop: {{ config.height_desktop }}vh;
+  --content-position: {{ config.content_position }};
+  --text-align: {{ config.text_alignment }};
+  --text-color: {{ config.text_color }};
+  --overlay-opacity: {{ config.overlay_opacity | divided_by: 100.0 }};
+">
+  <div class="redesign-hero__media">
+    {%- if config.video_url != blank -%}
+      <video
+        class="redesign-hero__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="{{ config.image_desktop | image_url: width: 1920 }}"
+      >
+        <source src="{{ config.video_url }}" type="video/mp4">
+      </video>
+    {%- else -%}
+      {%- if config.image_mobile != blank -%}
+        <picture>
+          <source media="(min-width: 768px)" srcset="{{ config.image_desktop | image_url: width: 1920 }}">
+          <img
+            src="{{ config.image_mobile | image_url: width: 800 }}"
+            alt="{{ config.heading | escape }}"
+            class="redesign-hero__image"
+            loading="eager"
+          >
+        </picture>
+      {%- elsif config.image_desktop != blank -%}
+        <img
+          src="{{ config.image_desktop | image_url: width: 1920 }}"
+          alt="{{ config.heading | escape }}"
+          class="redesign-hero__image"
+          loading="eager"
+        >
+      {%- else -%}
+        <div class="redesign-hero__placeholder"></div>
+      {%- endif -%}
+    {%- endif -%}
+    <div class="redesign-hero__overlay"></div>
+  </div>
+
+  <div class="redesign-hero__content">
+    <div class="redesign-hero__content-inner">
+      {%- if config.eyebrow != blank -%}
+        <span class="redesign-hero__eyebrow">{{ config.eyebrow }}</span>
+      {%- endif -%}
+
+      {%- if config.heading != blank -%}
+        <h1 class="redesign-hero__heading">{{ config.heading }}</h1>
+      {%- endif -%}
+
+      {%- if config.subheading != blank -%}
+        <p class="redesign-hero__subheading">{{ config.subheading }}</p>
+      {%- endif -%}
+
+      <div class="redesign-hero__ctas">
+        {%- if config.primary_cta_text != blank -%}
+          <a href="{{ config.primary_cta_url }}" class="redesign-hero__cta redesign-hero__cta--primary">
+            {{ config.primary_cta_text }}
+          </a>
+        {%- endif -%}
+
+        {%- if config.secondary_cta_text != blank -%}
+          <a href="{{ config.secondary_cta_url }}" class="redesign-hero__cta redesign-hero__cta--secondary">
+            {{ config.secondary_cta_text }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .redesign-hero {
+    position: relative;
+    min-height: var(--hero-height-mobile);
+    display: flex;
+    align-items: var(--content-position);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-hero {
+      min-height: var(--hero-height-desktop);
+    }
+  }
+
+  .redesign-hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .redesign-hero__image,
+  .redesign-hero__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .redesign-hero__placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  }
+
+  .redesign-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, var(--overlay-opacity));
+  }
+
+  .redesign-hero__content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 40px 20px;
+    text-align: var(--text-align);
+    color: var(--text-color);
+  }
+
+  @media (min-width: 768px) {
+    .redesign-hero__content {
+      padding: 60px 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+  }
+
+  .redesign-hero__content-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-hero__content-inner {
+      margin: 0;
+      margin-left: {% if config.text_alignment == 'center' %}auto{% elsif config.text_alignment == 'right' %}auto{% else %}0{% endif %};
+      margin-right: {% if config.text_alignment == 'center' %}auto{% elsif config.text_alignment == 'left' %}auto{% else %}0{% endif %};
+    }
+  }
+
+  .redesign-hero__eyebrow {
+    display: block;
+    font-family: 'BaseMonoWideWeb', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+
+  .redesign-hero__heading {
+    font-family: 'Canela', serif;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0 0 16px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-hero__heading {
+      font-size: 56px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .redesign-hero__subheading {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 24px;
+    opacity: 0.9;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-hero__subheading {
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+  }
+
+  .redesign-hero__ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: {% if config.text_alignment == 'center' %}center{% elsif config.text_alignment == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+
+  @media (min-width: 768px) {
+    .redesign-hero__ctas {
+      flex-direction: row;
+      gap: 16px;
+    }
+  }
+
+  .redesign-hero__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    min-width: 200px;
+  }
+
+  .redesign-hero__cta--primary {
+    background: var(--text-color);
+    color: {{ config.image_desktop != blank | ternary: '#fff', '#000' }};
+    border: 2px solid var(--text-color);
+  }
+
+  .redesign-hero__cta--primary:hover {
+    background: transparent;
+    color: var(--text-color);
+  }
+
+  .redesign-hero__cta--secondary {
+    background: transparent;
+    color: var(--text-color);
+    border: 2px solid var(--text-color);
+  }
+
+  .redesign-hero__cta--secondary:hover {
+    background: var(--text-color);
+    color: {{ config.image_desktop != blank | ternary: '#000', '#fff' }};
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Redesign - Hero",
+  "tag": "section",
+  "class": "redesign-hero-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Media"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video URL (MP4)",
+      "info": "Optional. Will replace image if provided."
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Darkness",
+      "min": 0,
+      "max": 70,
+      "step": 5,
+      "default": 20,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Clean Beauty"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Makeup, Simplified"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "High-performance, clean beauty that lets your skin show through."
+    },
+    {
+      "type": "header",
+      "content": "Primary CTA"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_text",
+      "label": "Button Text",
+      "default": "Shop Bestsellers"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Secondary CTA"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_text",
+      "label": "Button Text",
+      "default": "Find Your Shade"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "height_desktop",
+      "label": "Desktop Height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 85,
+      "unit": "vh"
+    },
+    {
+      "type": "range",
+      "id": "height_mobile",
+      "label": "Mobile Height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 70,
+      "unit": "vh"
+    },
+    {
+      "type": "select",
+      "id": "content_position",
+      "label": "Vertical Position",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Redesign - Hero"
+    }
+  ]
+}
+{% endschema %}

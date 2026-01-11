@@ -1,0 +1,432 @@
+{%- assign config = section.settings -%}
+
+<section class="redesign-social-proof" style="
+  --bg-color: {{ config.background_color }};
+  --text-color: {{ config.text_color }};
+  --accent-color: {{ config.accent_color }};
+">
+  <div class="redesign-social-proof__container">
+    {%- comment -%} Press Logos Row {%- endcomment -%}
+    {%- if section.blocks.size > 0 -%}
+      <div class="redesign-social-proof__logos">
+        {%- assign logo_blocks = section.blocks | where: 'type', 'press_logo' -%}
+        {%- for block in logo_blocks -%}
+          <div class="redesign-social-proof__logo" {{ block.shopify_attributes }}>
+            {%- if block.settings.logo != blank -%}
+              <img
+                src="{{ block.settings.logo | image_url: width: 200 }}"
+                alt="{{ block.settings.publication | escape }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <span class="redesign-social-proof__logo-text">{{ block.settings.publication }}</span>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Stats Row {%- endcomment -%}
+    <div class="redesign-social-proof__stats">
+      {%- if config.show_rating -%}
+        <div class="redesign-social-proof__stat">
+          <div class="redesign-social-proof__stars">
+            {%- for i in (1..5) -%}
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-color)">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            {%- endfor -%}
+          </div>
+          <span class="redesign-social-proof__stat-value">{{ config.rating_value }}</span>
+          <span class="redesign-social-proof__stat-label">Average Rating</span>
+        </div>
+      {%- endif -%}
+
+      {%- if config.show_reviews -%}
+        <div class="redesign-social-proof__stat">
+          <span class="redesign-social-proof__stat-number">{{ config.review_count }}</span>
+          <span class="redesign-social-proof__stat-label">5-Star Reviews</span>
+        </div>
+      {%- endif -%}
+
+      {%- if config.show_customers -%}
+        <div class="redesign-social-proof__stat">
+          <span class="redesign-social-proof__stat-number">{{ config.customer_count }}</span>
+          <span class="redesign-social-proof__stat-label">Happy Customers</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Customer Quote {%- endcomment -%}
+    {%- assign quote_blocks = section.blocks | where: 'type', 'customer_quote' -%}
+    {%- if quote_blocks.size > 0 -%}
+      <div class="redesign-social-proof__quotes">
+        {%- for block in quote_blocks -%}
+          <blockquote class="redesign-social-proof__quote" {{ block.shopify_attributes }}>
+            <p class="redesign-social-proof__quote-text">"{{ block.settings.quote }}"</p>
+            <footer class="redesign-social-proof__quote-author">
+              <span class="redesign-social-proof__quote-name">{{ block.settings.author }}</span>
+              {%- if block.settings.age != blank -%}
+                <span class="redesign-social-proof__quote-age">, {{ block.settings.age }}</span>
+              {%- endif -%}
+              {%- if block.settings.verified -%}
+                <span class="redesign-social-proof__quote-verified">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--accent-color)">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01" fill="none" stroke="var(--accent-color)" stroke-width="2"></polyline>
+                  </svg>
+                  Verified Buyer
+                </span>
+              {%- endif -%}
+            </footer>
+          </blockquote>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .redesign-social-proof {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 48px 20px;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-social-proof {
+      padding: 64px 40px;
+    }
+  }
+
+  .redesign-social-proof__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Press Logos */
+  .redesign-social-proof__logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px 32px;
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .redesign-social-proof__logos {
+      gap: 48px;
+    }
+  }
+
+  .redesign-social-proof__logo {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .redesign-social-proof__logo:hover {
+    opacity: 1;
+  }
+
+  .redesign-social-proof__logo img {
+    max-height: 24px;
+    width: auto;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+  }
+
+  .redesign-social-proof__logo:hover img {
+    filter: grayscale(0%);
+  }
+
+  .redesign-social-proof__logo-text {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* Stats */
+  .redesign-social-proof__stats {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-social-proof__stats {
+      gap: 64px;
+    }
+  }
+
+  .redesign-social-proof__stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .redesign-social-proof__stars {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 4px;
+  }
+
+  .redesign-social-proof__stat-value {
+    font-family: 'Canela', serif;
+    font-size: 24px;
+    font-weight: 300;
+  }
+
+  .redesign-social-proof__stat-number {
+    font-family: 'Canela', serif;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-social-proof__stat-number {
+      font-size: 48px;
+    }
+  }
+
+  .redesign-social-proof__stat-label {
+    font-family: 'BaseMonoWideWeb', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+  }
+
+  /* Quotes */
+  .redesign-social-proof__quotes {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .redesign-social-proof__quote {
+    margin: 0;
+    padding: 0;
+  }
+
+  .redesign-social-proof__quote-text {
+    font-family: 'Canela', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0 0 16px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-social-proof__quote-text {
+      font-size: 24px;
+    }
+  }
+
+  .redesign-social-proof__quote-author {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    flex-wrap: wrap;
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 14px;
+  }
+
+  .redesign-social-proof__quote-name {
+    font-weight: 600;
+  }
+
+  .redesign-social-proof__quote-age {
+    opacity: 0.7;
+  }
+
+  .redesign-social-proof__quote-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    opacity: 0.7;
+    margin-left: 8px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Redesign - Social Proof",
+  "tag": "section",
+  "class": "redesign-social-proof-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f8f7f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Stars)",
+      "default": "#c9a050"
+    },
+    {
+      "type": "header",
+      "content": "Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "label": "Show Rating",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "rating_value",
+      "label": "Rating Value",
+      "default": "4.8"
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Show Review Count",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Review Count",
+      "default": "50,000+"
+    },
+    {
+      "type": "header",
+      "content": "Customers"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_customers",
+      "label": "Show Customer Count",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "customer_count",
+      "label": "Customer Count",
+      "default": "1M+"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "press_logo",
+      "name": "Press Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo Image"
+        },
+        {
+          "type": "text",
+          "id": "publication",
+          "label": "Publication Name",
+          "default": "Vogue"
+        }
+      ]
+    },
+    {
+      "type": "customer_quote",
+      "name": "Customer Quote",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "This is the first makeup that actually looks like my skin, just better. I'm 52 and finally found my perfect shade."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Sarah M."
+        },
+        {
+          "type": "text",
+          "id": "age",
+          "label": "Age (optional)",
+          "info": "Helps show age diversity",
+          "default": "52"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Verified Buyer",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Redesign - Social Proof",
+      "blocks": [
+        {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Vogue"
+          }
+        },
+        {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Allure"
+          }
+        },
+        {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Harper's Bazaar"
+          }
+        },
+        {
+          "type": "press_logo",
+          "settings": {
+            "publication": "Elle"
+          }
+        },
+        {
+          "type": "customer_quote",
+          "settings": {
+            "quote": "This is the first makeup that actually looks like my skin, just better. I'm 52 and finally found my perfect shade.",
+            "author": "Sarah M.",
+            "age": "52",
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

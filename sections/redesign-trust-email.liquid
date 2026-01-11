@@ -1,0 +1,402 @@
+{%- assign config = section.settings -%}
+
+<section class="redesign-trust-email" style="
+  --bg-color: {{ config.background_color }};
+  --text-color: {{ config.text_color }};
+  --accent-color: {{ config.accent_color }};
+">
+  <div class="redesign-trust-email__container">
+    {%- comment -%} Trust Badges {%- endcomment -%}
+    <div class="redesign-trust-email__badges">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'trust_badge' -%}
+          <div class="redesign-trust-email__badge" {{ block.shopify_attributes }}>
+            {%- case block.settings.icon_type -%}
+              {%- when 'shipping' -%}
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="1" y="3" width="15" height="13"></rect>
+                  <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                  <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                  <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                </svg>
+              {%- when 'returns' -%}
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <polyline points="1 4 1 10 7 10"></polyline>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+              {%- when 'guarantee' -%}
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+              {%- when 'support' -%}
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                </svg>
+              {%- when 'clean' -%}
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                </svg>
+            {%- endcase -%}
+            <span class="redesign-trust-email__badge-title">{{ block.settings.title }}</span>
+            <span class="redesign-trust-email__badge-text">{{ block.settings.text }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} Email Signup {%- endcomment -%}
+    <div class="redesign-trust-email__signup">
+      <div class="redesign-trust-email__signup-content">
+        {%- if config.email_heading != blank -%}
+          <h3 class="redesign-trust-email__signup-heading">{{ config.email_heading }}</h3>
+        {%- endif -%}
+        {%- if config.email_subheading != blank -%}
+          <p class="redesign-trust-email__signup-text">{{ config.email_subheading }}</p>
+        {%- endif -%}
+      </div>
+
+      <form class="redesign-trust-email__form" action="{{ config.form_action }}" method="post">
+        <div class="redesign-trust-email__input-wrapper">
+          <input
+            type="email"
+            name="email"
+            placeholder="{{ config.placeholder_text | default: 'Enter your email' }}"
+            required
+            class="redesign-trust-email__input"
+          >
+          <button type="submit" class="redesign-trust-email__submit">
+            {{ config.button_text | default: 'Subscribe' }}
+          </button>
+        </div>
+        {%- if config.disclaimer != blank -%}
+          <p class="redesign-trust-email__disclaimer">{{ config.disclaimer }}</p>
+        {%- endif -%}
+      </form>
+    </div>
+  </div>
+</section>
+
+<style>
+  .redesign-trust-email {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 48px 20px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-email {
+      padding: 64px 40px;
+    }
+  }
+
+  .redesign-trust-email__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Trust Badges */
+  .redesign-trust-email__badges {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-email__badges {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+    }
+  }
+
+  .redesign-trust-email__badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .redesign-trust-email__badge svg {
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+
+  .redesign-trust-email__badge-title {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .redesign-trust-email__badge-text {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 12px;
+    opacity: 0.7;
+    line-height: 1.4;
+  }
+
+  /* Email Signup */
+  .redesign-trust-email__signup {
+    display: grid;
+    gap: 24px;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-email__signup {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+  }
+
+  .redesign-trust-email__signup-content {
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-email__signup-content {
+      text-align: left;
+    }
+  }
+
+  .redesign-trust-email__signup-heading {
+    font-family: 'Canela', serif;
+    font-size: 28px;
+    font-weight: 300;
+    margin: 0 0 8px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-email__signup-heading {
+      font-size: 32px;
+    }
+  }
+
+  .redesign-trust-email__signup-text {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 15px;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  /* Form */
+  .redesign-trust-email__form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-email__form {
+      margin: 0;
+    }
+  }
+
+  .redesign-trust-email__input-wrapper {
+    display: flex;
+    gap: 0;
+  }
+
+  .redesign-trust-email__input {
+    flex: 1;
+    padding: 14px 16px;
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 14px;
+    border: 2px solid var(--text-color);
+    border-right: none;
+    background: transparent;
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .redesign-trust-email__input::placeholder {
+    color: var(--text-color);
+    opacity: 0.5;
+  }
+
+  .redesign-trust-email__input:focus {
+    border-color: var(--accent-color);
+  }
+
+  .redesign-trust-email__submit {
+    padding: 14px 24px;
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: var(--text-color);
+    color: var(--bg-color);
+    border: 2px solid var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .redesign-trust-email__submit:hover {
+    background: transparent;
+    color: var(--text-color);
+  }
+
+  .redesign-trust-email__disclaimer {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 11px;
+    opacity: 0.6;
+    margin: 12px 0 0;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-email__disclaimer {
+      text-align: left;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Redesign - Trust & Email",
+  "tag": "section",
+  "class": "redesign-trust-email-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Email Signup"
+    },
+    {
+      "type": "text",
+      "id": "email_heading",
+      "label": "Heading",
+      "default": "Join the Jones Road Family"
+    },
+    {
+      "type": "text",
+      "id": "email_subheading",
+      "label": "Subheading",
+      "default": "Get exclusive access to new launches, tips, and special offers."
+    },
+    {
+      "type": "text",
+      "id": "placeholder_text",
+      "label": "Input Placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "url",
+      "id": "form_action",
+      "label": "Form Action URL",
+      "info": "Newsletter signup endpoint"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer Text",
+      "default": "By subscribing, you agree to receive marketing emails. Unsubscribe anytime."
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#c9a050"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon",
+          "options": [
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "returns", "label": "Returns" },
+            { "value": "guarantee", "label": "Guarantee" },
+            { "value": "support", "label": "Support" },
+            { "value": "clean", "label": "Clean" }
+          ],
+          "default": "shipping"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Description",
+          "default": "On orders over $50"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Redesign - Trust & Email",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "shipping",
+            "title": "Free Shipping",
+            "text": "On orders over $50"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "returns",
+            "title": "Easy Returns",
+            "text": "30-day hassle-free returns"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "guarantee",
+            "title": "Satisfaction Guarantee",
+            "text": "Love it or your money back"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon_type": "clean",
+            "title": "Clean Ingredients",
+            "text": "No parabens, sulfates, or phthalates"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

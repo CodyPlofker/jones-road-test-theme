@@ -1,0 +1,385 @@
+{%- assign config = section.settings -%}
+
+<section class="redesign-founder" style="
+  --bg-color: {{ config.background_color }};
+  --text-color: {{ config.text_color }};
+  --accent-color: {{ config.accent_color }};
+  --layout-direction: {{ config.image_position }};
+">
+  <div class="redesign-founder__container">
+    <div class="redesign-founder__image-wrapper">
+      {%- if config.image != blank -%}
+        <img
+          src="{{ config.image | image_url: width: 800 }}"
+          alt="{{ config.name | escape }}"
+          class="redesign-founder__image"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div class="redesign-founder__image-placeholder"></div>
+      {%- endif -%}
+    </div>
+
+    <div class="redesign-founder__content">
+      {%- if config.eyebrow != blank -%}
+        <span class="redesign-founder__eyebrow">{{ config.eyebrow }}</span>
+      {%- endif -%}
+
+      {%- if config.heading != blank -%}
+        <h2 class="redesign-founder__heading">{{ config.heading }}</h2>
+      {%- endif -%}
+
+      {%- if config.name != blank -%}
+        <p class="redesign-founder__name">{{ config.name }}</p>
+      {%- endif -%}
+
+      {%- if config.quote != blank -%}
+        <blockquote class="redesign-founder__quote">
+          "{{ config.quote }}"
+        </blockquote>
+      {%- endif -%}
+
+      {%- if config.description != blank -%}
+        <div class="redesign-founder__description">
+          {{ config.description }}
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Philosophy Points {%- endcomment -%}
+      {%- assign philosophy_blocks = section.blocks | where: 'type', 'philosophy' -%}
+      {%- if philosophy_blocks.size > 0 -%}
+        <ul class="redesign-founder__philosophy">
+          {%- for block in philosophy_blocks -%}
+            <li class="redesign-founder__philosophy-item" {{ block.shopify_attributes }}>
+              {{ block.settings.text }}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      {%- if config.cta_text != blank -%}
+        <a href="{{ config.cta_url }}" class="redesign-founder__cta">
+          {{ config.cta_text }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .redesign-founder {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 48px 20px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-founder {
+      padding: 80px 40px;
+    }
+  }
+
+  .redesign-founder__container {
+    display: grid;
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-founder__container {
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+
+    .redesign-founder[style*="layout-direction: row-reverse"] .redesign-founder__container {
+      direction: rtl;
+    }
+
+    .redesign-founder[style*="layout-direction: row-reverse"] .redesign-founder__container > * {
+      direction: ltr;
+    }
+  }
+
+  /* Image */
+  .redesign-founder__image-wrapper {
+    position: relative;
+  }
+
+  .redesign-founder__image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .redesign-founder__image-placeholder {
+    aspect-ratio: 4/5;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  }
+
+  /* Content */
+  .redesign-founder__content {
+    max-width: 550px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-founder__content {
+      padding: 20px 0;
+    }
+  }
+
+  .redesign-founder__eyebrow {
+    display: block;
+    font-family: 'BaseMonoWideWeb', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-color);
+    margin-bottom: 16px;
+  }
+
+  .redesign-founder__heading {
+    font-family: 'Canela', serif;
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1.1;
+    margin: 0 0 8px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-founder__heading {
+      font-size: 44px;
+    }
+  }
+
+  .redesign-founder__name {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 24px;
+  }
+
+  .redesign-founder__quote {
+    font-family: 'Canela', serif;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0 0 24px;
+    padding-left: 20px;
+    border-left: 3px solid var(--accent-color);
+  }
+
+  @media (min-width: 768px) {
+    .redesign-founder__quote {
+      font-size: 24px;
+    }
+  }
+
+  .redesign-founder__description {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .redesign-founder__description p {
+    margin: 0 0 16px;
+  }
+
+  .redesign-founder__description p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Philosophy */
+  .redesign-founder__philosophy {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .redesign-founder__philosophy-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .redesign-founder__philosophy-item::before {
+    content: "•";
+    color: var(--accent-color);
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .redesign-founder__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 4px;
+    border-bottom: 2px solid var(--text-color);
+    transition: gap 0.3s ease;
+  }
+
+  .redesign-founder__cta:hover {
+    gap: 12px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Redesign - Founder",
+  "tag": "section",
+  "class": "redesign-founder-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Founder Photo"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Meet the Founder"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Beauty at Every Age"
+    },
+    {
+      "type": "text",
+      "id": "name",
+      "label": "Founder Name",
+      "default": "Bobbi Brown"
+    },
+    {
+      "type": "textarea",
+      "id": "quote",
+      "label": "Quote",
+      "default": "I believe makeup should enhance your natural beauty, not cover it up. At any age."
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>After revolutionizing the beauty industry for decades, Bobbi Brown created Jones Road to prove that clean beauty can be high-performing and work for women of all ages.</p>"
+    },
+    {
+      "type": "header",
+      "content": "CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Button Text",
+      "default": "Our Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Button URL"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "options": [
+        { "value": "row", "label": "Left" },
+        { "value": "row-reverse", "label": "Right" }
+      ],
+      "default": "row"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f8f7f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#c9a050"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "philosophy",
+      "name": "Philosophy Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Clean ingredients that actually work"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Redesign - Founder",
+      "blocks": [
+        {
+          "type": "philosophy",
+          "settings": {
+            "text": "Beauty should be simple and effortless"
+          }
+        },
+        {
+          "type": "philosophy",
+          "settings": {
+            "text": "Clean ingredients that actually work"
+          }
+        },
+        {
+          "type": "philosophy",
+          "settings": {
+            "text": "Products designed for real women, at every age"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

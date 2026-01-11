@@ -1,0 +1,209 @@
+{%- assign config = section.settings -%}
+
+<section class="redesign-trust-bar" style="
+  --bg-color: {{ config.background_color }};
+  --text-color: {{ config.text_color }};
+  --icon-color: {{ config.icon_color }};
+">
+  <div class="redesign-trust-bar__container">
+    {%- for block in section.blocks -%}
+      <div class="redesign-trust-bar__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.icon != blank -%}
+          <span class="redesign-trust-bar__icon">
+            {{ block.settings.icon }}
+          </span>
+        {%- else -%}
+          <span class="redesign-trust-bar__icon redesign-trust-bar__icon--default">
+            {%- case block.settings.icon_type -%}
+              {%- when 'check' -%}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              {%- when 'leaf' -%}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+                  <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+                </svg>
+              {%- when 'heart' -%}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
+                </svg>
+              {%- when 'shield' -%}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                  <polyline points="9 12 11 14 15 10"></polyline>
+                </svg>
+              {%- when 'sparkle' -%}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>
+                </svg>
+              {%- when 'rabbit' -%}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M13 16a3 3 0 0 1 2.24 5"></path>
+                  <path d="M18 12h.01"></path>
+                  <path d="M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1.93 1.93 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3"></path>
+                </svg>
+              {%- else -%}
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              {%- endcase -%}
+          </span>
+        {%- endif -%}
+        <span class="redesign-trust-bar__text">{{ block.settings.text }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  .redesign-trust-bar {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 16px 20px;
+    overflow: hidden;
+  }
+
+  .redesign-trust-bar__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-bar__container {
+      gap: 40px;
+      flex-wrap: nowrap;
+    }
+  }
+
+  .redesign-trust-bar__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+
+  .redesign-trust-bar__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--icon-color);
+  }
+
+  .redesign-trust-bar__text {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-trust-bar__text {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Redesign - Trust Bar",
+  "tag": "section",
+  "class": "redesign-trust-bar-section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f8f7f5"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Trust Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Icon",
+          "options": [
+            { "value": "check", "label": "Checkmark" },
+            { "value": "leaf", "label": "Leaf (Clean)" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "sparkle", "label": "Sparkle" },
+            { "value": "rabbit", "label": "Rabbit (Cruelty-Free)" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Custom Icon (Emoji)",
+          "info": "Optional. Overrides icon selection above."
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Clean Ingredients"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Redesign - Trust Bar",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "leaf",
+            "text": "Clean Ingredients"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "rabbit",
+            "text": "Cruelty-Free"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "sparkle",
+            "text": "Fragrance-Free Options"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "shield",
+            "text": "Dermatologist Tested"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

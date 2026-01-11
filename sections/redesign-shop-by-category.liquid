@@ -1,0 +1,323 @@
+{%- assign config = section.settings -%}
+
+<section class="redesign-category" style="
+  --bg-color: {{ config.background_color }};
+  --text-color: {{ config.text_color }};
+  --heading-color: {{ config.heading_color }};
+">
+  <div class="redesign-category__container">
+    {%- if config.heading != blank -%}
+      <div class="redesign-category__header">
+        <h2 class="redesign-category__heading">{{ config.heading }}</h2>
+        {%- if config.subheading != blank -%}
+          <p class="redesign-category__subheading">{{ config.subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    <div class="redesign-category__grid" data-columns="{{ section.blocks.size }}">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.link }}" class="redesign-category__card" {{ block.shopify_attributes }}>
+          <div class="redesign-category__card-image">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 600 }}"
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+                width="600"
+                height="600"
+              >
+            {%- else -%}
+              <div class="redesign-category__card-placeholder"></div>
+            {%- endif -%}
+          </div>
+          <div class="redesign-category__card-content">
+            <h3 class="redesign-category__card-title">{{ block.settings.title }}</h3>
+            {%- if block.settings.subtitle != blank -%}
+              <p class="redesign-category__card-subtitle">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+            {%- if block.settings.price_range != blank -%}
+              <span class="redesign-category__card-price">{{ block.settings.price_range }}</span>
+            {%- endif -%}
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .redesign-category {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 48px 20px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-category {
+      padding: 80px 40px;
+    }
+  }
+
+  .redesign-category__container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .redesign-category__header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-category__header {
+      margin-bottom: 48px;
+    }
+  }
+
+  .redesign-category__heading {
+    font-family: 'Canela', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--heading-color);
+    margin: 0 0 12px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-category__heading {
+      font-size: 40px;
+    }
+  }
+
+  .redesign-category__subheading {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 15px;
+    color: var(--text-color);
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .redesign-category__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-category__grid {
+      gap: 24px;
+    }
+
+    .redesign-category__grid[data-columns="3"] {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .redesign-category__grid[data-columns="4"] {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .redesign-category__grid[data-columns="5"] {
+      grid-template-columns: repeat(5, 1fr);
+    }
+
+    .redesign-category__grid[data-columns="6"] {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .redesign-category__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+  }
+
+  .redesign-category__card:hover {
+    transform: translateY(-4px);
+  }
+
+  .redesign-category__card-image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #f5f5f5;
+  }
+
+  .redesign-category__card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .redesign-category__card:hover .redesign-category__card-image img {
+    transform: scale(1.05);
+  }
+
+  .redesign-category__card-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  }
+
+  .redesign-category__card-content {
+    text-align: center;
+  }
+
+  .redesign-category__card-title {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 6px;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-category__card-title {
+      font-size: 18px;
+    }
+  }
+
+  .redesign-category__card-subtitle {
+    font-family: 'ArticulatCF', sans-serif;
+    font-size: 13px;
+    color: var(--text-color);
+    opacity: 0.7;
+    margin: 0 0 8px;
+    line-height: 1.4;
+  }
+
+  @media (min-width: 768px) {
+    .redesign-category__card-subtitle {
+      font-size: 14px;
+    }
+  }
+
+  .redesign-category__card-price {
+    display: inline-block;
+    font-family: 'BaseMonoWideWeb', monospace;
+    font-size: 12px;
+    color: var(--text-color);
+    opacity: 0.6;
+    letter-spacing: 0.5px;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Redesign - Shop by Category",
+  "tag": "section",
+  "class": "redesign-category-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Shop by Category"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find your perfect products"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Face"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "info": "Benefit-driven description",
+          "default": "Effortless, glowing skin"
+        },
+        {
+          "type": "text",
+          "id": "price_range",
+          "label": "Price Range",
+          "info": "Shows pricing transparency",
+          "default": "From $24"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Redesign - Shop by Category",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Face",
+            "subtitle": "Effortless, glowing skin",
+            "price_range": "From $24"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Eyes",
+            "subtitle": "Define & enhance naturally",
+            "price_range": "From $25"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Lips",
+            "subtitle": "Hydrating color that lasts",
+            "price_range": "From $22"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Skin",
+            "subtitle": "Clean, nourishing care",
+            "price_range": "From $34"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
